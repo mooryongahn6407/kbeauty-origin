@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>K-Beauty Origin by JY Global</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f8fffe}
+header{background:#0fb9b1;color:white;padding:20px}
+.container{max-width:1200px;margin:auto;padding:20px}
+.hero{padding:60px 20px;text-align:center}
+.hero h1{font-size:40px;margin-bottom:10px}
+.btn{background:#0fb9b1;color:white;padding:12px 20px;border:none;border-radius:6px;cursor:pointer}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.card{background:white;padding:15px;border-radius:10px;box-shadow:0 2px 8px rgba(0,0,0,0.05)}
+.card img{width:100%;height:200px;object-fit:cover}
+.footer{background:#1a3c40;color:white;padding:30px;margin-top:40px}
+.admin{display:none;background:#fff;padding:20px}
+input,select{padding:10px;margin:5px 0;width:100%}
+</style>
+</head>
+<body>
+
+<header>
+<div class="container">
+<h2>K-Beauty Origin by JY Global</h2>
+</div>
+</header>
+
+<section class="hero">
+<h1>120 Verified K-Beauty Bestsellers</h1>
+<p>Direct From Korea to Worldwide</p>
+<button class="btn" onclick="scrollToProducts()">Shop Top 120</button>
+</section>
+
+<section class="container">
+<h2>Why K-Beauty Origin</h2>
+<ul>
+<li>Only 120 Curated Products</li>
+<li>Verified Global Bestsellers</li>
+<li>Direct from Korea</li>
+<li>Wholesale Pricing</li>
+</ul>
+</section>
+
+<section class="container" id="products">
+<h2>Top 120 Products</h2>
+<div class="grid" id="productGrid"></div>
+</section>
+
+<section class="container admin" id="admin">
+<h2>Admin Panel</h2>
+<input type="text" id="name" placeholder="Product Name">
+<input type="text" id="brand" placeholder="Brand">
+<input type="number" id="price" placeholder="Price">
+<button class="btn" onclick="addProduct()">Add Product</button>
+</section>
+
+<div class="footer">
+<div class="container">
+K-Beauty Origin by JY Global<br>
+Global K-Beauty Distribution Platform
+</div>
+</div>
+
+<script>
+const brands=["Round Lab","Dr.G","COSRX","Abib","Anua","Torriden","AHC","Mediheal","Innisfree"]
+const categories=["Sun Care","Toner","Cream","Serum","Mask","Cleansing"]
+
+let products=[
+
+{brand:"Round Lab",name:"1025 Dokdo Cleanser",category:"Cleansing",moq:20,price:{retail:7.99,partner:7.50,wholesale:6.95}},
+{brand:"Round Lab",name:"Birch Juice Sunscreen 1+1",category:"Sun Care",moq:20,price:{retail:25.17,partner:23.00,wholesale:21.89}},
+{brand:"Round Lab",name:"1025 Dokdo Lotion",category:"Lotion",moq:20,price:{retail:19.87,partner:18.50,wholesale:17.28}},
+{brand:"Round Lab",name:"1025 Dokdo Toner Jumbo",category:"Toner",moq:20,price:{retail:14.31,partner:13.20,wholesale:12.44}},
+{brand:"Dr.G",name:"Red Blemish Clear Cream",category:"Cream",moq:20,price:{retail:11.26,partner:10.50,wholesale:9.79}},
+{brand:"Dr.G",name:"Royal Black Snail Cream",category:"Cream",moq:20,price:{retail:14.57,partner:13.50,wholesale:12.67}},
+{brand:"Abib",name:"Heartleaf Spot Pad",category:"Toner Pad",moq:20,price:{retail:18.55,partner:17.00,wholesale:16.13}},
+{brand:"Abib",name:"Heartleaf Essence",category:"Essence",moq:20,price:{retail:12.26,partner:11.50,wholesale:10.66}},
+{brand:"COSRX",name:"6 Peptide Booster Serum",category:"Serum",moq:20,price:{retail:10.03,partner:9.30,wholesale:8.50}},
+{brand:"Mediheal",name:"Watermide Toner Pad",category:"Pad",moq:20,price:{retail:12.74,partner:11.80,wholesale:10.80}},
+
+];
+
+function getUserLevel(){
+return localStorage.getItem("level") || "retail"
+}
+
+function priceByLevel(p){
+const level=getUserLevel()
+return p.price[level]
+}
+
+function renderProducts(){
+const grid=document.getElementById("productGrid")
+grid.innerHTML=""
+products.forEach(p=>{
+const div=document.createElement("div")
+div.className="card"
+div.innerHTML=`
+<img src="https://via.placeholder.com/300x300">
+<h3>${p.name}</h3>
+<p>${p.brand}</p>
+<p>MOQ: ${p.moq}</p>
+<p>$${priceByLevel(p)}</p>
+<select onchange="setLevel(this.value)">
+<option value="retail">Retail</option>
+<option value="partner">Partner</option>
+<option value="wholesale">Wholesale</option>
+</select>
+<button class='btn'>Order</button>
+`
+grid.appendChild(div)
+})
+}
+
+function setLevel(l){
+localStorage.setItem("level",l)
+renderProducts()
+}
+
+renderProducts(){
+const grid=document.getElementById("productGrid")
+grid.innerHTML=""
+products.forEach(p=>{
+const div=document.createElement("div")
+div.className="card"
+div.innerHTML=`
+<img src="https://via.placeholder.com/300x300">
+<h3>${p.name}</h3>
+<p>${p.brand}</p>
+<p>$${p.price}</p>
+<button class='btn'>Bulk Order</button>
+`
+grid.appendChild(div)
+})
+}
+
+function scrollToProducts(){
+document.getElementById("products").scrollIntoView()
+}
+
+function addProduct(){
+const name=document.getElementById("name").value
+const brand=document.getElementById("brand").value
+const price=document.getElementById("price").value
+
+products.push({name,brand,price})
+renderProducts()
+}
+
+renderProducts()
+
+// admin access
+if(window.location.hash==="#admin"){
+document.getElementById("admin").style.display="block"
+}
+</script>
+
+</body>
+</html>
