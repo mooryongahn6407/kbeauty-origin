@@ -119,23 +119,6 @@ localStorage.setItem("level",l)
 renderProducts()
 }
 
-renderProducts(){
-const grid=document.getElementById("productGrid")
-grid.innerHTML=""
-products.forEach(p=>{
-const div=document.createElement("div")
-div.className="card"
-div.innerHTML=`
-<img src="https://via.placeholder.com/300x300">
-<h3>${p.name}</h3>
-<p>${p.brand}</p>
-<p>$${p.price}</p>
-<button class='btn'>Bulk Order</button>
-`
-grid.appendChild(div)
-})
-}
-
 function scrollToProducts(){
 document.getElementById("products").scrollIntoView()
 }
@@ -143,9 +126,17 @@ document.getElementById("products").scrollIntoView()
 function addProduct(){
 const name=document.getElementById("name").value
 const brand=document.getElementById("brand").value
-const price=document.getElementById("price").value
+const price=parseFloat(document.getElementById("price").value)
 
-products.push({name,brand,price})
+if(!name||!brand||isNaN(price)) return
+
+products.push({
+brand,
+name,
+category:"",
+moq:20,
+price:{retail:price,partner:price,wholesale:price}
+})
 renderProducts()
 }
 
