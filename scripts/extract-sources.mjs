@@ -52,6 +52,16 @@ const MASTER_DB_SHEETS = {
   '22_SCHEMA_DICTIONARY': 'schema-dictionary',
 };
 
+/**
+ * Sheets whose header row does not have unique column names (00_README repeats "Value";
+ * 99_DASHBOARD is a layout grid rather than a table). They are extracted as raw rows so no
+ * column is silently dropped by object mapping.
+ */
+const MASTER_DB_RAW_SHEETS = {
+  '00_README': 'readme',
+  '99_DASHBOARD': 'dashboard',
+};
+
 const RECONCILIATION_SHEETS = {
   DB_92_VS_CURRICULUM: 'reconciliation-db-vs-curriculum',
   CURRICULUM_35_CODED: 'reconciliation-curriculum-coded',
@@ -78,6 +88,7 @@ function extract() {
     });
   };
 
+  const workbooks = new Map();
   for (const [sourceFile, sheetMap] of [
     [MASTER_DB, MASTER_DB_SHEETS],
     [RECONCILIATION, RECONCILIATION_SHEETS],
@@ -86,12 +97,34 @@ function extract() {
     const digest = sha256(path);
     files.push({ file: sourceFile, sha256: digest });
     const workbook = readWorkbook(path);
+    workbooks.set(sourceFile, { workbook, digest });
 
     for (const [sheet, outName] of Object.entries(sheetMap)) {
       const rows = workbook[sheet];
       if (!rows) throw new Error(`Sheet "${sheet}" missing from ${sourceFile}`);
       const records = withoutBlankRows(rowsToObjects(rows));
       emit(outName, records, { sourceFile, sourceSheet: sheet, sourceSha256: digest });
+    }
+  }
+
+  // Raw-row sheets: every cell kept, nothing keyed by a repeated header name.
+  {
+    const { workbook, digest } = workbooks.get(MASTER_DB);
+    for (const [sheet, outName] of Object.entries(MASTER_DB_RAW_SHEETS)) {
+      const rows = workbook[sheet];
+      if (!rows) throw new Error(`Sheet "${sheet}" missing from ${MASTER_DB}`);
+      const kept = rows.filter((row) => row.some((cell) => cell !== ''));
+      outputs.set(`${outName}.json`, {
+        $schema_note:
+          'Verbatim extraction of an official KOREA GLOW source, kept as raw rows because the ' +
+          'sheet header is not a unique column set. Do not edit by hand; regenerate with ' +
+          '`npm run extract:sources`.',
+        sourceFile: MASTER_DB,
+        sourceSheet: sheet,
+        sourceSha256: digest,
+        recordCount: kept.length,
+        rows: kept,
+      });
     }
   }
 

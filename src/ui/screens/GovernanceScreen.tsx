@@ -20,7 +20,23 @@ import {
   summariseStrandReconciliation,
   STRAND_TAXONOMY_VIEWS,
 } from '@/knowledge/strand-taxonomy';
+import {
+  PRODUCT_PROPOSALS,
+  PROPOSAL_CONFLICTS,
+  PROPOSAL_CONFLICTS_ADDENDUM,
+  proposalSummary,
+} from '@/governance/product-proposals';
+import { AUDIT_COVERAGE, runNumericAudit } from '@/governance/numeric-audit';
 import { Disclosures } from '../components/Disclosures';
+
+const CLASS_TAG: Readonly<Record<string, string>> = {
+  CONFIRMED: 'tag',
+  DECISION: 'tag tag--open',
+  HYPOTHESIS: 'tag tag--critical',
+  IDEA: 'tag',
+  OPEN_QUESTION: 'tag tag--blocker',
+  REJECTED: 'tag tag--blocker',
+};
 
 export function GovernanceScreen({ locale }: { locale: string }) {
   const strandView = resolveStrandView();
@@ -29,6 +45,9 @@ export function GovernanceScreen({ locale }: { locale: string }) {
   const corpus = corpusStatusBreakdown();
   const coverage = localeCoverage(LOCALES.map((item) => item.tag));
   const evidence = evidenceReferenceReport();
+  const audit = runNumericAudit();
+  const proposals = proposalSummary();
+  const conflicts = [...PROPOSAL_CONFLICTS, ...PROPOSAL_CONFLICTS_ADDENDUM];
   const misplacements = findSuspectedStrandMisplacements();
 
   return (
@@ -222,6 +241,157 @@ export function GovernanceScreen({ locale }: { locale: string }) {
             </tbody>
           </table>
         )}
+      </section>
+
+      <section className="card">
+        <p className="eyebrow">Numeric consistency audit</p>
+        <p className="muted">
+          {audit.totalComparisons} numeric claims compared across {audit.checks.length} checks ·{' '}
+          {audit.findings.length} governance warning(s). The audit reports disagreements and never
+          reconciles them.
+        </p>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Check</th>
+              <th>Compared</th>
+              <th>Warnings</th>
+              <th>What it guards</th>
+            </tr>
+          </thead>
+          <tbody>
+            {audit.checks.map((check) => (
+              <tr key={check.check}>
+                <td>{check.check}</td>
+                <td>{check.comparisons}</td>
+                <td>
+                  {check.findings.length > 0 ? (
+                    <span className="tag tag--blocker">{check.findings.length}</span>
+                  ) : (
+                    '0'
+                  )}
+                </td>
+                <td className="muted">{check.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {audit.findings.map((finding) => (
+          <p key={`${finding.check}-${finding.leftSource}`} className="disclosure disclosure--caution">
+            <span className="disclosure__mark">!</span>
+            <span>
+              <strong>GOVERNANCE WARNING</strong> — {finding.detail} Left: {finding.leftSource} ·{' '}
+              {finding.leftValue}. Right: {finding.rightSource} · {finding.rightValue}.
+              {finding.registerId ? ` (${finding.registerId})` : ''}
+            </span>
+          </p>
+        ))}
+
+        <h3 style={{ marginTop: '0.9rem' }}>Coverage</h3>
+        <table className="table">
+          <tbody>
+            {AUDIT_COVERAGE.map((item) => (
+              <tr key={item.concept}>
+                <td>{item.concept}</td>
+                <td>
+                  <span className={`tag${item.covered ? '' : ' tag--critical'}`}>
+                    {item.covered ? 'covered' : 'not yet'}
+                  </span>
+                </td>
+                <td className="muted">{item.note}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section className="card">
+        <p className="eyebrow">Product proposal register · 2026-09-18</p>
+        <p className="muted">
+          {proposals.total} proposals ·{' '}
+          {Object.entries(proposals.byClass)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join(' · ')}{' '}
+          · {proposals.buildable} with nothing blocking them ·{' '}
+          {proposals.mustResolveConflicts} conflict(s) that must be resolved first.
+        </p>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Class</th>
+              <th>Proposal</th>
+              <th>Blocked by</th>
+            </tr>
+          </thead>
+          <tbody>
+            {PRODUCT_PROPOSALS.map((proposal) => (
+              <tr key={proposal.id}>
+                <td>{proposal.id}</td>
+                <td>
+                  <span className={CLASS_TAG[proposal.classification] ?? 'tag'}>
+                    {proposal.classification}
+                  </span>
+                </td>
+                <td>
+                  <strong>{proposal.title}</strong>
+                  <br />
+                  <span className="muted">{proposal.summary}</span>
+                  {proposal.sourceBasis.length > 0 ? (
+                    <>
+                      <br />
+                      <span className="muted" style={{ fontSize: '0.7rem' }}>
+                        Basis: {proposal.sourceBasis.join(' · ')}
+                      </span>
+                    </>
+                  ) : null}
+                </td>
+                <td className="muted">
+                  {proposal.blockedBy.length === 0 ? '—' : proposal.blockedBy.join('; ')}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+
+      <section className="card">
+        <p className="eyebrow">Proposal conflicts with governed rules</p>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Severity</th>
+              <th>Conflict</th>
+              <th>Proposed resolution</th>
+            </tr>
+          </thead>
+          <tbody>
+            {conflicts.map((conflict) => (
+              <tr key={conflict.id}>
+                <td>
+                  {conflict.id}
+                  <br />
+                  <span className="muted">{conflict.proposalIds.join(', ')}</span>
+                </td>
+                <td>
+                  <span
+                    className={`tag${conflict.severity === 'MUST_RESOLVE' ? ' tag--blocker' : ' tag--open'}`}
+                  >
+                    {conflict.severity}
+                  </span>
+                </td>
+                <td>
+                  <strong>{conflict.conflictsWith}</strong>
+                  <br />
+                  <span className="muted">{conflict.detail}</span>
+                </td>
+                <td className="muted">{conflict.proposedResolution}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </section>
 
       <section className="card">

@@ -2,7 +2,7 @@
 
 **Project:** KOREA GLOW Beauty Learning World
 **Date:** 2026-09-18
-**Phase:** Engineering initialization + first vertical slice + Ingredient Garden + Routine Studio
+**Phase:** Engineering initialization + three MVP worlds + governance instrumentation
 **Branch:** `claude/laughing-babbage-acxc3h`
 
 ---
@@ -210,6 +210,7 @@ $ npm test
 
  ✓ tests/ingredient-garden.test.ts  (35 tests)
  ✓ tests/routine-studio.test.ts     (29 tests)
+ ✓ tests/product-proposals.test.ts  (23 tests)
  ✓ tests/governance-gates.test.ts   (18 tests)
  ✓ tests/tutor-runtime.test.ts      (18 tests)
  ✓ tests/learning-slice.test.ts     (16 tests)
@@ -219,9 +220,9 @@ $ npm test
  ✓ tests/localization.test.ts       (12 tests)
  ✓ tests/source-integrity.test.ts   (11 tests)
 
- Test Files  10 passed (10)
-      Tests  179 passed (179)
-   Duration  1.71s
+ Test Files  11 passed (11)
+      Tests  202 passed (202)
+   Duration  1.76s
 
 $ npm run typecheck     # clean
 $ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 465.73 kB (gzip 106.55 kB)
@@ -312,37 +313,52 @@ screen. Nothing below was decided in code.
 
 ## 9. Next coding step
 
-Three of the seven MVP experiences now run (My Skin, Ingredient Garden, Routine Studio), all on
-one learning engine. Every remaining blocker is a governance decision, not an engineering one.
+Three MVP worlds run (My Skin, Ingredient Garden, Routine Studio) on one learning engine, and
+the governance layer now instruments itself: referential integrity, evidence resolution, strand
+placement and numeric consistency are all audited on every test run.
 
-**Governance, in leverage order:**
+### Numeric consistency audit
 
-1. **OQ-E01 — reconcile the evidence ID namespaces.** Still the highest-leverage item. Every
-   node claiming an evidence anchor cites an ID absent from the registry, so approving a node's
-   `Status` would still leave its evidence chain broken. One decision unblocks all 92 anchors.
+Added on request, generalising the one-off QST-007 check into a standing audit. Six checks,
+**25 numeric claims compared, 1 governance warning**:
 
-2. **OQ-R01 — add an evidence linkage column to `09_ROUTINES`.** This one cannot be fixed by
-   data entry: the sheet has nowhere to put a `Source_ID`. Until it does, no routine can ever
-   pass the gate, whatever its `Status` says.
+| Check | Compared | Warnings |
+|---|---|---|
+| Quest win condition vs its Core node title | 1 | **1** (QST-007, OQ-R02) |
+| Routine name vs step count | 1 | 0 |
+| Routine description vs step count (range-aware) | 1 | 0 |
+| README MVP seed counts vs rows present | 7 | 0 |
+| Dashboard per-domain node counts vs rows | 12 | 0 |
+| Mastery rule thresholds vs the engine's constants | 3 | 0 |
 
-3. **OQ-S01 and OQ-R02 — settle the two content contradictions.** Five D06 nodes are filed
-   under the wrong strand, and QST-007 asks for a step count its own core node contradicts.
-   Both would teach the wrong thing even after approval.
+The last check compares **code against a source**, so the mastery engine drifting from the
+approved rule text would be caught as a contradiction too. `AUDIT_COVERAGE` reports the three
+requested concepts not yet covered (questions per lesson, choices per question, day counts) and
+why — no source states them, so there is nothing to compare against.
 
-4. **SR-009 / SR-010 — approve a small evidence seed set.** With OQ-E01 resolved, the D06
-   strand 06.2 cluster (`KN-D06-02-001/002/003` + `ING-001/002/003`) remains the best candidate:
-   it is the one place where node content, strand and ingredient family already agree, and those
-   three humectant records carry the only reference URLs in the sheet.
+### Product proposal register
 
-**Then, in code:** author the QST-009 function-matching activity. The availability gate, quest
-wiring, catalogs and lesson runner already exist, so that is a content pack plus one new
-interaction type — not new architecture.
+The 2026-09-18 product direction discussion is recorded in `src/governance/product-proposals.ts`
+as 27 classified proposals: **9 CONFIRMED, 12 DECISION, 3 HYPOTHESIS, 2 IDEA, 1 OPEN QUESTION**.
+Only 5 have nothing blocking them. Seven conflicts with governed rules are recorded, 3 of them
+MUST_RESOLVE.
 
-Exact next command once step 4 lands:
+A test resolves every Master Database ID the register cites against the actual source data, so
+the register cannot drift into citing records that do not exist.
 
-```
-npm run extract:sources && npm test
-```
+**Governance, in leverage order — unchanged and still ahead of any code:**
+
+1. **OQ-E01** — reconcile the evidence ID namespaces. One decision unblocks all 92 anchors.
+2. **OQ-R01** — now a schema change request, not a data fix: `09_ROUTINES` needs Purpose,
+   Audience_Context, Step_Definition, Usage_Context, Safety_Notes, and Source / Evidence /
+   Usage Instruction as three separate fields.
+3. **OQ-S01, OQ-R02** — the two content contradictions. Both would teach the wrong thing even
+   after approval.
+4. **SR-009 / SR-010** — approve the D06 strand 06.2 seed cluster.
+
+**Then, in code:** the register says what is buildable and what is not. Nothing product-facing
+(PR-003, PR-008, PR-009) can be built before a verified product master exists, because every
+one of those surfaces is a recommendation surface that fails gate G3 today.
 
 ## 10. How to run the project
 

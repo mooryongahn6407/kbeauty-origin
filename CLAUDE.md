@@ -13,7 +13,7 @@ Current build state is in `ENGINEERING_STATUS.md`.
 ```bash
 npm install
 npm run dev              # http://127.0.0.1:5173
-npm test                 # vitest, 179 tests
+npm test                 # vitest, 202 tests
 npm run typecheck        # tsc --noEmit
 npm run build            # typecheck + production build
 npm run extract:sources  # regenerate data/source/*.json from sources/*.xlsx
@@ -42,7 +42,12 @@ These are not style preferences. Each has a test that fails if it is broken.
    belong in governed knowledge/evidence data.
 9. **Keep mastery separate** from loyalty, influencer, partner and commercial status.
 10. **Classify anything unresolved** as CONFIRMED / DECISION / HYPOTHESIS / IDEA /
-    OPEN QUESTION / REJECTED, and add it to `src/governance/open-items.ts`.
+    OPEN QUESTION / REJECTED. Source contradictions go in `src/governance/open-items.ts`;
+    product proposals go in `src/governance/product-proposals.ts`, where a test verifies every
+    Master Database ID they cite actually exists.
+11. **A number stated twice must agree.** `src/governance/numeric-audit.ts` compares governed
+    numbers against each other and against the constants the code runs on, and raises a
+    governance warning on disagreement. It never reconciles.
 
 ## Adding content
 

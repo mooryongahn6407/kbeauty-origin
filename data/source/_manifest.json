@@ -32,6 +32,12 @@
       "recordCount": 20
     },
     {
+      "file": "dashboard.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "99_DASHBOARD",
+      "recordCount": 20
+    },
+    {
       "file": "domains.json",
       "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
       "sourceSheet": "01_DOMAINS",
@@ -114,6 +120,12 @@
       "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
       "sourceSheet": "11_QUESTS",
       "recordCount": 25
+    },
+    {
+      "file": "readme.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "00_README",
+      "recordCount": 10
     },
     {
       "file": "reconciliation-curriculum-coded.json",

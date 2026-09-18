@@ -156,7 +156,12 @@ const OQ_R01: OpenGovernanceItem = {
     'The publication gate already refuses to state an Approved-but-unevidenced routine as ' +
     'fact, so no routine is presented as correct. Routines whose sequence is prose are shown ' +
     'as written and never split into invented steps. The missing column is a schema change ' +
-    'and is not worked around in code.',
+    'and is not worked around in code. Promoted 2026-09-18 from a data observation to a ' +
+    'Master Database schema change request: a routine is a behavioural instruction the moment ' +
+    'it is rendered, so the sheet needs Purpose, Audience_Context, Step_Definition, ' +
+    'Usage_Context, Safety_Notes, Source_ID, Evidence_ID, Evidence_Status, Source_Updated, ' +
+    'Review_Status and Version — with Source, Evidence and product Usage Instruction kept as ' +
+    'three separate fields rather than one (see PR-023).',
 };
 
 /**
