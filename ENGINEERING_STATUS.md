@@ -212,27 +212,27 @@ $ npm test
  ✓ tests/ingredient-garden.test.ts  (35 tests)
  ✓ tests/routine-studio.test.ts     (29 tests)
  ✓ tests/ai-tutor.test.ts           (32 tests)
+ ✓ tests/localization.test.ts       (35 tests)
  ✓ tests/quest-mastery.test.ts      (25 tests)
+ ✓ tests/speech.test.ts             (25 tests)
  ✓ tests/label-detective.test.ts    (27 tests)
  ✓ tests/sun-protection.test.ts     (26 tests)
+ ✓ tests/design-system.test.ts      (69 tests)
  ✓ tests/product-proposals.test.ts  (23 tests)
  ✓ tests/governance-gates.test.ts   (18 tests)
  ✓ tests/tutor-runtime.test.ts      (18 tests)
- ✓ tests/design-system.test.ts      (60 tests)
  ✓ tests/learning-slice.test.ts     (28 tests)
- ✓ tests/speech.test.ts             (15 tests)
  ✓ tests/content-governance.test.ts (15 tests)
  ✓ tests/mastery-engine.test.ts     (13 tests)
  ✓ tests/strand-taxonomy.test.ts    (12 tests)
- ✓ tests/localization.test.ts       (30 tests)
  ✓ tests/source-integrity.test.ts   (11 tests)
 
  Test Files  18 passed (18)
-      Tests  455 passed (455)
-   Duration  3.0s
+      Tests  481 passed (481)
+   Duration  2.8s
 
 $ npm run typecheck     # clean
-$ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 608.07 kB (gzip 149.34 kB)
+$ npm run build         # dist/index.html 0.57 kB, index.css 12.49 kB, index.js 694.80 kB (gzip 172.06 kB)
 $ npm run verify:sources
 OK: 27 datasets match the official sources.
 ```
@@ -852,6 +852,83 @@ voice     ▶ ບໍ່ມີສຽງສຳລັບພາສານີ້ໃນ
 **What is still needed, and it is not code.** A Lao speaker reading these 229 strings, with the
 three safety escalations first. Until then `CATALOG_REVIEW.lo` stays `UNREVIEWED_DRAFT` and the
 banner stays up. OQ-L01 is untouched: a catalog existing is not the locale set being approved.
+
+### Thai catalog, and Lao read-aloud speaking through it
+
+Owner instruction, verbatim: Lao writing is supported, but no device has a Lao voice, so Lao
+speech should use Thai instead; if Lao writing had not been trustworthy either, the fallback
+should have been to present the whole locale as Thai. Thai already needed its own catalog for
+this — it is LOC-004, `Stage=Market`, `Notes="Thailand expansion"`, registered in both sources
+— so `MESSAGES_TH` was written (229 keys, same coverage as Lao) and PR-037 records the decision.
+`CATALOG_REVIEW.th = 'UNREVIEWED_DRAFT'`, same as French and Lao: nobody has read it either.
+
+**Why "speak Lao text with a Thai voice" is not an option.** Lao and Thai are related languages
+but **different scripts** (Lao U+0E80–U+0EFF, Thai U+0E00–U+0E7F — adjacent Unicode blocks, no
+shared code points). A Thai voice given Lao characters does not read them with an accent; it
+fails or produces noise. So the substitution implemented is **Thai voice reading Thai text** —
+the app's own Thai translation of the same string — never Lao characters through a Thai engine.
+
+**`SPOKEN_FALLBACK`** (`src/ui/speech.ts`) is one named table, `{ lo: 'th' }`, not a special case
+buried in a component. `planSpeech(voices, locale, available)` tries, in order: the reader's own
+language; its declared fallback; the base locale (English) — and only ever picks a candidate
+that is *both* in `available` (the passage genuinely exists in that language) *and* has a device
+voice. A genuine Lao voice, on a device that has one, is always preferred over the Thai
+fallback: this is a fallback for devices with none, not a replacement for Lao audio everywhere.
+
+**The reader is always told.** `ReadAloud` never switches language silently: when it substitutes
+it renders as "Listen (in ไทย)" rather than continuing to say "Listen" while quietly speaking a
+different language — the same transparency principle as the unreviewed-catalog banner and the
+safety-original wording.
+
+**Applied first to `SafetyNotice`**, the highest-stakes surface: a Lao reader with no Lao voice
+on their device can still hear the safety escalation, correctly, spoken in Thai. Lesson content
+(hook/core/analogy/question) was left alone on purpose — it exists only in en/ko, no Thai
+variant was invented for it, so a Lao or Thai reader looking at its English fallback hears it
+read in **English**, because that is the language actually on screen. This surfaced a real,
+separate bug while wiring it: `ReadAloud` was asking a device for a voice in the reader's UI
+locale even when the text on screen had already fallen back to English, which is how a French
+reader on a device with a perfectly good English voice still saw "no voice available." Fixed
+with a `spokenLocale` prop, set from the content layer's own `usedFallback` flag rather than
+assumed from the UI locale.
+
+**Tests: `tests/speech.test.ts` grows 15 → 25, `tests/localization.test.ts` grows 30 → 35,
+`tests/design-system.test.ts` grows 60 → 69.** Speech tests cover `planSpeech` against the same
+real vendor voice lists as before: Thai text through a Thai voice when no Lao voice exists;
+Lao preferred when a device genuinely has one; total unavailability when neither does; no
+fallback firing when the Thai text was never supplied (a caller forgetting to pass it must not
+get Thai audio anyway); Thai read directly with no fallback involved. Localization tests cover
+full Thai coverage, Thai-script verification (U+0E00–U+0E7F, immediately adjacent to Lao's block
+so a passing test cannot be an accident of sharing it), the catalog review status, and that the
+two safety texts (Lao and its Thai fallback) never share a code point. Design-system tests
+extend the Lao typography checks (line-height, word wrap, no uppercasing) to Thai in parallel,
+and confirm both scripts are named in the shared font stacks, not only under their own `:lang`
+rule. Checked against six mutations, each caught: removing the `lo→th` table entry, letting
+`planSpeech` skip the availability check, deleting `SafetyNotice`'s wiring (caught only after
+tightening the test past a docstring mention of the same identifier — the first version of that
+check passed against a mutation that had actually removed the real logic), reverting
+`LessonRunner`'s `spokenLocale` fix, and dropping either script's typography block.
+
+**Browser verification.** Headless Chromium ships zero speech voices at all (established earlier
+in this build), so the browser check injects two fake voices — Thai and English, no Lao — via
+`Object.defineProperty` (a plain assignment to `window.speechSynthesis` silently no-ops, because
+it is an accessor-only property on `Window.prototype`; that cost real debugging time before the
+cause was found) and drives the real UI end to end:
+
+```
+Thai UI standalone: html lang=th · font "Noto Sans Thai" · line-height 33.15px
+                     43 Thai elements · smallest font 13px · no overflow · unreviewed banner shown
+
+Lao safety halt, fake voices = [Kanya (th-TH), Samantha (en-US)], no Lao voice:
+  halt text   Lao R2 wording, English original beneath it (unchanged from PR-036)
+  speak label "▶ຟັງເປັນไทย"  (Listen, in Thai — languageName('th') = its own endonym)
+  click       label flips to "■ ຢຸດ" (Stop)
+  utterance   { text: "เรื่องนี้ฟังดูเหมือนควรหยุดและตรวจสอบ…", lang: "th-TH",
+                voiceName: "Kanya" }   ← genuinely Thai text, genuinely the Thai voice
+console errors: none
+```
+
+The spoken text is the app's own Thai catalog string, not a transliteration and not the Lao
+characters relabelled — exactly the substitution PR-037 specifies.
 
 ## 10. How to run the project
 

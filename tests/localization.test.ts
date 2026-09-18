@@ -102,6 +102,30 @@ describe('UI message catalog', () => {
     expect(UI_CATALOG_LOCALES).toContain('lo');
   });
 
+  it('resolves every key in Thai without leaving an empty string', () => {
+    for (const key of messageKeys) {
+      expect(translate(key, 'th'), key).toBeTruthy();
+    }
+  });
+
+  it('writes Thai in Thai script, not transliterated or left in English', () => {
+    // U+0E00–U+0E7F is the Thai block — immediately before the Lao block, and a genuinely
+    // different set of code points, so a Thai string cannot pass this check by accident of
+    // sharing Lao's.
+    const thai = /[\u0E00-\u0E7F]/;
+    const NOT_TRANSLATED = ['app.brand'];
+    const latinOnly = messageKeys
+      .filter((key) => !NOT_TRANSLATED.includes(key))
+      .filter((key) => !thai.test(translate(key, 'th')));
+    expect(latinOnly).toEqual([]);
+  });
+
+  it('fills Thai, the locale Lao read-aloud borrows a voice from', () => {
+    const thai = findLocale('th');
+    expect(thai?.masterDbLocaleId).toBe('LOC-004');
+    expect(UI_CATALOG_LOCALES).toContain('th');
+  });
+
   it('reports when a locale had no catalog and English was used instead', () => {
     const result = translateWithMeta('nav.mySkin', 'vi');
     expect(result.usedFallback).toBe(true);
@@ -143,8 +167,8 @@ describe('UI message catalog', () => {
  * Translation review status.
  *
  * The same discipline the corpus gets: a translation nobody has read is a draft, and the app
- * must not present it as finished. French and Lao were written by the engine that wrote this
- * file, and neither has been checked by a speaker of the language.
+ * must not present it as finished. French, Lao and Thai were written by the engine that wrote
+ * this file, and none of them has been checked by a speaker of the language.
  */
 describe('a translation nobody has checked is a draft', () => {
   it('marks every catalog with how much review it has actually had', () => {
@@ -152,6 +176,7 @@ describe('a translation nobody has checked is a draft', () => {
     expect(catalogReview('ko')).toBe('OWNER_REVIEWED');
     expect(catalogReview('fr')).toBe('UNREVIEWED_DRAFT');
     expect(catalogReview('lo')).toBe('UNREVIEWED_DRAFT');
+    expect(catalogReview('th')).toBe('UNREVIEWED_DRAFT');
   });
 
   it('has a review status for every catalog it ships, and none for one it does not', () => {
@@ -163,6 +188,7 @@ describe('a translation nobody has checked is a draft', () => {
     // fr or lo, a person must have read it — not a build.
     expect(isUnreviewedCatalog('lo')).toBe(true);
     expect(isUnreviewedCatalog('fr')).toBe(true);
+    expect(isUnreviewedCatalog('th')).toBe(true);
     expect(isUnreviewedCatalog('ko')).toBe(false);
   });
 
@@ -218,6 +244,15 @@ describe('safety wording survives an unreviewed translation', () => {
     }
   });
 
+  it('translates every escalating tier in Thai too, since Lao speech borrows its voice', () => {
+    for (const tier of TIERS) {
+      const text = translate(tier, 'th');
+      expect(text.length).toBeGreaterThan(20);
+      expect(text).not.toBe(translate(tier, 'en'));
+      expect(text).not.toBe(translate(tier, 'lo'));
+    }
+  });
+
   it('names the emergency route in the most severe tier', () => {
     // R4 is the only tier that must send the reader out of the app. Whatever the language,
     // it has to say so — checked here as a property of every catalog, not of one translation.
@@ -241,5 +276,46 @@ describe('safety wording survives an unreviewed translation', () => {
       // Translating the halt key directly would skip the original-wording safeguard.
       expect(source, surface).not.toMatch(/translate\(state\.safetyHaltMessageKey/);
     }
+  });
+
+  it('offers to speak the safety message, in Thai for a Lao reader', async () => {
+    const { SPOKEN_FALLBACK } = await import('@/ui/speech');
+    // SafetyNotice looks up SPOKEN_FALLBACK[locale] itself; this proves the entry it needs
+    // for its highest-stakes surface is exactly the one speech.ts declares.
+    expect(SPOKEN_FALLBACK['lo']).toBe('th');
+    for (const tier of TIERS) {
+      const laoText = translate(tier, 'lo');
+      const thaiText = translate(tier, SPOKEN_FALLBACK['lo']!);
+      // The two scripts never share code points, so a caller cannot mix them up by accident.
+      expect(laoText).toMatch(/[\u0E80-\u0EFF]/);
+      expect(thaiText).toMatch(/[\u0E00-\u0E7F]/);
+      expect(thaiText).not.toMatch(/[\u0E80-\u0EFF]/);
+    }
+  });
+
+  it('wires SafetyNotice itself to the Lao\u2192Thai fallback, not a hand-rolled copy', async () => {
+    const { readFileSync } = await import('node:fs');
+    const source = readFileSync(
+      new URL('../src/ui/components/SafetyNotice.tsx', import.meta.url),
+      'utf8',
+    );
+    // Anchored to the actual lookup and prop wiring, not merely a mention of the name \u2014 a
+    // docstring referencing SPOKEN_FALLBACK would otherwise satisfy a looser check while the
+    // real wiring was deleted underneath it.
+    expect(source).toMatch(/SPOKEN_FALLBACK\[locale\]/);
+    expect(source).toMatch(/<ReadAloud[^>]*fallback=\{fallback\}/s);
+  });
+
+  it('tells LessonRunner\u2019s read-aloud the real language of a fallen-back passage', async () => {
+    // Lesson content exists only in en/ko. A reader in fr/lo/th who is looking at the English
+    // fallback must have that read as English \u2014 asking a device for a voice in a language
+    // the passage is not written in is exactly the defect `spokenLocale` exists to prevent.
+    const { readFileSync } = await import('node:fs');
+    const source = readFileSync(
+      new URL('../src/ui/components/LessonRunner.tsx', import.meta.url),
+      'utf8',
+    );
+    const spokenLocaleUses = source.match(/spokenLocale=\{[^}]*usedFallback[^}]*\}/g) ?? [];
+    expect(spokenLocaleUses.length).toBe(3);
   });
 });

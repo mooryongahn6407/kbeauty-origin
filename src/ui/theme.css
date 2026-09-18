@@ -70,24 +70,26 @@
   --tap: 44px; /* Minimum interactive target, both dimensions. */
   --max-width: 900px;
 
-  /* Lao and Korean faces are named in every stack, not only under their own :lang rule, so a
-     Lao string inside an English sentence still renders in a Lao face rather than in tofu. */
+  /* Lao, Thai and Korean faces are named in every stack, not only under their own :lang rule,
+     so a string in one of these scripts inside an English sentence still renders in its own
+     face rather than in tofu — including a Thai passage spoken (via SPOKEN_FALLBACK) or shown
+     as the safety-notice original for a Lao reader. */
   --font-body: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Noto Serif KR',
-    'Noto Sans Lao', 'Phetsarath OT', serif;
+    'Noto Sans Lao', 'Noto Sans Thai', 'Phetsarath OT', serif;
   --font-ui: 'Inter', 'Helvetica Neue', -apple-system, 'Noto Sans KR', 'Noto Sans Lao',
-    'Phetsarath OT', sans-serif;
+    'Noto Sans Thai', 'Phetsarath OT', sans-serif;
 }
 
 /*
- * Lao.
+ * Lao and Thai.
  *
- * Two things the Latin defaults get wrong for it. Lao stacks vowel and tone marks both above
- * and below the consonant, so lines set at 1.7 collide; and Lao writes phrases without spaces
+ * Two things the Latin defaults get wrong for both. They stack vowel and tone marks above and
+ * below the consonant, so lines set at 1.7 collide; and both write phrases without spaces
  * between words, so a browser breaking on spaces alone overflows the line. `line-break: normal`
  * with `overflow-wrap: anywhere` lets it wrap where it must.
  *
- * A serif body face has no Lao equivalent worth using, so Lao is set in its sans face
- * throughout — which is also how Lao is normally set.
+ * A serif body face has no equivalent worth using for either, so both are set in their sans
+ * face throughout — which is also how each is normally set.
  */
 :root[lang='lo'] body,
 :root[lang='lo'] .option,
@@ -96,18 +98,25 @@
   font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Saysettha OT', 'Lao UI', var(--font-ui);
   line-height: 1.95;
 }
-:root[lang='lo'] h1,
-:root[lang='lo'] h2,
-:root[lang='lo'] h3 { line-height: 1.5; }
-:root[lang='lo'] p,
-:root[lang='lo'] td,
-:root[lang='lo'] th,
-:root[lang='lo'] .option { overflow-wrap: anywhere; line-break: normal; }
-/* Uppercasing does nothing to Lao and only widens an already long label. */
-:root[lang='lo'] .eyebrow,
-:root[lang='lo'] .settings__label,
-:root[lang='lo'] .phase-rail,
-:root[lang='lo'] .table th { text-transform: none; letter-spacing: 0; }
+:root[lang='th'] body,
+:root[lang='th'] .option,
+:root[lang='th'] .textarea,
+:root[lang='th'] .field {
+  font-family: 'Noto Sans Thai', 'Leelawadee UI', 'Thonburi', var(--font-ui);
+  line-height: 1.95;
+}
+:root[lang='lo'] h1, :root[lang='lo'] h2, :root[lang='lo'] h3,
+:root[lang='th'] h1, :root[lang='th'] h2, :root[lang='th'] h3 { line-height: 1.5; }
+:root[lang='lo'] p, :root[lang='lo'] td, :root[lang='lo'] th, :root[lang='lo'] .option,
+:root[lang='th'] p, :root[lang='th'] td, :root[lang='th'] th, :root[lang='th'] .option {
+  overflow-wrap: anywhere;
+  line-break: normal;
+}
+/* Uppercasing does nothing to either script and only widens an already long label. */
+:root[lang='lo'] .eyebrow, :root[lang='lo'] .settings__label,
+:root[lang='lo'] .phase-rail, :root[lang='lo'] .table th,
+:root[lang='th'] .eyebrow, :root[lang='th'] .settings__label,
+:root[lang='th'] .phase-rail, :root[lang='th'] .table th { text-transform: none; letter-spacing: 0; }
 
 /* The reader's text-size choice. Applied to <html> by src/ui/preferences.ts. */
 :root[data-text-size='large'] { --text-scale: 1.15; }

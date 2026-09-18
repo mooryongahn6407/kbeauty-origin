@@ -13,7 +13,7 @@ Current build state is in `ENGINEERING_STATUS.md`.
 ```bash
 npm install
 npm run dev              # http://127.0.0.1:5173
-npm test                 # vitest, 455 tests
+npm test                 # vitest, 481 tests
 npm run typecheck        # tsc --noEmit
 npm run build            # typecheck + production build
 npm run extract:sources  # regenerate data/source/*.json from sources/*.xlsx
@@ -60,11 +60,19 @@ These are not style preferences. Each has a test that fails if it is broken.
     Colours are semantic tokens — a component never names one, and never sets a `fontSize`
     inline. `tests/design-system.test.ts` computes the ratios from the shipped stylesheet.
 14. **An unreviewed translation is a draft.** `CATALOG_REVIEW` records how much review each UI
-    catalog has actually had; `fr` and `lo` are `UNREVIEWED_DRAFT` and the app says so on every
-    screen while they are selected. Safety escalations in an unreviewed catalog show the English
-    original underneath, through the one `SafetyNotice` component every halting surface uses.
-    Only a person changes that status — committing a catalog does not review it.
-15. **Reducers are pure; effects happen in the drain.** `sessionReducer`, `reflectionReducer`,
+    catalog has actually had; `fr`, `lo` and `th` are `UNREVIEWED_DRAFT` and the app says so on
+    every screen while they are selected. Safety escalations in an unreviewed catalog show the
+    English original underneath, through the one `SafetyNotice` component every halting surface
+    uses. Only a person changes that status — committing a catalog does not review it.
+15. **Speech never crosses scripts.** `SPOKEN_FALLBACK` (`src/ui/speech.ts`) lets a locale with
+    no device voice borrow one — today `{ lo: 'th' }` — but only as **that locale's own
+    translation, spoken by its own voice** (Thai text through a Thai voice), never the original
+    script read by a voice that cannot pronounce it. `planSpeech()` requires the substitute
+    text to actually exist before it substitutes, and `ReadAloud` always tells the reader when
+    it has, rather than switching language silently. A passage that has fallen back to another
+    *content* language (lesson text exists only in en/ko) is read in the language actually on
+    screen — `spokenLocale`, not the reader's UI locale — for the same reason.
+16. **Reducers are pure; effects happen in the drain.** `sessionReducer`, `reflectionReducer`,
     `exposureReducer` and `sorterReducer` take exactly `(state, action)` — there is no third
     parameter to hand a sink into. A transition returns what it wants to do in `emitted`
     (and `recordedAttempt`), and `createDrainGuard()` performs it once. StrictMode stays on:

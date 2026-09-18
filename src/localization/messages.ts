@@ -283,6 +283,7 @@ const MESSAGES_EN = {
   'speech.listen': 'Listen',
   'speech.stop': 'Stop',
   'speech.unavailable': 'No voice for this language on this device',
+  'speech.listenIn': 'Listen (in {language})',
 
   'catalog.unreviewed':
     'This interface translation has not yet been checked by a speaker of this language. Wording may be wrong. The lessons themselves are unaffected.',
@@ -560,6 +561,7 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'speech.listen': '들기',
   'speech.stop': '정지',
   'speech.unavailable': '이 기기에는 이 언어의 음성이 없습니다',
+  'speech.listenIn': '{language}로 듣기',
 
   'catalog.unreviewed':
     '이 화면의 번역은 아직 해당 언어 사용자의 검수를 받지 않았습니다. 표현이 틀릴 수 있습니다. 레슨 내용 자체는 영향을 받지 않습니다.',
@@ -857,6 +859,7 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'speech.listen': 'Écouter',
   'speech.stop': 'Arrêter',
   'speech.unavailable': 'Aucune voix pour cette langue sur cet appareil',
+  'speech.listenIn': 'Écouter (en {language})',
 
   'catalog.unreviewed':
     'Cette interface a été traduite en français mais n’a pas encore été relue par une personne francophone. La formulation peut être inexacte. Les leçons elles-mêmes ne sont pas concernées.',
@@ -1146,10 +1149,305 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'speech.listen': 'ຟັງ',
   'speech.stop': 'ຢຸດ',
   'speech.unavailable': 'ບໍ່ມີສຽງສຳລັບພາສານີ້ໃນອຸປະກອນນີ້',
+  'speech.listenIn': 'ຟັງເປັນ{language}',
 
   'catalog.unreviewed':
     'ໜ້າຈໍນີ້ຖືກແປເປັນພາສາລາວ ແຕ່ຍັງບໍ່ທັນໄດ້ຮັບການກວດຈາກຜູ້ເວົ້າພາສາລາວ. ຖ້ອຍຄຳອາດຜິດ. ບົດຮຽນເອງບໍ່ໄດ້ຮັບຜົນກະທົບ.',
   'catalog.safetyOriginal': 'ຖ້ອຍຄຳຕົ້ນສະບັບ ເພື່ອຄວາມປອດໄພ',
+};
+
+
+/**
+ * Thai catalog. Thai is LOC-004 in Master DB 15_LOCALIZATION, Stage=Market,
+ * Notes="Thailand expansion", and the Global Content Engine spec lists it too.
+ *
+ * It carries a second job beyond Thailand. Lao and Thai are closely related and Lao readers
+ * commonly follow Thai, but the two use *different scripts* — a Thai voice cannot pronounce Lao
+ * script at all. So where Lao is selected and the device has no Lao voice, read-aloud speaks
+ * *this* Thai text with a Thai voice rather than feeding Lao characters to a Thai engine. See
+ * SPOKEN_FALLBACK.
+ *
+ * ⚠ Like French and Lao, this has not been read by a Thai speaker. It is registered
+ * UNREVIEWED_DRAFT and the app says so while it is selected.
+ */
+const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
+  'app.title': 'โลกแห่งการเรียนรู้ความงาม',
+  'app.northStar': 'เรียนรู้ความงาม รู้จักตัวเอง เลือกได้ดีขึ้น',
+
+  'nav.mySkin': 'ผิวของฉัน',
+  'nav.ingredientGarden': 'สวนส่วนผสม',
+  'nav.routineStudio': 'สตูดิโอรูทีน',
+  'nav.sunProtection': 'การป้องกันแสงแดด',
+  'nav.labelDetective': 'นักสืบฉลาก',
+  'nav.aiTutor': 'ติวเตอร์ AI',
+  'nav.quests': 'เควสต์และความเชี่ยวชาญ',
+  'nav.governance': 'การกำกับดูแลเนื้อหา',
+
+  'disclosure.pendingVerification':
+    'บันทึกความรู้นี้ยังไม่ผ่านการตรวจสอบหลักฐาน แสดงไว้เพื่อการเรียนรู้ ไม่ใช่ข้อเท็จจริงที่ยืนยันแล้ว',
+  'disclosure.workingDataset':
+    'ชุดข้อมูลที่กำลังใช้งาน โครงสร้างหลักสูตรมาตรฐานยังไม่ได้รับการอนุมัติ',
+  'disclosure.notMedicalAdvice':
+    'นี่คือการให้ความรู้ด้านเครื่องสำอาง ไม่ใช่การวินิจฉัยหรือการรักษาทางการแพทย์',
+  'disclosure.authoredScaffold':
+    'โครงร่างการเรียนที่เขียนขึ้นสำหรับต้นแบบนี้ สอนวิธีคิด และไม่ได้กล่าวอ้างทางวิทยาศาสตร์ใด ๆ',
+
+  'safety.escalation.R2':
+    'เรื่องนี้ฟังดูเหมือนควรหยุดและตรวจสอบ มากกว่าจะเรียนรู้ต่อไป แนะนำให้ปรึกษาผู้เชี่ยวชาญที่มีคุณวุฒิ และหยุดใช้ผลิตภัณฑ์ใหม่ไว้ก่อน',
+  'safety.escalation.R3':
+    'สิ่งที่คุณอธิบายควรได้รับการตรวจจากผู้เชี่ยวชาญที่มีคุณวุฒิ การแนะนำผลิตภัณฑ์ถูกปิดไว้ที่นี่',
+  'safety.escalation.R4':
+    'กรุณาขอความช่วยเหลือด่วนจากหน่วยฉุกเฉินหรือบริการทางการแพทย์ในพื้นที่ทันที บทเรียนนี้จะหยุดที่นี่',
+
+  'lesson.phase.lesson': 'บทเรียนสั้น',
+  'lesson.phase.ask': 'คำถาม',
+  'lesson.phase.think': 'คิดสักครู่',
+  'lesson.phase.hint': 'คำใบ้',
+  'lesson.phase.try': 'คำตอบของคุณ',
+  'lesson.phase.feedback': 'ผลตอบกลับ',
+  'lesson.phase.reflect': 'ทบทวน',
+  'lesson.phase.master': 'หลักฐานความเชี่ยวชาญ',
+  'lesson.phase.complete': 'เสร็จสิ้น',
+
+  'lesson.think.prompt': 'ก่อนจะตอบ — ข้อไหนที่คนอื่นตรวจสอบแทนคุณได้?',
+  'lesson.think.continue': 'ฉันพอเดาได้แล้ว',
+  'lesson.hint.request': 'ฉันต้องการคำใบ้',
+  'lesson.hint.noneLeft': 'ไม่มีคำใบ้เพิ่มแล้ว คำอธิบายด้านล่างคือขั้นสุดท้าย',
+  'lesson.reflect.placeholder': 'เขียนหนึ่งประโยคด้วยคำพูดของคุณเอง…',
+  'lesson.reflect.submit': 'บันทึกการทบทวนของฉัน',
+  'lesson.next': 'ถัดไป',
+  'lesson.restart': 'เริ่มใหม่',
+  'lesson.continueToTransfer': 'ลองสถานการณ์ใหม่',
+  'lesson.finish': 'จบบทเรียนนี้',
+  'lesson.finished': 'จบบทเรียนแล้ว หลักฐานของคุณถูกเก็บไว้ใน เควสต์และความเชี่ยวชาญ',
+
+  'mastery.title': 'หลักฐานความเชี่ยวชาญ',
+  'mastery.accuracy': 'ความถูกต้อง',
+  'mastery.independence': 'ความเป็นอิสระ',
+  'mastery.transfer': 'การนำไปใช้',
+  'mastery.retention': 'การจดจำ',
+  'mastery.notYet': 'ยังไม่มีหลักฐาน',
+  'mastery.satisfied': 'มีหลักฐานแล้ว',
+  'mastery.explainer': 'ความเชี่ยวชาญต้องการหลักฐานครบทั้งสี่ด้าน ตอบถูกครั้งเดียวไม่ใช่ความเชี่ยวชาญ',
+  'mastery.state': 'สถานะผู้เรียน',
+
+  'governance.title': 'การกำกับดูแลเนื้อหา',
+  'governance.openItems': 'รายการกำกับดูแลที่ยังเปิดอยู่',
+  'governance.strandTitle': 'การจัดหมวดสายวิชา',
+  'governance.integrityTitle': 'ความสมบูรณ์ของการอ้างอิง',
+  'governance.localeTitle': 'ความครอบคลุมของภาษา',
+  'governance.noCanonical': 'ยังไม่มีการจัดหมวดมาตรฐานใดได้รับการอนุมัติ',
+  'governance.statusCounts': 'สถานะของบันทึกความรู้',
+
+  'common.source': 'แหล่งที่มา',
+  'common.status': 'สถานะ',
+  'common.evidence': 'หลักฐาน',
+  'common.version': 'เวอร์ชัน',
+  'common.node': 'บันทึกความรู้',
+  'common.skill': 'ทักษะ',
+  'common.locale': 'ภาษา',
+  'common.fallbackLocale': 'แสดงเป็น {locale} — ยังไม่มีคำแปล',
+  'common.notAvailable': 'ไม่มี',
+  'common.comingSoon': 'ยังไม่ได้สร้างในต้นแบบส่วนนี้',
+
+  'ingredient.catalogTitle': 'รายการส่วนผสม',
+  'ingredient.catalogIntro':
+    'ทุกบันทึกส่วนผสมในฐานข้อมูลที่กำกับดูแล แสดงตามที่เป็นอยู่ ยังไม่มีรายการใดผ่านการตรวจสอบหลักฐาน จึงเป็นบันทึกให้ตรวจดู ไม่ใช่คำกล่าวว่าส่วนผสมใดทำอะไร',
+  'ingredient.family': 'กลุ่ม',
+  'ingredient.function': 'หน้าที่หลัก',
+  'ingredient.level': 'ระดับ',
+  'ingredient.learningGoal': 'เป้าหมายการเรียน',
+  'ingredient.reference': 'เอกสารอ้างอิง',
+  'ingredient.noReference': 'ไม่มีการบันทึกเอกสารอ้างอิง',
+  'ingredient.questTitle': 'เควสต์ของสวนส่วนผสม',
+  'ingredient.questIntro':
+    'สามเควสต์ที่กำกับดูแลของโลกนี้ เชื่อมกับแผนที่บันทึกจริงของมัน แต่ละเควสต์ขอให้ผู้เรียนบอกว่าส่วนผสมทำอะไร ซึ่งเป็นการกล่าวอ้างทางวิทยาศาสตร์ จึงยังปิดอยู่จนกว่าบันทึกจะผ่านการตรวจสอบ',
+  'ingredient.winCondition': 'เงื่อนไขความสำเร็จ',
+  'ingredient.coreNode': 'บันทึกหลัก',
+  'ingredient.blockedBy': 'ถูกขวางโดย',
+  'ingredient.lessonTitle': 'สิ่งที่คุณเรียนได้ที่นี่วันนี้',
+  'ingredient.lessonIntro':
+    'การอ่านส่วนผสมให้เป็น ไม่ได้ขึ้นกับข้อมูลส่วนผสมที่ยังไม่ยืนยัน การอ่านคำกล่าวอ้างเป็นทักษะการคิด บทเรียนนี้จึงเปิดอยู่',
+  'ingredient.startLesson': 'เริ่มการอ่านส่วนผสม',
+  'ingredient.backToGarden': 'กลับไปที่สวน',
+  'ingredient.openLesson': 'เปิด',
+  'ingredient.closedLesson': 'ปิด',
+
+  'routine.lessonTitle': 'ก่อนที่คุณจะจัดลำดับใหม่',
+  'routine.lessonIntro':
+    'โลกนี้ไม่ได้บอกคุณว่ารูทีนของคุณควรเป็นอย่างไร แต่สอนคำถามที่ทำให้รูทีนของคุณเองตอบได้ บทเรียนจึงเปิดอยู่ขณะที่บันทึกรูทีนยังอยู่ระหว่างการตรวจสอบ',
+  'routine.startLesson': 'เริ่มการคิดเรื่องรูทีน',
+  'routine.backToStudio': 'กลับไปที่สตูดิโอ',
+  'routine.catalogTitle': 'รูปแบบรูทีนที่กำกับดูแล',
+  'routine.catalogIntro':
+    'สิบบันทึกรูทีนตามที่ฐานข้อมูลเก็บไว้ แต่ละรายการถูกทำเครื่องหมายว่าอนุมัติแล้ว แต่ตารางไม่มีช่องให้รูทีนอ้างหลักฐานได้ จึงไม่มีรายการใดถูกนำเสนอว่าเป็นวิธีที่ถูกต้อง',
+  'routine.sequence': 'ลำดับตั้งต้น',
+  'routine.proseSequence': 'บันทึกเป็นข้อความ ไม่ใช่รายการขั้นตอนที่เรียงลำดับ แสดงตามที่เขียนไว้',
+  'routine.linkedNodes': 'ความรู้ที่เชื่อมโยง',
+  'routine.missingNode': 'บันทึกที่อ้างถึงไม่มีอยู่',
+  'routine.questTitle': 'เควสต์ของสตูดิโอรูทีน',
+  'routine.studioTitle': 'รูทีนของฉัน — การทบทวน',
+  'routine.studioIntro':
+    'เขียนรายการขั้นตอนที่คุณทำจริง แล้วบอกว่าแต่ละขั้นตอนมีไว้เพื่ออะไร เครื่องมือนี้บันทึกสิ่งที่คุณเขียนและนับสิ่งที่คุณอธิบายได้ ไม่ประเมินรูทีนของคุณ ไม่จัดอันดับขั้นตอน และไม่แนะนำอะไร',
+  'routine.addStep': 'เพิ่มขั้นตอน',
+  'routine.stepPlaceholder': 'ขั้นตอนที่คุณทำจริง…',
+  'routine.purposePlaceholder': 'ขั้นตอนนี้มีไว้เพื่ออะไร และคุณจะสังเกตเห็นอย่างไร?',
+  'routine.toPurpose': 'ตอนนี้ ถามว่าทำไม',
+  'routine.finishReview': 'ดูสิ่งที่ฉันอธิบายได้',
+  'routine.reviewHeading': 'สิ่งที่คุณอธิบายได้',
+  'routine.reviewSummary': '{withPurpose} จาก {total} ขั้นตอน มีเหตุผลที่คุณระบุไว้',
+  'routine.reviewNote':
+    'ตัวเลขนั้นเป็นของคุณ ไม่ใช่คะแนน ขั้นตอนที่คุณอธิบายไม่ได้ไม่ใช่สิ่งผิด เพียงแต่เป็นขั้นตอนที่คุณยังเปรียบเทียบ ปกป้อง หรือตัดออกอย่างตั้งใจไม่ได้',
+  'routine.startOver': 'เริ่มใหม่ทั้งหมด',
+  'routine.noSteps': 'ยังไม่มีขั้นตอนในรายการ',
+  'routine.stepLabel': 'ขั้นตอน',
+  'routine.purposeLabel': 'เหตุผล',
+  'routine.notStated': 'ไม่ได้ระบุ',
+
+  'sun.lessonTitle': 'สิ่งที่คุณยืนยันเองได้',
+  'sun.lessonIntro':
+    'โลกนี้ไม่ได้บอกคุณว่าควรใช้การป้องกันแบบใด ทะเบียนหลักฐานไม่มีแหล่งข้อมูลใดเกี่ยวกับแสงแดดหรือรังสียูวีเลย สิ่งเดียวที่ซื่อสัตย์ที่มันสอนได้ คือเส้นแบ่งระหว่างสิ่งที่คุณสังเกตเห็น กับสิ่งที่ต้องการหลักฐาน',
+  'sun.startLesson': 'เริ่มการคิดเรื่องการสัมผัสแดด',
+  'sun.backToObservatory': 'กลับไปที่หอสังเกตการณ์',
+  'sun.logTitle': 'บันทึกการสัมผัสแดดของฉัน',
+  'sun.logIntro':
+    'บันทึกช่วงเวลาของวันที่คุณอยู่จริง: คุณทำอะไร ประมาณเวลาใด นานเท่าใด และอยู่ในสภาพแวดล้อมแบบใด เครื่องมือนี้บันทึกและนับ ไม่ให้คะแนน ไม่ให้เกณฑ์ และไม่ให้คำแนะนำ',
+  'sun.activity': 'คุณกำลังทำอะไรอยู่?',
+  'sun.activityPlaceholder': 'เดินไปตลาด…',
+  'sun.band': 'ประมาณเวลาใด',
+  'sun.setting': 'สภาพแวดล้อม',
+  'sun.minutes': 'นาที',
+  'sun.addEntry': 'เพิ่มลงบันทึก',
+  'sun.review': 'ดูสิ่งที่ฉันบันทึกไว้',
+  'sun.noEntries': 'ยังไม่ได้บันทึกอะไร',
+  'sun.summaryTotal': 'บันทึกไว้ {entries} ช่วง รวม {minutes} นาที',
+  'sun.summaryNote':
+    'นี่คือการสังเกตของคุณเอง ไม่ใช่การวัด และไม่ใช่ระดับความเสี่ยง ช่วงเวลาที่คุณไม่ได้บันทึกคือช่องว่างในบันทึก ไม่ใช่คำกล่าวเกี่ยวกับวันของคุณ',
+  'sun.notRecorded': 'ไม่ได้บันทึก',
+  'sun.startOver': 'เริ่มใหม่ทั้งหมด',
+  'sun.evidenceTitle': 'สถานะหลักฐานของขอบเขตนี้',
+  'sun.questTitle': 'เควสต์ของหอสังเกตการณ์แสงแดด',
+  'sun.band.early-morning': 'เช้าตรู่',
+  'sun.band.midday': 'กลางวัน',
+  'sun.band.afternoon': 'ช่วงบ่าย',
+  'sun.band.evening': 'ช่วงเย็น',
+  'sun.setting.open': 'กลางแจ้ง ไม่มีที่บัง',
+  'sun.setting.partial-shade': 'ร่มบางส่วน',
+  'sun.setting.shade': 'อยู่ในร่ม',
+  'sun.setting.indoors-by-window': 'ในอาคาร ใกล้หน้าต่าง',
+
+  'label.title': 'สี่ข้อความ ในกล่องเดียว',
+  'label.intro':
+    'การอ่านฉลากคือการแยกประเภท ไม่ใช่การตัดสิน โลกนี้ช่วยให้คุณแยกสี่ส่วนออกจากกัน ไม่เคยบอกว่าคำกล่าวอ้างเป็นจริงหรือผลิตภัณฑ์เหมาะกับคุณ',
+  'label.startLesson': 'เริ่มการอ่านฉลาก',
+  'label.backToLibrary': 'กลับไปที่ห้องสมุด',
+  'label.sorterTitle': 'แยกฉลากนี้',
+  'label.sorterIntro': 'วางแต่ละบรรทัดไว้ตรงที่คุณคิดว่าควรอยู่ จะยังไม่มีการตรวจจนกว่าคุณจะขอ',
+  'label.specimenWarning': 'ฉลากฝึกหัด — สมมติขึ้น ไม่มียี่ห้อ',
+  'label.unplaced': 'บรรทัดที่ต้องแยก',
+  'label.allSorted': 'ทุกบรรทัดถูกวางแล้ว ดูด้วยกันไหม?',
+  'label.check': 'ตรวจการแยกของฉัน',
+  'label.keepSorting': 'ขอย้ายอีกหน่อย',
+  'label.finish': 'จบ',
+  'label.startOver': 'เริ่มใหม่ทั้งหมด',
+  'label.allCorrectTitle': 'สี่ส่วน แยกออกได้ครบ',
+  'label.allCorrectBody':
+    'ตอนนี้คุณทำแบบนี้กับกล่องไหนก็ได้ที่หยิบขึ้นมา บนฉลากจริง ส่วนต่าง ๆ จะปนกันมากกว่านี้',
+  'label.someWrongTitle': 'เกือบแล้ว — {correct} จาก {total} อยู่ถูกที่',
+  'label.someWrongBody':
+    'รายการด้านล่างไปอยู่ผิดที่ ลองอ่านดู แล้วย้ายและตรวจอีกครั้ง การผิดก่อนคือวิธีที่ความแตกต่างจะชัดเจนขึ้น',
+  'label.whyLabel': 'พูดง่าย ๆ',
+  'label.movedTo': 'คุณวางสิ่งนี้ไว้ใต้',
+  'label.belongsIn': 'ที่ของมันอยู่ใต้',
+  'label.bucket.CLAIM': 'สิ่งที่มันพูดถึงตัวเอง',
+  'label.bucket.INGREDIENTS': 'สิ่งที่อยู่ข้างใน',
+  'label.bucket.HOW_TO_USE': 'วิธีใช้มัน',
+  'label.bucket.CAUTION': 'สิ่งที่ต้องระวัง',
+  'label.bucketHint.CLAIM': 'เขียนขึ้นเพื่อดึงดูดคุณ บริษัทเลือกที่จะพูดแบบนั้น',
+  'label.bucketHint.INGREDIENTS': 'ชื่อของสิ่งที่อยู่ในขวด กฎหมายบังคับให้พิมพ์ไว้',
+  'label.bucketHint.HOW_TO_USE': 'คำแนะนำจากผู้ผลิตเกี่ยวกับการใช้งาน',
+  'label.bucketHint.CAUTION': 'คำเตือนเรื่องการหยุดใช้ การเก็บรักษา หรือการไปปรึกษาใครสักคน',
+  'label.questTitle': 'เควสต์ของนักสืบฉลาก',
+  'label.evidenceTitle': 'สถานะหลักฐานของขอบเขตนี้',
+
+  'tutor.title': 'ถามมา แล้วดูว่าฉันยืนอยู่บนอะไร',
+  'tutor.intro':
+    'ติวเตอร์นี้ไม่ได้สร้างคำตอบขึ้นมา แต่แสดงให้คุณเห็นสิ่งที่มันเข้าใจ บันทึกที่กำกับดูแลรายการใดที่มันพบ และสิ่งที่มันพูดได้และพูดไม่ได้ — เพื่อให้คุณตัดสินเหตุผล แทนที่จะเชื่อถ้อยคำ',
+  'tutor.placeholder': 'ถามอะไรก็ได้เกี่ยวกับความงาม…',
+  'tutor.ask': 'ถาม',
+  'tutor.tryThese': 'ลองข้อใดข้อหนึ่งนี้',
+  'tutor.understood': 'สิ่งที่ฉันเข้าใจ',
+  'tutor.intent': 'เจตนา',
+  'tutor.mode': 'โหมด',
+  'tutor.risk': 'ความเสี่ยง',
+  'tutor.hintLevel': 'ระดับคำใบ้',
+  'tutor.grounding': 'สิ่งที่ฉันพบ',
+  'tutor.groundingEmpty': 'ไม่มีสิ่งใดในความรู้ที่กำกับดูแลตรงกัน ฉันจะไม่แต่งบันทึกขึ้นมาเพื่อตอบ',
+  'tutor.groundingCount': 'ค้นหา {searched} บันทึก · ตรงกัน {found}',
+  'tutor.matched': 'ตรงกัน',
+  'tutor.canSay': 'สิ่งที่ฉันพูดได้',
+  'tutor.contractNote': 'คำตอบแบบ {mode} มี {total} ส่วน {filled} ส่วนเติมได้อย่างซื่อสัตย์ตอนนี้',
+  'tutor.slotBlocked': 'เติมไม่ได้',
+  'tutor.uncertainty': 'สิ่งที่ฉันไม่แน่ใจ',
+  'tutor.commerce': 'การแนะนำผลิตภัณฑ์',
+  'tutor.commerceBlocked': 'ถูกระงับไว้ ด่านที่ไม่ผ่าน: {gates}',
+  'tutor.trace': 'ร่องรอยการทำงาน',
+  'tutor.traceNote':
+    'เจ็ดขั้นตอนที่ธรรมนูญกำหนดไว้: บริบท การยึดหลัก การจัดประเภท ด่านความเสี่ยง การตอบ การตรวจสอบ การเรียนรู้',
+  'tutor.rulesTitle': 'กฎที่บังคับใช้เป็นด่านเข้ม',
+  'tutor.rulesNote':
+    'บังคับใช้เฉพาะกฎ AI ที่ทั้งอนุมัติแล้วและเป็นข้อบังคับในฐานข้อมูล กฎที่ยังเป็นร่างอ่านได้ แต่ไม่กลายเป็นการบังคับใช้อย่างเงียบ ๆ',
+  'tutor.evalTitle': 'ชุดประเมิน ธรรมนูญ §16',
+  'tutor.evalNote': 'สิบสถานการณ์ที่ธรรมนูญกำหนดให้ผ่านก่อนเปิดใช้ ทั้งหมดทำงานบนระบบเดียวกันนี้',
+  'tutor.evalPassed': 'ผ่าน {passed} จาก {total}',
+
+  'quest.title': 'ยี่สิบห้าเควสต์ และสิ่งที่แต่ละเควสต์รออยู่',
+  'quest.intro':
+    'นี่คือแผนที่ของหลักสูตร ไม่ใช่แถบความคืบหน้า เควสต์ส่วนใหญ่ยังเปิดไม่ได้ และแต่ละเควสต์บอกว่าบันทึกใดขวางอยู่ ที่นี่ไม่มีการให้คะแนน: ไม่มีแหล่งข้อมูลใดกำหนดจำนวนรางวัลไว้',
+  'quest.mapTitle': 'แผนที่เควสต์',
+  'quest.summary':
+    '{open} จาก {total} เควสต์เปิดได้ · {worlds} โลก · {served} มีบทเรียนรองรับแล้ว · {missing} ถูกขวางโดยบันทึกที่ไม่มีอยู่',
+  'quest.open': 'เปิด',
+  'quest.closed': 'ล็อกอยู่',
+  'quest.reward': 'รางวัล',
+  'quest.rewardNote':
+    'ป้ายรางวัลแสดงตามที่ฐานข้อมูลบันทึกไว้ทุกประการ ไม่มีแหล่งข้อมูลใดระบุจำนวน จึงไม่มีการรวมยอด',
+  'quest.claimClass': 'ประเภทคำกล่าวอ้าง',
+  'quest.servedBy': 'รองรับโดย',
+  'quest.blockers': 'รออยู่',
+  'quest.noBlockers': 'ไม่มีอะไรขวางเควสต์นี้',
+  'quest.unresolvedSkill': 'อ้างถึงทักษะที่ไม่มีอยู่',
+  'quest.masteryTitle': 'หลักฐานความเชี่ยวชาญ',
+  'quest.masteryIntro':
+    'สิบสองทักษะที่กำกับดูแล หลักฐานได้มาจากการตอบเท่านั้น และสะสมข้ามทุกโลก — ทักษะที่ฝึกตอนอ่านฉลาก คือทักษะเดียวกับที่ฝึกในสวน',
+  'quest.noEvidence': 'ยังไม่มีหลักฐาน',
+  'quest.evidenceFrom': 'หลักฐานจาก',
+  'quest.attempts': 'ครั้ง',
+  'quest.ladderTitle': 'บันไดเจ็ดระดับ',
+  'quest.ladderNote':
+    'Mastery Competency Matrix เสนอเจ็ดระดับ จาก Beauty Explorer ถึง Beauty Master เอกสารนั้นระบุว่า "DECISION DRAFT — NOT CANONICAL" ที่นี่จึงไม่มีการกำหนดระดับให้ใคร',
+  'quest.resetLedger': 'ลบหลักฐานของฉัน',
+  'quest.ledgerSummary': 'บันทึก {attempts} ครั้ง · {started} จาก 12 ทักษะมีหลักฐาน · เชี่ยวชาญ {mastered}',
+
+  'display.theme': 'หน้าจอ',
+  'display.theme.auto': 'อัตโนมัติ',
+  'display.theme.light': 'สว่าง',
+  'display.theme.dark': 'มืด',
+  'display.textSize': 'ขนาดตัวอักษร',
+  'display.textSize.normal': 'ก',
+  'display.textSize.large': 'ก+',
+  'display.textSize.larger': 'ก++',
+  'display.skipToContent': 'ข้ามไปยังเนื้อหาหลัก',
+
+  'speech.listen': 'ฟัง',
+  'speech.stop': 'หยุด',
+  'speech.unavailable': 'ไม่มีเสียงสำหรับภาษานี้ในอุปกรณ์นี้',
+
+  'speech.listenIn': 'ฟังเป็นภาษา{language}',
+
+  'catalog.unreviewed':
+    'หน้าจอนี้ถูกแปลเป็นภาษาไทย แต่ยังไม่ได้รับการตรวจจากผู้พูดภาษาไทย ถ้อยคำอาจผิด บทเรียนเองไม่ได้รับผลกระทบ',
+  'catalog.safetyOriginal': 'ถ้อยคำต้นฉบับ เพื่อความปลอดภัย',
 };
 
 const CATALOGS: Readonly<Record<string, Partial<Record<MessageKey, string>>>> = {
@@ -1157,6 +1455,7 @@ const CATALOGS: Readonly<Record<string, Partial<Record<MessageKey, string>>>> = 
   ko: MESSAGES_KO,
   fr: MESSAGES_FR,
   lo: MESSAGES_LO,
+  th: MESSAGES_TH,
 };
 
 export interface TranslationResult {
@@ -1208,6 +1507,8 @@ export const CATALOG_REVIEW: Readonly<Record<string, CatalogReview>> = {
   fr: 'UNREVIEWED_DRAFT',
   // LOC-003, "Laos launch language". Being the launch market makes review urgent, not optional.
   lo: 'UNREVIEWED_DRAFT',
+  // LOC-004, "Thailand expansion", and the voice Lao borrows. See SPOKEN_FALLBACK.
+  th: 'UNREVIEWED_DRAFT',
 };
 
 export const catalogReview = (locale: string): CatalogReview =>

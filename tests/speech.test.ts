@@ -11,7 +11,9 @@
 import { describe, expect, it } from 'vitest';
 import {
   SPEECH_RATE,
+  SPOKEN_FALLBACK,
   pickVoice,
+  planSpeech,
   rankVoices,
   scoreVoice,
   voicesForLocale,
@@ -150,5 +152,82 @@ describe('the reading itself', () => {
     // Some Android builds do ship one. Nothing about the null case should block that.
     const withLao = [...MAC, voice('Google ລາວ', 'lo-LA', false)];
     expect(pickVoice(withLao, 'lo')?.lang).toBe('lo-LA');
+  });
+});
+
+/**
+ * The Lao-speaks-Thai fallback.
+ *
+ * The owner's instruction, verbatim: Lao script can be written (the UI catalog exists), Lao
+ * voices essentially do not exist on real devices, and Thai is close enough that a Lao reader
+ * commonly follows it — so speech falls back to the app's own Thai translation, read by a Thai
+ * voice. Never Lao text through a Thai engine: the scripts differ and that would not work at
+ * all, let alone correctly.
+ */
+describe('the Lao voice fallback', () => {
+  it('is registered as Lao \u2192 Thai, and nothing else', () => {
+    expect(SPOKEN_FALLBACK).toEqual({ lo: 'th' });
+  });
+
+  it('speaks the Thai text with a Thai voice when the device has no Lao voice', () => {
+    const device = [...MAC, voice('Kanya', 'th-TH')];
+    const plan = planSpeech(device, 'lo', ['lo', 'th']);
+    expect(plan.spokenLocale).toBe('th');
+    expect(plan.isSubstitute).toBe(true);
+    expect(plan.voice?.lang).toBe('th-TH');
+  });
+
+  it('prefers a genuine Lao voice over the Thai fallback when the device has one', () => {
+    const device = [voice('Google \u0EA5\u0EB2\u0EA7', 'lo-LA', false), voice('Kanya', 'th-TH')];
+    const plan = planSpeech(device, 'lo', ['lo', 'th']);
+    expect(plan.spokenLocale).toBe('lo');
+    expect(plan.isSubstitute).toBe(false);
+  });
+
+  it('never hands Lao script to a Thai voice \u2014 the fallback text must be Thai, not Lao', () => {
+    // The caller (ReadAloud) is responsible for supplying Thai *text* alongside the Lao text;
+    // this only proves the plan names Thai as the language actually spoken, which is the
+    // contract the caller relies on to pick the right string.
+    const plan = planSpeech([voice('Kanya', 'th-TH')], 'lo', ['lo', 'th']);
+    expect(plan.spokenLocale).not.toBe('lo');
+  });
+
+  it('reports total unavailability when neither Lao nor Thai has a voice', () => {
+    const plan = planSpeech(MAC, 'lo', ['lo', 'th']);
+    expect(plan.voice).toBeNull();
+  });
+
+  it('does not apply the fallback when the Thai text was never made available', () => {
+    // A caller that forgets to pass Thai text must not get Thai audio for it.
+    const plan = planSpeech([voice('Kanya', 'th-TH')], 'lo', ['lo']);
+    expect(plan.voice).toBeNull();
+  });
+
+  it('falls through to the base locale (English) when nothing else is available', () => {
+    const plan = planSpeech(MAC, 'lo', ['lo', 'en']);
+    expect(plan.spokenLocale).toBe('en');
+    expect(plan.isSubstitute).toBe(true);
+  });
+
+  it('does not substitute anything for a locale with no declared fallback', () => {
+    // fr has no SPOKEN_FALLBACK entry, so with no French voice the only remaining candidate
+    // is the base locale \u2014 exercised above for lo; here fr must not reach for th.
+    expect(SPOKEN_FALLBACK['fr']).toBeUndefined();
+    const plan = planSpeech([voice('Kanya', 'th-TH')], 'fr', ['fr']);
+    expect(plan.voice).toBeNull();
+  });
+
+  it('needs no substitution at all when the reader has no voice and no fallback text', () => {
+    const plan = planSpeech(MAC, 'lo', ['lo']);
+    // No Lao voice on MAC and no Thai text offered \u2014 still null, not a silent switch to
+    // whatever voice happens to be default.
+    expect(plan.voice).toBeNull();
+    expect(plan.isSubstitute).toBe(false);
+  });
+
+  it('covers Thai itself: a Thai reader gets a Thai voice directly, no fallback involved', () => {
+    const plan = planSpeech([voice('Kanya', 'th-TH')], 'th', ['th']);
+    expect(plan.spokenLocale).toBe('th');
+    expect(plan.isSubstitute).toBe(false);
   });
 });

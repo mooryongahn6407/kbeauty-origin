@@ -21,6 +21,7 @@
  * tested against fixed voice lists, because the useful part — "pick the best one" — is where
  * the judgement is, and it should not need a browser to check.
  */
+import { BASE_LOCALE } from '@/localization/locales';
 
 /** The parts of `SpeechSynthesisVoice` this module needs. Keeps the ranking testable. */
 export interface VoiceLike {
@@ -183,4 +184,62 @@ export function speak(text: string, locale: string, options: SpeakOptions = {}):
 
 export function stopSpeaking(): void {
   if (speechSupported()) globalThis.speechSynthesis.cancel();
+}
+
+/* ------------------------------------------------------------------ *
+ * Speaking one language on behalf of another
+ * ------------------------------------------------------------------ */
+
+/**
+ * A locale whose voice may speak for another when the device has none.
+ *
+ * Lao is the case this exists for. Virtually no device ships a Lao voice, and Lao and Thai are
+ * closely related — Lao readers commonly follow Thai. But the two use **different scripts**: a
+ * Thai voice handed Lao characters does not read them with an accent, it fails or produces
+ * noise. So the fallback is not "read the Lao text in a Thai voice"; it is **read the Thai
+ * text** — the app's own Thai translation of the same string — with a Thai voice.
+ *
+ * Two rules keep that honest, both tested:
+ *   - a fallback locale must have its own UI catalog, so there is real text to speak;
+ *   - the reader is told which language is about to be spoken. Speech that quietly switches
+ *     language is a bug, even when the substitution is a reasonable one.
+ *
+ * This is an engineering DECISION taken on the owner's instruction (PR-037), not a source fact.
+ */
+export const SPOKEN_FALLBACK: Readonly<Record<string, string>> = {
+  lo: 'th',
+};
+
+/** What a read-aloud control will actually do, before it does it. */
+export interface SpeechPlan {
+  /** The voice that will speak, or null when nothing can. */
+  readonly voice: SpeechSynthesisVoice | null;
+  /** The language the text to be spoken is in. */
+  readonly spokenLocale: string;
+  /** True when that is not the language the reader asked for. */
+  readonly isSubstitute: boolean;
+}
+
+/**
+ * Decide what to speak and in which voice, given the languages a passage exists in.
+ *
+ * Tries, in order: the reader's own language; the declared spoken fallback for it; the base
+ * locale. A candidate only counts when the passage exists in that language **and** the device
+ * has a voice for it — a voice with no text and text with no voice are equally useless.
+ */
+export function planSpeech<T extends VoiceLike>(
+  voices: readonly T[],
+  locale: string,
+  /** Languages the passage is available in. */
+  available: readonly string[],
+): { voice: T | null; spokenLocale: string; isSubstitute: boolean } {
+  const fallback = SPOKEN_FALLBACK[locale];
+  const candidates = [locale, ...(fallback ? [fallback] : []), BASE_LOCALE];
+
+  for (const candidate of candidates) {
+    if (!available.includes(candidate)) continue;
+    const voice = pickVoice(voices, candidate);
+    if (voice) return { voice, spokenLocale: candidate, isSubstitute: candidate !== locale };
+  }
+  return { voice: null, spokenLocale: locale, isSubstitute: false };
 }

@@ -259,6 +259,51 @@ describe('everything you can press is big enough to press', () => {
 });
 
 /* ------------------------------------------------------------------ *
+ * Scripts that need more than the Latin defaults
+ * ------------------------------------------------------------------ */
+describe('Lao and Thai typography', () => {
+  // Both stack vowel and tone marks above and below the consonant (collides at the default
+  // 1.7 line-height) and write phrases without spaces between words (overflows a browser that
+  // only breaks on spaces). Checked for both scripts, in parallel, so one cannot regress
+  // without the other being noticed.
+  for (const lang of ['lo', 'th']) {
+    it(`gives :lang(${lang}) its own font stack, not just the Latin default`, () => {
+      const rule = new RegExp(`:root\\[lang='${lang}'\\] body[^{]*\\{[^}]*font-family:`, 's');
+      expect(CSS, lang).toMatch(rule);
+    });
+
+    it(`raises :lang(${lang})'s line-height so stacked marks do not collide`, () => {
+      const start = CSS.search(new RegExp(`:root\\[lang='${lang}'\\] body`));
+      expect(start, lang).toBeGreaterThan(-1);
+      const block = CSS.slice(start, CSS.indexOf('}', start));
+      const match = /line-height:\s*([\d.]+)/.exec(block);
+      expect(match, lang).not.toBeNull();
+      expect(Number.parseFloat(match![1]!), lang).toBeGreaterThanOrEqual(1.9);
+    });
+
+    it(`lets :lang(${lang}) wrap mid-phrase instead of overflowing`, () => {
+      const rule = new RegExp(`:root\\[lang='${lang}'\\][^{]*\\{[^}]*overflow-wrap:\\s*anywhere`, 's');
+      expect(CSS, lang).toMatch(rule);
+    });
+
+    it(`turns off uppercasing for :lang(${lang}), which has no case to transform`, () => {
+      const rule = new RegExp(`:root\\[lang='${lang}'\\][^{]*\\.eyebrow[^{]*\\{[^}]*text-transform:\\s*none`, 's');
+      expect(CSS, lang).toMatch(rule);
+    });
+  }
+
+  it('names Noto Sans Lao and Noto Sans Thai in the shared font stacks too', () => {
+    // Not only under :lang(lo)/:lang(th) — a passage in one script can appear inside an
+    // English sentence (the safety-original wording, or a Thai fallback spoken for Lao), and
+    // must not fall back to tofu just because the surrounding page is in English.
+    expect(CSS).toMatch(/--font-body:[^;]*Noto Sans Lao/);
+    expect(CSS).toMatch(/--font-body:[^;]*Noto Sans Thai/);
+    expect(CSS).toMatch(/--font-ui:[^;]*Noto Sans Lao/);
+    expect(CSS).toMatch(/--font-ui:[^;]*Noto Sans Thai/);
+  });
+});
+
+/* ------------------------------------------------------------------ *
  * Preferences
  * ------------------------------------------------------------------ */
 describe('display preferences', () => {

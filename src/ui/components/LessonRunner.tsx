@@ -26,6 +26,7 @@ import {
   type SessionState,
 } from '@/app/learning-session';
 import { masteryLedger } from '@/mastery/mastery-ledger';
+import { BASE_LOCALE } from '@/localization/locales';
 import { translate, type MessageKey } from '@/localization/messages';
 import { SafetyNotice } from './SafetyNotice';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
@@ -181,9 +182,13 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
             <button className="btn" type="button" onClick={() => dispatch({ type: 'LESSON_READ' })}>
               {translate('lesson.next', locale)}
             </button>
-            {/* Reads the passage above, in the order it appears — nothing added or rephrased. */}
+            {/* Reads the passage above, in the order it appears — nothing added or rephrased.
+                Lesson content exists only in en/ko, so a reader in fr/lo/th is already looking
+                at the English fallback; spokenLocale says so, rather than asking a device for
+                a voice in a language the passage is not actually written in. */}
             <ReadAloud
               locale={locale}
+              spokenLocale={lessonText.usedFallback ? BASE_LOCALE : locale}
               text={[
                 text['hook'] ?? lessonText.variant.text['hook'],
                 lessonText.variant.text['core'],
@@ -205,7 +210,11 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
             <button className="btn" type="button" onClick={() => dispatch({ type: 'THINK_DONE' })}>
               {translate('lesson.think.continue', locale)}
             </button>
-            <ReadAloud locale={locale} text={text['question'] ?? ''} />
+            <ReadAloud
+              locale={locale}
+              spokenLocale={usedFallback ? BASE_LOCALE : locale}
+              text={text['question'] ?? ''}
+            />
           </div>
         </section>
       ) : null}
@@ -216,7 +225,11 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
           <p className="lead">{text['question']}</p>
           <div className="btn--row" style={{ marginTop: 0, marginBottom: '0.6rem' }}>
             {/* The question and the choices together: a listener cannot answer without both. */}
-            <ReadAloud locale={locale} text={[text['question'], ...options].filter(Boolean).join('. ')} />
+            <ReadAloud
+              locale={locale}
+              spokenLocale={usedFallback ? BASE_LOCALE : locale}
+              text={[text['question'], ...options].filter(Boolean).join('. ')}
+            />
           </div>
 
           {state.phase === 'HINT' && state.hintsUsed > 0 ? (

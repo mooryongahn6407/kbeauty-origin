@@ -772,8 +772,49 @@ const PR_036: ProductProposal = {
       'presented as finished. CATALOG_REVIEW records the status; only a person can change it.',
     'No Lao lesson content exists and none was invented. Lesson text stays English with the ' +
       'fallback stated on screen.',
-    'No device voice for Lao exists on typical hardware, so read-aloud reports that it cannot ' +
-      'speak Lao rather than reading it in a Thai or English voice.',
+    'No device voice for Lao exists on typical hardware. As first shipped, read-aloud reported ' +
+      'that it could not speak Lao rather than reading it in a Thai or English voice — revised by ' +
+      'PR-037, which speaks the Thai translation through a Thai voice on the owner\u2019s instruction, ' +
+      'never Lao script through a Thai voice.',
+  ],
+};
+
+const PR_037: ProductProposal = {
+  id: 'PR-037',
+  title: 'Lao read-aloud speaks the Thai translation, in a Thai voice — never Lao script in a Thai voice',
+  classification: 'DECISION',
+  summary:
+    'Owner instruction, verbatim: Lao script can be written (PR-036 already ships it), but no ' +
+    'device voice exists for Lao, so Lao speech should use Thai; if Lao writing itself were not ' +
+    'trustworthy either, the whole locale should present as Thai. Because Lao and Thai are ' +
+    'different scripts, "speak Lao text with a Thai voice" does not degrade gracefully — it ' +
+    'reads as noise or fails outright. The correct substitution is Thai VOICE reading Thai TEXT: ' +
+    'the app\u2019s own Thai catalog (PR-035\u2019s companion — also added here) translation of the ' +
+    'same string, never the Lao characters.',
+  sourceBasis: [
+    'Owner instruction, 2026-09-18: "라오스 어, 적는 거는 지원이 가능한데 음성은 안 돼. 그러니까 ' +
+      '라오스 음성은 태국어로 해야 돼" — Lao writing is supported, Lao voice is not, so Lao voice ' +
+      'must use Thai.',
+    'Master DB 15_LOCALIZATION LOC-004, Stage=Market, Notes="Thailand expansion" — Thai is ' +
+      'itself a governed locale, not a language invented for this purpose.',
+  ],
+  governedRecords: [],
+  blockedBy: [],
+  constraints: [
+    'src/ui/speech.ts — `SPOKEN_FALLBACK` records the substitution (`{ lo: \'th\' }`) as one ' +
+      'named table, not a special case buried in a component, so it can be audited or extended ' +
+      'the same way for any future locale in the same position.',
+    'The reader is always told. `ReadAloud`\u2019s label changes to "Listen (in Thai)" rather than ' +
+      'silently switching language — the same transparency principle as the unreviewed-catalog ' +
+      'banner (PR-036) and the safety-original wording (CLAUDE.md rule 6).',
+    'A genuine Lao voice, where a device has one, is always preferred over the Thai fallback — ' +
+      'this is a fallback for devices with none, not a replacement for Lao audio everywhere.',
+    'Applied first to SafetyNotice, the highest-stakes surface: a Lao reader with an unreviewed ' +
+      'translation and no Lao voice can still hear the safety escalation, correctly, in Thai.',
+    'Lesson content (hook/core/analogy/question) has no Thai variant and none was invented for ' +
+      'this; it exists only in en/ko, so read-aloud there speaks the actual language on screen ' +
+      '(English, via the existing content fallback) rather than reaching for Thai text that ' +
+      'does not exist.',
   ],
 };
 
@@ -783,7 +824,7 @@ export const PRODUCT_PROPOSALS: readonly ProductProposal[] = [
   PR_017, PR_018, PR_019, PR_020, PR_021, PR_022,
   PR_023, PR_024, PR_025, PR_026, PR_027,
   PR_028, PR_029, PR_030, PR_031,
-  PR_032, PR_033, PR_034, PR_035, PR_036,
+  PR_032, PR_033, PR_034, PR_035, PR_036, PR_037,
 ];
 
 /* ── Conflicts that must be resolved before building ────────────────────── */
