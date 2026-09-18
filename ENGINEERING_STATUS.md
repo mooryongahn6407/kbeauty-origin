@@ -2,7 +2,7 @@
 
 **Project:** KOREA GLOW Beauty Learning World
 **Date:** 2026-09-18
-**Phase:** Engineering initialization + six MVP worlds + governance instrumentation
+**Phase:** All seven MVP experiences built + governance instrumentation
 **Branch:** `claude/laughing-babbage-acxc3h`
 
 ---
@@ -211,6 +211,7 @@ $ npm test
  ✓ tests/ingredient-garden.test.ts  (35 tests)
  ✓ tests/routine-studio.test.ts     (29 tests)
  ✓ tests/ai-tutor.test.ts           (32 tests)
+ ✓ tests/quest-mastery.test.ts      (25 tests)
  ✓ tests/label-detective.test.ts    (27 tests)
  ✓ tests/sun-protection.test.ts     (26 tests)
  ✓ tests/product-proposals.test.ts  (23 tests)
@@ -223,9 +224,9 @@ $ npm test
  ✓ tests/localization.test.ts       (12 tests)
  ✓ tests/source-integrity.test.ts   (11 tests)
 
- Test Files  14 passed (14)
-      Tests  287 passed (287)
-   Duration  2.28s
+ Test Files  15 passed (15)
+      Tests  312 passed (312)
+   Duration  2.51s
 
 $ npm run typecheck     # clean
 $ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 465.73 kB (gzip 106.55 kB)
@@ -308,10 +309,16 @@ screen. Nothing below was decided in code.
    as fact. Appendix B of the Constitution requires steps 1–5 to be stable before commerce work.
 6. **Translations exist for en + ko only.** 10 of 12 registered locales have 0% coverage.
    Filling them requires human translation and local-market review, not machine text.
-7. **Persistence is in-memory.** The reflection studio's entries are lost on reload. Session state and mastery do not survive a reload; no database
+7. **The session reducer is not pure.** It writes to the analytics sink and the mastery ledger
+   from inside the reducer, so React StrictMode double-invokes those writes in development. The
+   ledger is idempotent per attempt ID so learner-visible counts are correct; the event sink is
+   not, and will over-count in a development build. The clean fix is to have the reducer return
+   events for the caller to emit.
+8. **Persistence is in-memory.** The reflection studio's entries, the exposure log and the
+   mastery ledger are all lost on reload. Session state and mastery do not survive a reload; no database
    or auth has been chosen.
-8. **No deployment target chosen.** `npm run build` produces a static `dist/`.
-9. **npm audit reports 5 advisories** in the dev toolchain (Vite/esbuild dev-server class).
+9. **No deployment target chosen.** `npm run build` produces a static `dist/`.
+10. **npm audit reports 5 advisories** in the dev toolchain (Vite/esbuild dev-server class).
    They do not affect the production bundle; worth resolving before any hosted deployment.
 
 ## 9. Next coding step
@@ -376,6 +383,51 @@ every sun UI string for SPF figures, PA ratings, broad-spectrum wording or reapp
 intervals; the other asserts the safety-boundary copy says the silence is **about this app's
 evidence and not about whether protection matters**, in both locales. An omission that read as
 reassurance would be its own false claim.
+
+### Quests & Mastery — the last MVP experience
+
+All seven MVP experiences now run. This one is a map of what is locked and why, not a progress
+bar, because that is what the corpus actually supports:
+
+```
+Quest map — 7 of 25 quests can open · 12 worlds · 2 already served by a lesson
+  3 blocked by a record that does not exist (QST-006, QST-011, QST-012)
+  every locked quest names the record and register entry stopping it
+Mastery — 12 governed skills, evidence carried across all worlds
+  answering in Label Detective and My Skin: 2 attempts, SK06 and SK01 each 1/1
+```
+
+**Nothing awards points.** `11_QUESTS` carries Reward labels — XP on 8 quests, Badge on 11,
+and Card, Collection, Seed, Boss, Crown on one or two each — but a search of every extracted
+dataset found **no amount stated for any of them**, and the seven-level ladder in the Competency
+Matrix is marked "PROPOSED — NOT CANONICAL". So labels are shown verbatim, nothing is totalled,
+and no learner is assigned a level. The ladder is rendered with every row tagged PROPOSED.
+
+Mastery is reported instead, per governed skill, from a **cross-lesson ledger**. Its API has
+`record`, `stateFor`, `snapshot` and `reset` — and deliberately no grant, award, unlock or
+setLevel. A test asserts that surface exactly, so a screen cannot hand out a level and no
+commercial or loyalty state can reach it (CLAUDE.md rule 9).
+
+Claim class per quest is an engineering **DECISION**, held in one reviewable table with a stated
+reason for each of the 7 quests that depart from the SCIENTIFIC default.
+
+#### A real defect the browser run caught
+
+The first end-to-end run recorded **4 attempts for 2 answers**. The cause: the session reducer
+performs side effects (`sink.record`, `masteryLedger.record`), and React StrictMode deliberately
+invokes reducers twice in development to surface exactly that. The learner's evidence count was
+wrong on screen.
+
+Fixed properly rather than by removing StrictMode: attempt IDs now include the answer timestamp,
+making them genuinely unique, and the ledger is **idempotent per `attemptId`** — recording the
+same attempt twice counts once, which is what an ID should mean regardless of React. A test
+covers it, and the test fixture was corrected too: it had reused one ID for every attempt, which
+would have masked the bug.
+
+**Still outstanding from the same cause:** the analytics `EventSink` has the same shape and will
+double-count events in a development build. Nothing user-visible reads those counts today, and
+the tests drive the reducer directly so they are unaffected — but the reducer is not pure, and
+that is recorded as a known technical item rather than left implied.
 
 ### AI Tutor — a trust layer, not an answer generator
 

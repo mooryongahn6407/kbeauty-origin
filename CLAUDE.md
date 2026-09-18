@@ -13,7 +13,7 @@ Current build state is in `ENGINEERING_STATUS.md`.
 ```bash
 npm install
 npm run dev              # http://127.0.0.1:5173
-npm test                 # vitest, 287 tests
+npm test                 # vitest, 312 tests
 npm run typecheck        # tsc --noEmit
 npm run build            # typecheck + production build
 npm run extract:sources  # regenerate data/source/*.json from sources/*.xlsx
@@ -40,7 +40,10 @@ These are not style preferences. Each has a test that fails if it is broken.
 7. **No medical diagnosis or treatment functionality.**
 8. **Do not hard-code scientific or product claims in UI components or AI prompts.** They
    belong in governed knowledge/evidence data.
-9. **Keep mastery separate** from loyalty, influencer, partner and commercial status.
+9. **Keep mastery separate** from loyalty, influencer, partner and commercial status. The
+   mastery ledger has `record`/`stateFor`/`snapshot`/`reset` and deliberately no grant, award,
+   unlock or setLevel — evidence is only ever earned from attempts. No XP amount or level
+   threshold is computed anywhere, because no source defines one (OQ-X01).
 10. **Classify anything unresolved** as CONFIRMED / DECISION / HYPOTHESIS / IDEA /
     OPEN QUESTION / REJECTED. Source contradictions go in `src/governance/open-items.ts`;
     product proposals go in `src/governance/product-proposals.ts`, where a test verifies every

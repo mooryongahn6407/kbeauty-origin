@@ -229,6 +229,49 @@ const OQ_E03: OpenGovernanceItem = {
     'document. Resolving a citation also does not make it sufficient — see OQ-E02.',
 };
 
+
+/**
+ * Observed during the Quest & Mastery build (2026-09-18) by resolving every quest's
+ * Primary_Skill against 04_SKILLS.
+ */
+const OQ_Q01: OpenGovernanceItem = {
+  id: 'OQ-Q01',
+  title: 'QST-025 names a primary skill that does not exist',
+  classification: 'OPEN_QUESTION',
+  severity: 'OPEN',
+  summary:
+    'QST-025 "Final Beauty Intelligence Trial" — the culminating quest — carries ' +
+    'Primary_Skill "Mastery", which is not one of the twelve skills in 04_SKILLS. 11_QUESTS ' +
+    'references skills by name rather than by Skill_ID, so the mismatch fails silently. It is ' +
+    'the only unresolved skill reference across all 25 quests.',
+  engineeringPosture:
+    'The quest map reports the reference as unresolved and shows the quest with no skill ' +
+    'attached. Nothing is invented: adding a thirteenth skill, or re-pointing the quest at an ' +
+    'existing one, are both curriculum decisions. A structural fix worth considering is ' +
+    'referencing skills by Skill_ID so a bad reference cannot be silent.',
+};
+
+/**
+ * Observed during the Quest & Mastery build (2026-09-18) by searching every extracted dataset
+ * for a points value or level threshold.
+ */
+const OQ_X01: OpenGovernanceItem = {
+  id: 'OQ-X01',
+  title: 'No source defines an XP amount, a reward value or a level threshold',
+  classification: 'OPEN_QUESTION',
+  severity: 'OPEN',
+  summary:
+    '11_QUESTS carries Reward labels — XP on 8 quests, Badge on 11, and Card, Collection, ' +
+    'Seed, Boss and Crown on one or two each — but no source anywhere states an amount for ' +
+    'any of them. The seven-level ladder in the Mastery Competency Matrix is marked ' +
+    '"PROPOSED — NOT CANONICAL", so there are no level thresholds either.',
+  engineeringPosture:
+    'No XP number is computed and nothing is added up. Reward labels are shown verbatim, and ' +
+    'progress is reported as mastery evidence per skill rather than as points. Inventing a ' +
+    'points economy would fabricate a governed system, and KN-D12-06-002 already defines ' +
+    'growth as capability-based rather than volume-based.',
+};
+
 /** All open items, most blocking first. */
 export const OPEN_GOVERNANCE_ITEMS: readonly OpenGovernanceItem[] = [
   SR_009,
@@ -245,6 +288,8 @@ export const OPEN_GOVERNANCE_ITEMS: readonly OpenGovernanceItem[] = [
   SR_012,
   SR_013,
   OQ_R02,
+  OQ_Q01,
+  OQ_X01,
   OQ_L01,
 ];
 

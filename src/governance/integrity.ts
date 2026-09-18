@@ -19,6 +19,7 @@ import {
   questNodeLinks,
   quests,
   routines,
+  skills,
 } from '@/knowledge/repository';
 import { masterDbStrands } from '@/knowledge/strand-taxonomy';
 
@@ -295,4 +296,38 @@ export function findQuestNumericMismatches(): readonly QuestNumericMismatch[] {
   }
 
   return mismatches;
+}
+
+/* -------------------------------------------------------------------------- *
+ * Quest skill references (observed 2026-09-18, registered as OQ-Q01)
+ * -------------------------------------------------------------------------- */
+
+export interface UnresolvedQuestSkill {
+  readonly questId: string;
+  readonly questName: string;
+  /** The Primary_Skill value the quest carries, verbatim. */
+  readonly primarySkill: string;
+  readonly registeredSkillNames: readonly string[];
+}
+
+/**
+ * Quests whose `Primary_Skill` does not name a skill in 04_SKILLS.
+ *
+ * 11_QUESTS references skills by name rather than by Skill_ID, so a name that does not exist
+ * fails silently: nothing in the sheet forces it to resolve. Reported, never corrected —
+ * inventing a thirteenth skill, or re-pointing the quest at an existing one, are both
+ * curriculum decisions.
+ */
+export function findUnresolvedQuestSkills(): readonly UnresolvedQuestSkill[] {
+  const names = skills.map((skill) => skill.Skill_Name);
+  const known = new Set(names);
+
+  return quests
+    .filter((quest) => quest.Primary_Skill.trim() !== '' && !known.has(quest.Primary_Skill))
+    .map((quest) => ({
+      questId: quest.Quest_ID,
+      questName: quest.Quest_Name,
+      primarySkill: quest.Primary_Skill,
+      registeredSkillNames: names,
+    }));
 }

@@ -14,8 +14,8 @@ import { RoutineStudioScreen } from './screens/RoutineStudioScreen';
 import { SunProtectionScreen } from './screens/SunProtectionScreen';
 import { LabelDetectiveScreen } from './screens/LabelDetectiveScreen';
 import { AITutorScreen } from './screens/AITutorScreen';
+import { QuestMasteryScreen } from './screens/QuestMasteryScreen';
 import { GovernanceScreen } from './screens/GovernanceScreen';
-import { PlaceholderScreen } from './screens/PlaceholderScreen';
 
 type ScreenId =
   | 'mySkin'
@@ -37,18 +37,6 @@ const NAV: readonly { id: ScreenId; key: MessageKey }[] = [
   { id: 'quests', key: 'nav.quests' },
   { id: 'governance', key: 'nav.governance' },
 ];
-
-/** What each unbuilt experience is grounded in, by source ID, and what blocks it today. */
-const PLACEHOLDERS: Partial<
-  Record<ScreenId, { groundedIn: readonly string[]; blockedBy: string }>
-> = {
-  quests: {
-    groundedIn: ['11_QUESTS (25 quests)', '12_QUEST_NODE_MAP', '19_MASTERY_RULES'],
-    blockedBy:
-      'SR-004 … SR-006: QST-006, QST-011 and QST-012 reference missing node IDs. The mastery ' +
-      'engine is implemented and drives the My Skin slice.',
-  },
-};
 
 export function App() {
   const [screen, setScreen] = useState<ScreenId>('mySkin');
@@ -106,21 +94,8 @@ export function App() {
           <LabelDetectiveScreen key={locale} locale={locale} />
         ) : null}
         {screen === 'aiTutor' ? <AITutorScreen key={locale} locale={locale} /> : null}
+        {screen === 'quests' ? <QuestMasteryScreen key={locale} locale={locale} /> : null}
         {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
-        {screen !== 'mySkin' &&
-        screen !== 'ingredientGarden' &&
-        screen !== 'routineStudio' &&
-        screen !== 'sunProtection' &&
-        screen !== 'labelDetective' &&
-        screen !== 'aiTutor' &&
-        screen !== 'governance' ? (
-          <PlaceholderScreen
-            locale={locale}
-            titleKey={NAV.find((item) => item.id === screen)!.key}
-            groundedIn={PLACEHOLDERS[screen]?.groundedIn ?? []}
-            blockedBy={PLACEHOLDERS[screen]?.blockedBy ?? ''}
-          />
-        ) : null}
       </main>
     </div>
   );

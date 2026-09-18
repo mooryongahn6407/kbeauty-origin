@@ -240,6 +240,33 @@ const MESSAGES_EN = {
   'tutor.evalNote':
     'Ten scenarios the Constitution requires to pass before launch. They run against this same runtime.',
   'tutor.evalPassed': '{passed} of {total} pass',
+  'quest.title': 'Twenty-five quests, and what each is waiting on',
+  'quest.intro':
+    'This is a map of the curriculum, not a progress bar. Most quests cannot open yet, and each one says which record is stopping it. Nothing here awards points: no source defines an amount for any reward.',
+  'quest.mapTitle': 'Quest map',
+  'quest.summary':
+    '{open} of {total} quests can open · {worlds} worlds · {served} already served by a lesson · {missing} blocked by a record that does not exist',
+  'quest.open': 'Open',
+  'quest.closed': 'Locked',
+  'quest.reward': 'Reward',
+  'quest.rewardNote':
+    'Reward labels are shown exactly as the database records them. No source states an amount for any of them, so nothing is totalled.',
+  'quest.claimClass': 'Claim class',
+  'quest.servedBy': 'Served by',
+  'quest.blockers': 'Waiting on',
+  'quest.noBlockers': 'Nothing is blocking this quest.',
+  'quest.unresolvedSkill': 'Names a skill that does not exist',
+  'quest.masteryTitle': 'Mastery evidence',
+  'quest.masteryIntro':
+    'Twelve governed skills. Evidence is earned only by answering, and it carries across every world — a skill practised while reading a label is the same skill practised in the garden.',
+  'quest.noEvidence': 'No evidence yet',
+  'quest.evidenceFrom': 'Evidence from',
+  'quest.attempts': 'attempts',
+  'quest.ladderTitle': 'The seven-level ladder',
+  'quest.ladderNote':
+    'The Mastery Competency Matrix proposes seven levels from Beauty Explorer to Beauty Master. It is marked "DECISION DRAFT — NOT CANONICAL", so no level is assigned to anyone here.',
+  'quest.resetLedger': 'Clear my evidence',
+  'quest.ledgerSummary': '{attempts} attempts recorded · {started} of 12 skills have evidence · {mastered} mastered',
 } as const;
 
 /**
@@ -470,6 +497,33 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'tutor.evalNote':
     'Constitution이 출시 전 반드시 통과하도록 요구하는 열 가지 시나리오입니다. 지금 이 런타임을 대상으로 실행됩니다.',
   'tutor.evalPassed': '{total}개 중 {passed}개 통과',
+  'quest.title': '스물다섯 개의 퀘스트, 그리고 각각이 기다리는 것',
+  'quest.intro':
+    '이것은 진행률 막대가 아니라 커리큘럼 지도입니다. 대부분의 퀘스트는 아직 열 수 없고, 각각 어떤 레코드가 막고 있는지 말해 줍니다. 여기서는 점수를 주지 않습니다. 어떤 보상에도 수치를 정한 자료가 없기 때문입니다.',
+  'quest.mapTitle': '퀘스트 지도',
+  'quest.summary':
+    '{total}개 중 {open}개 열 수 있음 · {worlds}개 월드 · {served}개는 이미 수업으로 제공 중 · {missing}개는 존재하지 않는 레코드 때문에 막힘',
+  'quest.open': '열림',
+  'quest.closed': '잠김',
+  'quest.reward': '보상',
+  'quest.rewardNote':
+    '보상 표기는 데이터베이스에 적힌 그대로입니다. 어떤 자료도 수치를 정하지 않았으므로 합산하지 않습니다.',
+  'quest.claimClass': '주장 분류',
+  'quest.servedBy': '제공 중인 수업',
+  'quest.blockers': '기다리는 것',
+  'quest.noBlockers': '이 퀘스트를 막는 것이 없습니다.',
+  'quest.unresolvedSkill': '존재하지 않는 스킬을 가리킴',
+  'quest.masteryTitle': '숙달 증거',
+  'quest.masteryIntro':
+    '열두 개의 공식 스킬입니다. 증거는 답을 통해서만 쌓이고, 모든 월드를 가로질러 이어집니다. 라벨을 읽으며 연습한 스킬은 성분 가든에서 연습한 그 스킬과 같습니다.',
+  'quest.noEvidence': '아직 증거 없음',
+  'quest.evidenceFrom': '증거 출처',
+  'quest.attempts': '시도',
+  'quest.ladderTitle': '일곱 단계 사다리',
+  'quest.ladderNote':
+    'Mastery Competency Matrix는 Beauty Explorer부터 Beauty Master까지 일곱 단계를 제안합니다. 다만 "DECISION DRAFT — NOT CANONICAL"로 표시되어 있어, 여기서는 누구에게도 단계를 부여하지 않습니다.',
+  'quest.resetLedger': '내 증거 지우기',
+  'quest.ledgerSummary': '{attempts}회 시도 기록 · 12개 스킬 중 {started}개에 증거 · {mastered}개 숙달',
 };
 
 const CATALOGS: Readonly<Record<string, Partial<Record<MessageKey, string>>>> = {

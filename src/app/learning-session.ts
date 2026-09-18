@@ -23,6 +23,7 @@ import { createMasteryState, recordAttempt } from '@/mastery/mastery-engine';
 import { classifyRisk } from '@/safety/safety-gate';
 import { nextHintLevel } from '@/tutor/tutor-engine';
 import type { EventSink } from '@/analytics/events';
+import { masteryLedger } from '@/mastery/mastery-ledger';
 
 /**
  * A lesson plan names the governed records a learning session stands on.
@@ -369,7 +370,9 @@ export function sessionReducer(
 
       const correct = state.selectedOptionIndex === activity.correctOptionIndex;
       const attempt: Attempt = {
-        attemptId: `${state.activityId}#${state.attempts.length + 1}`,
+        // The timestamp makes the id unique across restarts, and makes a repeated write of the
+        // *same* answer identifiable — see the ledger's idempotency note.
+        attemptId: `${state.activityId}#${state.attempts.length + 1}@${action.at}`,
         userId: state.userId,
         nodeId: state.nodeId,
         skillId: state.skillId,
@@ -400,6 +403,13 @@ export function sessionReducer(
       }
 
       const mastery = recordAttempt(state.mastery, attempt);
+      // The same attempt also accrues to the cross-lesson ledger, so a skill practised in one
+      // world counts toward the same skill everywhere. Evidence is only ever earned this way.
+      //
+      // This is a side effect inside a reducer, which React StrictMode deliberately invokes
+      // twice in development to surface exactly that. The ledger is idempotent per attemptId
+      // so a repeated write of the same answer cannot double-count.
+      masteryLedger.record(attempt);
       emit({
         type: 'mastery_dimension_updated',
         userId: state.userId,
