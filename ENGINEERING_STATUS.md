@@ -961,6 +961,57 @@ halt in both Routine Studio and Sun Protection now renders through `SafetyNotice
 
 484 tests pass; typecheck, build and verify:sources clean.
 
+### Post-deploy self-check on the production build — four real defects found and fixed
+
+After GitHub Pages deployment went live, I re-verified font size, colour, layout and voice
+support against the actual production bundle (`vite build` output, served locally under the
+exact `/kbeauty-origin/` path GitHub Pages uses, since this environment's network policy blocks
+`github.io` directly) with a Chromium/Playwright sweep of all 8 screens, both themes, phone
+width, and all 5 locales. It found four genuine defects, all outside anything checked before:
+
+1. **Three interactive controls were under the 44px minimum tap target** (CLAUDE.md rule 13),
+   none of them covered by the existing target-size test: `.segmented__item` (the theme and
+   text-size toggle buttons) at 38px, `.speak` (the read-aloud "Listen" button used on nearly
+   every screen) at 38px, and `.btn--small` (the AI Tutor's suggested-question buttons) at 36px.
+   All three now use `min-height: var(--tap)` like every other control, and the test that
+   checks "the controls a learner uses most" now names all three so this cannot regress
+   silently again.
+2. **A `<table className="table">` has no responsive behaviour anywhere in the app** — used on
+   7 of 8 screens (Ingredient Garden, Routine Studio, Sun Protection, AI Tutor, Quests &
+   Mastery, Content Governance, and the lesson's own attempt log) with no wrapping container and
+   no `overflow-x`. At phone width, a table wider than the screen dragged the *entire page*
+   sideways rather than scrolling on its own. Fixed with one rule inside the existing
+   narrow-screen media query — `.table { display: block; overflow-x: auto; }` — so each table
+   scrolls independently, the same pattern already used for `.nav`.
+3. **A long unbroken value overflowed the page at phone width.** `ProvenanceStrip`'s source/
+   version footer (e.g. `KOREA_GLOW_Beauty_Mastery_Competency_Matrix_v1.0`) has no spaces to
+   wrap on, and a flex item does not shrink below its own content width by default, so it forced
+   15px of horizontal page scroll on Quests & Mastery specifically. Fixed with
+   `overflow-wrap: anywhere` on `.provenance` (the same technique this file already uses for
+   Lao/Thai body text, just not applied here since this token is not locale-specific).
+
+Checked and *not* changed: the 17px-tall reference-URL citation links in Ingredient Garden's
+ingredient table are plain inline text links inside table prose, not controls — the same
+category WCAG's own 2.5.5 Target Size criterion exempts, so this is not the same bug class as
+the three above.
+
+Also checked and confirmed **not** a bug in the app: my first pass at this self-check reported
+"safety notice has no speak control" for a Lao-locale safety escalation. The actual cause was
+in the test script, not the app — `classifyRisk` (`src/safety/safety-gate.ts`) only recognises
+Korean and English risk-signal substrings (documented and intentional: SR-014/OQ-06 marks
+market-specific signal wording as unapproved pending clinical/legal review, so it is
+deliberately not my call to add Lao patterns). Lao-script "risky" text in the test never
+escalated at all, so the check picked up the page's unrelated top-of-page "unreviewed
+translation" banner instead of a real `SafetyNotice`. Re-tested by submitting an
+already-recognised English risk phrase while the UI itself stayed in Lao: the safety halt fires
+correctly, `SafetyNotice` renders with a working "Listen" control, and it correctly speaks the
+Thai fallback translation (`SPOKEN_FALLBACK`) through a Thai voice — confirmed by inspecting the
+synthesized utterance's language tag (`th-TH`) and Thai-script text, not Lao script.
+
+486 tests pass (2 new: table-scroll and provenance-wrap regression tests); typecheck, build and
+verify:sources clean. Mutation-tested: reverting each CSS fix individually was confirmed to make
+its new test fail, then the real fix was restored and reverified.
+
 ## 10. How to run the project
 
 ```bash
@@ -968,7 +1019,7 @@ git clone <repo> && cd kbeauty-origin
 npm install
 
 npm run dev       # http://127.0.0.1:5173  — My Skin slice + Content Governance screen
-npm test          # 455 tests
+npm test          # 486 tests
 npm run build     # typecheck + production build into dist/
 ```
 

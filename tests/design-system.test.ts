@@ -231,7 +231,15 @@ describe('everything you can press is big enough to press', () => {
   });
 
   it('applies it to the controls a learner uses most', () => {
-    for (const rule of ['.btn', '.option', '.nav__item', '.textarea, .field']) {
+    for (const rule of [
+      '.btn',
+      '.option',
+      '.nav__item',
+      '.textarea, .field',
+      '.segmented__item',
+      '.speak',
+      '.btn--small',
+    ]) {
       // Anchored to the start of a line: a per-language override such as
       // `:root[lang='lo'] .option` is a different rule and must not be mistaken for this one.
       const start = CSS.search(new RegExp(`^${rule.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} \\{`, 'm'));
@@ -255,6 +263,27 @@ describe('everything you can press is big enough to press', () => {
     // Guarded, so that an explicit "light" choice wins over a dark device.
     expect(CSS).toMatch(/:root:not\(\[data-theme='light'\]\)/);
     expect(CSS).toMatch(/:root\[data-theme='dark'\]/);
+  });
+});
+
+/* ------------------------------------------------------------------ *
+ * Narrow screens
+ * ------------------------------------------------------------------ */
+describe('a wide table scrolls on its own axis instead of the whole page', () => {
+  it('makes .table its own horizontal scroll container under the narrow-screen breakpoint', () => {
+    const start = CSS.search(/@media \(max-width: 640px\)\s*\{/);
+    expect(start).toBeGreaterThan(-1);
+    const block = CSS.slice(start, CSS.lastIndexOf('}'));
+    const rule = /^\s*\.table\s*\{[^}]*\}/m.exec(block);
+    expect(rule, '.table rule inside the narrow-screen media query').not.toBeNull();
+    expect(rule?.[0]).toMatch(/overflow-x:\s*auto/);
+  });
+
+  it('lets an unbroken value like a source ID wrap instead of overflowing the page', () => {
+    const start = CSS.search(/^\.provenance \{/m);
+    expect(start).toBeGreaterThan(-1);
+    const body = CSS.slice(start, CSS.indexOf('}', start));
+    expect(body).toMatch(/overflow-wrap:\s*anywhere/);
   });
 });
 
