@@ -575,11 +575,93 @@ const PR_027: ProductProposal = {
   ],
 };
 
+
+/* ── 7. Tutor interaction patterns (2026-09-18 reference video) ─────────── */
+
+const PR_028: ProductProposal = {
+  id: 'PR-028',
+  title: 'Attempt first, then a specific correction — never a bare "incorrect"',
+  classification: 'DECISION',
+  summary:
+    'The learner commits to an answer before anything is marked, and a wrong answer is met with ' +
+    'the exact item, where it went, where it belongs, and one warm sentence saying why.',
+  sourceBasis: [
+    'AI Tutor Constitution C03: user agency before answer delivery',
+    'AI Tutor Constitution §6.3 error taxonomy: respond to the kind of error, not to the score',
+    'AI-002 Student First (Draft, 권장)',
+  ],
+  governedRecords: ['AI-002', 'AI-003', 'SK06'],
+  blockedBy: [],
+  constraints: [
+    'The explanation must be about the mistake, not about the learner. No grade, streak or ' +
+      'score may attach to it (AI-011).',
+  ],
+};
+
+const PR_029: ProductProposal = {
+  id: 'PR-029',
+  title: 'A plain-words line in the learner’s own language, right where the term appears',
+  classification: 'DECISION',
+  summary:
+    'When something needs explaining, explain it inline in one sentence rather than linking ' +
+    'away to a glossary. Rendered under a "쉽게 말하면" heading.',
+  sourceBasis: [
+    'AI Tutor Constitution §9.1 P6 UX Tone: short, elegant, clear, visual-first',
+    'AI Tutor Constitution §13: localization is tone and terminology, not only translation',
+  ],
+  governedRecords: ['AI-014', 'AI-018'],
+  blockedBy: [],
+  constraints: [
+    'Only structural terms may be explained this way — what a claim is, what an ingredient list ' +
+      'is. Explaining what an ingredient does would be a scientific claim needing evidence.',
+  ],
+};
+
+const PR_030: ProductProposal = {
+  id: 'PR-030',
+  title: 'Put the learner in a situation rather than in an exercise',
+  classification: 'DECISION',
+  summary:
+    'Open with the moment the skill is actually needed — someone hands you a box and asks "is ' +
+    'this any good?" — rather than with an instruction to complete a task.',
+  sourceBasis: [
+    'Curriculum Knowledge Tree §8: Scenario carries context, choices, reasoning and safe_boundary',
+    'MASTER_CONTEXT §06: Discover → Understand → Try → Explain → Compare → Decide',
+  ],
+  governedRecords: ['QST-013', 'QST-020'],
+  blockedBy: [
+    'SR-003: Scenario is a curriculum entity the database schema does not define, so scenarios ' +
+      'currently live inside authored activities',
+  ],
+  constraints: [
+    'A scenario may not introduce a real brand or product while 16_PRODUCTS is Template-only. ' +
+      'Practice material must be visibly fictional.',
+  ],
+};
+
+const PR_031: ProductProposal = {
+  id: 'PR-031',
+  title: 'A guide with a voice, not a faceless interface',
+  classification: 'IDEA',
+  summary:
+    'A consistent character speaks to the learner, as a language tutor app does with an avatar ' +
+    'and live captions. Warmth and continuity rather than system messages.',
+  sourceBasis: [],
+  governedRecords: ['AI-010'],
+  blockedBy: ['Not prioritised; no persona defined in any source'],
+  constraints: [
+    'AI-010 No Fear Marketing and C07: a persona must not use warmth to push a purchase, and ' +
+      'must not become a parasocial hook. AI-012 requires intervention to fall as competence rises, ' +
+      'so the guide should speak less over time, not more.',
+  ],
+};
+
 export const PRODUCT_PROPOSALS: readonly ProductProposal[] = [
   PR_001, PR_002, PR_003, PR_004, PR_005, PR_006, PR_007, PR_008,
   PR_009, PR_010, PR_011, PR_012, PR_013, PR_014, PR_015, PR_016,
   PR_017, PR_018, PR_019, PR_020, PR_021, PR_022,
   PR_023, PR_024, PR_025, PR_026, PR_027,
+  PR_028, PR_029, PR_030, PR_031,
 ];
 
 /* ── Conflicts that must be resolved before building ────────────────────── */

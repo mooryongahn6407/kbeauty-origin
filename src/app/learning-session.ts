@@ -112,11 +112,31 @@ export const SUN_EXPOSURE_PLAN: LessonPlan = {
   claimClass: 'PEDAGOGICAL',
 };
 
+/**
+ * Label Detective — label reading.
+ *
+ * Grounded in KN-D11-07-001 "라벨에서 핵심 정보 찾기" (D11 Beauty Media Literacy, strand 11.7
+ * Label Detective) with primary skill SK06 Evaluate Claims per 05_NODE_SKILL_MAP.
+ *
+ * Unlike the other worlds this one *does* claim its quest: QST-013's Core node is exactly this
+ * node, its Win_Condition is "claim/ingredient/use instructions 분리", and none of its three
+ * mapped nodes is missing. Separating the parts of a label is a categorisation of text, so the
+ * lesson asserts nothing about efficacy and can open on Draft records.
+ */
+export const LABEL_READING_PLAN: LessonPlan = {
+  planId: 'label-reading',
+  questId: 'QST-013',
+  nodeId: 'KN-D11-07-001',
+  skillId: 'SK06',
+  claimClass: 'PEDAGOGICAL',
+};
+
 export const LESSON_PLANS: readonly LessonPlan[] = [
   MIRROR_DETECTIVE_PLAN,
   INGREDIENT_HALO_PLAN,
   ROUTINE_PURPOSE_PLAN,
   SUN_EXPOSURE_PLAN,
+  LABEL_READING_PLAN,
 ];
 
 export const findLessonPlan = (planId: string): LessonPlan | undefined =>

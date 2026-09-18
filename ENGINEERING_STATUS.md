@@ -2,7 +2,7 @@
 
 **Project:** KOREA GLOW Beauty Learning World
 **Date:** 2026-09-18
-**Phase:** Engineering initialization + four MVP worlds + governance instrumentation
+**Phase:** Engineering initialization + five MVP worlds + governance instrumentation
 **Branch:** `claude/laughing-babbage-acxc3h`
 
 ---
@@ -210,6 +210,7 @@ $ npm test
 
  ✓ tests/ingredient-garden.test.ts  (35 tests)
  ✓ tests/routine-studio.test.ts     (29 tests)
+ ✓ tests/label-detective.test.ts    (27 tests)
  ✓ tests/sun-protection.test.ts     (26 tests)
  ✓ tests/product-proposals.test.ts  (23 tests)
  ✓ tests/governance-gates.test.ts   (18 tests)
@@ -221,9 +222,9 @@ $ npm test
  ✓ tests/localization.test.ts       (12 tests)
  ✓ tests/source-integrity.test.ts   (11 tests)
 
- Test Files  12 passed (12)
-      Tests  228 passed (228)
-   Duration  1.91s
+ Test Files  13 passed (13)
+      Tests  255 passed (255)
+   Duration  2.19s
 
 $ npm run typecheck     # clean
 $ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 465.73 kB (gzip 106.55 kB)
@@ -374,6 +375,46 @@ every sun UI string for SPF figures, PA ratings, broad-spectrum wording or reapp
 intervals; the other asserts the safety-boundary copy says the silence is **about this app's
 evidence and not about whether protection matters**, in both locales. An omission that read as
 reassurance would be its own false claim.
+
+### Label Detective — the one world whose quest can actually run
+
+`QST-013`'s win condition is literally `claim/ingredient/use instructions 분리` — separation,
+not evaluation — and none of its three mapped nodes is missing. Separating the parts of a label
+is a categorisation of text, so the quest opens as a `PEDAGOGICAL` claim while still failing as
+a `SCIENTIFIC` one. Both are asserted by test.
+
+D11 also has **the best evidence alignment in the corpus**: its nodes cite `FDA-01`, which
+resolves by URL to `SRC-005` "FDA Cosmetics Labeling Claims" — genuinely on topic for what the
+nodes teach, unlike D04 where sun nodes point at a general skin-care page. That makes D11.7 the
+strongest candidate for the first approved evidence seed set.
+
+The world ships a real sorting exercise. Verified in Chromium:
+
+```
+Label Detective
+  quest QST-013: Open (as categorisation); would be blocked by 6 records as a scientific claim
+  sorter: 8 lines, 4 buckets
+    deliberately misplaced -> "Nearly — 2 of 8 are where they belong", 6 correction cards
+    each card: ✕ line · "You put this under X · It belongs under Y" · "In plain words" …
+    sorted correctly -> "All four parts, told apart", 8 rows
+  Korean: 스스로에 대해 하는 말 | 안에 든 것 | 어떻게 쓰는지 | 조심할 것
+console errors: none
+```
+
+Specimens are explicitly fictional and unbranded, because `16_PRODUCTS` is Template-only and a
+real label would need product data that does not exist. Tests assert every specimen declares
+itself fictional, carries no brand or SKU, and that no explanation anywhere claims an
+ingredient does something — the correct answer is always *which part of a label a line is*.
+
+### Interaction patterns from the reference video
+
+A Loora-style language-tutor recording was supplied as a tone reference. Frames were extracted
+and reviewed; the audio could not be transcribed, so the reading is visual only. Four patterns
+were recorded as proposals (PR-028 … PR-031) and three are implemented in Label Detective:
+attempt-first with a specific correction rather than a bare "incorrect"; a plain-words line in
+the learner's own language right where it is needed ("쉽게 말하면"); and opening with the
+situation rather than the task. A persona with a voice is registered as an IDEA, constrained by
+AI-010 and AI-012.
 
 ### Evidence resolution — OQ-E01 turns out to be mechanically solvable
 

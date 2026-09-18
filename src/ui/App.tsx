@@ -12,6 +12,7 @@ import { MySkinScreen } from './screens/MySkinScreen';
 import { IngredientGardenScreen } from './screens/IngredientGardenScreen';
 import { RoutineStudioScreen } from './screens/RoutineStudioScreen';
 import { SunProtectionScreen } from './screens/SunProtectionScreen';
+import { LabelDetectiveScreen } from './screens/LabelDetectiveScreen';
 import { GovernanceScreen } from './screens/GovernanceScreen';
 import { PlaceholderScreen } from './screens/PlaceholderScreen';
 
@@ -40,11 +41,6 @@ const NAV: readonly { id: ScreenId; key: MessageKey }[] = [
 const PLACEHOLDERS: Partial<
   Record<ScreenId, { groundedIn: readonly string[]; blockedBy: string }>
 > = {
-  labelDetective: {
-    groundedIn: ['Domain D11', 'Quest QST-013', 'Strand 11.7 Label Detective'],
-    blockedBy:
-      'SR-011: 16_PRODUCTS holds only Template rows, so there are no real labels to analyse.',
-  },
   aiTutor: {
     groundedIn: ['13_AI_RULES (20 rules)', 'AI Tutor Constitution v1.0', 'src/tutor/tutor-engine.ts'],
     blockedBy:
@@ -111,11 +107,15 @@ export function App() {
         {screen === 'sunProtection' ? (
           <SunProtectionScreen key={locale} locale={locale} />
         ) : null}
+        {screen === 'labelDetective' ? (
+          <LabelDetectiveScreen key={locale} locale={locale} />
+        ) : null}
         {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
         {screen !== 'mySkin' &&
         screen !== 'ingredientGarden' &&
         screen !== 'routineStudio' &&
         screen !== 'sunProtection' &&
+        screen !== 'labelDetective' &&
         screen !== 'governance' ? (
           <PlaceholderScreen
             locale={locale}

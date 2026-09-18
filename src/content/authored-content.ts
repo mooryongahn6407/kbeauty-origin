@@ -15,9 +15,10 @@ import firstSlice from '../../data/authored/first-slice.json';
 import ingredientLiteracy from '../../data/authored/ingredient-literacy.json';
 import routineReasoning from '../../data/authored/routine-reasoning.json';
 import sunObservation from '../../data/authored/sun-observation.json';
+import labelReading from '../../data/authored/label-reading.json';
 
 /** All authored packs. A new pack is added here and inherits every governance test. */
-const PACKS = [firstSlice, ingredientLiteracy, routineReasoning, sunObservation];
+const PACKS = [firstSlice, ingredientLiteracy, routineReasoning, sunObservation, labelReading];
 
 export const authoredAtoms = PACKS.flatMap(
   (pack) => pack.atoms,
