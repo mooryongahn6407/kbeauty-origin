@@ -11,6 +11,7 @@ import { LOCALES } from '@/localization/locales';
 import { MySkinScreen } from './screens/MySkinScreen';
 import { IngredientGardenScreen } from './screens/IngredientGardenScreen';
 import { RoutineStudioScreen } from './screens/RoutineStudioScreen';
+import { SunProtectionScreen } from './screens/SunProtectionScreen';
 import { GovernanceScreen } from './screens/GovernanceScreen';
 import { PlaceholderScreen } from './screens/PlaceholderScreen';
 
@@ -39,12 +40,6 @@ const NAV: readonly { id: ScreenId; key: MessageKey }[] = [
 const PLACEHOLDERS: Partial<
   Record<ScreenId, { groundedIn: readonly string[]; blockedBy: string }>
 > = {
-  sunProtection: {
-    groundedIn: ['Domain D04', 'Quests QST-004 / QST-005', 'Evidence AAD-05'],
-    blockedBy:
-      'SR-009: the D04 nodes are Status=Draft. Sun protection guidance is safety-adjacent and ' +
-      'must not be presented before evidence approval.',
-  },
   labelDetective: {
     groundedIn: ['Domain D11', 'Quest QST-013', 'Strand 11.7 Label Detective'],
     blockedBy:
@@ -113,10 +108,14 @@ export function App() {
         {screen === 'routineStudio' ? (
           <RoutineStudioScreen key={locale} locale={locale} />
         ) : null}
+        {screen === 'sunProtection' ? (
+          <SunProtectionScreen key={locale} locale={locale} />
+        ) : null}
         {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
         {screen !== 'mySkin' &&
         screen !== 'ingredientGarden' &&
         screen !== 'routineStudio' &&
+        screen !== 'sunProtection' &&
         screen !== 'governance' ? (
           <PlaceholderScreen
             locale={locale}

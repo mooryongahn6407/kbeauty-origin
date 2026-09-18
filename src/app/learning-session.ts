@@ -92,10 +92,31 @@ export const ROUTINE_PURPOSE_PLAN: LessonPlan = {
   claimClass: 'PEDAGOGICAL',
 };
 
+/**
+ * Sun Protection — exposure observation.
+ *
+ * Grounded in KN-D04-06-002 "일상 속 선케어 점검" (D04 Sun & Environmental Protection, strand
+ * 04.6 Daily Protection Planning) with primary skill SK07 Decide per 05_NODE_SKILL_MAP.
+ *
+ * QST-004 and QST-005 are the Sun Observatory quests, but neither is used here: both turn on
+ * UV and sunscreen facts, and the evidence position for D04 is the weakest in the corpus —
+ * every D04 node cites one general page and the registry holds no sun source at all (OQ-E02).
+ * This lesson teaches only the separation between what a person can establish about their own
+ * day and what needs evidence from elsewhere.
+ */
+export const SUN_EXPOSURE_PLAN: LessonPlan = {
+  planId: 'sun-exposure-observation',
+  questId: null,
+  nodeId: 'KN-D04-06-002',
+  skillId: 'SK07',
+  claimClass: 'PEDAGOGICAL',
+};
+
 export const LESSON_PLANS: readonly LessonPlan[] = [
   MIRROR_DETECTIVE_PLAN,
   INGREDIENT_HALO_PLAN,
   ROUTINE_PURPOSE_PLAN,
+  SUN_EXPOSURE_PLAN,
 ];
 
 export const findLessonPlan = (planId: string): LessonPlan | undefined =>

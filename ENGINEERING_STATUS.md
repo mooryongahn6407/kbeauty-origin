@@ -2,7 +2,7 @@
 
 **Project:** KOREA GLOW Beauty Learning World
 **Date:** 2026-09-18
-**Phase:** Engineering initialization + three MVP worlds + governance instrumentation
+**Phase:** Engineering initialization + four MVP worlds + governance instrumentation
 **Branch:** `claude/laughing-babbage-acxc3h`
 
 ---
@@ -210,6 +210,7 @@ $ npm test
 
  ✓ tests/ingredient-garden.test.ts  (35 tests)
  ✓ tests/routine-studio.test.ts     (29 tests)
+ ✓ tests/sun-protection.test.ts     (26 tests)
  ✓ tests/product-proposals.test.ts  (23 tests)
  ✓ tests/governance-gates.test.ts   (18 tests)
  ✓ tests/tutor-runtime.test.ts      (18 tests)
@@ -220,9 +221,9 @@ $ npm test
  ✓ tests/localization.test.ts       (12 tests)
  ✓ tests/source-integrity.test.ts   (11 tests)
 
- Test Files  11 passed (11)
-      Tests  202 passed (202)
-   Duration  1.76s
+ Test Files  12 passed (12)
+      Tests  228 passed (228)
+   Duration  1.91s
 
 $ npm run typecheck     # clean
 $ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 465.73 kB (gzip 106.55 kB)
@@ -335,6 +336,66 @@ The last check compares **code against a source**, so the mastery engine driftin
 approved rule text would be caught as a contradiction too. `AUDIT_COVERAGE` reports the three
 requested concepts not yet covered (questions per lesson, choices per question, day counts) and
 why — no source states them, so there is nothing to compare against.
+
+### Sun Protection
+
+The domain where fabrication would do most harm, and where the evidence position turns out to be
+the weakest in the whole corpus. Three findings, all verified against the source:
+
+- All 13 D04 nodes — including "SPF의 의미", "광범위 자외선 차단" and "재도포의 기본 원칙" —
+  cite the general AAD "Skin care basics" page.
+- `14_EVIDENCE` contains **no source about sun, UV or SPF at all**.
+- AI Tutor Constitution §17 cites `AAD-05` "Right Sunscreen" (broad-spectrum, SPF 30+, water
+  resistance), but **no node cites it and it is not in the registry**. `AAD-04` "Product Order"
+  and `FDA-02` are likewise unregistered and uncited.
+
+So the world ships with **no guidance on what protection to use, how much, or how often**, and
+says so. Verified in Chromium:
+
+```
+Sun Protection
+  open lesson: 일상 속 선케어 점검   (D04 04.6 Daily Protection Planning · SK07 Decide)
+  exposure log: 2 periods -> "2 period(s) recorded, 65 minutes in total"
+                Open 40 min · Shade 25 min · Midday 65 min · other bands "Not recorded"
+  safety halt: "햇빛에 타서 너무 아파요" halts the log, stores 0 entries, shows R2 guidance
+  evidence panel: 13/13 nodes cite AAD-02 = SRC-001 "Skin care basics"
+                  unregistered Constitution labels: FDA-02, AAD-04, AAD-05 Right Sunscreen
+  QST-004 UV Detective and QST-005 Sunscreen Label Decoder: both Closed, 12 blockers
+console errors: none
+```
+
+The exposure log records only what the user was present for: activity, coarse time band,
+setting and minutes. It produces counts and nothing else — no score, no threshold, no risk
+level, and a test asserts the state object carries no such field. Time bands with no entry are
+labelled "Not recorded", because a gap in the log is not a statement about the day.
+
+Two tests exist specifically to stop the domain drifting: one scans every authored variant and
+every sun UI string for SPF figures, PA ratings, broad-spectrum wording or reapplication
+intervals; the other asserts the safety-boundary copy says the silence is **about this app's
+evidence and not about whether protection matters**, in both locales. An omission that read as
+reassurance would be its own false claim.
+
+### Evidence resolution — OQ-E01 turns out to be mechanically solvable
+
+While investigating D04 the blocker resolved itself, without guesswork. Every one of the 92
+unresolved citations also carries a `Source_URL`, and **each of those URLs appears verbatim in
+14_EVIDENCE**. Matching on URL derives the mapping from the data:
+
+| Cited | Resolves to | Nodes | Domains |
+|---|---|---|---|
+| `AAD-01` | `SRC-002` Face washing 101 | 13 | D05 |
+| `AAD-02` | `SRC-001` Skin care basics | 13 | D04 |
+| `AAD-03` | `SRC-003` Skin-care product order | 16 | D08 |
+| `EU-01` | `SRC-009` CosIng | 35 | D06 |
+| `FDA-01` | `SRC-005` Cosmetics Labeling Claims | 15 | D11 |
+
+92 of 92 resolve; 0 unresolvable. **But the derived mapping contradicts the Constitution**,
+which labels `AAD-01` "Skin Care Basics" and `AAD-02` "Face Washing 101" — the node sheet pairs
+them the other way round. So it is reported as a proposal (OQ-E03) and nothing is rewritten:
+applying the wrong direction would attach 26 nodes to the wrong document.
+
+Resolving a citation is also not the same as the citation being adequate — which is exactly
+what OQ-E02 shows for D04.
 
 ### Product proposal register
 

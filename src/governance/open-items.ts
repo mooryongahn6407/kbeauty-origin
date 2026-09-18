@@ -183,15 +183,63 @@ const OQ_R02: OpenGovernanceItem = {
     'Neither number is chosen; the quest is reported as unauthorable and stays closed.',
 };
 
+
+/**
+ * Observed during the Sun Protection build (2026-09-18) by checking which registered evidence
+ * source each D04 node actually cites.
+ */
+const OQ_E02: OpenGovernanceItem = {
+  id: 'OQ-E02',
+  title: 'No sun, UV or SPF evidence source exists in the registry, and no node cites one',
+  classification: 'OPEN_QUESTION',
+  severity: 'BLOCKER',
+  summary:
+    'All 13 Sun & Environmental Protection nodes — including "SPF의 의미", "광범위 자외선 차단" ' +
+    'and "재도포의 기본 원칙" — cite the general AAD "Skin care basics" page. 14_EVIDENCE ' +
+    'contains no source about sun, UV or SPF at all. The AI Tutor Constitution §17 does cite ' +
+    'AAD-05 "Right Sunscreen" (broad-spectrum, SPF 30+, water resistance), but no node cites ' +
+    'it and it is absent from the registry.',
+  engineeringPosture:
+    'Sun Protection ships with no guidance on what protection to use, how much or how often. ' +
+    'The world offers an exposure log the user fills in themselves and one lesson about the ' +
+    'boundary between observation and decision. The safety-boundary content states explicitly ' +
+    'that this silence is about the app\u2019s evidence and not about whether protection matters, ' +
+    'so an omission cannot read as reassurance.',
+};
+
+/**
+ * Observed during the Sun Protection build (2026-09-18) while investigating OQ-E01: every
+ * citing node also carries a Source_URL, and each of those URLs is registered in 14_EVIDENCE.
+ */
+const OQ_E03: OpenGovernanceItem = {
+  id: 'OQ-E03',
+  title: 'The evidence ID mapping is derivable from Source_URL, but contradicts the Constitution',
+  classification: 'DECISION',
+  severity: 'CRITICAL',
+  summary:
+    'All 92 unresolved citations can be matched to a registered source by exact Source_URL, so ' +
+    'OQ-E01 needs no guesswork: AAD-01→SRC-002, AAD-02→SRC-001, AAD-03→SRC-003, EU-01→SRC-009, ' +
+    'FDA-01→SRC-005. The derived mapping contradicts AI Tutor Constitution §17, which labels ' +
+    'AAD-01 "Skin Care Basics" and AAD-02 "Face Washing 101" — the node sheet pairs them the ' +
+    'other way round.',
+  engineeringPosture:
+    'The mapping is derived and reported as a proposal; nothing is rewritten. An owner must ' +
+    'say whether the Constitution label or the node Source_URL governs before the IDs are ' +
+    'reconciled, because applying the wrong direction would attach 26 nodes to the wrong ' +
+    'document. Resolving a citation also does not make it sufficient — see OQ-E02.',
+};
+
 /** All open items, most blocking first. */
 export const OPEN_GOVERNANCE_ITEMS: readonly OpenGovernanceItem[] = [
   SR_009,
   OQ_E01,
+  OQ_E02,
   SR_004_007,
   SR_011,
   SR_014,
   SR_001,
   SR_002_003,
+  OQ_E03,
   OQ_S01,
   OQ_R01,
   SR_012,

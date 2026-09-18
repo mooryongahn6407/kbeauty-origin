@@ -14,9 +14,10 @@ import { BASE_LOCALE } from '@/localization/locales';
 import firstSlice from '../../data/authored/first-slice.json';
 import ingredientLiteracy from '../../data/authored/ingredient-literacy.json';
 import routineReasoning from '../../data/authored/routine-reasoning.json';
+import sunObservation from '../../data/authored/sun-observation.json';
 
 /** All authored packs. A new pack is added here and inherits every governance test. */
-const PACKS = [firstSlice, ingredientLiteracy, routineReasoning];
+const PACKS = [firstSlice, ingredientLiteracy, routineReasoning, sunObservation];
 
 export const authoredAtoms = PACKS.flatMap(
   (pack) => pack.atoms,

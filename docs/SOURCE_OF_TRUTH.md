@@ -74,6 +74,8 @@ npm run verify:sources   # exits non-zero if data/source/ no longer matches sour
 | OQ-S01 | In D06, node content is filed one strand later than its subject from 06.3 onward. `Strand_Code`/`Strand_Name` agree with `02_STRANDS` on all 212 nodes, so this is content placement, not a schema break. 5 nodes flagged as suspicions. |
 | OQ-R01 | `09_ROUTINES` has no evidence linkage column at all, yet all 10 rows are `Approved` and each `Default_Sequence` is a procedural claim. 5 of 10 sequences are prose rather than step lists. |
 | OQ-R02 | `QST-007` asks for a 4-step routine while its Core node teaches a 3-step one. The only numeric contradiction across all 25 quests. |
+| OQ-E02 | No source about sun, UV or SPF exists in `14_EVIDENCE`. All 13 D04 nodes cite the general "Skin care basics" page. The Constitution's `AAD-05` "Right Sunscreen" is cited by no node and is not registered. |
+| OQ-E03 | All 92 unresolved citations resolve by exact `Source_URL` match, so OQ-E01 needs no guesswork — but the derived mapping contradicts Constitution §17 on `AAD-01`/`AAD-02`. Reported as a proposal; nothing rewritten. |
 
 Both are reported by `src/governance/integrity.ts` and rendered on the in-app governance
 screen. Neither is repaired in code.
