@@ -90,14 +90,61 @@ const SR_012: OpenGovernanceItem = {
     'hard gates. Draft rules are available to read but do not silently become enforcement.',
 };
 
+
+/**
+ * Observed during the Ingredient Garden build (2026-09-18) by cross-checking node Source_ID
+ * values against 14_EVIDENCE. Not previously recorded in the reconciliation register.
+ */
+const OQ_E01: OpenGovernanceItem = {
+  id: 'OQ-E01',
+  title: 'Node evidence references use a different ID namespace from the evidence registry',
+  classification: 'OPEN_QUESTION',
+  severity: 'BLOCKER',
+  summary:
+    'The 92 Knowledge Nodes marked Evidence_Status=Anchor cite Source_IDs FDA-01, EU-01, ' +
+    'AAD-01, AAD-02 and AAD-03 — the label namespace used by AI Tutor Constitution §17. ' +
+    '14_EVIDENCE registers SRC-001 … SRC-010. None of the 92 references resolves, so the ' +
+    'evidence traceability chain is broken for every node that claims an anchor.',
+  engineeringPosture:
+    'The integrity checker reports each unresolved reference. No Source_ID is rewritten and no ' +
+    'mapping is guessed: choosing which registered source a claim was anchored to is a ' +
+    'governance decision, and a wrong guess would attach a node to the wrong evidence. The ' +
+    'lesson availability gate treats an unresolved reference as blocking for scientific claims.',
+};
+
+/**
+ * Observed during the Ingredient Garden build (2026-09-18) by cross-checking node titles
+ * against the governed ingredient families in 06_INGREDIENTS.
+ */
+const OQ_S01: OpenGovernanceItem = {
+  id: 'OQ-S01',
+  title: 'Knowledge node content appears to be filed one strand later than its subject in D06',
+  classification: 'OPEN_QUESTION',
+  severity: 'CRITICAL',
+  summary:
+    'In Domain D06 the node content drifts against the strand it is filed under from strand ' +
+    '06.3 onward: "Retinol 기본" sits in 06.8 Exfoliating Acids, "Niacinamide 기본 개념" in ' +
+    '06.5 Barrier Lipids, "Panthenol 기본" in 06.9 Retinoid Family. Strand_Code and ' +
+    'Strand_Name agree with 02_STRANDS on every node, so this is content placement rather ' +
+    'than a schema break. It breaks quests QST-010, QST-011 and QST-012, whose supporting ' +
+    'nodes are about a different subject from the quest.',
+  engineeringPosture:
+    'Detected from governed vocabulary only — an ingredient named in a node title whose Family ' +
+    'matches a different strand in the same domain. Every result is reported as a suspicion ' +
+    'needing owner confirmation, because the correction could be to move the node, rename the ' +
+    'strand or re-title the node, and only a curriculum owner can decide which. Nothing is moved.',
+};
+
 /** All open items, most blocking first. */
 export const OPEN_GOVERNANCE_ITEMS: readonly OpenGovernanceItem[] = [
   SR_009,
+  OQ_E01,
   SR_004_007,
   SR_011,
   SR_014,
   SR_001,
   SR_002_003,
+  OQ_S01,
   SR_012,
   SR_013,
   OQ_L01,

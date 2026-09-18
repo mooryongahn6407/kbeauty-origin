@@ -90,6 +90,29 @@ const MESSAGES_EN = {
   'common.fallbackLocale': 'Shown in {locale} — no translation available yet.',
   'common.notAvailable': 'Not available',
   'common.comingSoon': 'Not built in this prototype slice.',
+
+  'ingredient.catalogTitle': 'Ingredient catalog',
+  'ingredient.catalogIntro':
+    'Every ingredient record in the governed database, shown exactly as it stands. None has completed evidence review, so these are records to inspect — not statements about what any ingredient does.',
+  'ingredient.family': 'Family',
+  'ingredient.function': 'Primary function',
+  'ingredient.level': 'Level',
+  'ingredient.learningGoal': 'Learning goal',
+  'ingredient.reference': 'Reference',
+  'ingredient.noReference': 'No reference recorded',
+  'ingredient.questTitle': 'Ingredient Garden quests',
+  'ingredient.questIntro':
+    'The three governed quests for this world, wired to their real node map. Each asks the learner to state what an ingredient does, which is a scientific claim, so each stays closed until its records pass evidence review.',
+  'ingredient.winCondition': 'Win condition',
+  'ingredient.coreNode': 'Core node',
+  'ingredient.blockedBy': 'Blocked by',
+  'ingredient.lessonTitle': 'What you can learn here today',
+  'ingredient.lessonIntro':
+    'Ingredient literacy does not depend on unverified ingredient data. Reading a claim is a reasoning skill, so this lesson is open.',
+  'ingredient.startLesson': 'Start ingredient literacy',
+  'ingredient.backToGarden': 'Back to the garden',
+  'ingredient.openLesson': 'Open',
+  'ingredient.closedLesson': 'Closed',
 } as const;
 
 /**
@@ -170,6 +193,29 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'common.fallbackLocale': '{locale}로 표시됩니다 — 아직 번역이 없습니다.',
   'common.notAvailable': '해당 없음',
   'common.comingSoon': '이 프로토타입 슬라이스에는 없습니다.',
+
+  'ingredient.catalogTitle': '성분 카탈로그',
+  'ingredient.catalogIntro':
+    '거버넌스 데이터베이스의 모든 성분 레코드를 있는 그대로 보여 줍니다. 근거 검토를 마친 것은 하나도 없으므로, 이것은 살펴볼 레코드이지 성분이 무엇을 한다는 진술이 아닙니다.',
+  'ingredient.family': '계열',
+  'ingredient.function': '주요 기능',
+  'ingredient.level': '수준',
+  'ingredient.learningGoal': '학습 목표',
+  'ingredient.reference': '참고 자료',
+  'ingredient.noReference': '기록된 참고 자료 없음',
+  'ingredient.questTitle': '성분 가든 퀘스트',
+  'ingredient.questIntro':
+    '이 세계의 공식 퀘스트 세 개를 실제 노드 맵에 연결했습니다. 셋 다 성분이 무엇을 하는지 답하도록 요구하는 과학적 주장이므로, 레코드가 근거 검토를 통과할 때까지 닫혀 있습니다.',
+  'ingredient.winCondition': '완료 조건',
+  'ingredient.coreNode': '핵심 노드',
+  'ingredient.blockedBy': '차단 사유',
+  'ingredient.lessonTitle': '오늘 여기서 배울 수 있는 것',
+  'ingredient.lessonIntro':
+    '성분 리터러시는 검증되지 않은 성분 데이터에 의존하지 않습니다. 광고 문구를 읽는 일은 사고 기술이므로 이 수업은 열려 있습니다.',
+  'ingredient.startLesson': '성분 리터러시 시작하기',
+  'ingredient.backToGarden': '가든으로 돌아가기',
+  'ingredient.openLesson': '열림',
+  'ingredient.closedLesson': '닫힘',
 };
 
 const CATALOGS: Readonly<Record<string, Partial<Record<MessageKey, string>>>> = {

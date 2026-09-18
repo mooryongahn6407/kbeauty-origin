@@ -105,6 +105,27 @@ threshold.
 The minimum attempt counts are an engineering **DECISION**, not a source value: the source
 states ratios but no sample size. Recorded as SR-013.
 
+## Lesson plans and the availability gate
+
+A `LessonPlan` (`src/app/learning-session.ts`) names the governed records a session stands on:
+quest (or null), node, skill, and the `ClaimClass` the lesson makes. Screens name a plan; they
+cannot assemble one, so a screen cannot point a session at an arbitrary node or widen what a
+lesson claims.
+
+`src/governance/learning-availability.ts` answers the question a screen actually asks — **may
+this whole lesson open?**
+
+| Lesson claim class | Requirement |
+|---|---|
+| `SCIENTIFIC` | Every node and ingredient passes the publication gate **and** its `Source_ID` resolves in `14_EVIDENCE` |
+| `PEDAGOGICAL` / `SAFETY_BOUNDARY` | Records must exist; renders with the pending-verification disclosure |
+| any | A **missing** record blocks unconditionally — teaching around a hole means inventing it |
+
+`createSession()` refuses to start a blocked lesson, so a blocked lesson cannot be reached by
+constructing a session directly, only reported by the screen that offered it.
+
+Both My Skin and Ingredient Garden mount the same `LessonRunner` with a different plan.
+
 ## First end-to-end slice
 
 Quest `QST-001` "Mirror Detective" (World: My Skin) → core node `KN-D01-07-001` (Skin

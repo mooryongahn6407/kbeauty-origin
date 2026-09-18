@@ -5,7 +5,11 @@
  * of the source corpus rather than a marketing summary: what is approved, what is not, which
  * references are broken, and which decisions are still open.
  */
-import { findDanglingReferences } from '@/governance/integrity';
+import {
+  evidenceReferenceReport,
+  findDanglingReferences,
+  findSuspectedStrandMisplacements,
+} from '@/governance/integrity';
 import { openItemsBySeverity } from '@/governance/open-items';
 import { corpusStatusBreakdown } from '@/governance/status-report';
 import { localeCoverage } from '@/content/authored-content';
@@ -24,6 +28,8 @@ export function GovernanceScreen({ locale }: { locale: string }) {
   const dangling = findDanglingReferences();
   const corpus = corpusStatusBreakdown();
   const coverage = localeCoverage(LOCALES.map((item) => item.tag));
+  const evidence = evidenceReferenceReport();
+  const misplacements = findSuspectedStrandMisplacements();
 
   return (
     <div className="stack">
@@ -161,6 +167,56 @@ export function GovernanceScreen({ locale }: { locale: string }) {
                   <td>{reference.missingId}</td>
                   <td>{reference.role}</td>
                   <td>{reference.registerId ?? '—'}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
+
+      <section className="card">
+        <p className="eyebrow">Evidence reference integrity · OQ-E01</p>
+        <p className="muted">
+          {evidence.nodesWithSourceId} node(s) cite a Source_ID; {evidence.resolved} resolve
+          against 14_EVIDENCE, {evidence.unresolved} do not. Cited but unregistered:{' '}
+          {evidence.unknownSourceIds.join(', ') || 'none'}. Registered:{' '}
+          {evidence.registeredSourceIds.join(', ')}.
+        </p>
+      </section>
+
+      <section className="card">
+        <p className="eyebrow">Suspected strand misplacement · OQ-S01</p>
+        {misplacements.length === 0 ? (
+          <p className="muted">None detected.</p>
+        ) : (
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Node</th>
+                <th>Filed under</th>
+                <th>Named ingredient</th>
+                <th>Family suggests</th>
+              </tr>
+            </thead>
+            <tbody>
+              {misplacements.map((item) => (
+                <tr key={item.nodeId}>
+                  <td>
+                    {item.nodeId}
+                    <br />
+                    <span className="muted">{item.nodeTitle}</span>
+                  </td>
+                  <td className="muted">
+                    {item.filedUnderStrandCode} {item.filedUnderStrandName}
+                  </td>
+                  <td className="muted">
+                    {item.matchedIngredientName}
+                    <br />
+                    <span className="tag">{item.ingredientFamily}</span>
+                  </td>
+                  <td className="muted">
+                    {item.suggestedStrandCode} {item.suggestedStrandName}
+                  </td>
                 </tr>
               ))}
             </tbody>

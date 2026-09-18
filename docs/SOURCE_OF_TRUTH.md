@@ -66,5 +66,15 @@ npm run verify:sources   # exits non-zero if data/source/ no longer matches sour
 | `19_MASTERY_RULES` | 6 | Ratios without sample sizes (SR-013) |
 | `21_CONTENT_ATOMS` | 20 | All `Draft`; templated text, no authored questions |
 
+### Two further integrity findings (observed 2026-09-18)
+
+| ID | Finding |
+|---|---|
+| OQ-E01 | The 92 nodes marked `Evidence_Status=Anchor` cite `FDA-01`, `EU-01`, `AAD-01..03` (the AI Tutor Constitution §17 label namespace). `14_EVIDENCE` registers `SRC-001…SRC-010`. **0 of 92 resolve.** |
+| OQ-S01 | In D06, node content is filed one strand later than its subject from 06.3 onward. `Strand_Code`/`Strand_Name` agree with `02_STRANDS` on all 212 nodes, so this is content placement, not a schema break. 5 nodes flagged as suspicions. |
+
+Both are reported by `src/governance/integrity.ts` and rendered on the in-app governance
+screen. Neither is repaired in code.
+
 **Consequence:** zero records in the corpus currently pass the publication gate. Nothing in the
 application may be stated as verified fact. This is not a bug; it is the source state.

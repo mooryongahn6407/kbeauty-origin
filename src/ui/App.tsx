@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { translate, type MessageKey, UI_CATALOG_LOCALES } from '@/localization/messages';
 import { LOCALES } from '@/localization/locales';
 import { MySkinScreen } from './screens/MySkinScreen';
+import { IngredientGardenScreen } from './screens/IngredientGardenScreen';
 import { GovernanceScreen } from './screens/GovernanceScreen';
 import { PlaceholderScreen } from './screens/PlaceholderScreen';
 
@@ -37,12 +38,6 @@ const NAV: readonly { id: ScreenId; key: MessageKey }[] = [
 const PLACEHOLDERS: Partial<
   Record<ScreenId, { groundedIn: readonly string[]; blockedBy: string }>
 > = {
-  ingredientGarden: {
-    groundedIn: ['Domain D06', 'Quests QST-008 / QST-009 / QST-010', '06_INGREDIENTS (40 rows)'],
-    blockedBy:
-      'SR-010: all 40 ingredient records are Status=Draft with Evidence_Status "Seed / Verify". ' +
-      'Ingredient teaching makes scientific claims, so it cannot ship before the evidence gate passes.',
-  },
   routineStudio: {
     groundedIn: ['Domain D08', '09_ROUTINES (RUT-001 … RUT-010)', 'Quest QST-007'],
     blockedBy:
@@ -117,8 +112,11 @@ export function App() {
 
       <main className="main">
         {screen === 'mySkin' ? <MySkinScreen key={locale} locale={locale} /> : null}
+        {screen === 'ingredientGarden' ? (
+          <IngredientGardenScreen key={locale} locale={locale} />
+        ) : null}
         {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
-        {screen !== 'mySkin' && screen !== 'governance' ? (
+        {screen !== 'mySkin' && screen !== 'ingredientGarden' && screen !== 'governance' ? (
           <PlaceholderScreen
             locale={locale}
             titleKey={NAV.find((item) => item.id === screen)!.key}

@@ -14,7 +14,8 @@
  */
 import type { Attempt, LessonPhase, MasteryState } from '@/domain/learning';
 import type { Disclosure } from '@/domain/governance';
-import type { LearningActivity } from '@/content/types';
+import type { ClaimClass, LearningActivity } from '@/content/types';
+import { evaluateLessonAvailability, type LessonAvailability } from '@/governance/learning-availability';
 import { activitiesForNode, atomsForNode, findActivity, resolveVariant } from '@/content/authored-content';
 import { evaluatePublication } from '@/governance/publication-gate';
 import { findNode, findQuest, findSkill, nodeLinksForQuest } from '@/knowledge/repository';
@@ -23,10 +24,63 @@ import { classifyRisk } from '@/safety/safety-gate';
 import { nextHintLevel } from '@/tutor/tutor-engine';
 import type { EventSink } from '@/analytics/events';
 
-/** Master Database IDs the slice is grounded in. Not configurable by the UI. */
-export const SLICE_QUEST_ID = 'QST-001';
-export const SLICE_NODE_ID = 'KN-D01-07-001';
-export const SLICE_SKILL_ID = 'SK01';
+/**
+ * A lesson plan names the governed records a learning session stands on.
+ *
+ * Plans are declared here rather than assembled by the UI, so a screen cannot point a session
+ * at an arbitrary node or silently widen what a lesson claims.
+ */
+export interface LessonPlan {
+  readonly planId: string;
+  /** Governing quest from 11_QUESTS, or null when the lesson is grounded directly in a node. */
+  readonly questId: string | null;
+  readonly nodeId: string;
+  readonly skillId: string;
+  /** What kind of claim this lesson makes; drives the availability gate. */
+  readonly claimClass: ClaimClass;
+}
+
+/**
+ * First slice — My Skin.
+ * Quest QST-001 "Mirror Detective" (World: My Skin), core node KN-D01-07-001 per
+ * 12_QUEST_NODE_MAP, primary skill SK01 Observe per 05_NODE_SKILL_MAP.
+ */
+export const MIRROR_DETECTIVE_PLAN: LessonPlan = {
+  planId: 'mirror-detective',
+  questId: 'QST-001',
+  nodeId: 'KN-D01-07-001',
+  skillId: 'SK01',
+  claimClass: 'PEDAGOGICAL',
+};
+
+/**
+ * Ingredient Garden — ingredient literacy.
+ *
+ * Grounded in KN-D11-02-001 "단일 성분 halo effect" (D11 Beauty Media Literacy, strand 11.2
+ * Ingredient Halo) with primary skill SK06 Evaluate Claims per 05_NODE_SKILL_MAP.
+ *
+ * No quest in 12_QUEST_NODE_MAP references the D11-02 nodes, so `questId` is null rather than
+ * being attached to a quest that does not claim it. The lesson teaches a reasoning skill — not
+ * to judge a product by one ingredient — so it asserts nothing about what any ingredient does
+ * and can open while 06_INGREDIENTS is still unverified.
+ */
+export const INGREDIENT_HALO_PLAN: LessonPlan = {
+  planId: 'ingredient-halo',
+  questId: null,
+  nodeId: 'KN-D11-02-001',
+  skillId: 'SK06',
+  claimClass: 'PEDAGOGICAL',
+};
+
+export const LESSON_PLANS: readonly LessonPlan[] = [MIRROR_DETECTIVE_PLAN, INGREDIENT_HALO_PLAN];
+
+export const findLessonPlan = (planId: string): LessonPlan | undefined =>
+  LESSON_PLANS.find((plan) => plan.planId === planId);
+
+/** Shorthand for the first slice, kept because several call sites read better with it. */
+export const SLICE_QUEST_ID = MIRROR_DETECTIVE_PLAN.questId as string;
+export const SLICE_NODE_ID = MIRROR_DETECTIVE_PLAN.nodeId;
+export const SLICE_SKILL_ID = MIRROR_DETECTIVE_PLAN.skillId;
 
 /** Highest hint index available; H4 is explicit teaching (AI Constitution §5.1). */
 const MAX_HINT_STEPS = 3;
@@ -34,8 +88,9 @@ const MAX_HINT_STEPS = 3;
 export interface SessionState {
   readonly userId: string;
   readonly locale: string;
+  readonly planId: string;
   readonly phase: LessonPhase;
-  readonly questId: string;
+  readonly questId: string | null;
   readonly nodeId: string;
   readonly skillId: string;
   readonly activityId: string;
@@ -69,8 +124,13 @@ export type SessionAction =
   | { readonly type: 'RESTART'; readonly at: string };
 
 export interface SliceGrounding {
-  readonly questName: string;
+  readonly plan: LessonPlan;
+  /** Quest name, or null when the lesson is grounded directly in a node. */
+  readonly questName: string | null;
   readonly nodeTitle: string;
+  readonly domainId: string;
+  readonly strandCode: string;
+  readonly strandName: string;
   readonly learningObjective: string;
   readonly skillName: string;
   readonly nodeStatus: string;
@@ -78,70 +138,109 @@ export interface SliceGrounding {
   readonly nodeVersion: string;
   readonly nodeSourceId: string;
   readonly mayStateAsFact: boolean;
+  readonly availability: LessonAvailability;
   readonly disclosures: readonly Disclosure[];
 }
 
 /**
- * Resolve the governed records behind the slice.
+ * Resolve the governed records behind a lesson plan.
+ *
  * Throws if a source ID is missing, because silently substituting content would defeat the
- * grounding contract — a broken reference must be visible, not papered over.
+ * grounding contract — a broken reference must be visible, not papered over. When a plan names
+ * a quest, the quest's Core node in 12_QUEST_NODE_MAP must be the plan's node; a plan cannot
+ * quietly claim a quest it is not the core of.
  */
-export function loadSliceGrounding(): SliceGrounding {
-  const quest = findQuest(SLICE_QUEST_ID);
-  const node = findNode(SLICE_NODE_ID);
-  const skill = findSkill(SLICE_SKILL_ID);
-  if (!quest) throw new Error(`Quest ${SLICE_QUEST_ID} not found in the Master Database`);
-  if (!node) throw new Error(`Knowledge node ${SLICE_NODE_ID} not found in the Master Database`);
-  if (!skill) throw new Error(`Skill ${SLICE_SKILL_ID} not found in the Master Database`);
+export function loadSliceGrounding(plan: LessonPlan = MIRROR_DETECTIVE_PLAN): SliceGrounding {
+  const node = findNode(plan.nodeId);
+  const skill = findSkill(plan.skillId);
+  if (!node) throw new Error(`Knowledge node ${plan.nodeId} not found in the Master Database`);
+  if (!skill) throw new Error(`Skill ${plan.skillId} not found in the Master Database`);
 
-  const coreLink = nodeLinksForQuest(SLICE_QUEST_ID).find((link) => link.Role === 'Core');
-  if (coreLink?.Node_ID !== SLICE_NODE_ID) {
-    throw new Error(
-      `Quest ${SLICE_QUEST_ID} core node is ${coreLink?.Node_ID ?? 'missing'}, expected ${SLICE_NODE_ID}`,
-    );
+  let questName: string | null = null;
+  if (plan.questId !== null) {
+    const quest = findQuest(plan.questId);
+    if (!quest) throw new Error(`Quest ${plan.questId} not found in the Master Database`);
+    questName = quest.Quest_Name;
+
+    const coreLink = nodeLinksForQuest(plan.questId).find((link) => link.Role === 'Core');
+    if (coreLink?.Node_ID !== plan.nodeId) {
+      throw new Error(
+        `Quest ${plan.questId} core node is ${coreLink?.Node_ID ?? 'missing'}, expected ${plan.nodeId}`,
+      );
+    }
   }
 
   const publication = evaluatePublication(node);
+  const availability = evaluateLessonAvailability({
+    claimClass: plan.claimClass,
+    nodeIds: [plan.nodeId],
+  });
+
   return {
-    questName: quest.Quest_Name,
+    plan,
+    questName,
     nodeTitle: node.Node_Title,
+    domainId: node.Domain_ID,
+    strandCode: node.Strand_Code,
+    strandName: node.Strand_Name,
     learningObjective: node.Learning_Objective,
     skillName: skill.Skill_Name,
     nodeStatus: node.Status,
-    nodeEvidenceStatus: node.Evidence_Status || '—',
+    nodeEvidenceStatus: node.Evidence_Status || '\u2014',
     nodeVersion: node.Version,
-    nodeSourceId: node.Source_ID || '—',
+    nodeSourceId: node.Source_ID || '\u2014',
     mayStateAsFact: publication.mayStateAsFact,
-    disclosures: publication.disclosures,
+    availability,
+    disclosures: availability.disclosures,
   };
 }
 
-/** Activities for the slice, in authored order: the practice question first, then transfer. */
-export const sliceActivities = (): readonly LearningActivity[] => activitiesForNode(SLICE_NODE_ID);
+/** Activities for a plan, in authored order: the practice question first, then transfer. */
+export const sliceActivities = (
+  plan: LessonPlan = MIRROR_DETECTIVE_PLAN,
+): readonly LearningActivity[] => activitiesForNode(plan.nodeId);
 
-export const sliceAtoms = () => atomsForNode(SLICE_NODE_ID);
+export const sliceAtoms = (plan: LessonPlan = MIRROR_DETECTIVE_PLAN) => atomsForNode(plan.nodeId);
 
-export function createSession(userId: string, locale: string, at: string): SessionState {
-  const activities = sliceActivities();
-  const first = activities[0];
-  if (!first) throw new Error(`No authored activity exists for node ${SLICE_NODE_ID}`);
+/**
+ * Start a session for a lesson plan.
+ *
+ * Refuses to start a lesson the availability gate has blocked: a blocked lesson must not be
+ * reachable by constructing a session directly, only reported by the screen that offered it.
+ */
+export function createSession(
+  userId: string,
+  locale: string,
+  at: string,
+  plan: LessonPlan = MIRROR_DETECTIVE_PLAN,
+): SessionState {
+  const grounding = loadSliceGrounding(plan);
+  if (!grounding.availability.available) {
+    throw new Error(
+      `Lesson ${plan.planId} is blocked: ${grounding.availability.blockers
+        .map((blocker) => blocker.detail)
+        .join('; ')}`,
+    );
+  }
 
-  const grounding = loadSliceGrounding();
+  const first = sliceActivities(plan)[0];
+  if (!first) throw new Error(`No authored activity exists for node ${plan.nodeId}`);
 
   return {
     userId,
     locale,
+    planId: plan.planId,
     phase: 'LESSON',
-    questId: SLICE_QUEST_ID,
-    nodeId: SLICE_NODE_ID,
-    skillId: SLICE_SKILL_ID,
+    questId: plan.questId,
+    nodeId: plan.nodeId,
+    skillId: plan.skillId,
     activityId: first.activityId,
     hintsUsed: 0,
     failedAttempts: 0,
     selectedOptionIndex: null,
     lastAnswerCorrect: null,
     reflection: null,
-    mastery: createMasteryState(userId, SLICE_SKILL_ID, at),
+    mastery: createMasteryState(userId, plan.skillId, at),
     attempts: [],
     disclosures: grounding.disclosures,
     safetyHaltMessageKey: null,
@@ -149,12 +248,6 @@ export function createSession(userId: string, locale: string, at: string): Sessi
   };
 }
 
-/**
- * Advance the session.
- *
- * Every transition is explicit; an action that does not apply to the current phase is a
- * no-op rather than an error, so the UI cannot drive the state machine into a bad phase.
- */
 export function sessionReducer(
   state: SessionState,
   action: SessionAction,
@@ -343,7 +436,12 @@ export function sessionReducer(
     }
 
     case 'RESTART':
-      return createSession(state.userId, state.locale, action.at);
+      return createSession(
+        state.userId,
+        state.locale,
+        action.at,
+        findLessonPlan(state.planId) ?? MIRROR_DETECTIVE_PLAN,
+      );
 
     default:
       return state;

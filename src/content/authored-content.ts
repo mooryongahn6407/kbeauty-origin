@@ -12,9 +12,18 @@
 import type { AuthoredContentAtom, ContentVariant, LearningActivity } from './types';
 import { BASE_LOCALE } from '@/localization/locales';
 import firstSlice from '../../data/authored/first-slice.json';
+import ingredientLiteracy from '../../data/authored/ingredient-literacy.json';
 
-export const authoredAtoms = firstSlice.atoms as readonly AuthoredContentAtom[];
-export const authoredActivities = firstSlice.activities as readonly LearningActivity[];
+/** All authored packs. A new pack is added here and inherits every governance test. */
+const PACKS = [firstSlice, ingredientLiteracy];
+
+export const authoredAtoms = PACKS.flatMap(
+  (pack) => pack.atoms,
+) as readonly AuthoredContentAtom[];
+
+export const authoredActivities = PACKS.flatMap(
+  (pack) => pack.activities,
+) as readonly LearningActivity[];
 
 export const findAtom = (atomId: string): AuthoredContentAtom | undefined =>
   authoredAtoms.find((atom) => atom.atomId === atomId);
