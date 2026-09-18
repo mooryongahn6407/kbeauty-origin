@@ -1,0 +1,364 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "12_QUEST_NODE_MAP",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 71,
+  "records": [
+    {
+      "Quest_ID": "QST-001",
+      "Node_ID": "KN-D01-07-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-001",
+      "Node_ID": "KN-D02-04-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-001",
+      "Node_ID": "KN-D02-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-002",
+      "Node_ID": "KN-D01-02-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-002",
+      "Node_ID": "KN-D01-02-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-003",
+      "Node_ID": "KN-D01-03-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-003",
+      "Node_ID": "KN-D01-04-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-004",
+      "Node_ID": "KN-D04-01-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-004",
+      "Node_ID": "KN-D04-03-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-004",
+      "Node_ID": "KN-D04-06-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-005",
+      "Node_ID": "KN-D04-02-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-005",
+      "Node_ID": "KN-D04-02-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-005",
+      "Node_ID": "KN-D11-07-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-006",
+      "Node_ID": "KN-D05-02-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-006",
+      "Node_ID": "KN-D05-02-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-006",
+      "Node_ID": "KN-D05-02-003",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-007",
+      "Node_ID": "KN-D08-04-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-007",
+      "Node_ID": "KN-D08-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-008",
+      "Node_ID": "KN-D06-01-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-008",
+      "Node_ID": "KN-D06-01-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-008",
+      "Node_ID": "KN-D06-02-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-008",
+      "Node_ID": "KN-D06-05-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-009",
+      "Node_ID": "KN-D06-02-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-009",
+      "Node_ID": "KN-D06-02-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-009",
+      "Node_ID": "KN-D06-02-003",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-010",
+      "Node_ID": "KN-D06-05-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-010",
+      "Node_ID": "KN-D06-05-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-010",
+      "Node_ID": "KN-D06-05-003",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-011",
+      "Node_ID": "KN-D06-08-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-011",
+      "Node_ID": "KN-D06-08-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-011",
+      "Node_ID": "KN-D06-08-003",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-011",
+      "Node_ID": "KN-D06-08-004",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-012",
+      "Node_ID": "KN-D06-09-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-012",
+      "Node_ID": "KN-D06-09-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-012",
+      "Node_ID": "KN-D06-09-003",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-013",
+      "Node_ID": "KN-D11-07-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-013",
+      "Node_ID": "KN-D11-07-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-013",
+      "Node_ID": "KN-D06-01-003",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-014",
+      "Node_ID": "KN-D11-03-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-014",
+      "Node_ID": "KN-D11-03-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-015",
+      "Node_ID": "KN-D11-04-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-015",
+      "Node_ID": "KN-D11-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-016",
+      "Node_ID": "KN-D09-05-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-016",
+      "Node_ID": "KN-D09-05-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-016",
+      "Node_ID": "KN-D09-02-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-017",
+      "Node_ID": "KN-D09-04-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-017",
+      "Node_ID": "KN-D09-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-017",
+      "Node_ID": "KN-D09-03-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-018",
+      "Node_ID": "KN-D09-03-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-018",
+      "Node_ID": "KN-D09-03-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-018",
+      "Node_ID": "KN-D07-03-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-019",
+      "Node_ID": "KN-D04-04-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-019",
+      "Node_ID": "KN-D04-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-019",
+      "Node_ID": "KN-D08-08-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-020",
+      "Node_ID": "KN-D12-03-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-020",
+      "Node_ID": "KN-D09-03-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-020",
+      "Node_ID": "KN-D11-07-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-021",
+      "Node_ID": "KN-D12-04-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-021",
+      "Node_ID": "KN-D12-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-022",
+      "Node_ID": "KN-D12-05-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-022",
+      "Node_ID": "KN-D12-05-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-023",
+      "Node_ID": "KN-D12-03-002",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-023",
+      "Node_ID": "KN-D08-08-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-023",
+      "Node_ID": "KN-D08-08-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-024",
+      "Node_ID": "KN-D11-01-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-024",
+      "Node_ID": "KN-D11-01-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-024",
+      "Node_ID": "KN-D11-05-002",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-025",
+      "Node_ID": "KN-D12-06-001",
+      "Role": "Core"
+    },
+    {
+      "Quest_ID": "QST-025",
+      "Node_ID": "KN-D12-03-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-025",
+      "Node_ID": "KN-D09-07-001",
+      "Role": "Supporting"
+    },
+    {
+      "Quest_ID": "QST-025",
+      "Node_ID": "KN-D11-01-001",
+      "Role": "Supporting"
+    }
+  ]
+}

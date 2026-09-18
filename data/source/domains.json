@@ -1,0 +1,105 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "01_DOMAINS",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 12,
+  "records": [
+    {
+      "Domain_ID": "D01",
+      "Domain_Name": "Skin Foundations",
+      "Description": "피부 구조·기능·장벽·수분·피지·환경",
+      "Sequence": "1",
+      "Priority": "Core",
+      "Status": "Approved"
+    },
+    {
+      "Domain_ID": "D02",
+      "Domain_Name": "Skin Type & State",
+      "Description": "피부 타입과 현재 상태를 구분하고 관찰",
+      "Sequence": "2",
+      "Priority": "Core",
+      "Status": "Approved"
+    },
+    {
+      "Domain_ID": "D03",
+      "Domain_Name": "Skin Concerns",
+      "Description": "대표적 피부 고민을 교육적으로 이해하고 안전하게 대응",
+      "Sequence": "3",
+      "Priority": "Core",
+      "Status": "Approved"
+    },
+    {
+      "Domain_ID": "D04",
+      "Domain_Name": "Sun & Environmental Protection",
+      "Description": "UV·광노화·기후·오염·열·습도",
+      "Sequence": "4",
+      "Priority": "Core",
+      "Status": "Approved"
+    },
+    {
+      "Domain_ID": "D05",
+      "Domain_Name": "Cleansing & Hygiene",
+      "Description": "세정·메이크업 제거·샤워·위생",
+      "Sequence": "5",
+      "Priority": "Core",
+      "Status": "Approved"
+    },
+    {
+      "Domain_ID": "D06",
+      "Domain_Name": "Ingredients & Cosmetic Science",
+      "Description": "성분군·기능·제형·표기·기초 화장품 과학",
+      "Sequence": "6",
+      "Priority": "Core",
+      "Status": "Approved"
+    },
+    {
+      "Domain_ID": "D07",
+      "Domain_Name": "Product Categories",
+      "Description": "얼굴·바디·헤어 제품의 역할과 카테고리",
+      "Sequence": "7",
+      "Priority": "Core",
+      "Status": "Approved"
+    },
+    {
+      "Domain_ID": "D08",
+      "Domain_Name": "Routine & Layering",
+      "Description": "AM/PM·순서·빈도·간소화·상황별 루틴",
+      "Sequence": "8",
+      "Priority": "Core",
+      "Status": "Approved"
+    },
+    {
+      "Domain_ID": "D09",
+      "Domain_Name": "Personalization & Decision",
+      "Description": "관찰·목표·비교·예산·선택·불확실성",
+      "Sequence": "9",
+      "Priority": "Core",
+      "Status": "Approved"
+    },
+    {
+      "Domain_ID": "D10",
+      "Domain_Name": "Body, Hair & Nails",
+      "Description": "바디·두피·헤어·손·네일",
+      "Sequence": "10",
+      "Priority": "Core",
+      "Status": "Approved"
+    },
+    {
+      "Domain_ID": "D11",
+      "Domain_Name": "Beauty Media Literacy",
+      "Description": "광고·리뷰·인플루언서·트렌드·claim 판단",
+      "Sequence": "11",
+      "Priority": "Core",
+      "Status": "Approved"
+    },
+    {
+      "Domain_ID": "D12",
+      "Domain_Name": "Beauty Mastery & Lifestyle",
+      "Description": "복습·습관·기록·전이·장기 Beauty Intelligence",
+      "Sequence": "12",
+      "Priority": "Core",
+      "Status": "Approved"
+    }
+  ]
+}

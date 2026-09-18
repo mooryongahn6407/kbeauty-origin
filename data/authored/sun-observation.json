@@ -1,0 +1,156 @@
+{
+  "$schema_note": "Application-AUTHORED learning scaffolding for Sun Protection. NOT an official KOREA GLOW source. claimClass is PEDAGOGICAL and SAFETY_BOUNDARY only. This content states nothing about UV, SPF, broad-spectrum coverage, reapplication, or what protection anyone needs. That restriction is unusually strict here for a reason: all 13 D04 nodes cite one general 'Skin care basics' page rather than a sunscreen source, and 14_EVIDENCE registers no source about sun, UV or SPF at all (OQ-E02). What it teaches is what a person can establish by observing their own day, and where that observation stops.",
+  "governanceNote": "Grounded in KN-D04-06-002 '일상 속 선케어 점검' (D04 Sun & Environmental Protection, strand 04.6 Daily Protection Planning), primary skill SK07 Decide per 05_NODE_SKILL_MAP. The safety-boundary atom states explicitly that the absence of guidance here is about this app's evidence state and not about whether sun protection matters — an omission that read as reassurance would itself be a false claim. Review status is Draft and must not be promoted in code.",
+  "atoms": [
+    {
+      "atomId": "AUTHORED-ATOM-007",
+      "nodeId": "KN-D04-06-002",
+      "nodeVersion": "v1.0",
+      "skillId": "SK07",
+      "claimClass": "PEDAGOGICAL",
+      "evidenceSourceIds": [],
+      "reviewStatus": "Draft",
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "hook": "Most people can say what they use. Far fewer can say what their day actually looked like.",
+            "core": "A decision about protection has two halves, and they need different things. The first half is your own day: when you were outside, for how long, and in what setting. You are the only source for that, and you can record it accurately today. The second half is what any of it means — and that needs evidence, from sources that speak specifically to it. Keeping the halves apart is what stops a guess from wearing the costume of a decision. Write down the half you can establish, and hold the other half open until something trustworthy fills it.",
+            "analogy": "A ship's log records the weather that was observed, hour by hour. It is not the forecast, and it does not pretend to be. It is what made the forecast checkable.",
+            "checkPrompt": "Which of these can you establish on your own, without needing a source to back it?",
+            "transferPrompt": "Record one ordinary day. Then mark which parts you observed and which parts you assumed."
+          },
+          "localNotes": "Base authoring locale."
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "hook": "무엇을 바르는지는 대부분 말할 수 있습니다. 하루가 실제로 어땠는지 말할 수 있는 사람은 훨씬 적습니다.",
+            "core": "보호에 관한 판단은 두 부분으로 나뉘고, 각각 필요한 것이 다릅니다. 첫 번째는 나의 하루입니다. 언제 밖에 있었는지, 얼마나 있었는지, 어떤 환경이었는지. 이것은 나만이 알 수 있고, 오늘 당장 정확하게 기록할 수 있습니다. 두 번째는 그것이 무엇을 뜻하는지인데, 이 부분은 그 주제를 구체적으로 다루는 근거가 있어야 합니다. 이 둘을 섞지 않는 것이 짐작이 판단인 척하는 것을 막아 줍니다. 확인할 수 있는 쪽을 적어 두고, 나머지 쪽은 믿을 만한 것이 채워 줄 때까지 열어 두세요.",
+            "analogy": "항해 일지는 관측한 날씨를 시간마다 적습니다. 그것은 예보가 아니고, 예보인 척하지도 않습니다. 다만 예보를 검증할 수 있게 만들어 줍니다.",
+            "checkPrompt": "다음 중 근거 없이 나 혼자서 확인할 수 있는 것은 무엇일까요?",
+            "transferPrompt": "평범한 하루를 기록해 보세요. 그리고 관찰한 부분과 짐작한 부분을 표시해 보세요."
+          },
+          "localNotes": "Korean is a Core locale in Master DB 15_LOCALIZATION (LOC-002)."
+        }
+      ]
+    },
+    {
+      "atomId": "AUTHORED-ATOM-008",
+      "nodeId": "KN-D04-06-002",
+      "nodeVersion": "v1.0",
+      "skillId": "SK12",
+      "claimClass": "SAFETY_BOUNDARY",
+      "evidenceSourceIds": [],
+      "reviewStatus": "Draft",
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "core": "This world does not yet tell you what sun protection to use, how much, or how often. That silence is about this app's evidence, not about whether protection matters — please do not read it as reassurance. For guidance on protection, use a dermatology or public-health source, or ask a professional. And if skin is burned, blistering, painful or getting worse, that is a moment for professional care rather than for a lesson."
+          }
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "core": "이 세계는 아직 어떤 자외선 보호를 어떻게, 얼마나 자주 해야 하는지 알려 드리지 않습니다. 이 침묵은 이 앱의 근거 상태에 관한 것이지, 보호가 중요한지 아닌지에 관한 것이 아닙니다. 괜찮다는 뜻으로 읽지 말아 주세요. 보호 방법에 대해서는 피부과나 공공보건 자료를 참고하시거나 전문가에게 문의하세요. 그리고 피부가 화상을 입었거나, 물집이 생겼거나, 아프거나, 점점 심해진다면 그때는 수업이 아니라 전문가의 진료가 필요한 때입니다."
+          }
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "activityId": "AUTHORED-ACT-007",
+      "atomId": "AUTHORED-ATOM-007",
+      "nodeId": "KN-D04-06-002",
+      "skillId": "SK07",
+      "claimClass": "PEDAGOGICAL",
+      "interactionType": "tap_choice",
+      "correctOptionIndex": 1,
+      "isTransfer": false,
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "Which of these can you establish on your own, without needing a source to back it?",
+            "option0": "How much protection a person in my situation needs.",
+            "option1": "That I was outside from midday for about forty minutes, mostly in open sun.",
+            "option2": "Which product would suit my situation best.",
+            "hintH1": "Two of these are conclusions that would need evidence from outside you. One is a record of something you were present for.",
+            "hintH2": "Ask of each line: was I there, and could I have written it down at the time?",
+            "hintH3": "Look for the one that states a time, a duration and a setting, and stops there.",
+            "feedbackCorrect": "Yes. You were there, so you are the source. Time, duration and setting are yours to record, and recording them is what makes the rest answerable later.",
+            "feedbackIncorrect": "That is a conclusion about what to do, which needs evidence from outside you. Look for the one you could have written down at the time.",
+            "reflectionPrompt": "In your own words: which part of a protection decision are you the source for, and which part are you not?"
+          }
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "다음 중 근거 없이 나 혼자서 확인할 수 있는 것은 무엇일까요?",
+            "option0": "내 상황이면 어느 정도의 보호가 필요한지.",
+            "option1": "정오부터 사십 분쯤, 대부분 그늘 없는 곳에 있었다는 것.",
+            "option2": "내 상황에 어떤 제품이 가장 잘 맞는지.",
+            "hintH1": "두 개는 나 바깥의 근거가 있어야 하는 결론입니다. 하나는 내가 그 자리에 있었던 일의 기록입니다.",
+            "hintH2": "각 문장에 물어보세요. 내가 거기 있었나? 그때 이걸 적을 수 있었나?",
+            "hintH3": "시각과 시간, 그리고 환경을 말하고 거기서 멈추는 것을 찾아보세요.",
+            "feedbackCorrect": "맞습니다. 내가 그 자리에 있었으니 내가 출처입니다. 시각과 시간과 환경은 내가 기록할 수 있고, 그 기록이 있어야 나머지도 나중에 답할 수 있게 됩니다.",
+            "feedbackIncorrect": "그것은 무엇을 해야 하는지에 대한 결론이라 나 바깥의 근거가 필요합니다. 그때 적어 둘 수 있었던 것을 찾아보세요.",
+            "reflectionPrompt": "직접 설명해 보세요. 보호에 관한 판단에서 내가 출처인 부분은 어디이고, 아닌 부분은 어디인가요?"
+          }
+        }
+      ]
+    },
+    {
+      "activityId": "AUTHORED-ACT-008",
+      "atomId": "AUTHORED-ATOM-007",
+      "nodeId": "KN-D04-06-002",
+      "skillId": "SK07",
+      "claimClass": "PEDAGOGICAL",
+      "interactionType": "tap_choice",
+      "correctOptionIndex": 0,
+      "isTransfer": true,
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "A friend is about to spend a long day outdoors somewhere unfamiliar. Which question would give them something they can actually act on?",
+            "option0": "What will their day look like — when outside, how long, and where can they get out of the sun?",
+            "option1": "Which brand do most people online recommend?",
+            "option2": "What is the highest number they can find on a label?",
+            "hintH1": "Two of these ask what other people or packages say. One asks about the day itself.",
+            "hintH2": "Which question could they answer before leaving, using only what they know about their plans?",
+            "hintH3": "Look for the question about the shape of the day rather than about a product.",
+            "feedbackCorrect": "Yes. The shape of the day is something they can establish themselves, and it is the part every later question depends on.",
+            "feedbackIncorrect": "That asks what a crowd or a package says, which is not something they can establish about their own day. Look for the question about the day itself.",
+            "reflectionPrompt": "Rewrite one of the other two questions so that its answer would come from the day rather than from a label."
+          }
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "친구가 낯선 곳에서 하루 종일 야외에 있을 예정입니다. 실제로 행동으로 옮길 수 있는 것을 주는 질문은 어느 것일까요?",
+            "option0": "그날 하루가 어떻게 될까 — 언제 밖에 있고, 얼마나 있고, 어디서 햇빛을 피할 수 있을까?",
+            "option1": "온라인에서 사람들이 가장 많이 추천하는 브랜드는 무엇일까?",
+            "option2": "라벨에서 찾을 수 있는 가장 높은 숫자는 무엇일까?",
+            "hintH1": "두 개는 다른 사람이나 포장이 뭐라고 하는지를 묻습니다. 하나는 그날 하루 자체를 묻습니다.",
+            "hintH2": "출발하기 전에, 자기 일정만 알아도 답할 수 있는 질문은 어느 것일까요?",
+            "hintH3": "제품이 아니라 하루의 모양에 관한 질문을 찾아보세요.",
+            "feedbackCorrect": "맞습니다. 하루의 모양은 스스로 확인할 수 있고, 뒤따르는 모든 질문이 그것에 기대고 있습니다.",
+            "feedbackIncorrect": "그것은 사람들이나 포장이 뭐라고 하는지를 묻는 것이라, 자기 하루에 대해 확인할 수 있는 것이 아닙니다. 하루 자체에 관한 질문을 찾아보세요.",
+            "reflectionPrompt": "나머지 두 질문 중 하나를, 답이 라벨이 아니라 하루에서 나오도록 바꿔 써 보세요."
+          }
+        }
+      ]
+    }
+  ]
+}

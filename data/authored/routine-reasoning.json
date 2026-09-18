@@ -1,0 +1,156 @@
+{
+  "$schema_note": "Application-AUTHORED learning scaffolding for Routine Studio. NOT an official KOREA GLOW source. claimClass is PEDAGOGICAL and SAFETY_BOUNDARY only. This content states nothing about what a routine should contain, what order steps belong in, or how many steps are appropriate — all 10 rows in 09_ROUTINES are Approved but carry no evidence linkage at all (OQ-R01), and every D08 node is Status=Draft (SR-009). What it teaches is the prerequisite reasoning: you cannot evaluate a step until you can say what it is for.",
+  "governanceNote": "Grounded in KN-D08-03-001 '제품 역할로 순서 판단하기' (D08 Routine & Layering, strand 08.3 Order Logic), primary skill SK05 Sequence per 05_NODE_SKILL_MAP. The node is about judging order from product role; this lesson teaches the step before that judgement is possible. Review status is Draft and must not be promoted in code.",
+  "atoms": [
+    {
+      "atomId": "AUTHORED-ATOM-005",
+      "nodeId": "KN-D08-03-001",
+      "nodeVersion": "v1.0",
+      "skillId": "SK05",
+      "claimClass": "PEDAGOGICAL",
+      "evidenceSourceIds": [],
+      "reviewStatus": "Draft",
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "hook": "Take the routine you already have. How many of its steps could you explain to someone who asked why?",
+            "core": "Most routines are assembled one purchase at a time, and a step tends to stay because it is already there. Before you can judge an order, shorten a routine, or decide whether something new belongs, you need one thing for each step: what it is meant to do, and how you would notice if it did. A step you cannot describe that way is not necessarily wrong — it is unevaluable. You cannot compare it, defend it, or drop it on purpose. This lesson does not tell you what your routine should be. It gives you the question that makes your own routine answerable.",
+            "analogy": "A packing list you cannot explain is just a pile of things in a bag. Asking 'why is this here?' of each item is what turns it back into a list.",
+            "checkPrompt": "You are looking at one step in a routine. Which piece of information would let you start evaluating whether it belongs?",
+            "transferPrompt": "Write down your own routine, then mark the steps you could give a purpose for and the ones you could not."
+          },
+          "localNotes": "Base authoring locale."
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "hook": "지금 하고 있는 루틴을 떠올려 보세요. 왜 하느냐고 물으면 설명할 수 있는 단계는 몇 개인가요?",
+            "core": "대부분의 루틴은 한 번에 하나씩 사면서 쌓입니다. 그리고 이미 거기 있다는 이유로 계속 남습니다. 순서를 판단하거나, 루틴을 줄이거나, 새로운 것이 들어갈 자리가 있는지 정하려면 각 단계마다 한 가지가 필요합니다. 그 단계가 무엇을 하려는 것인지, 그리고 그것이 되었다면 내가 어떻게 알아차릴 것인지입니다. 그렇게 설명할 수 없는 단계가 반드시 틀린 것은 아닙니다. 다만 판단할 수 없는 단계입니다. 비교할 수도, 근거를 댈 수도, 의도를 가지고 뺄 수도 없습니다. 이 수업은 루틴이 어때야 하는지 말하지 않습니다. 내 루틴에 대해 답할 수 있게 만드는 질문을 드립니다.",
+            "analogy": "설명할 수 없는 짐 목록은 그냥 가방에 든 물건 더미입니다. 하나하나에 '이게 왜 여기 있지?'를 묻는 순간 다시 목록이 됩니다.",
+            "checkPrompt": "루틴의 한 단계를 보고 있습니다. 그것이 있을 자리인지 판단하기 시작하려면 어떤 정보가 필요할까요?",
+            "transferPrompt": "내 루틴을 적어 보고, 목적을 말할 수 있는 단계와 말할 수 없는 단계를 표시해 보세요."
+          },
+          "localNotes": "Korean is a Core locale in Master DB 15_LOCALIZATION (LOC-002)."
+        }
+      ]
+    },
+    {
+      "atomId": "AUTHORED-ATOM-006",
+      "nodeId": "KN-D08-03-001",
+      "nodeVersion": "v1.0",
+      "skillId": "SK12",
+      "claimClass": "SAFETY_BOUNDARY",
+      "evidenceSourceIds": [],
+      "reviewStatus": "Draft",
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "core": "This world does not tell you what to put in your routine or in what order, and it does not assess whether a routine suits you. It teaches the question you can ask of your own choices. If a step causes pain, irritation that spreads, or a reaction that keeps getting worse, that is a moment to stop and ask a professional rather than to reorganise a list."
+          }
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "core": "이 세계는 루틴에 무엇을 넣어야 하는지, 어떤 순서로 해야 하는지 말하지 않으며 그 루틴이 나에게 맞는지도 판정하지 않습니다. 내 선택에 스스로 던질 질문을 가르칩니다. 어떤 단계가 통증을 일으키거나, 자극이 번지거나, 반응이 계속 심해진다면 그때는 목록을 정리할 때가 아니라 멈추고 전문가에게 문의할 때입니다."
+          }
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "activityId": "AUTHORED-ACT-005",
+      "atomId": "AUTHORED-ATOM-005",
+      "nodeId": "KN-D08-03-001",
+      "skillId": "SK05",
+      "claimClass": "PEDAGOGICAL",
+      "interactionType": "tap_choice",
+      "correctOptionIndex": 2,
+      "isTransfer": false,
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "You are looking at one step in a routine. Which piece of information would let you start evaluating whether it belongs?",
+            "option0": "A friend whose skin you admire uses this step too.",
+            "option1": "It was the most expensive item in the set.",
+            "option2": "What that step is meant to do, and how you would notice if it did.",
+            "hintH1": "Two of these describe something about the product or the person recommending it. One describes the step's job.",
+            "hintH2": "To evaluate anything you need a purpose to measure it against. Which option supplies one?",
+            "hintH3": "Look for the option that names both an intention and a way of checking it.",
+            "feedbackCorrect": "Yes. A purpose plus a way of noticing gives you something to compare against. Without it there is nothing to evaluate, only something to keep doing.",
+            "feedbackIncorrect": "That tells you about the product or about someone else, not about what the step is for. Look for the option that gives you something to measure against.",
+            "reflectionPrompt": "In your own words: why does a step need a stated purpose before you can judge it?"
+          }
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "루틴의 한 단계를 보고 있습니다. 그것이 있을 자리인지 판단하기 시작하려면 어떤 정보가 필요할까요?",
+            "option0": "피부가 좋아 보이는 친구도 이 단계를 한다.",
+            "option1": "세트에서 가장 비싼 제품이었다.",
+            "option2": "그 단계가 무엇을 하려는 것인지, 그리고 되었다면 내가 어떻게 알아차릴지.",
+            "hintH1": "두 개는 제품이나 추천한 사람에 대한 설명입니다. 하나는 그 단계가 맡은 일에 대한 설명입니다.",
+            "hintH2": "무언가를 판단하려면 견줄 목적이 있어야 합니다. 목적을 주는 선택지는 어느 것일까요?",
+            "hintH3": "의도와 확인 방법을 함께 말하는 선택지를 찾아보세요.",
+            "feedbackCorrect": "맞습니다. 목적과 알아차릴 방법이 함께 있어야 견줄 대상이 생깁니다. 그것이 없으면 판단할 것이 없고 그냥 계속하는 일만 남습니다.",
+            "feedbackIncorrect": "그것은 제품이나 다른 사람에 대한 정보이지, 그 단계가 무엇을 위한 것인지는 말해 주지 않습니다. 견줄 기준을 주는 선택지를 찾아보세요.",
+            "reflectionPrompt": "직접 설명해 보세요. 어떤 단계를 판단하려면 왜 먼저 목적이 필요할까요?"
+          }
+        }
+      ]
+    },
+    {
+      "activityId": "AUTHORED-ACT-006",
+      "atomId": "AUTHORED-ATOM-005",
+      "nodeId": "KN-D08-03-001",
+      "skillId": "SK05",
+      "claimClass": "PEDAGOGICAL",
+      "interactionType": "tap_choice",
+      "correctOptionIndex": 1,
+      "isTransfer": true,
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "Someone wants to shorten a routine that has grown to eight steps. Which question makes that decision possible?",
+            "option0": "Which step did I add most recently?",
+            "option1": "Which steps can I state a purpose for, and which can I not?",
+            "option2": "Which step has the best reviews online?",
+            "hintH1": "Two of these sort the steps by when they arrived or what strangers said. One sorts them by whether you can account for them.",
+            "hintH2": "A useful question separates what you can defend from what you cannot. Which one does that?",
+            "hintH3": "Look for the question whose answer comes from you rather than from the shelf or the internet.",
+            "feedbackCorrect": "Yes. Sorting by what you can account for leaves you with a decision you can actually defend — and it works on any routine, of any length.",
+            "feedbackIncorrect": "That sorts by recency or by other people's opinions, neither of which tells you whether a step is doing a job for you. Look for the question you answer yourself.",
+            "reflectionPrompt": "Rewrite one of the other two questions so that its answer would come from you."
+          }
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "어떤 사람의 루틴이 여덟 단계까지 늘어나서 줄이려고 합니다. 그 판단을 가능하게 하는 질문은 어느 것일까요?",
+            "option0": "가장 최근에 추가한 단계는 어느 것인가?",
+            "option1": "목적을 말할 수 있는 단계는 어느 것이고, 말할 수 없는 단계는 어느 것인가?",
+            "option2": "온라인에서 후기가 가장 좋은 단계는 어느 것인가?",
+            "hintH1": "두 개는 언제 들어왔는지, 남들이 뭐라 했는지로 단계를 나눕니다. 하나는 내가 설명할 수 있는지로 나눕니다.",
+            "hintH2": "쓸모 있는 질문은 근거를 댈 수 있는 것과 없는 것을 갈라 줍니다. 어느 것이 그렇게 하나요?",
+            "hintH3": "답이 선반이나 인터넷이 아니라 나에게서 나오는 질문을 찾아보세요.",
+            "feedbackCorrect": "맞습니다. 설명할 수 있는지로 나누면 실제로 근거를 댈 수 있는 판단이 남습니다. 그리고 이 방법은 길이에 상관없이 어떤 루틴에도 통합니다.",
+            "feedbackIncorrect": "그것은 최신순이나 남의 의견으로 나눌 뿐, 그 단계가 나에게 어떤 일을 하고 있는지는 말해 주지 않습니다. 내가 직접 답하는 질문을 찾아보세요.",
+            "reflectionPrompt": "나머지 두 질문 중 하나를, 답이 나에게서 나오도록 바꿔 써 보세요."
+          }
+        }
+      ]
+    }
+  ]
+}

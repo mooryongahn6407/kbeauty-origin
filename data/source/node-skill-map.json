@@ -1,0 +1,1339 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "05_NODE_SKILL_MAP",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 266,
+  "records": [
+    {
+      "Node_ID": "KN-D01-01-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-01-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-01-003",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-02-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-02-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D01-02-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-02-003",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-03-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-03-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-03-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D01-03-003",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-04-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-04-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-04-003",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-05-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-05-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-05-003",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-06-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-06-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-06-003",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-07-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-07-001",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D01-07-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D01-07-002",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D02-01-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-01-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-01-003",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-01-003",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D02-02-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-02-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D02-02-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-02-003",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-03-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-03-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-03-003",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-03-003",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D02-04-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-04-001",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D02-04-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-04-002",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D02-04-003",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-04-003",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D02-05-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-05-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-06-001",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-06-002",
+      "Skill_ID": "SK01",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D02-06-002",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D03-01-001",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-01-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D03-01-002",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-01-003",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-02-001",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-02-002",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-02-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D03-03-001",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-03-002",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-04-001",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-04-002",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-05-001",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-05-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D03-05-002",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-06-001",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-06-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D03-06-002",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-07-001",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D03-07-002",
+      "Skill_ID": "SK12",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-01-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-01-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-01-003",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-02-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-02-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-02-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D04-03-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-03-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-04-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-04-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-05-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-05-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-06-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D04-06-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-01-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-01-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-01-003",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-02-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-02-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-03-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-03-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-04-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-04-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-05-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-05-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-06-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-06-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-01-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-01-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-01-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-01-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-01-003",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-02-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-02-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-02-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-02-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-03-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-03-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-03-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-04-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-04-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-04-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-04-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-05-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-05-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-05-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-05-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-05-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-06-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-06-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-06-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-06-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-06-003",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-07-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-07-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-07-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-07-002",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-07-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-08-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-08-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-08-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-08-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-09-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-09-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-09-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-10-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-10-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-10-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-10-002",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-11-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-11-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-11-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D06-12-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-12-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-13-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-13-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-14-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D06-14-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-01-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-01-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-01-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-02-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-02-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-02-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-03-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-03-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-03-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D07-03-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-04-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-04-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-04-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-05-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-05-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-05-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-06-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-06-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-06-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-07-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-07-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-08-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-08-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-09-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-09-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-10-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D07-10-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-01-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-01-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D08-01-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-02-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-02-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D08-02-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-03-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-03-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-04-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-04-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-05-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-05-001",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D08-05-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-06-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-06-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-07-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-07-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-07-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D08-08-001",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-08-002",
+      "Skill_ID": "SK05",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-01-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-01-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D09-01-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-02-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-02-001",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D09-02-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-03-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-03-001",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D09-03-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-03-002",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D09-04-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-04-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-05-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-05-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-06-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-06-001",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D09-06-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-07-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-07-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-08-001",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D09-08-001",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D09-08-002",
+      "Skill_ID": "SK07",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-01-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-01-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-01-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D10-01-003",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-02-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-02-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-02-002",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D10-03-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-03-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-03-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D10-04-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-04-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-05-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-05-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-05-002",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D10-06-001",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-06-002",
+      "Skill_ID": "SK02",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-01-001",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-01-001",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D11-01-002",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-01-002",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D11-01-003",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-01-003",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D11-02-001",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-02-002",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-03-001",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-03-002",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-04-001",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-04-002",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-05-001",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-05-002",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-05-002",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D11-06-001",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-06-002",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-07-001",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-07-002",
+      "Skill_ID": "SK06",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D11-07-002",
+      "Skill_ID": "SK04",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D12-01-001",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-01-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D12-01-002",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-02-001",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-02-002",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-03-001",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-03-002",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-04-001",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-04-001",
+      "Skill_ID": "SK03",
+      "Relationship": "Secondary"
+    },
+    {
+      "Node_ID": "KN-D12-04-002",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-05-001",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-05-002",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-06-001",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-06-002",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-07-001",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D12-07-002",
+      "Skill_ID": "SK08",
+      "Relationship": "Primary"
+    }
+  ]
+}

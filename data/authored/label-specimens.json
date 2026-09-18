@@ -1,0 +1,114 @@
+{
+  "$schema_note": "Application-AUTHORED practice specimens for Label Detective. These are NOT real products and NOT official source data. No brand, no product name, no SKU. Each fragment is a specimen of a KIND of label text, written so the learner can practise separating the parts of a label. The exercise is categorisation only: the correct answer is always which part of a label a sentence is, never whether the sentence is true or whether an ingredient does anything. 16_PRODUCTS is Template-only (SR-011), so no real label may be shown.",
+  "governanceNote": "Grounded in QST-013 'Label Detective' (win condition: claim/ingredient/use instructions 분리), core node KN-D11-07-001 '라벨에서 핵심 정보 찾기', supporting KN-D11-07-002 '사용법·주의사항 읽기' and KN-D06-01-003 '성분표 읽기의 한계'. Primary skill SK06 Evaluate Claims. Every 'why' explanation is about where a sentence belongs on a label, never about efficacy.",
+  "specimens": [
+    {
+      "specimenId": "SPECIMEN-001",
+      "isFictional": true,
+      "fictionNote": {
+        "en": "A practice label. No such product exists — it was written so you can practise on something with nothing at stake.",
+        "ko": "연습용 라벨입니다. 이런 제품은 없습니다. 아무 부담 없이 연습해 보시라고 만든 것입니다."
+      },
+      "context": {
+        "en": "Someone hands you a box in a shop and asks: “is this any good?”",
+        "ko": "가게에서 누군가 상자를 건네며 묻습니다. “이거 괜찮아요?”"
+      },
+      "identity": {
+        "en": "Unbranded specimen · 50 mL · face care",
+        "ko": "브랜드 없는 연습용 견본 · 50 mL · 얼굴용"
+      },
+      "fragments": [
+        {
+          "fragmentId": "f1",
+          "kind": "CLAIM",
+          "text": { "en": "Skin looks instantly brighter.", "ko": "피부가 즉각 환해 보입니다." },
+          "why": {
+            "en": "This is the packaging talking about how the product will seem. It is written to interest you, so it belongs with the claims.",
+            "ko": "이건 제품이 어떻게 보일지에 대해 포장이 하는 말입니다. 관심을 끌려고 쓴 문장이니 광고 문구 쪽입니다."
+          }
+        },
+        {
+          "fragmentId": "f2",
+          "kind": "INGREDIENTS",
+          "text": {
+            "en": "Water, Glycerin, Butylene Glycol, Niacinamide, Panthenol, Carbomer, Phenoxyethanol",
+            "ko": "정제수, 글리세린, 부틸렌글라이콜, 나이아신아마이드, 판테놀, 카보머, 페녹시에탄올"
+          },
+          "why": {
+            "en": "A run of ingredient names with no sentence around them. That shape — names separated by commas — is the ingredient list.",
+            "ko": "문장 없이 성분 이름만 줄줄이 있습니다. 쉼표로 이름이 이어지는 이 모양이 전성분표입니다."
+          }
+        },
+        {
+          "fragmentId": "f3",
+          "kind": "HOW_TO_USE",
+          "text": {
+            "en": "Apply an appropriate amount to clean skin, morning and evening.",
+            "ko": "아침저녁으로 깨끗한 피부에 적당량을 바르세요."
+          },
+          "why": {
+            "en": "It tells you what to do and when. An instruction from the maker belongs with how to use.",
+            "ko": "무엇을 언제 하라고 알려 줍니다. 만든 쪽이 주는 지시는 사용법 쪽입니다."
+          }
+        },
+        {
+          "fragmentId": "f4",
+          "kind": "CAUTION",
+          "text": {
+            "en": "Discontinue use if irritation occurs and consult a professional.",
+            "ko": "이상이 있으면 사용을 중단하고 전문가와 상담하세요."
+          },
+          "why": {
+            "en": "It tells you when to stop and who to ask. That is a caution, not an instruction for normal use.",
+            "ko": "언제 멈추고 누구에게 물어야 하는지 알려 줍니다. 평소 사용법이 아니라 주의사항입니다."
+          }
+        },
+        {
+          "fragmentId": "f5",
+          "kind": "HOW_TO_USE",
+          "text": {
+            "en": "Use every morning for the best results.",
+            "ko": "가장 좋은 결과를 위해 매일 아침 사용하세요."
+          },
+          "why": {
+            "en": "Tricky one. It tells you what to do, so it is an instruction — but notice “the best results” riding along inside it. Marketing language can sit inside a sentence that is otherwise practical, and spotting that is the whole skill.",
+            "ko": "까다로운 문장입니다. 무엇을 하라고 하니 지시이긴 한데, 그 안에 “가장 좋은 결과”가 슬쩍 끼어 있는 게 보이시나요. 광고 표현은 이렇게 실용적인 문장 속에 섞여 있을 수 있고, 그걸 알아차리는 것이 바로 이 기술입니다."
+          }
+        },
+        {
+          "fragmentId": "f6",
+          "kind": "CAUTION",
+          "text": {
+            "en": "Keep out of reach of children.",
+            "ko": "어린이의 손이 닿지 않는 곳에 보관하세요."
+          },
+          "why": {
+            "en": "A warning about keeping the product safely, not a step in using it.",
+            "ko": "제품을 안전하게 두는 것에 대한 경고이지, 사용 단계가 아닙니다."
+          }
+        },
+        {
+          "fragmentId": "f7",
+          "kind": "CLAIM",
+          "text": {
+            "en": "Formulated for a dewy, glass-skin finish.",
+            "ko": "촉촉한 유리알 피부 마무리감을 위해 만들었습니다."
+          },
+          "why": {
+            "en": "“Formulated for” describes an intention and a look, not an instruction or an ingredient. It is written to appeal, so it is a claim.",
+            "ko": "“위해 만들었습니다”는 의도와 느낌을 말할 뿐, 지시도 성분도 아닙니다. 마음을 끌려고 쓴 문장이니 광고 문구입니다."
+          }
+        },
+        {
+          "fragmentId": "f8",
+          "kind": "INGREDIENTS",
+          "text": { "en": "Contains Niacinamide.", "ko": "나이아신아마이드 함유." },
+          "why": {
+            "en": "This one names an ingredient, so it belongs with the ingredients — but on a real box it is usually printed large on the front, which is a marketing decision. What is present and what is emphasised are two different things.",
+            "ko": "성분 이름을 말하고 있으니 성분 쪽입니다. 다만 실제 상자에서는 보통 앞면에 크게 적혀 있는데, 그건 마케팅 결정입니다. 들어 있다는 것과 내세운다는 것은 서로 다른 이야기입니다."
+          }
+        }
+      ]
+    }
+  ]
+}

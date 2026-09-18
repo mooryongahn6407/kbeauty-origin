@@ -1,0 +1,259 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "11_QUESTS",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 25,
+  "records": [
+    {
+      "Quest_ID": "QST-001",
+      "Quest_Name": "Mirror Detective",
+      "World": "My Skin",
+      "Theme": "피부 관찰",
+      "Win_Condition": "관찰 사실 3개 기록",
+      "Reward": "XP",
+      "Primary_Skill": "Observe",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-002",
+      "Quest_Name": "Barrier Builder",
+      "World": "Skin Observatory",
+      "Theme": "장벽",
+      "Win_Condition": "장벽의 역할을 맞추고 설명",
+      "Reward": "Badge",
+      "Primary_Skill": "Explain",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-003",
+      "Quest_Name": "Water vs Oil",
+      "World": "My Skin",
+      "Theme": "수분/유분",
+      "Win_Condition": "4개 상황 분류",
+      "Reward": "XP",
+      "Primary_Skill": "Identify",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-004",
+      "Quest_Name": "UV Detective",
+      "World": "Sun Observatory",
+      "Theme": "자외선",
+      "Win_Condition": "하루 노출 시나리오 해결",
+      "Reward": "Badge",
+      "Primary_Skill": "Decide",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-005",
+      "Quest_Name": "Sunscreen Label Decoder",
+      "World": "Sun Observatory",
+      "Theme": "선케어",
+      "Win_Condition": "라벨 핵심 항목 찾기",
+      "Reward": "Card",
+      "Primary_Skill": "Identify",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-006",
+      "Quest_Name": "Gentle Wash Challenge",
+      "World": "Cleanse Lab",
+      "Theme": "세안",
+      "Win_Condition": "올바른 세안 순서 구성",
+      "Reward": "XP",
+      "Primary_Skill": "Sequence",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-007",
+      "Quest_Name": "Routine Rescue",
+      "World": "Routine Studio",
+      "Theme": "루틴",
+      "Win_Condition": "과도한 루틴을 4단계로 단순화",
+      "Reward": "Badge",
+      "Primary_Skill": "Decide",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-008",
+      "Quest_Name": "Ingredient Garden",
+      "World": "Ingredient Garden",
+      "Theme": "성분",
+      "Win_Condition": "10개 성분 기능 매칭",
+      "Reward": "Collection",
+      "Primary_Skill": "Identify",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-009",
+      "Quest_Name": "Humectant Hunt",
+      "World": "Ingredient Garden",
+      "Theme": "흡습제",
+      "Win_Condition": "성분표에서 humectant 찾기",
+      "Reward": "Seed",
+      "Primary_Skill": "Identify",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-010",
+      "Quest_Name": "Barrier Lipid Trio",
+      "World": "Ingredient Garden",
+      "Theme": "장벽 지질",
+      "Win_Condition": "ceramide/cholesterol/fatty acids 관계",
+      "Reward": "Badge",
+      "Primary_Skill": "Explain",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-011",
+      "Quest_Name": "AHA-BHA-PHA Lab",
+      "World": "Beauty Lab",
+      "Theme": "산 성분",
+      "Win_Condition": "3개 산 비교",
+      "Reward": "XP",
+      "Primary_Skill": "Compare",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-012",
+      "Quest_Name": "Retinol Myth Lab",
+      "World": "Beauty Lab",
+      "Theme": "retinoid",
+      "Win_Condition": "주장과 사실 구분",
+      "Reward": "Badge",
+      "Primary_Skill": "Evaluate Claims",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-013",
+      "Quest_Name": "Label Detective",
+      "World": "Product Library",
+      "Theme": "제품 표기",
+      "Win_Condition": "claim/ingredient/use instructions 분리",
+      "Reward": "Badge",
+      "Primary_Skill": "Evaluate Claims",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-014",
+      "Quest_Name": "Review Detective",
+      "World": "Trend Observatory",
+      "Theme": "리뷰",
+      "Win_Condition": "경험/사실/추정 분리",
+      "Reward": "XP",
+      "Primary_Skill": "Evaluate Claims",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-015",
+      "Quest_Name": "Influencer Ad or Advice?",
+      "World": "Trend Observatory",
+      "Theme": "광고",
+      "Win_Condition": "sponsored 여부와 claim 읽기",
+      "Reward": "Badge",
+      "Primary_Skill": "Evaluate Claims",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-016",
+      "Quest_Name": "Need vs Want",
+      "World": "My Beauty House",
+      "Theme": "구매판단",
+      "Win_Condition": "필요/욕구/우선순위 분류",
+      "Reward": "XP",
+      "Primary_Skill": "Decide",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-017",
+      "Quest_Name": "Budget Beauty Build",
+      "World": "My Beauty House",
+      "Theme": "예산",
+      "Win_Condition": "예산 안에서 루틴 구성",
+      "Reward": "Badge",
+      "Primary_Skill": "Decide",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-018",
+      "Quest_Name": "A vs B Compare",
+      "World": "Product Library",
+      "Theme": "제품 비교",
+      "Win_Condition": "기능/제형/사용 목적 비교",
+      "Reward": "XP",
+      "Primary_Skill": "Compare",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-019",
+      "Quest_Name": "Climate Switch",
+      "World": "Beauty Lab",
+      "Theme": "기후",
+      "Win_Condition": "Vientiane-style hot/humid vs dry indoor",
+      "Reward": "Badge",
+      "Primary_Skill": "Transfer",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-020",
+      "Quest_Name": "First Look Product Boss",
+      "World": "Beauty Academy",
+      "Theme": "전이",
+      "Win_Condition": "처음 보는 제품의 선택 이유 설명",
+      "Reward": "Boss",
+      "Primary_Skill": "Transfer",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-021",
+      "Quest_Name": "Teach Your Friend",
+      "World": "Beauty Academy",
+      "Theme": "설명",
+      "Win_Condition": "친구에게 60초로 설명",
+      "Reward": "Badge",
+      "Primary_Skill": "Teach",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-022",
+      "Quest_Name": "7-Day Routine Quest",
+      "World": "Daily Beauty",
+      "Theme": "습관",
+      "Win_Condition": "7일 기록과 reflection",
+      "Reward": "Badge",
+      "Primary_Skill": "Reflect",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-023",
+      "Quest_Name": "Seasonal Reset",
+      "World": "Daily Beauty",
+      "Theme": "계절",
+      "Win_Condition": "계절 변화에 맞는 routine 수정",
+      "Reward": "XP",
+      "Primary_Skill": "Transfer",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-024",
+      "Quest_Name": "Claim Court",
+      "World": "Trend Observatory",
+      "Theme": "claim",
+      "Win_Condition": "광고 문구의 근거 수준 평가",
+      "Reward": "Boss",
+      "Primary_Skill": "Evaluate Claims",
+      "Status": "Draft"
+    },
+    {
+      "Quest_ID": "QST-025",
+      "Quest_Name": "Final Beauty Intelligence Trial",
+      "World": "Beauty Academy",
+      "Theme": "종합",
+      "Win_Condition": "관찰→비교→결정→설명",
+      "Reward": "Crown",
+      "Primary_Skill": "Mastery",
+      "Status": "Draft"
+    }
+  ]
+}

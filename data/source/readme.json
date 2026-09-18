@@ -1,0 +1,69 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source, kept as raw rows because the sheet header is not a unique column set. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "00_README",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 10,
+  "rows": [
+    [
+      "Item",
+      "Value",
+      "Field",
+      "Value"
+    ],
+    [
+      "Purpose",
+      "Single Source of Truth for KOREA GLOW Beauty Learning World knowledge, curriculum, AI, game and commerce linkage.",
+      "Owner",
+      "Product + Content + AI"
+    ],
+    [
+      "Version",
+      "1.0",
+      "Date",
+      "2026-09-13"
+    ],
+    [
+      "Core hierarchy",
+      "Domain → Strand → Knowledge Node → Skill → Application → Mastery Evidence",
+      "ID convention",
+      "KN-Dxx-ss-nnn"
+    ],
+    [
+      "Quality gate",
+      "Evidence + Safety + Localization + Commercial Transparency + Versioning",
+      "Status values",
+      "Draft / Review / Approved / Archived"
+    ],
+    [
+      "Mastery",
+      "Accuracy + Independence + Transfer + Retention",
+      "Difficulty",
+      "L1 Foundation / L2 Practical / L3 Advanced"
+    ],
+    [
+      "Primary use",
+      "Content production, AI retrieval, quest generation, recommendation logic, analytics",
+      "Non-goal",
+      "Medical diagnosis or treatment"
+    ],
+    [
+      "Source rule",
+      "A/B/C/D evidence tiers; claims must be traceable",
+      "Commerce rule",
+      "Education first; recommendation transparent"
+    ],
+    [
+      "MVP seed",
+      "212 Knowledge Nodes · 12 Skills · 40 Ingredients · 15 Concerns · 32 Categories · 10 Routines · 25 Quests",
+      "Future scale",
+      "Thousands of nodes via same schema"
+    ],
+    [
+      "How to use",
+      "Do not overwrite IDs. Add new version rows, link relationships, and update source/QA status.",
+      "Key tables",
+      "KNOWLEDGE_NODES, INGREDIENTS, QUESTS, AI_RULES, EVIDENCE"
+    ]
+  ]
+}

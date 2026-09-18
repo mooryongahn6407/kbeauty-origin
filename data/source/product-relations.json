@@ -1,0 +1,79 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "17_PRODUCT_RELATIONS",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 10,
+  "records": [
+    {
+      "Product_ID": "PROD-TPL-001",
+      "Ingredient_ID": "",
+      "Concern_ID": "",
+      "Node_ID": "",
+      "Status": "Template"
+    },
+    {
+      "Product_ID": "PROD-TPL-002",
+      "Ingredient_ID": "",
+      "Concern_ID": "",
+      "Node_ID": "",
+      "Status": "Template"
+    },
+    {
+      "Product_ID": "PROD-TPL-003",
+      "Ingredient_ID": "",
+      "Concern_ID": "",
+      "Node_ID": "",
+      "Status": "Template"
+    },
+    {
+      "Product_ID": "PROD-TPL-004",
+      "Ingredient_ID": "",
+      "Concern_ID": "",
+      "Node_ID": "",
+      "Status": "Template"
+    },
+    {
+      "Product_ID": "PROD-TPL-005",
+      "Ingredient_ID": "",
+      "Concern_ID": "",
+      "Node_ID": "",
+      "Status": "Template"
+    },
+    {
+      "Product_ID": "PROD-TPL-006",
+      "Ingredient_ID": "",
+      "Concern_ID": "",
+      "Node_ID": "",
+      "Status": "Template"
+    },
+    {
+      "Product_ID": "PROD-TPL-007",
+      "Ingredient_ID": "",
+      "Concern_ID": "",
+      "Node_ID": "",
+      "Status": "Template"
+    },
+    {
+      "Product_ID": "PROD-TPL-008",
+      "Ingredient_ID": "",
+      "Concern_ID": "",
+      "Node_ID": "",
+      "Status": "Template"
+    },
+    {
+      "Product_ID": "PROD-TPL-009",
+      "Ingredient_ID": "",
+      "Concern_ID": "",
+      "Node_ID": "",
+      "Status": "Template"
+    },
+    {
+      "Product_ID": "PROD-TPL-010",
+      "Ingredient_ID": "",
+      "Concern_ID": "",
+      "Node_ID": "",
+      "Status": "Template"
+    }
+  ]
+}

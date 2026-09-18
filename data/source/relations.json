@@ -1,0 +1,2457 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "18_RELATIONS",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 408,
+  "records": [
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-01-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-01-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-01-003",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-02-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-02-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-02-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-02-003",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-03-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-03-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-03-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-03-003",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-04-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-04-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-04-003",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-05-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-05-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-05-003",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-06-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-06-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-06-003",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-07-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-07-001",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-07-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D01-07-002",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-01-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-01-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-01-003",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-01-003",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-02-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-02-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-02-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-02-003",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-03-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-03-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-03-003",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-03-003",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-04-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-04-001",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-04-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-04-002",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-04-003",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-04-003",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-05-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-05-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-06-001",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-06-002",
+      "Target_ID": "SK01",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D02-06-002",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-01-001",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-01-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-01-002",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-01-003",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-02-001",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-02-002",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-02-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-03-001",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-03-002",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-04-001",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-04-002",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-05-001",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-05-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-05-002",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-06-001",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-06-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-06-002",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-07-001",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D03-07-002",
+      "Target_ID": "SK12",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-01-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-01-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-01-003",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-02-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-02-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-02-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-03-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-03-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-04-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-04-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-05-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-05-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-06-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D04-06-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-01-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-01-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-01-003",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-02-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-02-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-03-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-03-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-04-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-04-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-05-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-05-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-06-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D05-06-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-01-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-01-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-01-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-01-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-01-003",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-02-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-02-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-02-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-02-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-03-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-03-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-03-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-04-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-04-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-04-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-04-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-05-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-05-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-05-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-05-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-05-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-06-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-06-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-06-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-06-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-06-003",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-07-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-07-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-07-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-07-002",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-07-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-08-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-08-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-08-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-08-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-09-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-09-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-09-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-10-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-10-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-10-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-10-002",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-11-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-11-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-11-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-12-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-12-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-13-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-13-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-14-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D06-14-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-01-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-01-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-01-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-02-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-02-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-02-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-03-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-03-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-03-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-03-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-04-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-04-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-04-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-05-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-05-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-05-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-06-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-06-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-06-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-07-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-07-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-08-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-08-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-09-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-09-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-10-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D07-10-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-01-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-01-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-01-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-02-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-02-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-02-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-03-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-03-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-04-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-04-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-05-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-05-001",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-05-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-06-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-06-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-07-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-07-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-07-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-08-001",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D08-08-002",
+      "Target_ID": "SK05",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-01-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-01-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-01-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-02-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-02-001",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-02-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-03-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-03-001",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-03-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-03-002",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-04-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-04-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-05-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-05-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-06-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-06-001",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-06-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-07-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-07-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-08-001",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-08-001",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D09-08-002",
+      "Target_ID": "SK07",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-01-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-01-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-01-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-01-003",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-02-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-02-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-02-002",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-03-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-03-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-03-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-04-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-04-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-05-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-05-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-05-002",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-06-001",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D10-06-002",
+      "Target_ID": "SK02",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-01-001",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-01-001",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-01-002",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-01-002",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-01-003",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-01-003",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-02-001",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-02-002",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-03-001",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-03-002",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-04-001",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-04-002",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-05-001",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-05-002",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-05-002",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-06-001",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-06-002",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-07-001",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-07-002",
+      "Target_ID": "SK06",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D11-07-002",
+      "Target_ID": "SK04",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-01-001",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-01-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-01-002",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-02-001",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-02-002",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-03-001",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-03-002",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-04-001",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-04-001",
+      "Target_ID": "SK03",
+      "Role": "Secondary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-04-002",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-05-001",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-05-002",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-06-001",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-06-002",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-07-001",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_SKILL",
+      "Source_ID": "KN-D12-07-002",
+      "Target_ID": "SK08",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-001",
+      "Target_ID": "KN-D01-07-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-001",
+      "Target_ID": "KN-D02-04-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-001",
+      "Target_ID": "KN-D02-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-002",
+      "Target_ID": "KN-D01-02-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-002",
+      "Target_ID": "KN-D01-02-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-003",
+      "Target_ID": "KN-D01-03-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-003",
+      "Target_ID": "KN-D01-04-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-004",
+      "Target_ID": "KN-D04-01-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-004",
+      "Target_ID": "KN-D04-03-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-004",
+      "Target_ID": "KN-D04-06-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-005",
+      "Target_ID": "KN-D04-02-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-005",
+      "Target_ID": "KN-D04-02-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-005",
+      "Target_ID": "KN-D11-07-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-006",
+      "Target_ID": "KN-D05-02-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-006",
+      "Target_ID": "KN-D05-02-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-006",
+      "Target_ID": "KN-D05-02-003",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-007",
+      "Target_ID": "KN-D08-04-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-007",
+      "Target_ID": "KN-D08-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-008",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-008",
+      "Target_ID": "KN-D06-01-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-008",
+      "Target_ID": "KN-D06-02-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-008",
+      "Target_ID": "KN-D06-05-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-009",
+      "Target_ID": "KN-D06-02-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-009",
+      "Target_ID": "KN-D06-02-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-009",
+      "Target_ID": "KN-D06-02-003",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-010",
+      "Target_ID": "KN-D06-05-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-010",
+      "Target_ID": "KN-D06-05-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-010",
+      "Target_ID": "KN-D06-05-003",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-011",
+      "Target_ID": "KN-D06-08-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-011",
+      "Target_ID": "KN-D06-08-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-011",
+      "Target_ID": "KN-D06-08-003",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-011",
+      "Target_ID": "KN-D06-08-004",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-012",
+      "Target_ID": "KN-D06-09-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-012",
+      "Target_ID": "KN-D06-09-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-012",
+      "Target_ID": "KN-D06-09-003",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-013",
+      "Target_ID": "KN-D11-07-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-013",
+      "Target_ID": "KN-D11-07-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-013",
+      "Target_ID": "KN-D06-01-003",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-014",
+      "Target_ID": "KN-D11-03-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-014",
+      "Target_ID": "KN-D11-03-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-015",
+      "Target_ID": "KN-D11-04-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-015",
+      "Target_ID": "KN-D11-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-016",
+      "Target_ID": "KN-D09-05-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-016",
+      "Target_ID": "KN-D09-05-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-016",
+      "Target_ID": "KN-D09-02-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-017",
+      "Target_ID": "KN-D09-04-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-017",
+      "Target_ID": "KN-D09-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-017",
+      "Target_ID": "KN-D09-03-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-018",
+      "Target_ID": "KN-D09-03-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-018",
+      "Target_ID": "KN-D09-03-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-018",
+      "Target_ID": "KN-D07-03-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-019",
+      "Target_ID": "KN-D04-04-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-019",
+      "Target_ID": "KN-D04-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-019",
+      "Target_ID": "KN-D08-08-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-020",
+      "Target_ID": "KN-D12-03-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-020",
+      "Target_ID": "KN-D09-03-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-020",
+      "Target_ID": "KN-D11-07-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-021",
+      "Target_ID": "KN-D12-04-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-021",
+      "Target_ID": "KN-D12-04-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-022",
+      "Target_ID": "KN-D12-05-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-022",
+      "Target_ID": "KN-D12-05-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-023",
+      "Target_ID": "KN-D12-03-002",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-023",
+      "Target_ID": "KN-D08-08-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-023",
+      "Target_ID": "KN-D08-08-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-024",
+      "Target_ID": "KN-D11-01-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-024",
+      "Target_ID": "KN-D11-01-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-024",
+      "Target_ID": "KN-D11-05-002",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-025",
+      "Target_ID": "KN-D12-06-001",
+      "Role": "Core"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-025",
+      "Target_ID": "KN-D12-03-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-025",
+      "Target_ID": "KN-D09-07-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "QUEST_TO_NODE",
+      "Source_ID": "QST-025",
+      "Target_ID": "KN-D11-01-001",
+      "Role": "Supporting"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D04-02-001",
+      "Target_ID": "RUT-001",
+      "Role": "Support"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D04-02-002",
+      "Target_ID": "RUT-001",
+      "Role": "Support"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D04-02-003",
+      "Target_ID": "RUT-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D08-01-001",
+      "Target_ID": "RUT-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D08-01-002",
+      "Target_ID": "RUT-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D08-02-001",
+      "Target_ID": "RUT-002",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D05-02-001",
+      "Target_ID": "RUT-002",
+      "Role": "Support"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D08-03-001",
+      "Target_ID": "RUT-003",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D08-04-001",
+      "Target_ID": "RUT-003",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D08-08-001",
+      "Target_ID": "RUT-004",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D08-08-002",
+      "Target_ID": "RUT-005",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D08-07-001",
+      "Target_ID": "RUT-007",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D08-06-001",
+      "Target_ID": "RUT-008",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D08-06-002",
+      "Target_ID": "RUT-006",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D10-01-002",
+      "Target_ID": "RUT-009",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "NODE_TO_ROUTINE",
+      "Source_ID": "KN-D10-03-002",
+      "Target_ID": "RUT-010",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-001",
+      "Target_ID": "KN-D06-02-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-002",
+      "Target_ID": "KN-D06-02-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-003",
+      "Target_ID": "KN-D06-02-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-004",
+      "Target_ID": "KN-D06-05-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-005",
+      "Target_ID": "KN-D06-05-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-006",
+      "Target_ID": "KN-D06-05-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-007",
+      "Target_ID": "KN-D06-06-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-008",
+      "Target_ID": "KN-D06-07-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-009",
+      "Target_ID": "KN-D06-07-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-010",
+      "Target_ID": "KN-D06-09-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-011",
+      "Target_ID": "KN-D06-10-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-012",
+      "Target_ID": "KN-D06-10-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-013",
+      "Target_ID": "KN-D06-08-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-014",
+      "Target_ID": "KN-D06-08-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-015",
+      "Target_ID": "KN-D06-08-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-016",
+      "Target_ID": "KN-D06-08-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-017",
+      "Target_ID": "KN-D06-08-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-018",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-019",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-020",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-021",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-022",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-023",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-024",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-025",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-026",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-027",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-028",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-029",
+      "Target_ID": "KN-D06-11-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-030",
+      "Target_ID": "KN-D06-11-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-031",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-032",
+      "Target_ID": "KN-D06-14-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-033",
+      "Target_ID": "KN-D06-14-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-034",
+      "Target_ID": "KN-D06-12-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-035",
+      "Target_ID": "KN-D06-13-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-036",
+      "Target_ID": "KN-D06-13-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-037",
+      "Target_ID": "KN-D06-13-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-038",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-039",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "INGREDIENT_TO_NODE",
+      "Source_ID": "ING-040",
+      "Target_ID": "KN-D06-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-001",
+      "Target_ID": "KN-D03-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-002",
+      "Target_ID": "KN-D03-02-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-003",
+      "Target_ID": "KN-D03-02-002",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-004",
+      "Target_ID": "KN-D03-03-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-005",
+      "Target_ID": "KN-D03-04-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-006",
+      "Target_ID": "KN-D03-04-002",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-007",
+      "Target_ID": "KN-D03-05-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-008",
+      "Target_ID": "KN-D03-06-002",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-009",
+      "Target_ID": "KN-D03-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-010",
+      "Target_ID": "KN-D01-03-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-011",
+      "Target_ID": "KN-D11-01-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-012",
+      "Target_ID": "KN-D10-01-002",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-013",
+      "Target_ID": "KN-D10-02-002",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-014",
+      "Target_ID": "KN-D10-03-001",
+      "Role": "Primary"
+    },
+    {
+      "Relation_Type": "CONCERN_TO_NODE",
+      "Source_ID": "CON-015",
+      "Target_ID": "KN-D10-04-001",
+      "Role": "Primary"
+    }
+  ]
+}

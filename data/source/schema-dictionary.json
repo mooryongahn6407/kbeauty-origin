@@ -1,0 +1,121 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "22_SCHEMA_DICTIONARY",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 16,
+  "records": [
+    {
+      "Entity": "Domain",
+      "Sheet": "01_DOMAINS",
+      "Meaning": "1 record = curriculum domain",
+      "ID_Example": "D01",
+      "Implementation_Note": "Use for navigation and macro reporting"
+    },
+    {
+      "Entity": "Strand",
+      "Sheet": "02_STRANDS",
+      "Meaning": "1 record = teachable sub-area",
+      "ID_Example": "D01-01",
+      "Implementation_Note": "Parent Domain_ID required"
+    },
+    {
+      "Entity": "KnowledgeNode",
+      "Sheet": "03_KNOWLEDGE_NODES",
+      "Meaning": "atomic teachable knowledge",
+      "ID_Example": "KN-D01-01-001",
+      "Implementation_Note": "SSOT for AI retrieval"
+    },
+    {
+      "Entity": "Skill",
+      "Sheet": "04_SKILLS",
+      "Meaning": "cross-domain ability",
+      "ID_Example": "SK01",
+      "Implementation_Note": "Mastery measured here"
+    },
+    {
+      "Entity": "Node→Skill",
+      "Sheet": "05_NODE_SKILL_MAP",
+      "Meaning": "many-to-many link",
+      "ID_Example": "KN... → SK...",
+      "Implementation_Note": "Primary/Secondary"
+    },
+    {
+      "Entity": "Ingredient",
+      "Sheet": "06_INGREDIENTS",
+      "Meaning": "ingredient entity",
+      "ID_Example": "ING-001",
+      "Implementation_Note": "Verify facts before Approved"
+    },
+    {
+      "Entity": "Concern",
+      "Sheet": "07_CONCERNS",
+      "Meaning": "skin concern literacy",
+      "ID_Example": "CON-001",
+      "Implementation_Note": "Safety boundary field"
+    },
+    {
+      "Entity": "Product Category",
+      "Sheet": "08_PRODUCT_CATEGORIES",
+      "Meaning": "product taxonomy",
+      "ID_Example": "CAT-001",
+      "Implementation_Note": "Category-level learning"
+    },
+    {
+      "Entity": "Routine",
+      "Sheet": "09_ROUTINES",
+      "Meaning": "repeatable routine pattern",
+      "ID_Example": "RUT-001",
+      "Implementation_Note": "Uses nodes as supporting knowledge"
+    },
+    {
+      "Entity": "Quest",
+      "Sheet": "11_QUESTS",
+      "Meaning": "game mission template",
+      "ID_Example": "QST-001",
+      "Implementation_Note": "Quest calls nodes + skills"
+    },
+    {
+      "Entity": "AI Rule",
+      "Sheet": "13_AI_RULES",
+      "Meaning": "governance rule",
+      "ID_Example": "AI-001",
+      "Implementation_Note": "Hard/soft policy"
+    },
+    {
+      "Entity": "Evidence",
+      "Sheet": "14_EVIDENCE",
+      "Meaning": "source registry",
+      "ID_Example": "SRC-001",
+      "Implementation_Note": "Traceability"
+    },
+    {
+      "Entity": "Product",
+      "Sheet": "16_PRODUCTS",
+      "Meaning": "actual product master",
+      "ID_Example": "PROD-*",
+      "Implementation_Note": "Catalog data only after verification"
+    },
+    {
+      "Entity": "Relations",
+      "Sheet": "18_RELATIONS",
+      "Meaning": "universal graph links",
+      "ID_Example": "NODE_TO_SKILL",
+      "Implementation_Note": "Integration layer"
+    },
+    {
+      "Entity": "Mastery",
+      "Sheet": "19_MASTERY_RULES",
+      "Meaning": "evidence criteria",
+      "ID_Example": "M05",
+      "Implementation_Note": "Determines mastered state"
+    },
+    {
+      "Entity": "Content Atom",
+      "Sheet": "21_CONTENT_ATOMS",
+      "Meaning": "reusable learning asset",
+      "ID_Example": "CA-001",
+      "Implementation_Note": "One node can have many atoms"
+    }
+  ]
+}
