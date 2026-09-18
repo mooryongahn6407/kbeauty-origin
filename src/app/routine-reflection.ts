@@ -17,6 +17,8 @@
  */
 import type { Disclosure } from '@/domain/governance';
 import type { EventSink } from '@/analytics/events';
+import type { LearningEvent } from '@/domain/learning';
+import { INITIAL_TRANSITION, drainEvents, type Emit, type EmittingState } from './transition';
 import { classifyRisk } from '@/safety/safety-gate';
 import {
   DISCLOSURE_NOT_MEDICAL,
@@ -33,12 +35,14 @@ export interface RoutineStepEntry {
 
 export type ReflectionPhase = 'LISTING' | 'PURPOSE' | 'REVIEW' | 'HALTED';
 
-export interface ReflectionState {
+export interface ReflectionState extends EmittingState {
   readonly userId: string;
   readonly phase: ReflectionPhase;
   readonly entries: readonly RoutineStepEntry[];
   readonly disclosures: readonly Disclosure[];
   readonly safetyHaltMessageKey: string | null;
+  readonly transitionId: number;
+  readonly emitted: readonly LearningEvent[];
 }
 
 export type ReflectionAction =
@@ -61,6 +65,7 @@ export function createReflection(userId: string): ReflectionState {
     // shown alongside this tool have not completed evidence review.
     disclosures: [DISCLOSURE_PENDING_VERIFICATION, DISCLOSURE_NOT_MEDICAL],
     safetyHaltMessageKey: null,
+    ...INITIAL_TRANSITION,
   };
 }
 
@@ -92,12 +97,12 @@ function halt(
   state: ReflectionState,
   text: string,
   at: string,
-  sink?: EventSink,
+  emit: Emit,
 ): ReflectionState | null {
   const safety = classifyRisk(text);
   if (!safety.escalate) return null;
 
-  sink?.record({
+  emit({
     type: 'safety_intervention',
     userId: state.userId,
     at,
@@ -114,10 +119,11 @@ function halt(
 
 const AT_ZERO = new Date(0).toISOString();
 
-export function reflectionReducer(
+/** The transition table. Declares events through `emit`; performs none. See `./transition`. */
+function reduceReflection(
   state: ReflectionState,
   action: ReflectionAction,
-  sink?: EventSink,
+  emit: Emit,
 ): ReflectionState {
   if (state.phase === 'HALTED' && action.type !== 'RESET') return state;
 
@@ -127,7 +133,7 @@ export function reflectionReducer(
       if (state.phase !== 'LISTING' || label === '' || state.entries.length >= MAX_STEPS) {
         return state;
       }
-      const halted = halt(state, label, AT_ZERO, sink);
+      const halted = halt(state, label, AT_ZERO, emit);
       if (halted) return halted;
 
       return {
@@ -152,7 +158,7 @@ export function reflectionReducer(
 
     case 'SET_PURPOSE': {
       if (state.phase !== 'PURPOSE') return state;
-      const halted = halt(state, action.purpose, AT_ZERO, sink);
+      const halted = halt(state, action.purpose, AT_ZERO, emit);
       if (halted) return halted;
 
       return {
@@ -165,7 +171,7 @@ export function reflectionReducer(
 
     case 'COMPLETE_REVIEW': {
       if (state.phase !== 'PURPOSE') return state;
-      sink?.record({
+      emit({
         type: 'reflection_completed',
         userId: state.userId,
         at: action.at,
@@ -184,4 +190,30 @@ export function reflectionReducer(
     default:
       return state;
   }
+}
+
+/**
+ * The reflection reducer. Pure: same `(state, action)` in, deeply equal state out, nothing else.
+ * What the transition wanted to report is in `emitted`, for the caller to drain once.
+ */
+export function reflectionReducer(
+  state: ReflectionState,
+  action: ReflectionAction,
+): ReflectionState {
+  const events: LearningEvent[] = [];
+  const next = reduceReflection(state, action, (event) => events.push(event));
+  if (next === state && events.length === 0) return state;
+  // Derived from the previous counter so RESET moves it forward rather than back to zero.
+  return { ...next, transitionId: state.transitionId + 1, emitted: events };
+}
+
+/** Reduce and drain in one step, for callers outside React (tests, scripts). */
+export function applyReflection(
+  state: ReflectionState,
+  action: ReflectionAction,
+  sink?: EventSink,
+): ReflectionState {
+  const next = reflectionReducer(state, action);
+  if (next !== state) drainEvents(next, sink);
+  return next;
 }

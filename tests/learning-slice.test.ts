@@ -6,6 +6,7 @@
  * -> reflection -> mastery evidence record.
  */
 import { beforeEach, describe, expect, it } from 'vitest';
+import { createMasteryLedger } from '@/mastery/mastery-ledger';
 import { createEventSink } from '@/analytics/events';
 import {
   SLICE_NODE_ID,
@@ -14,7 +15,7 @@ import {
   createSession,
   currentActivityText,
   loadSliceGrounding,
-  sessionReducer,
+  applySession,
   sliceActivities,
   type SessionState,
 } from '@/app/learning-session';
@@ -23,15 +24,19 @@ import { nodeLinksForQuest } from '@/knowledge/repository';
 
 const AT = '2026-09-18T00:00:00.000Z';
 let sink = createEventSink();
+// An isolated ledger: `applySession` would otherwise fold attempts into the
+// process-wide one and let suites see each other's evidence.
+const ledger = createMasteryLedger('test-learner');
 let state: SessionState;
 
-const dispatch = (action: Parameters<typeof sessionReducer>[1]) => {
-  state = sessionReducer(state, action, sink);
+const dispatch = (action: Parameters<typeof applySession>[1]) => {
+  state = applySession(state, action, sink, ledger);
   return state;
 };
 
 beforeEach(() => {
   sink = createEventSink();
+  ledger.reset();
   state = createSession('test-learner', 'en', AT);
 });
 

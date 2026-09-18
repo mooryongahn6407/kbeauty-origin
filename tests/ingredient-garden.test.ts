@@ -8,6 +8,7 @@
  * unverified, while the ingredient-literacy lesson, which teaches reasoning, stays open.
  */
 import { beforeEach, describe, expect, it } from 'vitest';
+import { createMasteryLedger } from '@/mastery/mastery-ledger';
 import { createEventSink } from '@/analytics/events';
 import {
   INGREDIENT_HALO_PLAN,
@@ -16,7 +17,7 @@ import {
   currentActivityText,
   findLessonPlan,
   loadSliceGrounding,
-  sessionReducer,
+  applySession,
   sliceActivities,
   type SessionState,
 } from '@/app/learning-session';
@@ -197,14 +198,18 @@ describe('the three governed Ingredient Garden quests', () => {
 
 describe('the ingredient-literacy lesson that is open', () => {
   let sink = createEventSink();
+  // An isolated ledger: `applySession` would otherwise fold attempts into the
+  // process-wide one and let suites see each other's evidence.
+  const ledger = createMasteryLedger('test-learner');
   let state: SessionState;
-  const dispatch = (action: Parameters<typeof sessionReducer>[1]) => {
-    state = sessionReducer(state, action, sink);
+  const dispatch = (action: Parameters<typeof applySession>[1]) => {
+    state = applySession(state, action, sink, ledger);
     return state;
   };
 
   beforeEach(() => {
     sink = createEventSink();
+    ledger.reset();
     state = createSession('test-learner', 'en', AT, INGREDIENT_HALO_PLAN);
   });
 

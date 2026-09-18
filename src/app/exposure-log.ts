@@ -20,6 +20,8 @@
  */
 import type { Disclosure } from '@/domain/governance';
 import type { EventSink } from '@/analytics/events';
+import type { LearningEvent } from '@/domain/learning';
+import { INITIAL_TRANSITION, drainEvents, type Emit, type EmittingState } from './transition';
 import { classifyRisk } from '@/safety/safety-gate';
 import {
   DISCLOSURE_NOT_MEDICAL,
@@ -46,12 +48,14 @@ export interface ExposureEntry {
 
 export type ExposurePhase = 'LOGGING' | 'REVIEW' | 'HALTED';
 
-export interface ExposureLogState {
+export interface ExposureLogState extends EmittingState {
   readonly userId: string;
   readonly phase: ExposurePhase;
   readonly entries: readonly ExposureEntry[];
   readonly disclosures: readonly Disclosure[];
   readonly safetyHaltMessageKey: string | null;
+  readonly transitionId: number;
+  readonly emitted: readonly LearningEvent[];
 }
 
 export type ExposureAction =
@@ -77,6 +81,7 @@ export function createExposureLog(userId: string): ExposureLogState {
     entries: [],
     disclosures: [DISCLOSURE_PENDING_VERIFICATION, DISCLOSURE_NOT_MEDICAL],
     safetyHaltMessageKey: null,
+    ...INITIAL_TRANSITION,
   };
 }
 
@@ -124,12 +129,12 @@ function halt(
   state: ExposureLogState,
   text: string,
   at: string,
-  sink?: EventSink,
+  emit: Emit,
 ): ExposureLogState | null {
   const safety = classifyRisk(text);
   if (!safety.escalate) return null;
 
-  sink?.record({
+  emit({
     type: 'safety_intervention',
     userId: state.userId,
     at,
@@ -144,10 +149,11 @@ function halt(
   };
 }
 
-export function exposureReducer(
+/** The transition table. Declares events through `emit`; performs none. See `./transition`. */
+function reduceExposure(
   state: ExposureLogState,
   action: ExposureAction,
-  sink?: EventSink,
+  emit: Emit,
 ): ExposureLogState {
   if (state.phase === 'HALTED' && action.type !== 'RESET') return state;
 
@@ -160,7 +166,7 @@ export function exposureReducer(
       if (!Number.isFinite(minutes) || minutes <= 0 || minutes > MAX_MINUTES) return state;
 
       // A description of a burn or a painful reaction is a safety signal, not a log entry.
-      const halted = halt(state, activity, AT_ZERO, sink);
+      const halted = halt(state, activity, AT_ZERO, emit);
       if (halted) return halted;
 
       return {
@@ -187,7 +193,7 @@ export function exposureReducer(
 
     case 'REVIEW': {
       if (state.phase !== 'LOGGING' || state.entries.length === 0) return state;
-      sink?.record({
+      emit({
         type: 'reflection_completed',
         userId: state.userId,
         at: action.at,
@@ -206,4 +212,30 @@ export function exposureReducer(
     default:
       return state;
   }
+}
+
+/**
+ * The exposure reducer. Pure: same `(state, action)` in, deeply equal state out, nothing else.
+ * What the transition wanted to report is in `emitted`, for the caller to drain once.
+ */
+export function exposureReducer(
+  state: ExposureLogState,
+  action: ExposureAction,
+): ExposureLogState {
+  const events: LearningEvent[] = [];
+  const next = reduceExposure(state, action, (event) => events.push(event));
+  if (next === state && events.length === 0) return state;
+  // Derived from the previous counter so RESET moves it forward rather than back to zero.
+  return { ...next, transitionId: state.transitionId + 1, emitted: events };
+}
+
+/** Reduce and drain in one step, for callers outside React (tests, scripts). */
+export function applyExposure(
+  state: ExposureLogState,
+  action: ExposureAction,
+  sink?: EventSink,
+): ExposureLogState {
+  const next = exposureReducer(state, action);
+  if (next !== state) drainEvents(next, sink);
+  return next;
 }

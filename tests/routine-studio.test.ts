@@ -8,6 +8,7 @@
  * invented steps, the quest stays closed, and the reflection tool counts without judging.
  */
 import { beforeEach, describe, expect, it } from 'vitest';
+import { createMasteryLedger } from '@/mastery/mastery-ledger';
 import { createEventSink } from '@/analytics/events';
 import {
   ROUTINE_PURPOSE_PLAN,
@@ -15,14 +16,14 @@ import {
   currentActivityText,
   findLessonPlan,
   loadSliceGrounding,
-  sessionReducer,
+  applySession,
   sliceActivities,
   type SessionState,
 } from '@/app/learning-session';
 import {
   MAX_STEPS,
   createReflection,
-  reflectionReducer,
+  applyReflection,
   summariseReflection,
   type ReflectionState,
 } from '@/app/routine-reflection';
@@ -150,14 +151,18 @@ describe('quest numeric consistency (OQ-R02)', () => {
 
 describe('routine reasoning lesson', () => {
   let sink = createEventSink();
+  // An isolated ledger: `applySession` would otherwise fold attempts into the
+  // process-wide one and let suites see each other's evidence.
+  const ledger = createMasteryLedger('test-learner');
   let state: SessionState;
-  const dispatch = (action: Parameters<typeof sessionReducer>[1]) => {
-    state = sessionReducer(state, action, sink);
+  const dispatch = (action: Parameters<typeof applySession>[1]) => {
+    state = applySession(state, action, sink, ledger);
     return state;
   };
 
   beforeEach(() => {
     sink = createEventSink();
+    ledger.reset();
     state = createSession('test-learner', 'en', AT, ROUTINE_PURPOSE_PLAN);
   });
 
@@ -200,8 +205,8 @@ describe('routine reasoning lesson', () => {
 describe('routine reflection studio', () => {
   let sink = createEventSink();
   let state: ReflectionState;
-  const dispatch = (action: Parameters<typeof reflectionReducer>[1]) => {
-    state = reflectionReducer(state, action, sink);
+  const dispatch = (action: Parameters<typeof applyReflection>[1]) => {
+    state = applyReflection(state, action, sink);
     return state;
   };
 
@@ -251,12 +256,15 @@ describe('routine reflection studio', () => {
     const summary = summariseReflection(state);
     expect(summary).toEqual({ total: 3, withPurpose: 1, withoutPurpose: 2 });
     // There is no score, no ideal count and no recommendation anywhere in the state.
+    // `transitionId` and `emitted` are the reducer's event outbox, not learner data.
     expect(Object.keys(state)).toEqual([
       'userId',
       'phase',
       'entries',
       'disclosures',
       'safetyHaltMessageKey',
+      'transitionId',
+      'emitted',
     ]);
   });
 

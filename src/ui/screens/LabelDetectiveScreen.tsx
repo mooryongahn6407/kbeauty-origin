@@ -27,6 +27,7 @@ import {
   type SorterState,
 } from '@/app/label-sorter';
 import { eventSink } from '@/analytics/events';
+import { useTransitionDrain } from '../hooks/use-transition-drain';
 import { evaluateQuestAvailability } from '@/governance/learning-availability';
 import { evidenceSpecificityReport, resolveEvidenceByUrl } from '@/governance/evidence-resolution';
 import { findNode } from '@/knowledge/repository';
@@ -42,10 +43,12 @@ const localised = (record: Readonly<Record<string, string>>, locale: string): st
 
 function LabelSorter({ locale }: { locale: string }) {
   const [state, dispatch] = useReducer(
-    (current: SorterState, action: SorterAction) => sorterReducer(current, action, eventSink),
+    (current: SorterState, action: SorterAction) => sorterReducer(current, action),
     undefined,
     () => createSorter('local-learner', SPECIMEN_ID),
   );
+  // The reducer is pure; this is the only place its events reach the sink.
+  useTransitionDrain(state, eventSink);
   const [selected, setSelected] = useState<string | null>(null);
   const specimen = findSpecimen(state.specimenId)!;
   const result = evaluateSorter(state);

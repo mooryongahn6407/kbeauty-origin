@@ -22,6 +22,7 @@ import {
   type ReflectionState,
 } from '@/app/routine-reflection';
 import { eventSink } from '@/analytics/events';
+import { useTransitionDrain } from '../hooks/use-transition-drain';
 import { evaluateQuestAvailability } from '@/governance/learning-availability';
 import { findQuestNumericMismatches } from '@/governance/integrity';
 import { routineCorpusReport, routineViews } from '@/knowledge/routines';
@@ -34,11 +35,12 @@ const now = () => new Date().toISOString();
 
 function ReflectionStudio({ locale }: { locale: string }) {
   const [state, dispatch] = useReducer(
-    (current: ReflectionState, action: ReflectionAction) =>
-      reflectionReducer(current, action, eventSink),
+    (current: ReflectionState, action: ReflectionAction) => reflectionReducer(current, action),
     undefined,
     () => createReflection('local-learner'),
   );
+  // The reducer is pure; this is the only place its events reach the sink.
+  useTransitionDrain(state, eventSink);
   const [draft, setDraft] = useState('');
   const summary = summariseReflection(state);
 

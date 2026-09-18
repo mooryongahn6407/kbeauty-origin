@@ -208,6 +208,7 @@ ingredient does, and therefore does not depend on the unverified ingredient corp
 ```
 $ npm test
 
+ ✓ tests/reducer-purity.test.ts     (40 tests)
  ✓ tests/ingredient-garden.test.ts  (35 tests)
  ✓ tests/routine-studio.test.ts     (29 tests)
  ✓ tests/ai-tutor.test.ts           (32 tests)
@@ -224,14 +225,14 @@ $ npm test
  ✓ tests/localization.test.ts       (12 tests)
  ✓ tests/source-integrity.test.ts   (11 tests)
 
- Test Files  15 passed (15)
-      Tests  312 passed (312)
-   Duration  2.51s
+ Test Files  16 passed (16)
+      Tests  352 passed (352)
+   Duration  2.68s
 
 $ npm run typecheck     # clean
-$ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 465.73 kB (gzip 106.55 kB)
+$ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 608.07 kB (gzip 149.34 kB)
 $ npm run verify:sources
-OK: 25 datasets match the official sources.
+OK: 27 datasets match the official sources.
 ```
 
 The suite covers what the checklist asked for: unit, integration, learning-state, safety,
@@ -309,11 +310,13 @@ screen. Nothing below was decided in code.
    as fact. Appendix B of the Constitution requires steps 1–5 to be stable before commerce work.
 6. **Translations exist for en + ko only.** 10 of 12 registered locales have 0% coverage.
    Filling them requires human translation and local-market review, not machine text.
-7. **The session reducer is not pure.** It writes to the analytics sink and the mastery ledger
-   from inside the reducer, so React StrictMode double-invokes those writes in development. The
-   ledger is idempotent per attempt ID so learner-visible counts are correct; the event sink is
-   not, and will over-count in a development build. The clean fix is to have the reducer return
-   events for the caller to emit.
+7. **`lesson_started` and `lesson_completed` are never emitted by the running app.** The
+   reducer emits both and the tests drive both, but no screen dispatches `START_LESSON` or
+   `CONTINUE_TO_MASTERY`: the lesson mounts straight into the LESSON phase and the MASTER panel
+   offers only "continue to transfer" and "restart". So in the browser a lesson has no recorded
+   start or end. Found while verifying the purity fix. Not repaired here because deciding when
+   a lesson counts as started and finished is a curriculum judgement, not a wiring detail —
+   emitting `lesson_started` on mount, for instance, would count a remount as a new lesson.
 8. **Persistence is in-memory.** The reflection studio's entries, the exposure log and the
    mastery ledger are all lost on reload. Session state and mastery do not survive a reload; no database
    or auth has been chosen.
@@ -424,10 +427,9 @@ same attempt twice counts once, which is what an ID should mean regardless of Re
 covers it, and the test fixture was corrected too: it had reused one ID for every attempt, which
 would have masked the bug.
 
-**Still outstanding from the same cause:** the analytics `EventSink` has the same shape and will
-double-count events in a development build. Nothing user-visible reads those counts today, and
-the tests drive the reducer directly so they are unaffected — but the reducer is not pure, and
-that is recorded as a known technical item rather than left implied.
+**Resolved since:** the analytics `EventSink` had the same shape and would double-count events
+in a development build. The reducers are now pure and the sink is written from one guarded
+drain. See "Reducer purity" below.
 
 ### AI Tutor — a trust layer, not an answer generator
 
@@ -561,6 +563,84 @@ the register cannot drift into citing records that do not exist.
 (PR-003, PR-008, PR-009) can be built before a verified product master exists, because every
 one of those surfaces is a recommendation surface that fails gate G3 today.
 
+### Reducer purity — the event sink moved out of the reducers
+
+The defect, recorded as known technical item 7 after the Quests & Mastery build, is fixed. All
+four interactive reducers — `sessionReducer`, `reflectionReducer`, `exposureReducer`,
+`sorterReducer` — wrote to the analytics sink from inside their `switch`, and the session
+reducer also wrote to the cross-lesson mastery ledger. React StrictMode invokes a reducer twice
+for every action in development precisely to expose that, and it did: one answer in the browser
+produced two attempts and two of every event.
+
+**What changed.** The reducers are now pure functions of `(state, action)`, and what a
+transition wanted to do it *returns* instead:
+
+| Field | Meaning |
+| --- | --- |
+| `transitionId` | Increments once per real transition. Never decreases, including across RESET and RESTART. |
+| `emitted` | The events this transition produced. **Replaced** every transition, never appended to — the state holds one outbox, not a log. |
+| `recordedAttempt` | Session reducer only: the attempt for the caller to fold into the mastery ledger. |
+
+`src/app/transition.ts` holds the contract and `createDrainGuard()`, a closure that performs a
+given `transitionId` at most once. `src/ui/hooks/use-transition-drain.ts` is the only place in
+the UI that turns an outbox back into sink calls; it holds one guard in a ref, which is what
+lets it survive the unmount/remount StrictMode also performs on every effect. Callers outside
+React use `applySession` / `applyReflection` / `applyExposure` / `applySorter`, which reduce and
+drain in one step.
+
+Two design points worth stating, because both were choices:
+
+- **StrictMode stays on.** It is what found this. Removing it would have hidden the defect
+  rather than fixed it.
+- **The reducers lost their third parameter entirely.** There is no slot to hand an effect into
+  any more, so a future call site cannot reintroduce the defect by passing a sink. A test
+  asserts `reducer.length === 2` for all four.
+
+**`tests/reducer-purity.test.ts` — 40 tests, enforcing the rule from four directions:**
+
+1. *shape* — each reducer takes exactly `(state, action)`;
+2. *behaviour* — invoking a reducer twice from the same state gives deeply equal results and
+   writes nothing to a sink or a ledger; `emitted` is replaced not accumulated; `transitionId`
+   only ever increases; a no-op action preserves state identity;
+3. *drain* — the guard performs a transition once however often the effect re-runs, and runs the
+   extra ledger effect once too;
+4. *source* — no reducer module matches `sink?.record(`, and `learning-session.ts` contains
+   exactly one `ledger.record(` call, inside `drainSession`.
+
+The tests were checked against three deliberate mutations rather than assumed to be meaningful:
+removing the guard fails 2 tests; restoring `masteryLedger.record()` inside the transition table
+fails the source test; restoring a `sink?.record()` call fails it too. The second mutation is
+the reason the source check is case-insensitive — `masteryLedger.record(` does not match a
+case-sensitive `ledger.record(`, and the first version of that test sailed straight past it.
+
+**Browser verification (dev server, StrictMode on, Chromium).** Event counts read from the live
+`eventSink` singleton by importing the module URL Vite serves, so no debug global was added to
+the app:
+
+```
+Three lessons in three worlds, one answer each
+  after My Skin     {"question_answered":1,"mastery_dimension_updated":1}  1 attempt   [SK01]
+  after Ingredient  {"question_answered":2,"mastery_dimension_updated":2}  2 attempts  [SK01,SK06]
+  after Routine     {"question_answered":3,"mastery_dimension_updated":3}  3 attempts  [SK01,SK05,SK06]
+Re-mounting a world three times
+  unchanged         {"question_answered":3,"mastery_dimension_updated":3}  3 attempts
+Quests & Mastery   "3 attempts recorded · 3 of 12 skills have evidence · 0 mastered"
+Routine Studio     {"reflection_completed":1}
+Sun Protection     {"reflection_completed":1}
+Label Detective    {"question_answered":1}
+console errors: none
+```
+
+Before the fix every one of those numbers doubled. The ledger was already correct, because it
+is idempotent per `attemptId` — that idempotency is kept, as a second line of defence rather
+than as the fix.
+
+**What this surfaced.** Verifying the full lesson path showed that `lesson_started` and
+`lesson_completed` never fire in the browser at all: the reducer emits them and the tests drive
+them, but no screen dispatches `START_LESSON` or `CONTINUE_TO_MASTERY`. Recorded as known
+technical item 7 rather than repaired, because when a lesson counts as started and finished is a
+curriculum judgement.
+
 ## 10. How to run the project
 
 ```bash
@@ -568,7 +648,7 @@ git clone <repo> && cd kbeauty-origin
 npm install
 
 npm run dev       # http://127.0.0.1:5173  — My Skin slice + Content Governance screen
-npm test          # 115 tests
+npm test          # 352 tests
 npm run build     # typecheck + production build into dist/
 ```
 

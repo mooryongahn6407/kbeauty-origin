@@ -23,7 +23,9 @@ import { createMasteryState, recordAttempt } from '@/mastery/mastery-engine';
 import { classifyRisk } from '@/safety/safety-gate';
 import { nextHintLevel } from '@/tutor/tutor-engine';
 import type { EventSink } from '@/analytics/events';
-import { masteryLedger } from '@/mastery/mastery-ledger';
+import type { LearningEvent } from '@/domain/learning';
+import { INITIAL_TRANSITION, drainEvents, type Emit, type EmittingState } from './transition';
+import { masteryLedger, type MasteryLedger } from '@/mastery/mastery-ledger';
 
 /**
  * A lesson plan names the governed records a learning session stands on.
@@ -151,7 +153,7 @@ export const SLICE_SKILL_ID = MIRROR_DETECTIVE_PLAN.skillId;
 /** Highest hint index available; H4 is explicit teaching (AI Constitution §5.1). */
 const MAX_HINT_STEPS = 3;
 
-export interface SessionState {
+export interface SessionState extends EmittingState {
   readonly userId: string;
   readonly locale: string;
   readonly planId: string;
@@ -173,6 +175,13 @@ export interface SessionState {
   readonly safetyHaltMessageKey: string | null;
   /** True when the rendered content fell back to the base locale. */
   readonly usedFallbackLocale: boolean;
+  /**
+   * Attempt this transition produced, for the caller to fold into the cross-lesson ledger.
+   * Returned rather than recorded, for the reason set out in `src/app/transition.ts`.
+   */
+  readonly recordedAttempt: Attempt | null;
+  readonly transitionId: number;
+  readonly emitted: readonly LearningEvent[];
 }
 
 export type SessionAction =
@@ -311,16 +320,23 @@ export function createSession(
     disclosures: grounding.disclosures,
     safetyHaltMessageKey: null,
     usedFallbackLocale: false,
+    recordedAttempt: null,
+    ...INITIAL_TRANSITION,
   };
 }
 
-export function sessionReducer(
+/**
+ * The transition table.
+ *
+ * Declares what happened through `emit` and `onAttempt`; performs nothing. Not exported —
+ * `sessionReducer` is the only way in, so no caller can reach a version that takes effects.
+ */
+function reduceSession(
   state: SessionState,
   action: SessionAction,
-  sink?: EventSink,
+  emit: Emit,
+  onAttempt: (attempt: Attempt) => void,
 ): SessionState {
-  const emit = (event: Parameters<EventSink['record']>[0]) => sink?.record(event);
-
   switch (action.type) {
     case 'START_LESSON': {
       if (state.phase !== 'LESSON') return state;
@@ -405,11 +421,8 @@ export function sessionReducer(
       const mastery = recordAttempt(state.mastery, attempt);
       // The same attempt also accrues to the cross-lesson ledger, so a skill practised in one
       // world counts toward the same skill everywhere. Evidence is only ever earned this way.
-      //
-      // This is a side effect inside a reducer, which React StrictMode deliberately invokes
-      // twice in development to surface exactly that. The ledger is idempotent per attemptId
-      // so a repeated write of the same answer cannot double-count.
-      masteryLedger.record(attempt);
+      // The write itself is the caller's to perform — this reducer only declares the attempt.
+      onAttempt(attempt);
       emit({
         type: 'mastery_dimension_updated',
         userId: state.userId,
@@ -521,6 +534,65 @@ export function sessionReducer(
     default:
       return state;
   }
+}
+
+/**
+ * The session reducer. Pure: same `(state, action)` in, deeply equal state out, nothing else.
+ *
+ * Calling it twice with the same arguments — which React StrictMode does on every dispatch in
+ * development — writes no event and records no attempt. What the transition wanted to do is in
+ * `emitted` and `recordedAttempt`, for `drainSession` to perform exactly once.
+ */
+export function sessionReducer(state: SessionState, action: SessionAction): SessionState {
+  const events: LearningEvent[] = [];
+  // An array rather than a `let`, so the closure assignment stays visible to the type checker.
+  const attempts: Attempt[] = [];
+  const next = reduceSession(
+    state,
+    action,
+    (event) => events.push(event),
+    (attempt) => attempts.push(attempt),
+  );
+
+  // A no-op action keeps state identity, so React bails out of the re-render and a test can
+  // still assert that nothing happened.
+  if (next === state && events.length === 0) return state;
+
+  return {
+    ...next,
+    // Always derived from the previous counter, so RESTART — which rebuilds state from
+    // `createSession` — moves it forward rather than back to zero.
+    transitionId: state.transitionId + 1,
+    emitted: events,
+    recordedAttempt: attempts[0] ?? null,
+  };
+}
+
+/**
+ * Perform one transition's declared effects, exactly once.
+ *
+ * The ledger is a parameter rather than an import at the call site so a test can hand in an
+ * isolated ledger and assert that a pure reducer call reached neither it nor the sink.
+ */
+export function drainSession(
+  state: SessionState,
+  sink?: EventSink,
+  ledger: MasteryLedger = masteryLedger,
+): void {
+  drainEvents(state, sink);
+  if (state.recordedAttempt) ledger.record(state.recordedAttempt);
+}
+
+/** Reduce and drain in one step, for callers outside React (tests, scripts). */
+export function applySession(
+  state: SessionState,
+  action: SessionAction,
+  sink?: EventSink,
+  ledger: MasteryLedger = masteryLedger,
+): SessionState {
+  const next = sessionReducer(state, action);
+  if (next !== state) drainSession(next, sink, ledger);
+  return next;
 }
 
 /** Resolve the current activity's text for the session locale, reporting any fallback. */

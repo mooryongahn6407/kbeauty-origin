@@ -12,6 +12,7 @@
 import { useMemo, useReducer, useState } from 'react';
 import type { LessonPhase } from '@/domain/learning';
 import { eventSink } from '@/analytics/events';
+import { useTransitionDrain } from '../hooks/use-transition-drain';
 import { resolveVariant } from '@/content/authored-content';
 import {
   createSession,
@@ -24,6 +25,7 @@ import {
   type SessionAction,
   type SessionState,
 } from '@/app/learning-session';
+import { masteryLedger } from '@/mastery/mastery-ledger';
 import { translate } from '@/localization/messages';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { MasteryPanel } from '../components/MasteryPanel';
@@ -75,10 +77,15 @@ function PhaseRail({ phase, locale }: { phase: LessonPhase; locale: string }) {
 export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: string }) {
   const grounding = useMemo(() => loadSliceGrounding(plan), [plan]);
   const [state, rawDispatch] = useReducer(
-    (current: SessionState, action: SessionAction) => sessionReducer(current, action, eventSink),
+    (current: SessionState, action: SessionAction) => sessionReducer(current, action),
     undefined,
     () => createSession('local-learner', locale, now(), plan),
   );
+  // The reducer is pure; this is the only place its events reach the sink and its attempts
+  // reach the cross-lesson mastery ledger.
+  useTransitionDrain(state, eventSink, (current) => {
+    if (current.recordedAttempt) masteryLedger.record(current.recordedAttempt);
+  });
   const [reflectionDraft, setReflectionDraft] = useState('');
 
   // The session carries its own locale; switching language restarts the slice cleanly.

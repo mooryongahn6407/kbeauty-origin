@@ -24,6 +24,7 @@ import {
   type ExposureSetting,
 } from '@/app/exposure-log';
 import { eventSink } from '@/analytics/events';
+import { useTransitionDrain } from '../hooks/use-transition-drain';
 import { evaluateQuestAvailability } from '@/governance/learning-availability';
 import {
   evidenceSpecificityReport,
@@ -39,11 +40,12 @@ const SUN_QUESTS = ['QST-004', 'QST-005'] as const;
 
 function ExposureLog({ locale }: { locale: string }) {
   const [state, dispatch] = useReducer(
-    (current: ExposureLogState, action: ExposureAction) =>
-      exposureReducer(current, action, eventSink),
+    (current: ExposureLogState, action: ExposureAction) => exposureReducer(current, action),
     undefined,
     () => createExposureLog('local-learner'),
   );
+  // The reducer is pure; this is the only place its events reach the sink.
+  useTransitionDrain(state, eventSink);
   const [activity, setActivity] = useState('');
   const [band, setBand] = useState<ExposureBand>('midday');
   const [setting, setSetting] = useState<ExposureSetting>('open');

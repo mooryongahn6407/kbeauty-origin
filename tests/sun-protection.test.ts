@@ -9,6 +9,7 @@
  * and the absence of guidance is stated rather than left to read as reassurance.
  */
 import { beforeEach, describe, expect, it } from 'vitest';
+import { createMasteryLedger } from '@/mastery/mastery-ledger';
 import { createEventSink } from '@/analytics/events';
 import {
   SUN_EXPOSURE_PLAN,
@@ -16,7 +17,7 @@ import {
   currentActivityText,
   findLessonPlan,
   loadSliceGrounding,
-  sessionReducer,
+  applySession,
   sliceActivities,
   type SessionState,
 } from '@/app/learning-session';
@@ -26,7 +27,7 @@ import {
   MAX_ENTRIES,
   MAX_MINUTES,
   createExposureLog,
-  exposureReducer,
+  applyExposure,
   summariseExposure,
   type ExposureBand,
   type ExposureLogState,
@@ -139,14 +140,18 @@ describe('Sun Observatory quests stay closed', () => {
 
 describe('the lesson states nothing about UV, SPF or protection', () => {
   let sink = createEventSink();
+  // An isolated ledger: `applySession` would otherwise fold attempts into the
+  // process-wide one and let suites see each other's evidence.
+  const ledger = createMasteryLedger('test-learner');
   let state: SessionState;
-  const dispatch = (action: Parameters<typeof sessionReducer>[1]) => {
-    state = sessionReducer(state, action, sink);
+  const dispatch = (action: Parameters<typeof applySession>[1]) => {
+    state = applySession(state, action, sink, ledger);
     return state;
   };
 
   beforeEach(() => {
     sink = createEventSink();
+    ledger.reset();
     state = createSession('test-learner', 'en', AT, SUN_EXPOSURE_PLAN);
   });
 
@@ -209,8 +214,8 @@ describe('the lesson states nothing about UV, SPF or protection', () => {
 describe('exposure log records without judging', () => {
   let sink = createEventSink();
   let state: ExposureLogState;
-  const dispatch = (action: Parameters<typeof exposureReducer>[1]) => {
-    state = exposureReducer(state, action, sink);
+  const dispatch = (action: Parameters<typeof applyExposure>[1]) => {
+    state = applyExposure(state, action, sink);
     return state;
   };
   const entry = (
@@ -258,12 +263,15 @@ describe('exposure log records without judging', () => {
       bandsNotRecorded: ['early-morning', 'afternoon', 'evening'],
     });
     // The state itself carries no score, rating or recommendation field.
+    // `transitionId` and `emitted` are the reducer's event outbox, not learner data.
     expect(Object.keys(state)).toEqual([
       'userId',
       'phase',
       'entries',
       'disclosures',
       'safetyHaltMessageKey',
+      'transitionId',
+      'emitted',
     ]);
   });
 

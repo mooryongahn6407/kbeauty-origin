@@ -9,6 +9,7 @@
  * ingredient does something or that a claim is true.
  */
 import { beforeEach, describe, expect, it } from 'vitest';
+import { createMasteryLedger } from '@/mastery/mastery-ledger';
 import { createEventSink } from '@/analytics/events';
 import {
   LABEL_READING_PLAN,
@@ -16,7 +17,7 @@ import {
   currentActivityText,
   findLessonPlan,
   loadSliceGrounding,
-  sessionReducer,
+  applySession,
   sliceActivities,
   type SessionState,
 } from '@/app/learning-session';
@@ -27,7 +28,7 @@ import {
   findSpecimen,
   labelSpecimens,
   misplacedFragments,
-  sorterReducer,
+  applySorter,
   type SorterState,
 } from '@/app/label-sorter';
 import { atomsForNode, findActivity } from '@/content/authored-content';
@@ -93,8 +94,8 @@ describe('label specimens are fictional and carry no product data', () => {
 describe('the sorter marks nothing until asked', () => {
   let sink = createEventSink();
   let state: SorterState;
-  const dispatch = (action: Parameters<typeof sorterReducer>[1]) => {
-    state = sorterReducer(state, action, sink);
+  const dispatch = (action: Parameters<typeof applySorter>[1]) => {
+    state = applySorter(state, action, sink);
     return state;
   };
   const specimen = findSpecimen(SPECIMEN)!;
@@ -165,6 +166,7 @@ describe('the sorter marks nothing until asked', () => {
     expect(state.checkCount).toBe(2);
     expect(sink.countOf('question_answered')).toBe(2);
     // There is no grade, streak or score anywhere in the state.
+    // `transitionId` and `emitted` are the reducer's event outbox, not learner data.
     expect(Object.keys(state)).toEqual([
       'userId',
       'specimenId',
@@ -173,6 +175,8 @@ describe('the sorter marks nothing until asked', () => {
       'incorrectFragmentIds',
       'checkCount',
       'disclosures',
+      'transitionId',
+      'emitted',
     ]);
   });
 
@@ -238,14 +242,18 @@ describe('D11 has the best evidence alignment in the corpus', () => {
 
 describe('the label lesson', () => {
   let sink = createEventSink();
+  // An isolated ledger: `applySession` would otherwise fold attempts into the
+  // process-wide one and let suites see each other's evidence.
+  const ledger = createMasteryLedger('test-learner');
   let state: SessionState;
-  const dispatch = (action: Parameters<typeof sessionReducer>[1]) => {
-    state = sessionReducer(state, action, sink);
+  const dispatch = (action: Parameters<typeof applySession>[1]) => {
+    state = applySession(state, action, sink, ledger);
     return state;
   };
 
   beforeEach(() => {
     sink = createEventSink();
+    ledger.reset();
     state = createSession('test-learner', 'en', AT, LABEL_READING_PLAN);
   });
 

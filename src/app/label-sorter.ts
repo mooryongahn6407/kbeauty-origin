@@ -20,6 +20,8 @@
  */
 import type { Disclosure } from '@/domain/governance';
 import type { EventSink } from '@/analytics/events';
+import type { LearningEvent } from '@/domain/learning';
+import { INITIAL_TRANSITION, drainEvents, type Emit, type EmittingState } from './transition';
 import {
   DISCLOSURE_NOT_MEDICAL,
   DISCLOSURE_PENDING_VERIFICATION,
@@ -55,7 +57,7 @@ export const findSpecimen = (specimenId: string): LabelSpecimen | undefined =>
 
 export type SorterPhase = 'SORTING' | 'CHECKED' | 'COMPLETE';
 
-export interface SorterState {
+export interface SorterState extends EmittingState {
   readonly userId: string;
   readonly specimenId: string;
   readonly phase: SorterPhase;
@@ -66,6 +68,8 @@ export interface SorterState {
   /** How many times the learner has asked to be checked. Drives the tone of the feedback. */
   readonly checkCount: number;
   readonly disclosures: readonly Disclosure[];
+  readonly transitionId: number;
+  readonly emitted: readonly LearningEvent[];
 }
 
 export type SorterAction =
@@ -87,6 +91,7 @@ export function createSorter(userId: string, specimenId: string): SorterState {
     incorrectFragmentIds: [],
     checkCount: 0,
     disclosures: [DISCLOSURE_PENDING_VERIFICATION, DISCLOSURE_NOT_MEDICAL],
+    ...INITIAL_TRANSITION,
   };
 }
 
@@ -132,11 +137,8 @@ export function misplacedFragments(state: SorterState): readonly LabelFragment[]
   });
 }
 
-export function sorterReducer(
-  state: SorterState,
-  action: SorterAction,
-  sink?: EventSink,
-): SorterState {
+/** The transition table. Declares events through `emit`; performs none. See `./transition`. */
+function reduceSorter(state: SorterState, action: SorterAction, emit: Emit): SorterState {
   switch (action.type) {
     case 'PLACE': {
       if (state.phase === 'COMPLETE') return state;
@@ -169,7 +171,7 @@ export function sorterReducer(
       if (!result.allPlaced) return state;
 
       const incorrect = misplacedFragments(state).map((fragment) => fragment.fragmentId);
-      sink?.record({
+      emit({
         type: 'question_answered',
         userId: state.userId,
         at: action.at,
@@ -195,7 +197,7 @@ export function sorterReducer(
 
     case 'COMPLETE': {
       if (state.phase !== 'CHECKED' || !evaluateSorter(state).allCorrect) return state;
-      sink?.record({
+      emit({
         type: 'lesson_completed',
         userId: state.userId,
         at: action.at,
@@ -210,4 +212,27 @@ export function sorterReducer(
     default:
       return state;
   }
+}
+
+/**
+ * The sorter reducer. Pure: same `(state, action)` in, deeply equal state out, nothing else.
+ * What the transition wanted to report is in `emitted`, for the caller to drain once.
+ */
+export function sorterReducer(state: SorterState, action: SorterAction): SorterState {
+  const events: LearningEvent[] = [];
+  const next = reduceSorter(state, action, (event) => events.push(event));
+  if (next === state && events.length === 0) return state;
+  // Derived from the previous counter so RESET moves it forward rather than back to zero.
+  return { ...next, transitionId: state.transitionId + 1, emitted: events };
+}
+
+/** Reduce and drain in one step, for callers outside React (tests, scripts). */
+export function applySorter(
+  state: SorterState,
+  action: SorterAction,
+  sink?: EventSink,
+): SorterState {
+  const next = sorterReducer(state, action);
+  if (next !== state) drainEvents(next, sink);
+  return next;
 }
