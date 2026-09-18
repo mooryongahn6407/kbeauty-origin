@@ -146,7 +146,7 @@ function CatalogPanel({ locale }: { locale: string }) {
                               {ingredient.Status} · {ingredient.Evidence_Status}
                             </span>
                             <br />
-                            <span className="muted" style={{ fontSize: '0.68rem' }}>
+                            <span className="muted fine">
                               {decision.mode}
                             </span>
                           </td>

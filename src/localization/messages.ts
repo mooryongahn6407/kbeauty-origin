@@ -269,6 +269,20 @@ const MESSAGES_EN = {
     'The Mastery Competency Matrix proposes seven levels from Beauty Explorer to Beauty Master. It is marked "DECISION DRAFT — NOT CANONICAL", so no level is assigned to anyone here.',
   'quest.resetLedger': 'Clear my evidence',
   'quest.ledgerSummary': '{attempts} attempts recorded · {started} of 12 skills have evidence · {mastered} mastered',
+
+  'display.theme': 'Theme',
+  'display.theme.auto': 'Auto',
+  'display.theme.light': 'Light',
+  'display.theme.dark': 'Dark',
+  'display.textSize': 'Text size',
+  'display.textSize.normal': 'A',
+  'display.textSize.large': 'A+',
+  'display.textSize.larger': 'A++',
+  'display.skipToContent': 'Skip to the main content',
+
+  'speech.listen': 'Listen',
+  'speech.stop': 'Stop',
+  'speech.unavailable': 'No voice for this language on this device',
 } as const;
 
 /**
@@ -528,11 +542,319 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
     'Mastery Competency Matrix는 Beauty Explorer부터 Beauty Master까지 일곱 단계를 제안합니다. 다만 "DECISION DRAFT — NOT CANONICAL"로 표시되어 있어, 여기서는 누구에게도 단계를 부여하지 않습니다.',
   'quest.resetLedger': '내 증거 지우기',
   'quest.ledgerSummary': '{attempts}회 시도 기록 · 12개 스킬 중 {started}개에 증거 · {mastered}개 숙달',
+
+  'display.theme': '화면 모드',
+  'display.theme.auto': '자동',
+  'display.theme.light': '밝게',
+  'display.theme.dark': '어둡게',
+  'display.textSize': '글자 크기',
+  'display.textSize.normal': '가',
+  'display.textSize.large': '가+',
+  'display.textSize.larger': '가++',
+  'display.skipToContent': '본문으로 건너뛰기',
+
+  'speech.listen': '들기',
+  'speech.stop': '정지',
+  'speech.unavailable': '이 기기에는 이 언어의 음성이 없습니다',
+};
+
+
+/**
+ * French catalog. French is one of the few locales BOTH sources agree on: Master DB
+ * 15_LOCALIZATION registers it and the Global Content Engine spec lists it, so this fills a
+ * governed locale rather than inventing one — OQ-L01 stays open regardless.
+ *
+ * UI chrome only, like every catalog here. No French lesson content exists yet, so a learner
+ * who picks French reads the interface in French and the lesson text in English, with the
+ * fallback stated on screen rather than passed off as a translation.
+ */
+const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
+  'app.title': 'Le Monde de la Beauté',
+  'app.northStar': 'Apprendre la beauté. Se connaître. Mieux choisir.',
+
+  'nav.mySkin': 'Ma peau',
+  'nav.ingredientGarden': 'Jardin des ingrédients',
+  'nav.routineStudio': 'Atelier routine',
+  'nav.sunProtection': 'Protection solaire',
+  'nav.labelDetective': 'Détective d’étiquettes',
+  'nav.aiTutor': 'Tuteur IA',
+  'nav.quests': 'Quêtes et maîtrise',
+  'nav.governance': 'Gouvernance du contenu',
+
+  'disclosure.pendingVerification':
+    'Cette fiche de connaissance n’a pas terminé sa revue des preuves. Elle est présentée pour apprendre, non comme un fait vérifié.',
+  'disclosure.workingDataset':
+    'Jeu de données de travail. La structure canonique du programme n’est pas encore approuvée.',
+  'disclosure.notMedicalAdvice':
+    'Ceci relève de l’éducation cosmétique, non du diagnostic ni du traitement médical.',
+  'disclosure.authoredScaffold':
+    'Support pédagogique rédigé pour ce prototype. Il enseigne un raisonnement et n’énonce aucune affirmation scientifique.',
+
+  'safety.escalation.R2':
+    'Cela semble être quelque chose à faire vérifier plutôt qu’à traverser en apprenant. Envisagez de consulter un professionnel qualifié, et suspendez tout nouveau produit pour l’instant.',
+  'safety.escalation.R3':
+    'Ce que vous décrivez devrait être examiné par un professionnel qualifié. Les suggestions de produits sont désactivées ici.',
+  'safety.escalation.R4':
+    'Veuillez demander immédiatement de l’aide aux services d’urgence ou médicaux locaux. Cette leçon s’arrête ici.',
+
+  'lesson.phase.lesson': 'Micro-leçon',
+  'lesson.phase.ask': 'Question',
+  'lesson.phase.think': 'Un instant',
+  'lesson.phase.hint': 'Indice',
+  'lesson.phase.try': 'Votre réponse',
+  'lesson.phase.feedback': 'Retour',
+  'lesson.phase.reflect': 'Réflexion',
+  'lesson.phase.master': 'Preuves de maîtrise',
+  'lesson.phase.complete': 'Terminé',
+
+  'lesson.think.prompt':
+    'Avant de répondre — laquelle quelqu’un d’autre pourrait-il vérifier à votre place ?',
+  'lesson.think.continue': 'J’ai une idée',
+  'lesson.hint.request': 'J’ai besoin d’un indice',
+  'lesson.hint.noneLeft': 'Plus d’indices ; l’explication ci-dessous est la dernière étape.',
+  'lesson.reflect.placeholder': 'Écrivez une phrase avec vos propres mots…',
+  'lesson.reflect.submit': 'Enregistrer ma réflexion',
+  'lesson.next': 'Suivant',
+  'lesson.restart': 'Recommencer',
+  'lesson.continueToTransfer': 'Essayer une nouvelle situation',
+  'lesson.finish': 'Terminer cette leçon',
+  'lesson.finished': 'Leçon terminée. Vos preuves sont conservées dans Quêtes et maîtrise.',
+
+  'mastery.title': 'Preuves de maîtrise',
+  'mastery.accuracy': 'Exactitude',
+  'mastery.independence': 'Autonomie',
+  'mastery.transfer': 'Transfert',
+  'mastery.retention': 'Rétention',
+  'mastery.notYet': 'Pas encore démontré',
+  'mastery.satisfied': 'Démontré',
+  'mastery.explainer':
+    'La maîtrise demande les quatre types de preuves. Une bonne réponse n’est pas la maîtrise.',
+  'mastery.state': 'État de l’apprenant',
+
+  'governance.title': 'Gouvernance du contenu',
+  'governance.openItems': 'Points de gouvernance ouverts',
+  'governance.strandTitle': 'Taxonomie des axes',
+  'governance.integrityTitle': 'Intégrité référentielle',
+  'governance.localeTitle': 'Couverture linguistique',
+  'governance.noCanonical': 'Aucune taxonomie canonique n’a été approuvée.',
+  'governance.statusCounts': 'Statut des fiches de connaissance',
+
+  'common.source': 'Source',
+  'common.status': 'Statut',
+  'common.evidence': 'Preuve',
+  'common.version': 'Version',
+  'common.node': 'Fiche de connaissance',
+  'common.skill': 'Compétence',
+  'common.locale': 'Langue',
+  'common.fallbackLocale': 'Affiché en {locale} — aucune traduction disponible pour l’instant.',
+  'common.notAvailable': 'Non disponible',
+  'common.comingSoon': 'Non développé dans cette tranche du prototype.',
+
+  'ingredient.catalogTitle': 'Catalogue des ingrédients',
+  'ingredient.catalogIntro':
+    'Chaque fiche d’ingrédient de la base gouvernée, telle quelle. Aucune n’a terminé sa revue des preuves : ce sont donc des fiches à examiner, et non des affirmations sur ce que fait un ingrédient.',
+  'ingredient.family': 'Famille',
+  'ingredient.function': 'Fonction principale',
+  'ingredient.level': 'Niveau',
+  'ingredient.learningGoal': 'Objectif d’apprentissage',
+  'ingredient.reference': 'Référence',
+  'ingredient.noReference': 'Aucune référence enregistrée',
+  'ingredient.questTitle': 'Quêtes du Jardin des ingrédients',
+  'ingredient.questIntro':
+    'Les trois quêtes gouvernées de ce monde, reliées à leur véritable carte de fiches. Chacune demande d’énoncer ce que fait un ingrédient, ce qui est une affirmation scientifique : chacune reste donc fermée tant que ses fiches n’ont pas passé la revue des preuves.',
+  'ingredient.winCondition': 'Condition de réussite',
+  'ingredient.coreNode': 'Fiche centrale',
+  'ingredient.blockedBy': 'Bloquée par',
+  'ingredient.lessonTitle': 'Ce que vous pouvez apprendre ici aujourd’hui',
+  'ingredient.lessonIntro':
+    'Savoir lire une allégation ne dépend pas de données d’ingrédients non vérifiées. C’est une compétence de raisonnement : cette leçon est donc ouverte.',
+  'ingredient.startLesson': 'Commencer la lecture d’allégations',
+  'ingredient.backToGarden': 'Retour au jardin',
+  'ingredient.openLesson': 'Ouverte',
+  'ingredient.closedLesson': 'Fermée',
+
+  'routine.lessonTitle': 'Avant de réorganiser quoi que ce soit',
+  'routine.lessonIntro':
+    'Ce monde ne vous dit pas quelle devrait être votre routine. Il enseigne la question qui rend votre propre routine analysable : la leçon est donc ouverte pendant que les fiches de routine sont encore en revue.',
+  'routine.startLesson': 'Commencer le raisonnement sur la routine',
+  'routine.backToStudio': 'Retour à l’atelier',
+  'routine.catalogTitle': 'Modèles de routine gouvernés',
+  'routine.catalogIntro':
+    'Les dix fiches de routine telles que la base les conserve. Chacune est marquée Approuvée, mais la feuille ne comporte aucun champ où une routine pourrait citer une preuve : aucune ne peut donc être présentée comme la bonne façon de faire.',
+  'routine.sequence': 'Séquence par défaut',
+  'routine.proseSequence':
+    'Enregistrée en texte libre, non comme une liste d’étapes ordonnée. Présentée telle quelle.',
+  'routine.linkedNodes': 'Connaissances liées',
+  'routine.missingNode': 'La fiche référencée n’existe pas',
+  'routine.questTitle': 'Quête de l’Atelier routine',
+  'routine.studioTitle': 'Ma routine — une réflexion',
+  'routine.studioIntro':
+    'Listez les étapes que vous faites réellement, puis dites à quoi chacune sert. Cet outil enregistre ce que vous écrivez et compte ce que vous avez su expliquer. Il n’évalue pas votre routine, ne classe pas vos étapes et ne recommande rien.',
+  'routine.addStep': 'Ajouter une étape',
+  'routine.stepPlaceholder': 'Une étape que vous faites vraiment…',
+  'routine.purposePlaceholder': 'À quoi sert cette étape, et comment le remarqueriez-vous ?',
+  'routine.toPurpose': 'Maintenant, pourquoi ?',
+  'routine.finishReview': 'Voir ce que j’ai su expliquer',
+  'routine.reviewHeading': 'Ce que vous avez su expliquer',
+  'routine.reviewSummary': '{withPurpose} étapes sur {total} ont une raison que vous avez énoncée.',
+  'routine.reviewNote':
+    'Ce nombre est le vôtre, pas une note. Une étape que vous n’avez pas su expliquer n’est pas une erreur : c’est simplement une étape que vous ne pouvez pas encore comparer, défendre ou abandonner en connaissance de cause.',
+  'routine.startOver': 'Tout recommencer',
+  'routine.noSteps': 'Aucune étape listée pour l’instant.',
+  'routine.stepLabel': 'Étape',
+  'routine.purposeLabel': 'Raison',
+  'routine.notStated': 'Non énoncée',
+
+  'sun.lessonTitle': 'Ce que vous pouvez établir vous-même',
+  'sun.lessonIntro':
+    'Ce monde ne vous dit pas quelle protection utiliser. Le registre des preuves ne contient aucune source sur le soleil ni sur l’exposition aux ultraviolets : la seule chose honnête qu’il puisse enseigner est la frontière entre ce que vous observez et ce qui demande une preuve.',
+  'sun.startLesson': 'Commencer le raisonnement sur l’exposition',
+  'sun.backToObservatory': 'Retour à l’observatoire',
+  'sun.logTitle': 'Mon journal d’exposition',
+  'sun.logIntro':
+    'Notez les moments de votre journée auxquels vous étiez réellement présent : ce que vous faisiez, à peu près quand, combien de temps, et dans quel cadre. Cet outil enregistre et compte. Il ne donne ni note, ni seuil, ni conseil.',
+  'sun.activity': 'Que faisiez-vous ?',
+  'sun.activityPlaceholder': 'marché à pied jusqu’au marché…',
+  'sun.band': 'Vers quel moment',
+  'sun.setting': 'Cadre',
+  'sun.minutes': 'Minutes',
+  'sun.addEntry': 'Ajouter au journal',
+  'sun.review': 'Voir ce que j’ai noté',
+  'sun.noEntries': 'Rien de noté pour l’instant.',
+  'sun.summaryTotal': '{entries} période(s) notée(s), {minutes} minutes au total.',
+  'sun.summaryNote':
+    'Ce sont vos propres observations, ni une mesure ni un niveau de risque. Les moments que vous n’avez pas notés sont des trous dans le journal, pas des affirmations sur votre journée.',
+  'sun.notRecorded': 'Non noté',
+  'sun.startOver': 'Tout recommencer',
+  'sun.evidenceTitle': 'État des preuves pour ce domaine',
+  'sun.questTitle': 'Quêtes de l’Observatoire solaire',
+  'sun.band.early-morning': 'Tôt le matin',
+  'sun.band.midday': 'Milieu de journée',
+  'sun.band.afternoon': 'Après-midi',
+  'sun.band.evening': 'Soirée',
+  'sun.setting.open': 'À découvert',
+  'sun.setting.partial-shade': 'Ombre partielle',
+  'sun.setting.shade': 'À l’ombre',
+  'sun.setting.indoors-by-window': 'À l’intérieur, près d’une fenêtre',
+
+  'label.title': 'Quatre messages, une seule boîte',
+  'label.intro':
+    'Lire une étiquette, c’est trier, pas juger. Ce monde vous aide à distinguer les quatre parties. Il ne vous dit jamais si une allégation est vraie ni si un produit vous convient.',
+  'label.startLesson': 'Commencer la lecture d’étiquette',
+  'label.backToLibrary': 'Retour à la bibliothèque',
+  'label.sorterTitle': 'Triez cette étiquette',
+  'label.sorterIntro':
+    'Placez chaque ligne là où vous pensez qu’elle va. Rien n’est corrigé tant que vous ne le demandez pas.',
+  'label.specimenWarning': 'Une étiquette d’entraînement — inventée, sans marque.',
+  'label.unplaced': 'Lignes à trier',
+  'label.allSorted': 'Toutes les lignes sont placées. On regarde ensemble ?',
+  'label.check': 'Vérifier mon tri',
+  'label.keepSorting': 'Laissez-moi en déplacer',
+  'label.finish': 'Terminer',
+  'label.startOver': 'Tout recommencer',
+  'label.allCorrectTitle': 'Les quatre parties, bien distinguées.',
+  'label.allCorrectBody':
+    'Vous pouvez maintenant le faire sur n’importe quelle boîte. Sur une vraie étiquette, les parties seront plus emmêlées que sur celle-ci.',
+  'label.someWrongTitle': 'Presque — {correct} sur {total} sont à leur place.',
+  'label.someWrongBody':
+    'Celles ci-dessous ont changé de place. Lisez-les, puis déplacez-les et vérifiez à nouveau. Se tromper d’abord, c’est ainsi que la différence devient évidente.',
+  'label.whyLabel': 'En clair',
+  'label.movedTo': 'Vous l’avez mise sous',
+  'label.belongsIn': 'Sa place est sous',
+  'label.bucket.CLAIM': 'Ce qu’elle dit d’elle-même',
+  'label.bucket.INGREDIENTS': 'Ce qu’il y a dedans',
+  'label.bucket.HOW_TO_USE': 'Quoi en faire',
+  'label.bucket.CAUTION': 'Ce à quoi faire attention',
+  'label.bucketHint.CLAIM': 'Écrit pour vous intéresser. L’entreprise a choisi de le dire.',
+  'label.bucketHint.INGREDIENTS':
+    'Les noms de ce qu’il y a dans le flacon. Leur impression est obligatoire.',
+  'label.bucketHint.HOW_TO_USE': 'Une instruction du fabricant sur l’usage du produit.',
+  'label.bucketHint.CAUTION': 'Un avertissement : arrêter, conserver, ou demander à quelqu’un.',
+  'label.questTitle': 'Quête du Détective d’étiquettes',
+  'label.evidenceTitle': 'État des preuves pour ce domaine',
+
+  'tutor.title': 'Posez une question, et voyez sur quoi je m’appuie',
+  'tutor.intro':
+    'Ce tuteur ne génère pas de réponses. Il vous montre ce qu’il a compris, quelles fiches gouvernées il a trouvées, et exactement ce qu’il peut et ne peut pas dire — pour que vous jugiez le raisonnement plutôt que de faire confiance à la formulation.',
+  'tutor.placeholder': 'Posez une question sur la beauté…',
+  'tutor.ask': 'Demander',
+  'tutor.tryThese': 'Essayez l’une de celles-ci',
+  'tutor.understood': 'Ce que j’ai compris',
+  'tutor.intent': 'Intention',
+  'tutor.mode': 'Mode',
+  'tutor.risk': 'Risque',
+  'tutor.hintLevel': 'Niveau d’indice',
+  'tutor.grounding': 'Ce que j’ai trouvé',
+  'tutor.groundingEmpty':
+    'Rien dans la connaissance gouvernée ne correspond. Je n’inventerai pas de fiche pour vous répondre.',
+  'tutor.groundingCount': '{searched} fiches parcourues · {found} correspondances',
+  'tutor.matched': 'correspond',
+  'tutor.canSay': 'Ce que je peux dire',
+  'tutor.contractNote':
+    'Une réponse en mode {mode} comporte {total} parties. {filled} peuvent être remplies honnêtement pour l’instant.',
+  'tutor.slotBlocked': 'ne peut pas être remplie',
+  'tutor.uncertainty': 'Ce dont je ne suis pas sûr',
+  'tutor.commerce': 'Suggestions de produits',
+  'tutor.commerceBlocked': 'Supprimées. Contrôles échoués : {gates}',
+  'tutor.trace': 'Trace d’exécution',
+  'tutor.traceNote':
+    'Les sept étapes prévues par la Constitution : contexte, ancrage, classement, contrôle du risque, réponse, vérification, apprentissage.',
+  'tutor.rulesTitle': 'Règles appliquées comme contrôles stricts',
+  'tutor.rulesNote':
+    'Seules les règles IA à la fois approuvées et obligatoires dans la base sont appliquées. Les règles en brouillon sont consultables mais ne deviennent pas silencieusement contraignantes.',
+  'tutor.evalTitle': 'Suite d’évaluation — Constitution §16',
+  'tutor.evalNote':
+    'Dix scénarios que la Constitution exige de réussir avant le lancement. Ils s’exécutent sur ce même moteur.',
+  'tutor.evalPassed': '{passed} réussis sur {total}',
+
+  'quest.title': 'Vingt-cinq quêtes, et ce que chacune attend',
+  'quest.intro':
+    'Ceci est une carte du programme, pas une barre de progression. La plupart des quêtes ne peuvent pas encore s’ouvrir, et chacune indique quelle fiche la bloque. Rien ici n’attribue de points : aucune source ne définit de montant pour la moindre récompense.',
+  'quest.mapTitle': 'Carte des quêtes',
+  'quest.summary':
+    '{open} quêtes sur {total} peuvent s’ouvrir · {worlds} mondes · {served} déjà servies par une leçon · {missing} bloquées par une fiche inexistante',
+  'quest.open': 'Ouverte',
+  'quest.closed': 'Verrouillée',
+  'quest.reward': 'Récompense',
+  'quest.rewardNote':
+    'Les intitulés de récompense sont affichés exactement comme la base les enregistre. Aucune source n’en indique le montant : rien n’est donc totalisé.',
+  'quest.claimClass': 'Classe d’affirmation',
+  'quest.servedBy': 'Servie par',
+  'quest.blockers': 'En attente de',
+  'quest.noBlockers': 'Rien ne bloque cette quête.',
+  'quest.unresolvedSkill': 'Nomme une compétence qui n’existe pas',
+  'quest.masteryTitle': 'Preuves de maîtrise',
+  'quest.masteryIntro':
+    'Douze compétences gouvernées. Les preuves ne s’obtiennent qu’en répondant, et elles se cumulent d’un monde à l’autre — une compétence exercée en lisant une étiquette est la même que celle exercée au jardin.',
+  'quest.noEvidence': 'Aucune preuve pour l’instant',
+  'quest.evidenceFrom': 'Preuves issues de',
+  'quest.attempts': 'tentatives',
+  'quest.ladderTitle': 'L’échelle à sept niveaux',
+  'quest.ladderNote':
+    'La Mastery Competency Matrix propose sept niveaux, de Beauty Explorer à Beauty Master. Elle porte la mention « DECISION DRAFT — NOT CANONICAL » : aucun niveau n’est donc attribué à qui que ce soit ici.',
+  'quest.resetLedger': 'Effacer mes preuves',
+  'quest.ledgerSummary':
+    '{attempts} tentatives enregistrées · {started} compétences sur 12 ont des preuves · {mastered} maîtrisées',
+
+  'display.theme': 'Affichage',
+  'display.theme.auto': 'Auto',
+  'display.theme.light': 'Clair',
+  'display.theme.dark': 'Sombre',
+  'display.textSize': 'Taille du texte',
+  'display.textSize.normal': 'A',
+  'display.textSize.large': 'A+',
+  'display.textSize.larger': 'A++',
+  'display.skipToContent': 'Aller au contenu principal',
+
+  'speech.listen': 'Écouter',
+  'speech.stop': 'Arrêter',
+  'speech.unavailable': 'Aucune voix pour cette langue sur cet appareil',
 };
 
 const CATALOGS: Readonly<Record<string, Partial<Record<MessageKey, string>>>> = {
   en: MESSAGES_EN,
   ko: MESSAGES_KO,
+  fr: MESSAGES_FR,
 };
 
 export interface TranslationResult {

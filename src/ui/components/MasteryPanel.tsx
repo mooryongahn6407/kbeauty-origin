@@ -33,7 +33,7 @@ export function MasteryPanel({ mastery, locale }: { mastery: MasteryState; local
                   ? translate('mastery.satisfied', locale)
                   : translate('mastery.notYet', locale)}
               </p>
-              <p className="dim__value" style={{ fontSize: '0.68rem', opacity: 0.75 }}>
+              <p className="dim__value fine">
                 {threshold.ruleId} · ≥{Math.round(threshold.ratio * 100)}% · min {threshold.minAttempts}
               </p>
             </div>

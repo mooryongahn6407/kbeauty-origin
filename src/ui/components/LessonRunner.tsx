@@ -28,6 +28,7 @@ import {
 import { masteryLedger } from '@/mastery/mastery-ledger';
 import { translate } from '@/localization/messages';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
+import { ReadAloud } from '../components/ReadAloud';
 import { MasteryPanel } from '../components/MasteryPanel';
 
 const PHASE_ORDER: readonly LessonPhase[] = [
@@ -179,6 +180,17 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
             <button className="btn" type="button" onClick={() => dispatch({ type: 'LESSON_READ' })}>
               {translate('lesson.next', locale)}
             </button>
+            {/* Reads the passage above, in the order it appears — nothing added or rephrased. */}
+            <ReadAloud
+              locale={locale}
+              text={[
+                text['hook'] ?? lessonText.variant.text['hook'],
+                lessonText.variant.text['core'],
+                lessonText.variant.text['analogy'],
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            />
           </div>
         </section>
       ) : null}
@@ -192,6 +204,7 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
             <button className="btn" type="button" onClick={() => dispatch({ type: 'THINK_DONE' })}>
               {translate('lesson.think.continue', locale)}
             </button>
+            <ReadAloud locale={locale} text={text['question'] ?? ''} />
           </div>
         </section>
       ) : null}
@@ -200,6 +213,10 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
         <section className="card">
           <p className="eyebrow">{translate('lesson.phase.try', locale)}</p>
           <p className="lead">{text['question']}</p>
+          <div className="btn--row" style={{ marginTop: 0, marginBottom: '0.6rem' }}>
+            {/* The question and the choices together: a listener cannot answer without both. */}
+            <ReadAloud locale={locale} text={[text['question'], ...options].filter(Boolean).join('. ')} />
+          </div>
 
           {state.phase === 'HINT' && state.hintsUsed > 0 ? (
             <p className="disclosure disclosure--info">
@@ -362,7 +379,7 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
           </section>
         </>
       ) : null}
-      <p className="muted" style={{ fontSize: '0.72rem' }}>
+      <p className="muted fine">
         {activity.activityId} · {atom?.atomId} · claim class {activity.claimClass}
       </p>
     </div>

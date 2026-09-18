@@ -656,12 +656,103 @@ const PR_031: ProductProposal = {
   ],
 };
 
+
+/* ── 7. Accessibility and the visual system (2026-09-18 owner request) ──── */
+
+const PR_032: ProductProposal = {
+  id: 'PR-032',
+  title: 'Legibility is a product requirement, not a style preference',
+  classification: 'DECISION',
+  summary:
+    'The reader must be able to read the app: a minimum type size enforced by a scale, a ' +
+    'reader-controlled text-size setting, WCAG AA contrast on every text/background pair, and ' +
+    '44px interactive targets. Asked for directly by the owner on 2026-09-18 ("제일 중요한 게 ' +
+    '눈에 잘 보여야지"), and consistent with the spec line the visual system was already built on.',
+  sourceBasis: [
+    '01_TECHNICAL_IMPLEMENTATION_SPEC_v1.0.md §11: "learning clarity is more important than ' +
+      'decorative effects"',
+    'Owner request, 2026-09-18: text too small to read; must be legible first',
+  ],
+  governedRecords: [],
+  blockedBy: [],
+  constraints: [
+    'The spec\u2019s visual language (warm white, blush, champagne gold, charcoal, botanical) is ' +
+      'governed and was kept; only the values were adjusted until each pair measured 4.5:1.',
+    'Enforced by tests/design-system.test.ts, which computes the ratios from the shipped ' +
+      'stylesheet rather than trusting a palette chosen by eye.',
+  ],
+};
+
+const PR_033: ProductProposal = {
+  id: 'PR-033',
+  title: 'The app follows the device\u2019s light or dark setting, and the reader may override it',
+  classification: 'DECISION',
+  summary:
+    'Theme defaults to the device preference and offers Auto / Light / Dark. A phone set to dark ' +
+    'showing a white page is unusable at night; a phone set to light showing a black page is ' +
+    'unusable in sun. Both themes are held to the same contrast requirement.',
+  sourceBasis: ['Owner request, 2026-09-18: readers have dark and light devices'],
+  governedRecords: [],
+  blockedBy: [],
+  constraints: [
+    'Neither theme may be the lesser one. The contrast test runs over both, and a token defined ' +
+      'in one theme and not the other fails.',
+  ],
+};
+
+const PR_034: ProductProposal = {
+  id: 'PR-034',
+  title: 'Read-aloud for on-screen learning text',
+  classification: 'DECISION',
+  summary:
+    'The browser\u2019s own speech synthesis reads the passage, the question and the answer choices ' +
+    'aloud, with the best voice the device has for the current language. No network call, no ' +
+    'account, no audio leaving the device.',
+  sourceBasis: [
+    'AI Tutor Constitution §13.1: core content and UI are separable per locale',
+    'Owner request, 2026-09-18: read it aloud, in a good voice',
+  ],
+  governedRecords: [],
+  blockedBy: [],
+  constraints: [
+    'It reads only text already on screen. Nothing is generated, summarised or rephrased for ' +
+      'speech, so CLAUDE.md rules 3 and 11 are untouched \u2014 it is the same text, spoken.',
+    'Where the device has no voice for the language it says so and does nothing. Reading French ' +
+      'in an English voice would mispronounce the words a learner is trying to learn.',
+  ],
+};
+
+const PR_035: ProductProposal = {
+  id: 'PR-035',
+  title: 'French UI catalog',
+  classification: 'DECISION',
+  summary:
+    'The third UI catalog, after English and Korean. French is one of the few locales both ' +
+    'sources agree on, and is a working second language in the Laos market the Master Database ' +
+    'names as the launch market.',
+  sourceBasis: [
+    'Master DB 15_LOCALIZATION registers FR',
+    '02_GLOBAL_CONTENT_ENGINE_SPEC_v1.0.md lists French',
+    'Owner request, 2026-09-18',
+  ],
+  governedRecords: [],
+  blockedBy: [],
+  constraints: [
+    'UI chrome only. No French lesson content exists, so a French reader gets the interface in ' +
+      'French and the lesson text in English with the fallback stated on screen \u2014 never passed ' +
+      'off as a translation.',
+    'Filling one registered locale does not resolve OQ-L01. The locale set is still unapproved ' +
+      'and Lao, which the database names the launch language, still has no catalog.',
+  ],
+};
+
 export const PRODUCT_PROPOSALS: readonly ProductProposal[] = [
   PR_001, PR_002, PR_003, PR_004, PR_005, PR_006, PR_007, PR_008,
   PR_009, PR_010, PR_011, PR_012, PR_013, PR_014, PR_015, PR_016,
   PR_017, PR_018, PR_019, PR_020, PR_021, PR_022,
   PR_023, PR_024, PR_025, PR_026, PR_027,
   PR_028, PR_029, PR_030, PR_031,
+  PR_032, PR_033, PR_034, PR_035,
 ];
 
 /* ── Conflicts that must be resolved before building ────────────────────── */

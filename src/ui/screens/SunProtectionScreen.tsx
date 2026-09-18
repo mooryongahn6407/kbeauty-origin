@@ -163,7 +163,7 @@ function ExposureLog({ locale }: { locale: string }) {
                       <button
                         className="btn btn--quiet"
                         type="button"
-                        style={{ padding: '0.1rem 0.6rem', fontSize: '0.72rem' }}
+                        style={{ padding: '0.1rem 0.6rem' }}
                         onClick={() => dispatch({ type: 'REMOVE_ENTRY', entryId: entry.entryId })}
                       >
                         ×

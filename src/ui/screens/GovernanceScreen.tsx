@@ -341,7 +341,7 @@ export function GovernanceScreen({ locale }: { locale: string }) {
                   {proposal.sourceBasis.length > 0 ? (
                     <>
                       <br />
-                      <span className="muted" style={{ fontSize: '0.7rem' }}>
+                      <span className="muted fine">
                         Basis: {proposal.sourceBasis.join(' · ')}
                       </span>
                     </>

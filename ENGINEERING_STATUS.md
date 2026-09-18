@@ -218,16 +218,18 @@ $ npm test
  ✓ tests/product-proposals.test.ts  (23 tests)
  ✓ tests/governance-gates.test.ts   (18 tests)
  ✓ tests/tutor-runtime.test.ts      (18 tests)
+ ✓ tests/design-system.test.ts      (60 tests)
  ✓ tests/learning-slice.test.ts     (28 tests)
+ ✓ tests/speech.test.ts             (13 tests)
  ✓ tests/content-governance.test.ts (15 tests)
  ✓ tests/mastery-engine.test.ts     (13 tests)
  ✓ tests/strand-taxonomy.test.ts    (12 tests)
- ✓ tests/localization.test.ts       (12 tests)
+ ✓ tests/localization.test.ts       (15 tests)
  ✓ tests/source-integrity.test.ts   (11 tests)
 
- Test Files  16 passed (16)
-      Tests  364 passed (364)
-   Duration  2.71s
+ Test Files  18 passed (18)
+      Tests  440 passed (440)
+   Duration  2.9s
 
 $ npm run typecheck     # clean
 $ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 608.07 kB (gzip 149.34 kB)
@@ -308,8 +310,11 @@ screen. Nothing below was decided in code.
 5. **No AI generation layer.** The tutor runtime, router, ladder and gates are implemented and
    tested deterministically; no model call is wired up, because there is nothing it may state
    as fact. Appendix B of the Constitution requires steps 1–5 to be stable before commerce work.
-6. **Translations exist for en + ko only.** 10 of 12 registered locales have 0% coverage.
-   Filling them requires human translation and local-market review, not machine text.
+6. **Translations exist for en, ko and fr only.** 9 of 12 registered locales have 0% UI
+   coverage, and **no locale has translated lesson content** — French shows the interface in
+   French and the lesson text in English, with the fallback stated on screen. Lao, which the
+   Master Database names the launch language, still has no catalog. Filling these requires human
+   translation and local-market review, not machine text.
 7. **Persistence is in-memory.** The reflection studio's entries, the exposure log and the
    mastery ledger are all lost on reload. Session state and mastery do not survive a reload; no database
    or auth has been chosen. This is also why a lesson session is lost when the learner navigates
@@ -536,8 +541,8 @@ what OQ-E02 shows for D04.
 ### Product proposal register
 
 The 2026-09-18 product direction discussion is recorded in `src/governance/product-proposals.ts`
-as 27 classified proposals: **9 CONFIRMED, 12 DECISION, 3 HYPOTHESIS, 2 IDEA, 1 OPEN QUESTION**.
-Only 5 have nothing blocking them. Seven conflicts with governed rules are recorded, 3 of them
+as 35 classified proposals: **9 CONFIRMED, 19 DECISION, 3 HYPOTHESIS, 3 IDEA, 1 OPEN QUESTION**.
+Only 5 of the product-direction entries have nothing blocking them. Seven conflicts with governed rules are recorded, 3 of them
 MUST_RESOLVE.
 
 A test resolves every Master Database ID the register cites against the actual source data, so
@@ -706,6 +711,81 @@ for every event a lesson produces, not only the two this task was about.
 with it. That is known technical item 7 (in-memory persistence), not a lifecycle bug, and the
 event is telling the truth about it.
 
+### Accessibility and the visual system — legibility made a measurable requirement
+
+Asked for directly by the owner on 2026-09-18: the text is too small to read, readers have both
+dark and light devices, add French, add a voice, and lift the design to a level that holds up
+anywhere. Recorded as PR-032 … PR-035 in the proposal register.
+
+**What was actually wrong.** The old stylesheet's smallest step was `0.62rem` — **9.9px** at the
+browser default — and there was no dark theme at all. Neither was a matter of taste.
+
+**The type scale.** Eight steps, smallest `0.8125rem` (13px), body text at `1.0625rem` (17px),
+every one of them `calc(step × var(--text-scale))`. The reader picks A / A+ / A++ (×1, ×1.15,
+×1.32), and `html` stays at `font-size: 100%` so a reader who has already enlarged text in their
+browser or phone keeps that and gets this on top, rather than having it overwritten.
+
+**The colour system.** Semantic tokens (`--text`, `--surface`, `--accent`) rather than literal
+ones (`--charcoal`), so a component never names a colour and both themes stay correct without
+the component knowing a theme exists. The spec's governed visual language — warm white, blush,
+champagne gold, charcoal, botanical — was kept; the values were moved until every pair measured.
+
+**Theme.** Defaults to the device (`prefers-color-scheme`), guarded so an explicit choice wins
+in either direction, persisted in localStorage. Dark is a real dark: `--bg` luminance 0.014.
+
+| | before | after |
+| --- | --- | --- |
+| Smallest rendered font | 9.9px (10 in the stylesheet, 11.5 measured) | **13px**, 17.2px at A++ |
+| Dark theme | none | full, same contrast requirement as light |
+| Contrast pairs at AA | unmeasured | **32 / 32**, computed from the shipped CSS |
+| Interactive targets < 36px | unmeasured | **0** |
+| UI catalogs | en, ko | en, ko, **fr** |
+
+**Read-aloud.** The browser's own speech synthesis reads the passage, the question and the
+answer choices. No network call, no account, no audio leaving the device. Two rules govern it:
+it reads **only text already on screen** — nothing is generated, summarised or rephrased, so it
+is the same text, spoken — and where the device has **no voice for the language it says so and
+does nothing**, because reading French in an English voice mispronounces the words a learner is
+trying to learn. Voice ranking prefers a vendor-enhanced voice, then a device-local one, then
+an exact region match, and actively avoids the low-bandwidth and novelty voices macOS ships.
+
+**French.** The third UI catalog. French is one of the few locales **both** sources agree on —
+Master DB 15_LOCALIZATION registers it and the Global Content Engine spec lists it — so this
+fills a governed locale rather than inventing one. It is UI chrome only; the lesson text stays
+English with the fallback disclosed on screen. OQ-L01 is untouched: the locale set is still
+unapproved and Lao still has no catalog.
+
+**Tests: `tests/design-system.test.ts` (60) and `tests/speech.test.ts` (13).** The design test
+parses the shipped stylesheet and computes the WCAG ratios itself, rather than trusting a
+palette chosen by eye. It also checks the scale is monotonic and never below 13px, that no
+`font-size` anywhere is off the scale, that the two dark blocks have not drifted apart, that
+44px targets and a visible focus ring are applied, and that no component names a colour of its
+own. Checked against five mutations: a low-contrast grey fails 3 tests, a 10px step fails 2,
+a drifted dark block fails 5, a hard-coded hex in a component fails 1, and a French catalog
+that is secretly English fails 1.
+
+**One defect the tests missed and the browser caught.** After the first pass the stylesheet was
+clean and the smallest *rendered* font was still 11.5px, unmoved by the text-size setting:
+seventeen components carried `style={{ fontSize: '0.72rem' }}`, which neither the scale nor the
+reader's setting can reach. All seventeen were replaced with a `.fine` class on the scale, and
+the design test now also greps every `.tsx` for `fontSize`, because the first version of it only
+read the CSS.
+
+**Browser verification (Chromium, device dark and device light, desktop and 390×844 phone):**
+
+```
+device light, Theme = Auto   bg rgb(250,247,243)  text rgb(31,27,23)   smallest font 13px
+device dark,  Theme = Auto   bg rgb(21,18,15)     text rgb(244,238,230) smallest font 13px
+override Dark on a light device / Light on a dark device — both apply
+text size A++                smallest rendered font 17.2px
+phone 390×844                no horizontal overflow · 0 targets under 36px
+reload                       data-text-size=large kept · data-theme absent for Auto (correct)
+languages                    fr "Ma peau" · ko "마이 스킨" · en "My Skin" · html lang follows
+read-aloud                   headless Chromium ships no voices, so the control correctly
+                             reads "No voice for this language on this device" and is disabled
+console errors: none
+```
+
 ## 10. How to run the project
 
 ```bash
@@ -713,7 +793,7 @@ git clone <repo> && cd kbeauty-origin
 npm install
 
 npm run dev       # http://127.0.0.1:5173  — My Skin slice + Content Governance screen
-npm test          # 364 tests
+npm test          # 440 tests
 npm run build     # typecheck + production build into dist/
 ```
 

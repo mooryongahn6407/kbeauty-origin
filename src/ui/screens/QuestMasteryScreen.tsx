@@ -107,7 +107,7 @@ function QuestMapPanel({ locale }: { locale: string }) {
                     {entry.servedByPlanId ? (
                       <>
                         <br />
-                        <span className="muted" style={{ fontSize: '0.72rem' }}>
+                        <span className="muted fine">
                           {translate('quest.servedBy', locale)}: {entry.servedByPlanId}
                         </span>
                       </>
@@ -206,7 +206,7 @@ function MasteryPanel({ locale, version }: { locale: string; version: number }) 
                 {row.state.nodeEvidence.length > 0 ? (
                   <>
                     <br />
-                    <span className="muted" style={{ fontSize: '0.7rem' }}>
+                    <span className="muted fine">
                       {translate('quest.evidenceFrom', locale)}:{' '}
                       {row.state.nodeEvidence.join(', ')}
                     </span>
@@ -232,7 +232,7 @@ function MasteryPanel({ locale, version }: { locale: string; version: number }) 
                       </>
                     )}
                     <br />
-                    <span style={{ fontSize: '0.66rem', opacity: 0.7 }}>
+                    <span className="fine">
                       {threshold.ruleId} ≥{Math.round(threshold.ratio * 100)}% · min{' '}
                       {threshold.minAttempts}
                     </span>

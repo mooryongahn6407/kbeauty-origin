@@ -103,7 +103,7 @@ function ReflectionStudio({ locale }: { locale: string }) {
                   <button
                     className="btn btn--quiet"
                     type="button"
-                    style={{ padding: '0.1rem 0.6rem', fontSize: '0.72rem' }}
+                    style={{ padding: '0.1rem 0.6rem' }}
                     onClick={() => dispatch({ type: 'REMOVE_STEP', entryId: entry.entryId })}
                   >
                     ×
@@ -303,7 +303,7 @@ function RoutineCatalog({ locale }: { locale: string }) {
           ) : (
             <>
               <p style={{ margin: '0.2rem 0 0' }}>{view.routine.Default_Sequence}</p>
-              <p className="muted" style={{ fontSize: '0.75rem' }}>
+              <p className="muted fine">
                 {translate('routine.proseSequence', locale)}
               </p>
             </>
@@ -331,7 +331,7 @@ function RoutineCatalog({ locale }: { locale: string }) {
               ))}
             </tbody>
           </table>
-          <p className="muted" style={{ fontSize: '0.72rem', marginTop: '0.4rem' }}>
+          <p className="muted fine" style={{ marginTop: '0.4rem' }}>
             {view.publicationReason}
           </p>
         </div>

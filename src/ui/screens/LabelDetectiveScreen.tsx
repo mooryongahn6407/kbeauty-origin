@@ -75,7 +75,7 @@ function LabelSorter({ locale }: { locale: string }) {
           {translate('label.specimenWarning', locale)} {localised(specimen.fictionNote, locale)}
         </span>
       </p>
-      <p className="muted" style={{ fontSize: '0.78rem' }}>
+      <p className="muted fine">
         {localised(specimen.identity, locale)}
       </p>
 
@@ -112,7 +112,7 @@ function LabelSorter({ locale }: { locale: string }) {
                   <p className="dim__name">
                     {translate(`label.bucket.${bucket}` as MessageKey, locale)}
                   </p>
-                  <p className="dim__value" style={{ fontSize: '0.68rem' }}>
+                  <p className="dim__value fine">
                     {translate(`label.bucketHint.${bucket}` as MessageKey, locale)}
                   </p>
                   <button
@@ -133,7 +133,7 @@ function LabelSorter({ locale }: { locale: string }) {
                         key={fragment.fragmentId}
                         type="button"
                         className="option"
-                        style={{ marginTop: '0.35rem', fontSize: '0.8rem' }}
+                        style={{ marginTop: '0.35rem' }}
                         onClick={() =>
                           dispatch({ type: 'UNPLACE', fragmentId: fragment.fragmentId })
                         }
@@ -185,7 +185,7 @@ function LabelSorter({ locale }: { locale: string }) {
                     <span style={{ color: '#8b3a2e', fontWeight: 700 }}>✕</span>{' '}
                     {localised(fragment.text, locale)}
                   </p>
-                  <p className="muted" style={{ fontSize: '0.76rem', marginTop: '0.3rem' }}>
+                  <p className="muted fine" style={{ marginTop: '0.3rem' }}>
                     {translate('label.movedTo', locale)}{' '}
                     <strong>
                       {translate(

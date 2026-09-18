@@ -13,7 +13,7 @@ Current build state is in `ENGINEERING_STATUS.md`.
 ```bash
 npm install
 npm run dev              # http://127.0.0.1:5173
-npm test                 # vitest, 364 tests
+npm test                 # vitest, 440 tests
 npm run typecheck        # tsc --noEmit
 npm run build            # typecheck + production build
 npm run extract:sources  # regenerate data/source/*.json from sources/*.xlsx
@@ -55,7 +55,11 @@ These are not style preferences. Each has a test that fails if it is broken.
 12. **A number stated twice must agree.** `src/governance/numeric-audit.ts` compares governed
     numbers against each other and against the constants the code runs on, and raises a
     governance warning on disagreement. It never reconciles.
-13. **Reducers are pure; effects happen in the drain.** `sessionReducer`, `reflectionReducer`,
+13. **Legibility is enforced, not styled.** Nothing renders below 13px, every text/background
+    pair clears WCAG AA in **both** themes, interactive targets are 44px and focus is visible.
+    Colours are semantic tokens — a component never names one, and never sets a `fontSize`
+    inline. `tests/design-system.test.ts` computes the ratios from the shipped stylesheet.
+14. **Reducers are pure; effects happen in the drain.** `sessionReducer`, `reflectionReducer`,
     `exposureReducer` and `sorterReducer` take exactly `(state, action)` — there is no third
     parameter to hand a sink into. A transition returns what it wants to do in `emitted`
     (and `recordedAttempt`), and `createDrainGuard()` performs it once. StrictMode stays on:

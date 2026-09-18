@@ -48,6 +48,25 @@ describe('UI message catalog', () => {
     }
   });
 
+  it('resolves every key in French without leaving an empty string', () => {
+    for (const key of messageKeys) {
+      expect(translate(key, 'fr'), key).toBeTruthy();
+    }
+  });
+
+  it('actually translates French rather than echoing English', () => {
+    // A catalog can pass the "every key resolves" test while being a copy of the base locale.
+    const echoed = messageKeys.filter((key) => translate(key, 'fr') === translate(key, 'en'));
+    // Only the handful that are the same word or symbol in both languages may match.
+    expect(echoed.length).toBeLessThan(messageKeys.length * 0.06);
+  });
+
+  it('fills French for a locale both sources agree on', () => {
+    const french = findLocale('fr');
+    expect(french?.origin).toBe('BOTH');
+    expect(UI_CATALOG_LOCALES).toContain('fr');
+  });
+
   it('reports when a locale had no catalog and English was used instead', () => {
     const result = translateWithMeta('nav.mySkin', 'vi');
     expect(result.usedFallback).toBe(true);

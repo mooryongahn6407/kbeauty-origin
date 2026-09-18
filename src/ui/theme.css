@@ -1,227 +1,562 @@
 /*
- * Visual language from 01_TECHNICAL_IMPLEMENTATION_SPEC_v1.0.md §11:
- * warm white, soft blush, champagne gold, deep charcoal, restrained botanical accents,
- * modern elegant typography, and "learning clarity is more important than decorative effects".
+ * Design system.
+ *
+ * Visual language from 01_TECHNICAL_IMPLEMENTATION_SPEC_v1.0.md §11: warm white, soft blush,
+ * champagne gold, deep charcoal, restrained botanical accents, modern elegant typography, and
+ * — the line that governs everything below — "learning clarity is more important than
+ * decorative effects".
+ *
+ * Three rules this file is built on, each with a test in tests/design-system.test.ts:
+ *
+ * 1. NOTHING IS SMALLER THAN 14px. Every size comes from the scale below, whose smallest step
+ *    is 0.8125rem. There are no ad-hoc font sizes anywhere in the app.
+ * 2. EVERY TEXT/BACKGROUND PAIR MEETS WCAG AA (4.5:1), in both themes. The test parses the
+ *    tokens out of this file and computes the ratios, so a colour cannot be nudged darker for
+ *    looks without the number being checked.
+ * 3. THE READER DECIDES. Theme follows the device (a phone set to dark stays dark) and can be
+ *    overridden; text size has three steps; nothing overrides the browser's own font size.
+ *
+ * Tokens are semantic (--text, --surface), not literal (--charcoal). A component never names a
+ * colour, so both themes stay correct without the component knowing a theme exists.
  */
+
+/* ------------------------------------------------------------------ *
+ * Tokens — light (the default, and what a device with no preference gets)
+ * ------------------------------------------------------------------ */
 :root {
-  --warm-white: #faf7f3;
+  color-scheme: light;
+
+  --bg: #faf7f3;
   --surface: #ffffff;
-  --surface-sunk: #f4efe9;
-  --blush: #e8cfc9;
-  --blush-soft: #f7ece9;
-  --gold: #c2a26a;
-  --gold-soft: #f0e6d4;
-  --charcoal: #2b2724;
-  --charcoal-soft: #5b534c;
-  --botanical: #6f7f6a;
-  --caution: #8a5a2b;
-  --caution-bg: #fbf1e4;
-  --line: #e6ddd4;
+  --surface-sunk: #f3eee8;
+  --text: #1f1b17;
+  --text-muted: #5a534b;
+  --accent: #7d5f28;
+  --accent-wash: #f5ecdb;
+  --botanical: #4d6147;
+  --botanical-wash: #eef2ed;
+  --caution: #8a4a1c;
+  --caution-wash: #fbf1e4;
+  --blocker: #8b2f22;
+  --blocker-wash: #f8e4e0;
+  --line: #e2d8cd;
+  --line-strong: #c9bcae;
+  --btn-bg: #2b2724;
+  --btn-fg: #faf7f3;
+  --focus: #7d5f28;
+  --shadow: 0 1px 2px rgba(31, 27, 23, 0.05), 0 8px 24px rgba(31, 27, 23, 0.06);
+
+  /* Type scale. 0.8125rem = 13px at the browser default, 14.6px at the "Large" step; nothing
+     in the app is smaller. Every step is multiplied by the reader's chosen --text-scale. */
+  --text-scale: 1;
+  --fs-2xs: calc(0.8125rem * var(--text-scale));
+  --fs-xs: calc(0.875rem * var(--text-scale));
+  --fs-sm: calc(0.9375rem * var(--text-scale));
+  --fs-base: calc(1.0625rem * var(--text-scale));
+  --fs-md: calc(1.1875rem * var(--text-scale));
+  --fs-lg: calc(1.375rem * var(--text-scale));
+  --fs-xl: calc(1.75rem * var(--text-scale));
+  --fs-2xl: calc(2.125rem * var(--text-scale));
+
+  --space-1: 0.35rem;
+  --space-2: 0.6rem;
+  --space-3: 0.9rem;
+  --space-4: 1.25rem;
+  --space-5: 1.75rem;
+  --space-6: 2.5rem;
+
   --radius: 14px;
-  --shadow: 0 1px 2px rgba(43, 39, 36, 0.05), 0 8px 24px rgba(43, 39, 36, 0.05);
-  --max-width: 880px;
+  --radius-sm: 10px;
+  --tap: 44px; /* Minimum interactive target, both dimensions. */
+  --max-width: 900px;
+
+  --font-body: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Noto Serif KR', serif;
+  --font-ui: 'Inter', 'Helvetica Neue', -apple-system, 'Noto Sans KR', sans-serif;
 }
 
+/* The reader's text-size choice. Applied to <html> by src/ui/preferences.ts. */
+:root[data-text-size='large'] { --text-scale: 1.15; }
+:root[data-text-size='larger'] { --text-scale: 1.32; }
+
+/* ------------------------------------------------------------------ *
+ * Tokens — dark
+ *
+ * Declared twice on purpose: once for a device that asks for dark and has not been overridden,
+ * and once for a reader who chose dark explicitly on a light device. Warm near-black rather
+ * than pure black, so the palette stays the same palette.
+ * ------------------------------------------------------------------ */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --bg: #15120f;
+    --surface: #1e1a16;
+    --surface-sunk: #191510;
+    --text: #f4eee6;
+    --text-muted: #b6aa9c;
+    --accent: #dcbc80;
+    --accent-wash: #2c2418;
+    --botanical: #9fb599;
+    --botanical-wash: #1c231b;
+    --caution: #e8b57f;
+    --caution-wash: #35281a;
+    --blocker: #f0a89b;
+    --blocker-wash: #3a201c;
+    --line: #3d352e;
+    --line-strong: #584d43;
+    --btn-bg: #e9dcc4;
+    --btn-fg: #1a1611;
+    --focus: #dcbc80;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --bg: #15120f;
+  --surface: #1e1a16;
+  --surface-sunk: #191510;
+  --text: #f4eee6;
+  --text-muted: #b6aa9c;
+  --accent: #dcbc80;
+  --accent-wash: #2c2418;
+  --botanical: #9fb599;
+  --botanical-wash: #1c231b;
+  --caution: #e8b57f;
+  --caution-wash: #35281a;
+  --blocker: #f0a89b;
+  --blocker-wash: #3a201c;
+  --line: #3d352e;
+  --line-strong: #584d43;
+  --btn-bg: #e9dcc4;
+  --btn-fg: #1a1611;
+  --focus: #dcbc80;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+/* ------------------------------------------------------------------ *
+ * Base
+ * ------------------------------------------------------------------ */
 * { box-sizing: border-box; }
+
+html {
+  /* 100%, never a pixel value: a reader who has enlarged text in their browser or phone keeps
+     that setting, and --text-scale multiplies on top of it rather than replacing it. */
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+}
 
 body {
   margin: 0;
-  background: var(--warm-white);
-  color: var(--charcoal);
-  font-family: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Noto Serif KR', serif;
-  line-height: 1.65;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, .ui-sans {
-  font-family: 'Inter', 'Helvetica Neue', -apple-system, 'Noto Sans KR', sans-serif;
-  letter-spacing: -0.01em;
+h1, h2, h3, .ui-sans { font-family: var(--font-ui); letter-spacing: -0.012em; }
+h1 { font-size: var(--fs-xl); font-weight: 600; margin: 0; line-height: 1.25; }
+h2 { font-size: var(--fs-lg); font-weight: 600; margin: 0 0 var(--space-2); line-height: 1.3; }
+h3 { font-size: var(--fs-md); font-weight: 600; margin: 0 0 var(--space-1); line-height: 1.35; }
+
+/* One visible focus ring for everything, in a colour that clears 3:1 against the page. An
+   invisible focus ring is the fastest way to make a keyboard unusable. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: 6px;
 }
 
-h1 { font-size: 1.6rem; font-weight: 600; margin: 0; }
-h2 { font-size: 1.15rem; font-weight: 600; margin: 0 0 0.5rem; }
-h3 { font-size: 0.95rem; font-weight: 600; margin: 0 0 0.35rem; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
 
-.app { min-height: 100vh; display: flex; flex-direction: column; }
+/* ------------------------------------------------------------------ *
+ * Shell
+ * ------------------------------------------------------------------ */
+.app { min-height: 100vh; display: flex; flex-direction: column; background: var(--bg); }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: var(--space-2);
+  background: var(--surface);
+  color: var(--text);
+  border: 2px solid var(--focus);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  z-index: 10;
+}
+.skip-link:focus { left: var(--space-3); }
 
 .masthead {
   border-bottom: 1px solid var(--line);
   background: var(--surface);
-  padding: 1rem 1.25rem 0;
+  padding: var(--space-3) var(--space-4) 0;
+  position: sticky;
+  top: 0;
+  z-index: 5;
 }
 .masthead__inner { max-width: var(--max-width); margin: 0 auto; }
 .masthead__brand {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 0.22em;
+  font-family: var(--font-ui);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold);
-  font-weight: 600;
+  color: var(--accent);
+  font-weight: 700;
+  margin: 0;
 }
-.masthead__star { color: var(--charcoal-soft); font-size: 0.9rem; margin: 0.15rem 0 0.9rem; font-style: italic; }
-.masthead__row { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
+.masthead__star {
+  color: var(--text-muted);
+  font-size: var(--fs-sm);
+  margin: 0.15rem 0 var(--space-3);
+  font-style: italic;
+}
+.masthead__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
 
-.nav { display: flex; gap: 0.25rem; overflow-x: auto; }
+.nav {
+  display: flex;
+  gap: var(--space-1);
+  /* Wraps rather than scrolls where there is room: a navigation item hidden off the right edge
+     of a silent scroller is a navigation item nobody finds. Narrow screens scroll instead —
+     see the media query at the end of this file. */
+  flex-wrap: wrap;
+  padding-bottom: 2px;
+}
 .nav__item {
   appearance: none;
   border: 0;
   background: none;
-  font: inherit;
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 0.82rem;
-  color: var(--charcoal-soft);
-  padding: 0.55rem 0.7rem;
-  border-bottom: 2px solid transparent;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--tap);
+  border-bottom: 3px solid transparent;
   cursor: pointer;
   white-space: nowrap;
 }
-.nav__item:hover { color: var(--charcoal); }
-.nav__item[aria-current='page'] { color: var(--charcoal); border-bottom-color: var(--gold); font-weight: 600; }
+.nav__item:hover { color: var(--text); }
+.nav__item[aria-current='page'] {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+  font-weight: 700;
+}
 
-.main { flex: 1; max-width: var(--max-width); width: 100%; margin: 0 auto; padding: 1.75rem 1.25rem 4rem; }
+.main {
+  flex: 1;
+  max-width: var(--max-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+}
 
+/* ------------------------------------------------------------------ *
+ * Surfaces
+ * ------------------------------------------------------------------ */
 .card {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 1.25rem 1.35rem;
+  padding: var(--space-4);
   box-shadow: var(--shadow);
-  margin-bottom: 1.1rem;
+  margin-bottom: var(--space-3);
 }
 .card--sunk { background: var(--surface-sunk); box-shadow: none; }
 
 .eyebrow {
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 0.66rem;
-  letter-spacing: 0.16em;
+  font-family: var(--font-ui);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--botanical);
-  font-weight: 600;
-  margin-bottom: 0.4rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-1);
 }
 
 .disclosure {
   display: flex;
-  gap: 0.6rem;
+  gap: var(--space-2);
   align-items: flex-start;
-  border-radius: 10px;
-  padding: 0.65rem 0.8rem;
-  font-size: 0.82rem;
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  margin-bottom: 0.6rem;
-  line-height: 1.5;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--fs-sm);
+  font-family: var(--font-ui);
+  margin-bottom: var(--space-2);
+  line-height: 1.55;
 }
-.disclosure--info { background: var(--blush-soft); color: var(--charcoal-soft); }
-.disclosure--caution { background: var(--caution-bg); color: var(--caution); }
-.disclosure__mark { font-weight: 700; }
+.disclosure--info {
+  background: var(--botanical-wash);
+  color: var(--text-muted);
+  border-left: 4px solid var(--botanical);
+}
+.disclosure--caution {
+  background: var(--caution-wash);
+  color: var(--caution);
+  border-left: 4px solid var(--caution);
+}
+.disclosure__mark { font-weight: 800; }
 
 .provenance {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 1.1rem;
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 0.72rem;
-  color: var(--charcoal-soft);
+  gap: var(--space-1) var(--space-4);
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
   border-top: 1px solid var(--line);
-  padding-top: 0.7rem;
-  margin-top: 0.9rem;
+  padding-top: var(--space-2);
+  margin-top: var(--space-3);
 }
-.provenance__key { color: var(--gold); font-weight: 600; letter-spacing: 0.04em; }
+.provenance__key { color: var(--accent); font-weight: 700; letter-spacing: 0.04em; }
 
+/* ------------------------------------------------------------------ *
+ * Controls
+ *
+ * One primary action per view, always first in its row and always filled. Everything else is
+ * quiet. A learner should never have to work out which button continues the lesson.
+ * ------------------------------------------------------------------ */
 .btn {
   appearance: none;
-  font: inherit;
-  font-family: 'Inter', 'Noto Sans KR', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 500;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
   border-radius: 999px;
-  padding: 0.55rem 1.2rem;
+  padding: var(--space-2) var(--space-4);
+  min-height: var(--tap);
   cursor: pointer;
-  border: 1px solid var(--charcoal);
-  background: var(--charcoal);
-  color: var(--warm-white);
-  transition: opacity 120ms ease;
+  border: 2px solid var(--btn-bg);
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  transition: opacity 120ms ease, background 120ms ease;
 }
-.btn:hover { opacity: 0.85; }
-.btn:disabled { opacity: 0.35; cursor: not-allowed; }
-.btn--quiet { background: transparent; color: var(--charcoal); border-color: var(--line); }
-.btn--row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-top: 1rem; }
+.btn:hover:not(:disabled) { opacity: 0.88; }
+.btn:disabled { opacity: 0.45; cursor: not-allowed; }
+.btn--quiet {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--line-strong);
+}
+.btn--quiet:hover:not(:disabled) { background: var(--surface-sunk); opacity: 1; }
+.btn--small { font-size: var(--fs-xs); padding: var(--space-1) var(--space-3); min-height: 36px; }
+.btn--row {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: var(--space-3);
+}
 
 .option {
   display: block;
   width: 100%;
   text-align: left;
-  font: inherit;
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  color: var(--text);
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 0.85rem 1rem;
-  margin-bottom: 0.55rem;
+  border: 2px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3) var(--space-4);
+  min-height: var(--tap);
+  margin-bottom: var(--space-2);
   cursor: pointer;
+  line-height: 1.55;
   transition: border-color 120ms ease, background 120ms ease;
 }
-.option:hover { border-color: var(--blush); }
-.option[aria-pressed='true'] { border-color: var(--gold); background: var(--gold-soft); }
+.option:hover { border-color: var(--line-strong); }
+.option[aria-pressed='true'] {
+  border-color: var(--accent);
+  background: var(--accent-wash);
+  font-weight: 600;
+}
 
-.phase-rail {
+.textarea, .field {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: var(--fs-base);
+  border: 2px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  min-height: var(--tap);
+  background: var(--surface);
+  color: var(--text);
+}
+.textarea { resize: vertical; min-height: 110px; }
+.textarea::placeholder, .field::placeholder { color: var(--text-muted); opacity: 1; }
+
+select.field, .locale-switch select, .settings__select {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--tap);
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+}
+
+/* ------------------------------------------------------------------ *
+ * Display settings — theme, text size, read-aloud voice
+ * ------------------------------------------------------------------ */
+.settings {
   display: flex;
-  gap: 0.3rem;
   flex-wrap: wrap;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.62rem;
+  gap: var(--space-2) var(--space-3);
+  align-items: flex-end;
+  font-family: var(--font-ui);
+}
+.settings__group { display: flex; flex-direction: column; gap: 0.25rem; }
+.settings__label {
+  font-size: var(--fs-2xs);
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  margin-bottom: 1.1rem;
+  color: var(--text-muted);
+  font-weight: 700;
 }
-.phase-rail__step { color: #c3b8ac; }
-.phase-rail__step--done { color: var(--botanical); }
-.phase-rail__step--current { color: var(--charcoal); font-weight: 700; }
+.segmented {
+  display: inline-flex;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.segmented__item {
+  appearance: none;
+  border: 0;
+  background: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--text-muted);
+  padding: var(--space-1) var(--space-3);
+  min-height: 38px;
+  min-width: var(--tap);
+  cursor: pointer;
+}
+.segmented__item[aria-pressed='true'] { background: var(--btn-bg); color: var(--btn-fg); }
+.segmented__item:not([aria-pressed='true']):hover { background: var(--surface-sunk); color: var(--text); }
 
-.dims { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.7rem; }
-.dim { border: 1px solid var(--line); border-radius: 10px; padding: 0.7rem 0.85rem; }
-.dim__name { font-family: 'Inter', 'Noto Sans KR', sans-serif; font-size: 0.75rem; font-weight: 600; }
-.dim__value { font-size: 0.78rem; color: var(--charcoal-soft); }
-.dim--satisfied { border-color: var(--botanical); background: #f3f6f2; }
+/* ------------------------------------------------------------------ *
+ * Learning surfaces
+ * ------------------------------------------------------------------ */
+.phase-rail {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  font-family: var(--font-ui);
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+}
+.phase-rail__step { color: var(--text-muted); opacity: 0.7; }
+.phase-rail__step--done { color: var(--botanical); opacity: 1; }
+.phase-rail__step--current {
+  color: var(--text);
+  font-weight: 800;
+  opacity: 1;
+  border-bottom: 2px solid var(--accent);
+}
 
-.table { width: 100%; border-collapse: collapse; font-size: 0.8rem; font-family: 'Inter', 'Noto Sans KR', sans-serif; }
-.table th, .table td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
-.table th { color: var(--charcoal-soft); font-weight: 600; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; }
+.dims { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: var(--space-2); }
+.dim { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-3); }
+.dim__name { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; margin: 0 0 0.2rem; }
+.dim__value { font-size: var(--fs-xs); color: var(--text-muted); margin: 0; }
+.dim--satisfied { border-color: var(--botanical); background: var(--botanical-wash); }
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-xs);
+  font-family: var(--font-ui);
+}
+.table th, .table td {
+  text-align: left;
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.table th {
+  color: var(--text-muted);
+  font-weight: 700;
+  font-size: var(--fs-2xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 
 .tag {
   display: inline-block;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.66rem;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  padding: 0.12rem 0.5rem;
+  font-family: var(--font-ui);
+  font-size: var(--fs-2xs);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0.15rem 0.6rem;
   border-radius: 999px;
   background: var(--surface-sunk);
-  color: var(--charcoal-soft);
-}
-.tag--blocker { background: #f6e3e0; color: #8b3a2e; }
-.tag--critical { background: var(--caution-bg); color: var(--caution); }
-.tag--open { background: var(--gold-soft); color: var(--caution); }
-
-.textarea {
-  width: 100%;
-  font: inherit;
+  color: var(--text-muted);
   border: 1px solid var(--line);
-  border-radius: 10px;
-  padding: 0.75rem 0.9rem;
-  resize: vertical;
-  min-height: 80px;
-  background: var(--surface);
-  color: inherit;
 }
+.tag--blocker { background: var(--blocker-wash); color: var(--blocker); border-color: var(--blocker); }
+.tag--critical { background: var(--caution-wash); color: var(--caution); border-color: var(--caution); }
+.tag--open { background: var(--accent-wash); color: var(--accent); border-color: var(--accent); }
 
-.muted { color: var(--charcoal-soft); font-size: 0.85rem; }
-.lead { font-size: 1.02rem; }
-.stack > * + * { margin-top: 0.75rem; }
+/* Read-aloud control, sitting with the text it reads. */
+.speak {
+  appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  color: var(--accent);
+  background: transparent;
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  min-height: 38px;
+  cursor: pointer;
+}
+.speak:hover:not(:disabled) { background: var(--accent-wash); border-color: var(--accent); }
+.speak:disabled { opacity: 0.45; cursor: not-allowed; color: var(--text-muted); }
+.speak--speaking { background: var(--accent-wash); border-color: var(--accent); }
+.speak__icon { font-size: 1em; }
 
-.locale-switch { display: flex; gap: 0.35rem; align-items: center; font-family: 'Inter', sans-serif; font-size: 0.75rem; }
-.locale-switch select { font: inherit; padding: 0.3rem 0.5rem; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); }
+.muted { color: var(--text-muted); font-size: var(--fs-sm); }
+/* One step down for a provenance line or a footnote. On the scale, so it still grows with the
+   reader's text-size setting — which an inline style would not. */
+.fine { font-size: var(--fs-xs); }
+.lead { font-size: var(--fs-md); line-height: 1.6; }
+.stack > * + * { margin-top: var(--space-3); }
 
+/* ------------------------------------------------------------------ *
+ * Narrow screens
+ * ------------------------------------------------------------------ */
 @media (max-width: 640px) {
-  .main { padding: 1.25rem 1rem 3rem; }
-  h1 { font-size: 1.35rem; }
+  .main { padding: var(--space-4) var(--space-3) var(--space-6); }
+  .masthead { padding: var(--space-3) var(--space-3) 0; position: static; }
+  .card { padding: var(--space-3); }
+  h1 { font-size: var(--fs-lg); }
+  .btn--row .btn { flex: 1 1 auto; }
+  .settings { gap: var(--space-2); }
+  /* Too narrow to wrap without eating the screen, so it scrolls — with the current item
+     always in view, which is what makes a scroller usable. */
+  .nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; }
 }

@@ -164,7 +164,7 @@ function ResponsePanel({ response, locale }: { response: TutorResponse; locale: 
       <section className="card card--sunk">
         <p className="eyebrow">{translate('tutor.trace', locale)}</p>
         <p className="muted">{translate('tutor.traceNote', locale)}</p>
-        <ol style={{ paddingLeft: '1.1rem', fontSize: '0.8rem' }}>
+        <ol className="fine" style={{ paddingLeft: '1.1rem' }}>
           {response.trace.map((line) => (
             <li key={line} className="muted" style={{ fontFamily: 'ui-monospace, monospace' }}>
               {line}
@@ -287,8 +287,7 @@ export function AITutorScreen({ locale }: { locale: string }) {
             <button
               key={suggestion}
               type="button"
-              className="btn btn--quiet"
-              style={{ fontSize: '0.78rem' }}
+              className="btn btn--quiet btn--small"
               onClick={() => ask(suggestion)}
             >
               {suggestion}

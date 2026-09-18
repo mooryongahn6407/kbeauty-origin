@@ -5,9 +5,11 @@
  * Only My Skin is implemented end-to-end in this slice; the rest state honestly what they
  * are grounded in and what blocks them, rather than showing mock content.
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { translate, type MessageKey, UI_CATALOG_LOCALES } from '@/localization/messages';
 import { LOCALES } from '@/localization/locales';
+import { applyPreferences, loadPreferences, savePreferences } from './preferences';
+import { DisplaySettings } from './components/DisplaySettings';
 import { MySkinScreen } from './screens/MySkinScreen';
 import { IngredientGardenScreen } from './screens/IngredientGardenScreen';
 import { RoutineStudioScreen } from './screens/RoutineStudioScreen';
@@ -41,9 +43,26 @@ const NAV: readonly { id: ScreenId; key: MessageKey }[] = [
 export function App() {
   const [screen, setScreen] = useState<ScreenId>('mySkin');
   const [locale, setLocale] = useState('en');
+  const [preferences, setPreferences] = useState(loadPreferences);
+
+  // Theme and text size are attributes on <html>, so they apply before any component renders
+  // and cover anything outside the React root. Re-running on every change is the whole job.
+  useEffect(() => {
+    applyPreferences(preferences, document.documentElement);
+    savePreferences(preferences);
+  }, [preferences]);
+
+  // `lang` matters for more than correctness: it is what a screen reader and the read-aloud
+  // voice use to decide how to pronounce the page.
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   return (
     <div className="app">
+      <a className="skip-link" href="#main">
+        {translate('display.skipToContent', locale)}
+      </a>
       <header className="masthead">
         <div className="masthead__inner">
           <div className="masthead__row">
@@ -51,17 +70,31 @@ export function App() {
               <p className="masthead__brand">{translate('app.brand', locale)}</p>
               <p className="masthead__star">{translate('app.northStar', locale)}</p>
             </div>
-            <label className="locale-switch">
-              <span>{translate('common.locale', locale)}</span>
-              <select value={locale} onChange={(event) => setLocale(event.target.value)}>
-                {LOCALES.map((definition) => (
-                  <option key={definition.tag} value={definition.tag}>
-                    {definition.tag} · {definition.englishName}
-                    {UI_CATALOG_LOCALES.includes(definition.tag) ? '' : ' (UI: en)'}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <div className="settings">
+              <div className="settings__group">
+                <span className="settings__label" id="locale-label">
+                  {translate('common.locale', locale)}
+                </span>
+                <select
+                  className="settings__select"
+                  aria-labelledby="locale-label"
+                  value={locale}
+                  onChange={(event) => setLocale(event.target.value)}
+                >
+                  {LOCALES.map((definition) => (
+                    <option key={definition.tag} value={definition.tag}>
+                      {definition.tag} · {definition.englishName}
+                      {UI_CATALOG_LOCALES.includes(definition.tag) ? '' : ' (UI: en)'}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <DisplaySettings
+                preferences={preferences}
+                onChange={setPreferences}
+                locale={locale}
+              />
+            </div>
           </div>
           <nav className="nav" aria-label="Main">
             {NAV.map((item) => (
@@ -79,7 +112,7 @@ export function App() {
         </div>
       </header>
 
-      <main className="main">
+      <main className="main" id="main" tabIndex={-1}>
         {screen === 'mySkin' ? <MySkinScreen key={locale} locale={locale} /> : null}
         {screen === 'ingredientGarden' ? (
           <IngredientGardenScreen key={locale} locale={locale} />
