@@ -1,0 +1,89 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "10_NODE_ROUTINE_MAP",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 16,
+  "records": [
+    {
+      "Node_ID": "KN-D04-02-001",
+      "Routine_ID": "RUT-001",
+      "Relationship": "Support"
+    },
+    {
+      "Node_ID": "KN-D04-02-002",
+      "Routine_ID": "RUT-001",
+      "Relationship": "Support"
+    },
+    {
+      "Node_ID": "KN-D04-02-003",
+      "Routine_ID": "RUT-001",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-01-001",
+      "Routine_ID": "RUT-001",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-01-002",
+      "Routine_ID": "RUT-001",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-02-001",
+      "Routine_ID": "RUT-002",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D05-02-001",
+      "Routine_ID": "RUT-002",
+      "Relationship": "Support"
+    },
+    {
+      "Node_ID": "KN-D08-03-001",
+      "Routine_ID": "RUT-003",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-04-001",
+      "Routine_ID": "RUT-003",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-08-001",
+      "Routine_ID": "RUT-004",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-08-002",
+      "Routine_ID": "RUT-005",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-07-001",
+      "Routine_ID": "RUT-007",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-06-001",
+      "Routine_ID": "RUT-008",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D08-06-002",
+      "Routine_ID": "RUT-006",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-01-002",
+      "Routine_ID": "RUT-009",
+      "Relationship": "Primary"
+    },
+    {
+      "Node_ID": "KN-D10-03-002",
+      "Routine_ID": "RUT-010",
+      "Relationship": "Primary"
+    }
+  ]
+}

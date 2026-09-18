@@ -1,0 +1,255 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "01_STRAND_FORENSIC_RECONCILIATION_WORKING_v1.0.xlsx",
+  "sourceSheet": "CURRICULUM_35_CODED",
+  "sourceSha256": "9b5da6b0c0e10a40abb7b9c97b8377d55ff2fd07bdb20b71e08a38269bdd404b",
+  "recordCount": 41,
+  "records": [
+    {
+      "Source Table": "5",
+      "Curriculum Code": "01.1",
+      "Curriculum Strand / Row": "01.1 Skin Map",
+      "Details": "표피·진피·피하조직 | 그림에서 구조를 식별하고 역할 설명"
+    },
+    {
+      "Source Table": "5",
+      "Curriculum Code": "01.2",
+      "Curriculum Strand / Row": "01.2 Barrier",
+      "Details": "각질층·장벽·수분 손실·지질 | 장벽과 수분 유지 관계 설명"
+    },
+    {
+      "Source Table": "5",
+      "Curriculum Code": "01.3",
+      "Curriculum Strand / Row": "01.3 Hydration",
+      "Details": "수분·보습·수분 손실 | dry feeling과 hydration 개념 구분"
+    },
+    {
+      "Source Table": "5",
+      "Curriculum Code": "01.4",
+      "Curriculum Strand / Row": "01.4 Sebum",
+      "Details": "피지·유분·보호 기능 | oily ≠ no moisturizer 오류 수정"
+    },
+    {
+      "Source Table": "5",
+      "Curriculum Code": "01.5",
+      "Curriculum Strand / Row": "01.5 Microenvironment",
+      "Details": "pH·온도·습도·피부 표면 환경 | 환경 변화에 대한 추론"
+    },
+    {
+      "Source Table": "5",
+      "Curriculum Code": "01.6",
+      "Curriculum Strand / Row": "01.6 Skin Change",
+      "Details": "계절·생활습관·시간 | 관찰 기록으로 변화 요인 가설 생성"
+    },
+    {
+      "Source Table": "6",
+      "Curriculum Code": "02.1",
+      "Curriculum Strand / Row": "02.1 Type",
+      "Details": "Normal / Dry / Oily / Combination | 관찰 정보로 유형 가설 제시"
+    },
+    {
+      "Source Table": "6",
+      "Curriculum Code": "02.2",
+      "Curriculum Strand / Row": "02.2 Sensitivity",
+      "Details": "민감성·자극 신호 | sensitivity와 disease 구분"
+    },
+    {
+      "Source Table": "6",
+      "Curriculum Code": "02.3",
+      "Curriculum Strand / Row": "02.3 Type vs State",
+      "Details": "고정 개념 vs 현재 상태 | 계절/생활에 따른 변화 설명"
+    },
+    {
+      "Source Table": "6",
+      "Curriculum Code": "02.4",
+      "Curriculum Strand / Row": "02.4 Observation",
+      "Details": "당김·광택·각질·붉음 | 관찰과 진단 구분"
+    },
+    {
+      "Source Table": "6",
+      "Curriculum Code": "02.5",
+      "Curriculum Strand / Row": "02.5 Context",
+      "Details": "기후·운동·실내환경 | 맥락 변수가 판단에 미치는 영향"
+    },
+    {
+      "Source Table": "7",
+      "Curriculum Code": "03.1",
+      "Curriculum Strand / Row": "03.1 Dryness",
+      "Details": "건조감·각질·당김 | 생활/화장품 literacy"
+    },
+    {
+      "Source Table": "7",
+      "Curriculum Code": "03.2",
+      "Curriculum Strand / Row": "03.2 Oil & Congestion",
+      "Details": "유분·모공 appearance | 제품/루틴 판단"
+    },
+    {
+      "Source Table": "7",
+      "Curriculum Code": "03.3",
+      "Curriculum Strand / Row": "03.3 Acne Literacy",
+      "Details": "여드름의 기본 개념 | 치료 처방 금지"
+    },
+    {
+      "Source Table": "7",
+      "Curriculum Code": "03.4",
+      "Curriculum Strand / Row": "03.4 Redness",
+      "Details": "붉음·자극 신호 | 지속/심함은 전문가 상담"
+    },
+    {
+      "Source Table": "7",
+      "Curriculum Code": "03.5",
+      "Curriculum Strand / Row": "03.5 Pigmentation",
+      "Details": "잡티·색소 관련 개념 | 질환 확정 금지"
+    },
+    {
+      "Source Table": "7",
+      "Curriculum Code": "03.6",
+      "Curriculum Strand / Row": "03.6 Aging Literacy",
+      "Details": "주름·탄력·광노화 | 효능 보장 금지"
+    },
+    {
+      "Source Table": "7",
+      "Curriculum Code": "03.7",
+      "Curriculum Strand / Row": "03.7 Escalation",
+      "Details": "전문가에게 물어야 하는 상황 | red flag recognition"
+    },
+    {
+      "Source Table": "8",
+      "Curriculum Code": "04.1",
+      "Curriculum Strand / Row": "04.1 UV Basics",
+      "Details": "UVA/UVB·노출 | UV Detective"
+    },
+    {
+      "Source Table": "8",
+      "Curriculum Code": "04.2",
+      "Curriculum Strand / Row": "04.2 Sunscreen Literacy",
+      "Details": "SPF·broad spectrum·사용법 개념 | Label Decoder"
+    },
+    {
+      "Source Table": "8",
+      "Curriculum Code": "04.3",
+      "Curriculum Strand / Row": "04.3 Physical Protection",
+      "Details": "의복·그늘·모자 등 | Build-a-Day"
+    },
+    {
+      "Source Table": "8",
+      "Curriculum Code": "04.4",
+      "Curriculum Strand / Row": "04.4 Climate",
+      "Details": "hot/humid/dry/cold | Climate Quest"
+    },
+    {
+      "Source Table": "8",
+      "Curriculum Code": "04.5",
+      "Curriculum Strand / Row": "04.5 Sweat & Pollution",
+      "Details": "운동·열·오염·마찰 | Cause→Effect Puzzle"
+    },
+    {
+      "Source Table": "9",
+      "Curriculum Code": "05.1",
+      "Curriculum Strand / Row": "05.1 Purpose",
+      "Details": "무엇을 제거/관리하는가 | Match the Purpose"
+    },
+    {
+      "Source Table": "9",
+      "Curriculum Code": "05.2",
+      "Curriculum Strand / Row": "05.2 Gentle Cleansing",
+      "Details": "부드러운 세정·마찰 최소화 | Gentle vs Harsh"
+    },
+    {
+      "Source Table": "9",
+      "Curriculum Code": "05.3",
+      "Curriculum Strand / Row": "05.3 Makeup Removal",
+      "Details": "제품 유형별 제거 | Sequence Challenge"
+    },
+    {
+      "Source Table": "9",
+      "Curriculum Code": "05.4",
+      "Curriculum Strand / Row": "05.4 Body Cleansing",
+      "Details": "샤워·바디 세정 | Routine Builder"
+    },
+    {
+      "Source Table": "9",
+      "Curriculum Code": "05.5",
+      "Curriculum Strand / Row": "05.5 Hygiene",
+      "Details": "손·수건·도구 위생 | Habit Mission"
+    },
+    {
+      "Source Table": "13",
+      "Curriculum Code": "08.1",
+      "Curriculum Strand / Row": "08.1 AM Base",
+      "Details": "세안→필요 단계→보습/선케어 등의 논리 이해 | AM Builder"
+    },
+    {
+      "Source Table": "13",
+      "Curriculum Code": "08.2",
+      "Curriculum Strand / Row": "08.2 PM Base",
+      "Details": "세안→선택적 step→보습 | PM Builder"
+    },
+    {
+      "Source Table": "13",
+      "Curriculum Code": "08.3",
+      "Curriculum Strand / Row": "08.3 Order",
+      "Details": "역할/제형/목적을 고려한 순서 | Drag & Drop"
+    },
+    {
+      "Source Table": "13",
+      "Curriculum Code": "08.4",
+      "Curriculum Strand / Row": "08.4 Simplify",
+      "Details": "과도한 step 줄이기 | Routine Rescue"
+    },
+    {
+      "Source Table": "13",
+      "Curriculum Code": "08.5",
+      "Curriculum Strand / Row": "08.5 Frequency",
+      "Details": "매일/간헐/상황별 사용 | Calendar Quest"
+    },
+    {
+      "Source Table": "13",
+      "Curriculum Code": "08.6",
+      "Curriculum Strand / Row": "08.6 Combination",
+      "Details": "복수 active 사용 맥락 | Combination Lab"
+    },
+    {
+      "Source Table": "13",
+      "Curriculum Code": "08.7",
+      "Curriculum Strand / Row": "08.7 Reset",
+      "Details": "자극 상황에서 단순화 | Reset Mission"
+    },
+    {
+      "Source Table": "19",
+      "Curriculum Code": "",
+      "Curriculum Strand / Row": "Claim Reading",
+      "Details": "marketing language를 해석 | Claim Translator"
+    },
+    {
+      "Source Table": "19",
+      "Curriculum Code": "",
+      "Curriculum Strand / Row": "Ingredient Halo",
+      "Details": "성분 1개로 제품 전체 판단하지 않기 | Halo Trap"
+    },
+    {
+      "Source Table": "19",
+      "Curriculum Code": "",
+      "Curriculum Strand / Row": "Review Reading",
+      "Details": "개인경험 vs 근거 | Review Detective"
+    },
+    {
+      "Source Table": "19",
+      "Curriculum Code": "",
+      "Curriculum Strand / Row": "Influencer Literacy",
+      "Details": "광고/협찬/개인경험 구분 | Ad or Advice?"
+    },
+    {
+      "Source Table": "19",
+      "Curriculum Code": "",
+      "Curriculum Strand / Row": "Trend vs Evidence",
+      "Details": "유행과 근거 분리 | Trend Observatory"
+    },
+    {
+      "Source Table": "19",
+      "Curriculum Code": "",
+      "Curriculum Strand / Row": "Before/After",
+      "Details": "조명/각도/기간 한계 인식 | Visual Bias Lab"
+    }
+  ]
+}

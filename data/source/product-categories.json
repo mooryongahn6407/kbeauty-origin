@@ -1,0 +1,265 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "08_PRODUCT_CATEGORIES",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 32,
+  "records": [
+    {
+      "Category_ID": "CAT-001",
+      "Category_Name": "Oil Cleanser",
+      "Family": "Cleansing",
+      "Lao_Label": "클렌징",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-002",
+      "Category_Name": "Cleansing Balm",
+      "Family": "Cleansing",
+      "Lao_Label": "클렌징",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-003",
+      "Category_Name": "Micellar Water",
+      "Family": "Cleansing",
+      "Lao_Label": "클렌징",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-004",
+      "Category_Name": "Foam Cleanser",
+      "Family": "Cleansing",
+      "Lao_Label": "클렌징",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-005",
+      "Category_Name": "Gel Cleanser",
+      "Family": "Cleansing",
+      "Lao_Label": "클렌징",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-006",
+      "Category_Name": "Cream Cleanser",
+      "Family": "Cleansing",
+      "Lao_Label": "클렌징",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-007",
+      "Category_Name": "Hydrating Toner",
+      "Family": "Toner",
+      "Lao_Label": "토너",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-008",
+      "Category_Name": "Soothing Toner",
+      "Family": "Toner",
+      "Lao_Label": "토너",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-009",
+      "Category_Name": "Exfoliating Toner",
+      "Family": "Toner",
+      "Lao_Label": "토너",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-010",
+      "Category_Name": "Essence",
+      "Family": "Treatment",
+      "Lao_Label": "에센스",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-011",
+      "Category_Name": "Serum",
+      "Family": "Treatment",
+      "Lao_Label": "세럼",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-012",
+      "Category_Name": "Ampoule",
+      "Family": "Treatment",
+      "Lao_Label": "앰플",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-013",
+      "Category_Name": "Lotion",
+      "Family": "Moisturizer",
+      "Lao_Label": "로션",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-014",
+      "Category_Name": "Cream",
+      "Family": "Moisturizer",
+      "Lao_Label": "크림",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-015",
+      "Category_Name": "Gel Moisturizer",
+      "Family": "Moisturizer",
+      "Lao_Label": "젤 모이스처라이저",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-016",
+      "Category_Name": "Sunscreen Cream",
+      "Family": "Sun Care",
+      "Lao_Label": "선크림",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-017",
+      "Category_Name": "Sun Stick",
+      "Family": "Sun Care",
+      "Lao_Label": "선스틱",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-018",
+      "Category_Name": "Sun Cushion",
+      "Family": "Sun Care",
+      "Lao_Label": "선쿠션",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-019",
+      "Category_Name": "Sheet Mask",
+      "Family": "Mask",
+      "Lao_Label": "시트 마스크",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-020",
+      "Category_Name": "Clay / Wash-off Mask",
+      "Family": "Mask",
+      "Lao_Label": "워시오프/클레이",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-021",
+      "Category_Name": "Pads",
+      "Family": "Mask/Pad",
+      "Lao_Label": "패드",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-022",
+      "Category_Name": "Eye Care",
+      "Family": "Special Care",
+      "Lao_Label": "아이 케어",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-023",
+      "Category_Name": "Lip Care",
+      "Family": "Special Care",
+      "Lao_Label": "립 케어",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-024",
+      "Category_Name": "Body Wash",
+      "Family": "Body Care",
+      "Lao_Label": "바디워시",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-025",
+      "Category_Name": "Body Lotion",
+      "Family": "Body Care",
+      "Lao_Label": "바디로션",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-026",
+      "Category_Name": "Body Cream",
+      "Family": "Body Care",
+      "Lao_Label": "바디크림",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-027",
+      "Category_Name": "Body Scrub",
+      "Family": "Body Care",
+      "Lao_Label": "바디스크럽",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-028",
+      "Category_Name": "Shampoo",
+      "Family": "Hair Care",
+      "Lao_Label": "샴푸",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-029",
+      "Category_Name": "Conditioner",
+      "Family": "Hair Care",
+      "Lao_Label": "컨디셔너",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-030",
+      "Category_Name": "Hair Treatment",
+      "Family": "Hair Care",
+      "Lao_Label": "헤어 트리트먼트",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-031",
+      "Category_Name": "Beauty Tool",
+      "Family": "Tools",
+      "Lao_Label": "뷰티 도구",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    },
+    {
+      "Category_ID": "CAT-032",
+      "Category_Name": "Beauty Device",
+      "Family": "Tools",
+      "Lao_Label": "뷰티 디바이스",
+      "Learning_Focus": "제품 역할·선택 기준 · 카테고리 literacy",
+      "Status": "Approved"
+    }
+  ]
+}

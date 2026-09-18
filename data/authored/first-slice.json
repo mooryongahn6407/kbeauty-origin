@@ -1,0 +1,156 @@
+{
+  "$schema_note": "Application-AUTHORED learning scaffolding. NOT an official KOREA GLOW source. Every atom declares the governed Knowledge Node it derives from and the class of claim it makes. Atoms here are claimClass PEDAGOGICAL or SAFETY_BOUNDARY only: they teach how to observe and reason, and state the product's own boundaries. They assert no scientific fact about skin, ingredients, products or regulation, because no Knowledge Node in the current Master Database has passed the evidence gate (all 212 nodes are Status=Draft).",
+  "governanceNote": "Authored under 00_CLAUDE_ENGINEERING_INITIALIZATION_COMMAND_v1.0.md item I: 'Implement safe placeholder/demo data only where source data is not approved.' Review status is Draft and must not be promoted in code.",
+  "atoms": [
+    {
+      "atomId": "AUTHORED-ATOM-001",
+      "nodeId": "KN-D01-07-001",
+      "nodeVersion": "v1.0",
+      "skillId": "SK01",
+      "claimClass": "PEDAGOGICAL",
+      "evidenceSourceIds": [],
+      "reviewStatus": "Draft",
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "hook": "Two people can look at the same skin and write down completely different things.",
+            "core": "An observation is something you could point at: where you looked, when you looked, and what you saw. An interpretation is the story you add on top of it — the cause, the name, the verdict. Both are useful, but only one of them is evidence. Learning to separate them is the first skill in this world, because every later decision you make will rest on what you actually observed.",
+            "analogy": "A detective writes 'the window was open at 9pm'. They do not write 'a burglar came in'. The second sentence might be true, but it is a conclusion, not a note.",
+            "checkPrompt": "Which of these is an observation rather than an interpretation?",
+            "transferPrompt": "Next time you look in the mirror, write one line that another person could verify."
+          },
+          "localNotes": "Base authoring locale."
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "hook": "같은 피부를 봐도 두 사람이 전혀 다른 것을 적을 수 있습니다.",
+            "core": "관찰은 손으로 가리킬 수 있는 것입니다. 어디를 봤는지, 언제 봤는지, 무엇이 보였는지. 해석은 그 위에 얹는 이야기입니다. 원인, 이름, 판정 같은 것이죠. 둘 다 쓸모가 있지만 증거가 되는 것은 하나뿐입니다. 이 둘을 구분하는 일이 이 세계의 첫 번째 기술입니다. 앞으로 내리는 모든 판단이 실제로 관찰한 것 위에 놓이기 때문입니다.",
+            "analogy": "탐정은 '9시에 창문이 열려 있었다'라고 적습니다. '도둑이 들어왔다'라고 적지 않습니다. 두 번째 문장은 사실일 수도 있지만 기록이 아니라 결론입니다.",
+            "checkPrompt": "다음 중 해석이 아니라 관찰인 것은 무엇일까요?",
+            "transferPrompt": "다음에 거울을 볼 때, 다른 사람도 확인할 수 있는 문장을 한 줄 적어 보세요."
+          },
+          "localNotes": "Korean is a Core locale in Master DB 15_LOCALIZATION (LOC-002)."
+        }
+      ]
+    },
+    {
+      "atomId": "AUTHORED-ATOM-002",
+      "nodeId": "KN-D01-07-001",
+      "nodeVersion": "v1.0",
+      "skillId": "SK12",
+      "claimClass": "SAFETY_BOUNDARY",
+      "evidenceSourceIds": [],
+      "reviewStatus": "Draft",
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "core": "Recording what you see is not the same as naming a condition. This world teaches cosmetic observation; it does not diagnose or treat anything. If something is painful, spreading, or getting worse, that is a moment for a professional, not for a lesson."
+          }
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "core": "보이는 것을 기록하는 일과 어떤 상태에 이름을 붙이는 일은 다릅니다. 이 세계는 화장품 관점의 관찰을 가르치며, 무엇도 진단하거나 치료하지 않습니다. 아프거나, 번지거나, 점점 심해진다면 그때는 수업이 아니라 전문가를 찾을 때입니다."
+          }
+        }
+      ]
+    }
+  ],
+  "activities": [
+    {
+      "activityId": "AUTHORED-ACT-001",
+      "atomId": "AUTHORED-ATOM-001",
+      "nodeId": "KN-D01-07-001",
+      "skillId": "SK01",
+      "claimClass": "PEDAGOGICAL",
+      "interactionType": "tap_choice",
+      "correctOptionIndex": 1,
+      "isTransfer": false,
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "Which of these is an observation rather than an interpretation?",
+            "option0": "My skin is dehydrated.",
+            "option1": "At 9pm my forehead looked shiny and my cheeks did not.",
+            "option2": "This cream stopped working for me.",
+            "hintH1": "One of these could be checked by someone standing next to you. The others are conclusions only you can reach.",
+            "hintH2": "An observation names where you looked, when you looked, and what you saw — nothing about cause.",
+            "hintH3": "Look for the sentence that contains a time and a place on the face.",
+            "feedbackCorrect": "Yes. It names a time, a place and what was visible — and it stops there. Someone else could stand beside you and check it.",
+            "feedbackIncorrect": "Not quite. That sentence names a cause or a verdict, which is a conclusion. Look for the one that only reports what was visible.",
+            "reflectionPrompt": "In your own words: what makes a note an observation rather than a conclusion?"
+          }
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "다음 중 해석이 아니라 관찰인 것은 무엇일까요?",
+            "option0": "내 피부는 수분이 부족하다.",
+            "option1": "밤 9시에 이마는 번들거려 보였고 볼은 그렇지 않았다.",
+            "option2": "이 크림은 나한테 더 이상 안 맞는다.",
+            "hintH1": "이 중 하나는 옆에 있는 사람도 확인할 수 있습니다. 나머지는 나만 내릴 수 있는 결론입니다.",
+            "hintH2": "관찰은 어디를 봤는지, 언제 봤는지, 무엇이 보였는지를 말합니다. 원인은 말하지 않습니다.",
+            "hintH3": "얼굴의 시간과 위치가 함께 들어 있는 문장을 찾아보세요.",
+            "feedbackCorrect": "맞습니다. 시간과 위치, 그리고 보인 것을 말하고 거기서 멈춥니다. 옆 사람도 같이 확인할 수 있습니다.",
+            "feedbackIncorrect": "조금 다릅니다. 그 문장은 원인이나 판정을 말하고 있어서 결론에 가깝습니다. 보인 것만 적은 문장을 찾아보세요.",
+            "reflectionPrompt": "직접 설명해 보세요. 어떤 기록이 결론이 아니라 관찰이 되게 만드나요?"
+          }
+        }
+      ]
+    },
+    {
+      "activityId": "AUTHORED-ACT-002",
+      "atomId": "AUTHORED-ATOM-001",
+      "nodeId": "KN-D01-07-001",
+      "skillId": "SK01",
+      "claimClass": "PEDAGOGICAL",
+      "interactionType": "tap_choice",
+      "correctOptionIndex": 2,
+      "isTransfer": true,
+      "variants": [
+        {
+          "locale": "en",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "A friend sends you three lines from their own notes. Which one could you verify without believing anything they concluded?",
+            "option0": "The new toner broke me out.",
+            "option1": "My skin hates humidity.",
+            "option2": "After three days of rain, I wrote down that my chin felt rough when I touched it.",
+            "hintH1": "Two of these already contain a cause. One only contains a record.",
+            "hintH2": "Ask of each line: could I have written this down at the time, without knowing why?",
+            "hintH3": "The verifiable line describes when it happened and what was noticed, and leaves the reason out.",
+            "feedbackCorrect": "Yes — it records a time and what was noticed, and leaves the reason open. That is what makes it usable evidence later.",
+            "feedbackIncorrect": "That line already names a cause, so it is a conclusion rather than a record. Look for the one that only says when and what.",
+            "reflectionPrompt": "Rewrite one of the other two lines so that it becomes an observation."
+          }
+        },
+        {
+          "locale": "ko",
+          "reviewStatus": "Draft",
+          "text": {
+            "question": "친구가 자기 기록에서 세 줄을 보내왔습니다. 친구의 결론을 믿지 않고도 확인할 수 있는 문장은 어느 것일까요?",
+            "option0": "새로 산 토너 때문에 뒤집어졌다.",
+            "option1": "내 피부는 습한 걸 싫어한다.",
+            "option2": "비가 사흘 내린 뒤에, 손으로 만졌을 때 턱이 까슬까슬했다고 적었다.",
+            "hintH1": "두 문장에는 이미 원인이 들어 있습니다. 한 문장에는 기록만 있습니다.",
+            "hintH2": "각 문장에 물어보세요. 이유를 모르는 상태에서도 그때 이걸 적을 수 있었을까?",
+            "hintH3": "확인할 수 있는 문장은 언제였는지와 무엇을 느꼈는지를 말하고, 이유는 비워 둡니다.",
+            "feedbackCorrect": "맞습니다. 시점과 알아차린 것을 적고 이유는 열어 둡니다. 그래서 나중에 근거로 쓸 수 있습니다.",
+            "feedbackIncorrect": "그 문장에는 이미 원인이 들어 있어서 기록이라기보다 결론입니다. 언제와 무엇만 말하는 문장을 찾아보세요.",
+            "reflectionPrompt": "나머지 두 문장 중 하나를 관찰 문장으로 바꿔 써 보세요."
+          }
+        }
+      ]
+    }
+  ]
+}

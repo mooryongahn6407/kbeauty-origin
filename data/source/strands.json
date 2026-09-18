@@ -1,0 +1,837 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "02_STRANDS",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 92,
+  "records": [
+    {
+      "Strand_ID": "D01-01",
+      "Domain_ID": "D01",
+      "Strand_Code": "01.1",
+      "Strand_Name": "Skin Map",
+      "Description": "피부 층과 기본 구조",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D01-02",
+      "Domain_ID": "D01",
+      "Strand_Code": "01.2",
+      "Strand_Name": "Barrier",
+      "Description": "피부장벽과 수분 손실",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D01-03",
+      "Domain_ID": "D01",
+      "Strand_Code": "01.3",
+      "Strand_Name": "Hydration",
+      "Description": "수분·보습·건조",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D01-04",
+      "Domain_ID": "D01",
+      "Strand_Code": "01.4",
+      "Strand_Name": "Sebum",
+      "Description": "피지와 유분",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D01-05",
+      "Domain_ID": "D01",
+      "Strand_Code": "01.5",
+      "Strand_Name": "Skin Microenvironment",
+      "Description": "pH·온도·미생물·습도",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D01-06",
+      "Domain_ID": "D01",
+      "Strand_Code": "01.6",
+      "Strand_Name": "Skin Change",
+      "Description": "계절·나이·생활에 따른 변화",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D01-07",
+      "Domain_ID": "D01",
+      "Strand_Code": "01.7",
+      "Strand_Name": "Skin Observation",
+      "Description": "관찰과 기록의 기본",
+      "Sequence": "7",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D02-01",
+      "Domain_ID": "D02",
+      "Strand_Code": "02.1",
+      "Strand_Name": "Traditional Skin Types",
+      "Description": "건성·지성·복합성·중성",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D02-02",
+      "Domain_ID": "D02",
+      "Strand_Code": "02.2",
+      "Strand_Name": "Sensitivity",
+      "Description": "민감/자극 반응 개념",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D02-03",
+      "Domain_ID": "D02",
+      "Strand_Code": "02.3",
+      "Strand_Name": "Type vs State",
+      "Description": "타입과 일시적 상태의 차이",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D02-04",
+      "Domain_ID": "D02",
+      "Strand_Code": "02.4",
+      "Strand_Name": "Observation Signals",
+      "Description": "당김·각질·번들거림·붉음",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D02-05",
+      "Domain_ID": "D02",
+      "Strand_Code": "02.5",
+      "Strand_Name": "Environment Effects",
+      "Description": "기후·실내환경의 영향",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D02-06",
+      "Domain_ID": "D02",
+      "Strand_Code": "02.6",
+      "Strand_Name": "Self-Assessment Limits",
+      "Description": "자가관찰의 한계와 안전",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D03-01",
+      "Domain_ID": "D03",
+      "Strand_Code": "03.1",
+      "Strand_Name": "Dryness",
+      "Description": "건조감·당김·각질",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D03-02",
+      "Domain_ID": "D03",
+      "Strand_Code": "03.2",
+      "Strand_Name": "Oil & Congestion",
+      "Description": "유분·모공·면포 appearance",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D03-03",
+      "Domain_ID": "D03",
+      "Strand_Code": "03.3",
+      "Strand_Name": "Acne Literacy",
+      "Description": "여드름 기본 개념",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D03-04",
+      "Domain_ID": "D03",
+      "Strand_Code": "03.4",
+      "Strand_Name": "Redness & Sensitivity",
+      "Description": "붉음·자극 신호",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D03-05",
+      "Domain_ID": "D03",
+      "Strand_Code": "03.5",
+      "Strand_Name": "Pigmentation",
+      "Description": "색소·잡티 관련 기초",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D03-06",
+      "Domain_ID": "D03",
+      "Strand_Code": "03.6",
+      "Strand_Name": "Aging & Photoaging",
+      "Description": "노화·광노화 literacy",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D03-07",
+      "Domain_ID": "D03",
+      "Strand_Code": "03.7",
+      "Strand_Name": "Escalation",
+      "Description": "전문가 상담이 필요한 신호",
+      "Sequence": "7",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D04-01",
+      "Domain_ID": "D04",
+      "Strand_Code": "04.1",
+      "Strand_Name": "UV Basics",
+      "Description": "UVA·UVB·노출",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D04-02",
+      "Domain_ID": "D04",
+      "Strand_Code": "04.2",
+      "Strand_Name": "Sunscreen Literacy",
+      "Description": "SPF·광범위 차단·재도포",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D04-03",
+      "Domain_ID": "D04",
+      "Strand_Code": "04.3",
+      "Strand_Name": "Physical Protection",
+      "Description": "의복·모자·그늘 등",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D04-04",
+      "Domain_ID": "D04",
+      "Strand_Code": "04.4",
+      "Strand_Name": "Climate",
+      "Description": "고온·고습·건조·추위",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D04-05",
+      "Domain_ID": "D04",
+      "Strand_Code": "04.5",
+      "Strand_Name": "Pollution & Lifestyle",
+      "Description": "오염·땀·운동·마찰",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D04-06",
+      "Domain_ID": "D04",
+      "Strand_Code": "04.6",
+      "Strand_Name": "Daily Protection Planning",
+      "Description": "일상 상황별 보호",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D05-01",
+      "Domain_ID": "D05",
+      "Strand_Code": "05.1",
+      "Strand_Name": "Why Cleanse",
+      "Description": "세정의 목적",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D05-02",
+      "Domain_ID": "D05",
+      "Strand_Code": "05.2",
+      "Strand_Name": "Gentle Cleansing",
+      "Description": "부드러운 세정",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D05-03",
+      "Domain_ID": "D05",
+      "Strand_Code": "05.3",
+      "Strand_Name": "Makeup Removal",
+      "Description": "메이크업/선케어 제거",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D05-04",
+      "Domain_ID": "D05",
+      "Strand_Code": "05.4",
+      "Strand_Name": "Body Cleansing",
+      "Description": "바디 세정",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D05-05",
+      "Domain_ID": "D05",
+      "Strand_Code": "05.5",
+      "Strand_Name": "Hygiene Tools",
+      "Description": "수건·도구·손 위생",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D05-06",
+      "Domain_ID": "D05",
+      "Strand_Code": "05.6",
+      "Strand_Name": "Over-Cleansing",
+      "Description": "과도한 세정",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-01",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.1",
+      "Strand_Name": "Ingredient Vocabulary",
+      "Description": "INCI·기능·성분표",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-02",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.2",
+      "Strand_Name": "Humectants",
+      "Description": "흡습성 보습제",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-03",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.3",
+      "Strand_Name": "Emollients",
+      "Description": "에몰리언트",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-04",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.4",
+      "Strand_Name": "Occlusives",
+      "Description": "오클루시브",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-05",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.5",
+      "Strand_Name": "Barrier Lipids",
+      "Description": "세라마이드·콜레스테롤·지방산",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-06",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.6",
+      "Strand_Name": "Niacinamide & Vitamin B3",
+      "Description": "기초 성분 literacy",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-07",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.7",
+      "Strand_Name": "Vitamin C Family",
+      "Description": "비타민 C 및 유도체",
+      "Sequence": "7",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-08",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.8",
+      "Strand_Name": "Exfoliating Acids",
+      "Description": "AHA·BHA·PHA",
+      "Sequence": "8",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-09",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.9",
+      "Strand_Name": "Retinoid Family",
+      "Description": "레티노이드/레티놀",
+      "Sequence": "9",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-10",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.10",
+      "Strand_Name": "Soothing Support",
+      "Description": "판테놀·알란토인 등",
+      "Sequence": "10",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-11",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.11",
+      "Strand_Name": "Surfactants",
+      "Description": "계면활성제",
+      "Sequence": "11",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-12",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.12",
+      "Strand_Name": "Preservation & Stability",
+      "Description": "방부·안정성",
+      "Sequence": "12",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-13",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.13",
+      "Strand_Name": "Fragrance & Color",
+      "Description": "향료·색소",
+      "Sequence": "13",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D06-14",
+      "Domain_ID": "D06",
+      "Strand_Code": "06.14",
+      "Strand_Name": "Texture & Emulsion",
+      "Description": "겔·크림·에멀전·세럼",
+      "Sequence": "14",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D07-01",
+      "Domain_ID": "D07",
+      "Strand_Code": "07.1",
+      "Strand_Name": "Cleansers",
+      "Description": "오일·밤·미셀라·폼·젤·크림",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D07-02",
+      "Domain_ID": "D07",
+      "Strand_Code": "07.2",
+      "Strand_Name": "Toners",
+      "Description": "수분·진정·각질 토너",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D07-03",
+      "Domain_ID": "D07",
+      "Strand_Code": "07.3",
+      "Strand_Name": "Essence / Serum / Ampoule",
+      "Description": "농축형 제품의 역할",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D07-04",
+      "Domain_ID": "D07",
+      "Strand_Code": "07.4",
+      "Strand_Name": "Moisturizers",
+      "Description": "로션·크림·밤",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D07-05",
+      "Domain_ID": "D07",
+      "Strand_Code": "07.5",
+      "Strand_Name": "Sun Care",
+      "Description": "크림·스틱·쿠션·스프레이",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D07-06",
+      "Domain_ID": "D07",
+      "Strand_Code": "07.6",
+      "Strand_Name": "Masks & Pads",
+      "Description": "시트·클레이·워시오프·패드",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D07-07",
+      "Domain_ID": "D07",
+      "Strand_Code": "07.7",
+      "Strand_Name": "Eye & Lip",
+      "Description": "아이/립 케어",
+      "Sequence": "7",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D07-08",
+      "Domain_ID": "D07",
+      "Strand_Code": "07.8",
+      "Strand_Name": "Body Care",
+      "Description": "워시·로션·크림·스크럽",
+      "Sequence": "8",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D07-09",
+      "Domain_ID": "D07",
+      "Strand_Code": "07.9",
+      "Strand_Name": "Hair Care",
+      "Description": "샴푸·컨디셔너·트리트먼트",
+      "Sequence": "9",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D07-10",
+      "Domain_ID": "D07",
+      "Strand_Code": "07.10",
+      "Strand_Name": "Tools & Devices",
+      "Description": "도구·미용기기 literacy",
+      "Sequence": "10",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D08-01",
+      "Domain_ID": "D08",
+      "Strand_Code": "08.1",
+      "Strand_Name": "AM Routine",
+      "Description": "아침 기본 루틴",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D08-02",
+      "Domain_ID": "D08",
+      "Strand_Code": "08.2",
+      "Strand_Name": "PM Routine",
+      "Description": "저녁 기본 루틴",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D08-03",
+      "Domain_ID": "D08",
+      "Strand_Code": "08.3",
+      "Strand_Name": "Order Logic",
+      "Description": "제품 역할과 순서",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D08-04",
+      "Domain_ID": "D08",
+      "Strand_Code": "08.4",
+      "Strand_Name": "Routine Simplification",
+      "Description": "과도한 루틴 줄이기",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D08-05",
+      "Domain_ID": "D08",
+      "Strand_Code": "08.5",
+      "Strand_Name": "Frequency",
+      "Description": "매일·간헐적·상황별 사용",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D08-06",
+      "Domain_ID": "D08",
+      "Strand_Code": "08.6",
+      "Strand_Name": "Actives & Compatibility",
+      "Description": "active 조합의 주의 맥락",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D08-07",
+      "Domain_ID": "D08",
+      "Strand_Code": "08.7",
+      "Strand_Name": "Reset Routine",
+      "Description": "자극 시 단순화",
+      "Sequence": "7",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D08-08",
+      "Domain_ID": "D08",
+      "Strand_Code": "08.8",
+      "Strand_Name": "Seasonal Routine",
+      "Description": "계절·기후별 변화",
+      "Sequence": "8",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D09-01",
+      "Domain_ID": "D09",
+      "Strand_Code": "09.1",
+      "Strand_Name": "Beauty Profile",
+      "Description": "개인 프로필 구성",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D09-02",
+      "Domain_ID": "D09",
+      "Strand_Code": "09.2",
+      "Strand_Name": "Goal Setting",
+      "Description": "미용 목표 우선순위",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D09-03",
+      "Domain_ID": "D09",
+      "Strand_Code": "09.3",
+      "Strand_Name": "Product Comparison",
+      "Description": "제품 A/B 비교",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D09-04",
+      "Domain_ID": "D09",
+      "Strand_Code": "09.4",
+      "Strand_Name": "Budget & Value",
+      "Description": "예산과 가치",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D09-05",
+      "Domain_ID": "D09",
+      "Strand_Code": "09.5",
+      "Strand_Name": "Need vs Want",
+      "Description": "필요와 욕구 구분",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D09-06",
+      "Domain_ID": "D09",
+      "Strand_Code": "09.6",
+      "Strand_Name": "Uncertainty",
+      "Description": "모르는 것과 추가 정보",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D09-07",
+      "Domain_ID": "D09",
+      "Strand_Code": "09.7",
+      "Strand_Name": "Recommendation Literacy",
+      "Description": "추천의 이유와 한계",
+      "Sequence": "7",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D09-08",
+      "Domain_ID": "D09",
+      "Strand_Code": "09.8",
+      "Strand_Name": "Decision Journal",
+      "Description": "선택 결과 기록",
+      "Sequence": "8",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D10-01",
+      "Domain_ID": "D10",
+      "Strand_Code": "10.1",
+      "Strand_Name": "Body Skin",
+      "Description": "바디 피부 기초",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D10-02",
+      "Domain_ID": "D10",
+      "Strand_Code": "10.2",
+      "Strand_Name": "Scalp",
+      "Description": "두피 기초",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D10-03",
+      "Domain_ID": "D10",
+      "Strand_Code": "10.3",
+      "Strand_Name": "Hair Fiber",
+      "Description": "모발 구조와 관리",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D10-04",
+      "Domain_ID": "D10",
+      "Strand_Code": "10.4",
+      "Strand_Name": "Hair Damage",
+      "Description": "열·마찰·화학적 손상",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D10-05",
+      "Domain_ID": "D10",
+      "Strand_Code": "10.5",
+      "Strand_Name": "Hands & Nails",
+      "Description": "손·네일 기본",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D10-06",
+      "Domain_ID": "D10",
+      "Strand_Code": "10.6",
+      "Strand_Name": "Body Fragrance",
+      "Description": "데오도란트·향 관련 literacy",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D11-01",
+      "Domain_ID": "D11",
+      "Strand_Code": "11.1",
+      "Strand_Name": "Claim Reading",
+      "Description": "beauty claim 읽기",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D11-02",
+      "Domain_ID": "D11",
+      "Strand_Code": "11.2",
+      "Strand_Name": "Ingredient Halo",
+      "Description": "한 성분에 전체 제품 판단하지 않기",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D11-03",
+      "Domain_ID": "D11",
+      "Strand_Code": "11.3",
+      "Strand_Name": "Review Literacy",
+      "Description": "후기 해석",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D11-04",
+      "Domain_ID": "D11",
+      "Strand_Code": "11.4",
+      "Strand_Name": "Influencer & Sponsorship",
+      "Description": "광고·협찬·개인 경험",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D11-05",
+      "Domain_ID": "D11",
+      "Strand_Code": "11.5",
+      "Strand_Name": "Trend vs Evidence",
+      "Description": "유행과 근거",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D11-06",
+      "Domain_ID": "D11",
+      "Strand_Code": "11.6",
+      "Strand_Name": "Before / After",
+      "Description": "시각 정보의 함정",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D11-07",
+      "Domain_ID": "D11",
+      "Strand_Code": "11.7",
+      "Strand_Name": "Label Detective",
+      "Description": "라벨·표기 분석",
+      "Sequence": "7",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D12-01",
+      "Domain_ID": "D12",
+      "Strand_Code": "12.1",
+      "Strand_Name": "Retrieval",
+      "Description": "간격 반복·회상",
+      "Sequence": "1",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D12-02",
+      "Domain_ID": "D12",
+      "Strand_Code": "12.2",
+      "Strand_Name": "Reflection",
+      "Description": "주간/월간 성찰",
+      "Sequence": "2",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D12-03",
+      "Domain_ID": "D12",
+      "Strand_Code": "12.3",
+      "Strand_Name": "Transfer",
+      "Description": "새 제품·새 상황에 적용",
+      "Sequence": "3",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D12-04",
+      "Domain_ID": "D12",
+      "Strand_Code": "12.4",
+      "Strand_Name": "Teach-back",
+      "Description": "다른 사람에게 설명",
+      "Sequence": "4",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D12-05",
+      "Domain_ID": "D12",
+      "Strand_Code": "12.5",
+      "Strand_Name": "Habit Design",
+      "Description": "행동 습관",
+      "Sequence": "5",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D12-06",
+      "Domain_ID": "D12",
+      "Strand_Code": "12.6",
+      "Strand_Name": "Beauty Intelligence Score",
+      "Description": "지식·기술 기반 성장지표",
+      "Sequence": "6",
+      "Status": "Approved"
+    },
+    {
+      "Strand_ID": "D12-07",
+      "Domain_ID": "D12",
+      "Strand_Code": "12.7",
+      "Strand_Name": "Lifelong Learning",
+      "Description": "지속적인 업데이트와 성장",
+      "Sequence": "7",
+      "Status": "Approved"
+    }
+  ]
+}

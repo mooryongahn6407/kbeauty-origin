@@ -1,0 +1,34 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "01_STRAND_FORENSIC_RECONCILIATION_WORKING_v1.0.xlsx",
+  "sourceSheet": "UNCODED_CURRICULUM_GROUPINGS",
+  "sourceSha256": "9b5da6b0c0e10a40abb7b9c97b8377d55ff2fd07bdb20b71e08a38269bdd404b",
+  "recordCount": 5,
+  "records": [
+    {
+      "Area": "D10 Whole-Beauty grouping",
+      "Curriculum content": "Body | cleansing · moisturization · roughness · sun | 부위에 맞는 기본 원칙은?",
+      "Status": "REQUIRES CANONICAL STRAND DECISION"
+    },
+    {
+      "Area": "D10 Whole-Beauty grouping",
+      "Curriculum content": "Scalp | oil · flakes · cleansing | 두피와 모발은 어떻게 다른가?",
+      "Status": "REQUIRES CANONICAL STRAND DECISION"
+    },
+    {
+      "Area": "D10 Whole-Beauty grouping",
+      "Curriculum content": "Hair | shampoo · conditioner · treatment · heat | 모발의 상태와 관리법은?",
+      "Status": "REQUIRES CANONICAL STRAND DECISION"
+    },
+    {
+      "Area": "D10 Whole-Beauty grouping",
+      "Curriculum content": "Hands/Nails | hand care · nail care | 일상적인 보호와 관리",
+      "Status": "REQUIRES CANONICAL STRAND DECISION"
+    },
+    {
+      "Area": "D10 Whole-Beauty grouping",
+      "Curriculum content": "Fragrance | deodorization · fragrance literacy | 기능과 취향을 구분",
+      "Status": "REQUIRES CANONICAL STRAND DECISION"
+    }
+  ]
+}

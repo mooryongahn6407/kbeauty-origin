@@ -1,0 +1,167 @@
+{
+  "$schema_note": "Provenance manifest for data/source/. Regenerate with `npm run extract:sources`.",
+  "generatedBy": "scripts/extract-sources.mjs",
+  "extractionPolicy": "verbatim: no ID changes, no status promotion, no reference repair",
+  "sourceFiles": [
+    {
+      "file": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557"
+    },
+    {
+      "file": "01_STRAND_FORENSIC_RECONCILIATION_WORKING_v1.0.xlsx",
+      "sha256": "9b5da6b0c0e10a40abb7b9c97b8377d55ff2fd07bdb20b71e08a38269bdd404b"
+    }
+  ],
+  "datasets": [
+    {
+      "file": "ai-rules.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "13_AI_RULES",
+      "recordCount": 20
+    },
+    {
+      "file": "concerns.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "07_CONCERNS",
+      "recordCount": 15
+    },
+    {
+      "file": "content-atoms.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "21_CONTENT_ATOMS",
+      "recordCount": 20
+    },
+    {
+      "file": "domains.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "01_DOMAINS",
+      "recordCount": 12
+    },
+    {
+      "file": "enums.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "20_ENUMS",
+      "recordCount": 20
+    },
+    {
+      "file": "evidence-sources.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "14_EVIDENCE",
+      "recordCount": 10
+    },
+    {
+      "file": "ingredients.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "06_INGREDIENTS",
+      "recordCount": 40
+    },
+    {
+      "file": "knowledge-nodes.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "03_KNOWLEDGE_NODES",
+      "recordCount": 212
+    },
+    {
+      "file": "localization.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "15_LOCALIZATION",
+      "recordCount": 7
+    },
+    {
+      "file": "mastery-rules.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "19_MASTERY_RULES",
+      "recordCount": 6
+    },
+    {
+      "file": "node-routine-map.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "10_NODE_ROUTINE_MAP",
+      "recordCount": 16
+    },
+    {
+      "file": "node-skill-map.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "05_NODE_SKILL_MAP",
+      "recordCount": 266
+    },
+    {
+      "file": "product-categories.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "08_PRODUCT_CATEGORIES",
+      "recordCount": 32
+    },
+    {
+      "file": "product-relations.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "17_PRODUCT_RELATIONS",
+      "recordCount": 10
+    },
+    {
+      "file": "products.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "16_PRODUCTS",
+      "recordCount": 10
+    },
+    {
+      "file": "quest-node-map.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "12_QUEST_NODE_MAP",
+      "recordCount": 71
+    },
+    {
+      "file": "quests.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "11_QUESTS",
+      "recordCount": 25
+    },
+    {
+      "file": "reconciliation-curriculum-coded.json",
+      "sourceFile": "01_STRAND_FORENSIC_RECONCILIATION_WORKING_v1.0.xlsx",
+      "sourceSheet": "CURRICULUM_35_CODED",
+      "recordCount": 41
+    },
+    {
+      "file": "reconciliation-db-vs-curriculum.json",
+      "sourceFile": "01_STRAND_FORENSIC_RECONCILIATION_WORKING_v1.0.xlsx",
+      "sourceSheet": "DB_92_VS_CURRICULUM",
+      "recordCount": 92
+    },
+    {
+      "file": "reconciliation-uncoded-groupings.json",
+      "sourceFile": "01_STRAND_FORENSIC_RECONCILIATION_WORKING_v1.0.xlsx",
+      "sourceSheet": "UNCODED_CURRICULUM_GROUPINGS",
+      "recordCount": 5
+    },
+    {
+      "file": "relations.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "18_RELATIONS",
+      "recordCount": 408
+    },
+    {
+      "file": "routines.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "09_ROUTINES",
+      "recordCount": 10
+    },
+    {
+      "file": "schema-dictionary.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "22_SCHEMA_DICTIONARY",
+      "recordCount": 16
+    },
+    {
+      "file": "skills.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "04_SKILLS",
+      "recordCount": 12
+    },
+    {
+      "file": "strands.json",
+      "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+      "sourceSheet": "02_STRANDS",
+      "recordCount": 92
+    }
+  ]
+}

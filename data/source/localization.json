@@ -1,0 +1,58 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "15_LOCALIZATION",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 7,
+  "records": [
+    {
+      "Locale_ID": "LOC-001",
+      "Language": "EN",
+      "Market_Label": "Global English",
+      "Stage": "Core",
+      "Notes": "Primary content locale"
+    },
+    {
+      "Locale_ID": "LOC-002",
+      "Language": "KO",
+      "Market_Label": "Korean",
+      "Stage": "Core",
+      "Notes": "K-beauty content/local review"
+    },
+    {
+      "Locale_ID": "LOC-003",
+      "Language": "LO",
+      "Market_Label": "Lao",
+      "Stage": "Market",
+      "Notes": "Laos launch language"
+    },
+    {
+      "Locale_ID": "LOC-004",
+      "Language": "TH",
+      "Market_Label": "Thai",
+      "Stage": "Market",
+      "Notes": "Thailand expansion"
+    },
+    {
+      "Locale_ID": "LOC-005",
+      "Language": "FR",
+      "Market_Label": "French",
+      "Stage": "Market",
+      "Notes": "Francophone expansion"
+    },
+    {
+      "Locale_ID": "LOC-006",
+      "Language": "ES",
+      "Market_Label": "Spanish",
+      "Stage": "Future",
+      "Notes": "Future global market"
+    },
+    {
+      "Locale_ID": "LOC-007",
+      "Language": "PT",
+      "Market_Label": "Portuguese",
+      "Stage": "Future",
+      "Notes": "Future global market"
+    }
+  ]
+}

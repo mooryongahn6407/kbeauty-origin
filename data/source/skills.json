@@ -1,0 +1,105 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "04_SKILLS",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 12,
+  "records": [
+    {
+      "Skill_ID": "SK01",
+      "Skill_Name": "Observe",
+      "Definition": "관찰 가능한 사실과 주관적 느낌을 구분해 기록",
+      "Skill_Code": "S01",
+      "Level": "Foundation",
+      "Linked_Domains": "D01,D02,D03"
+    },
+    {
+      "Skill_ID": "SK02",
+      "Skill_Name": "Identify",
+      "Definition": "성분·제품 카테고리·루틴 요소를 식별",
+      "Skill_Code": "S02",
+      "Level": "Foundation",
+      "Linked_Domains": "D06,D07"
+    },
+    {
+      "Skill_ID": "SK03",
+      "Skill_Name": "Explain",
+      "Definition": "핵심 개념을 자신의 말로 설명",
+      "Skill_Code": "S03",
+      "Level": "Foundation",
+      "Linked_Domains": "D01,D06"
+    },
+    {
+      "Skill_ID": "SK04",
+      "Skill_Name": "Compare",
+      "Definition": "둘 이상의 옵션 차이와 trade-off를 비교",
+      "Skill_Code": "S04",
+      "Level": "Practical",
+      "Linked_Domains": "D06,D07,D09"
+    },
+    {
+      "Skill_ID": "SK05",
+      "Skill_Name": "Sequence",
+      "Definition": "제품/행동을 목적에 맞게 순서화",
+      "Skill_Code": "S05",
+      "Level": "Practical",
+      "Linked_Domains": "D07,D08"
+    },
+    {
+      "Skill_ID": "SK06",
+      "Skill_Name": "Evaluate Claims",
+      "Definition": "광고/리뷰/claim을 근거 수준으로 평가",
+      "Skill_Code": "S06",
+      "Level": "Advanced",
+      "Linked_Domains": "D11"
+    },
+    {
+      "Skill_ID": "SK07",
+      "Skill_Name": "Decide",
+      "Definition": "목표·예산·위험·대안을 고려해 선택",
+      "Skill_Code": "S07",
+      "Level": "Advanced",
+      "Linked_Domains": "D09"
+    },
+    {
+      "Skill_ID": "SK08",
+      "Skill_Name": "Reflect",
+      "Definition": "행동과 결과를 기록하고 다음 행동을 수정",
+      "Skill_Code": "S08",
+      "Level": "Practical",
+      "Linked_Domains": "D09,D12"
+    },
+    {
+      "Skill_ID": "SK09",
+      "Skill_Name": "Transfer",
+      "Definition": "새 제품·새 환경·새 사례에 지식을 적용",
+      "Skill_Code": "S09",
+      "Level": "Advanced",
+      "Linked_Domains": "D01-D12"
+    },
+    {
+      "Skill_ID": "SK10",
+      "Skill_Name": "Teach",
+      "Definition": "다른 사람에게 쉽게 설명하고 질문에 답함",
+      "Skill_Code": "S10",
+      "Level": "Advanced",
+      "Linked_Domains": "D12"
+    },
+    {
+      "Skill_ID": "SK11",
+      "Skill_Name": "Question",
+      "Definition": "모르는 것을 좋은 질문으로 바꿈",
+      "Skill_Code": "S11",
+      "Level": "Practical",
+      "Linked_Domains": "D09,D11"
+    },
+    {
+      "Skill_ID": "SK12",
+      "Skill_Name": "Safety Check",
+      "Definition": "자가관리와 전문가 상담의 경계를 인식",
+      "Skill_Code": "S12",
+      "Level": "Advanced",
+      "Linked_Domains": "D03,D04,D06,D08"
+    }
+  ]
+}

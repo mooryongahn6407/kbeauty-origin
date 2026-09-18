@@ -1,0 +1,89 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "20_ENUMS",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 20,
+  "records": [
+    {
+      "Enum_Group": "Status",
+      "Value": "Draft"
+    },
+    {
+      "Enum_Group": "Status",
+      "Value": "Review"
+    },
+    {
+      "Enum_Group": "Status",
+      "Value": "Approved"
+    },
+    {
+      "Enum_Group": "Status",
+      "Value": "Archived"
+    },
+    {
+      "Enum_Group": "Evidence_Status",
+      "Value": "To Review"
+    },
+    {
+      "Enum_Group": "Evidence_Status",
+      "Value": "Anchor"
+    },
+    {
+      "Enum_Group": "Evidence_Status",
+      "Value": "Verified"
+    },
+    {
+      "Enum_Group": "Level",
+      "Value": "L1"
+    },
+    {
+      "Enum_Group": "Level",
+      "Value": "L2"
+    },
+    {
+      "Enum_Group": "Level",
+      "Value": "L3"
+    },
+    {
+      "Enum_Group": "Quest_Role",
+      "Value": "Core"
+    },
+    {
+      "Enum_Group": "Quest_Role",
+      "Value": "Supporting"
+    },
+    {
+      "Enum_Group": "Relationship",
+      "Value": "Primary"
+    },
+    {
+      "Enum_Group": "Relationship",
+      "Value": "Secondary"
+    },
+    {
+      "Enum_Group": "Relationship",
+      "Value": "Support"
+    },
+    {
+      "Enum_Group": "Locale",
+      "Value": "EN"
+    },
+    {
+      "Enum_Group": "Locale",
+      "Value": "KO"
+    },
+    {
+      "Enum_Group": "Locale",
+      "Value": "LO"
+    },
+    {
+      "Enum_Group": "Locale",
+      "Value": "TH"
+    },
+    {
+      "Enum_Group": "Locale",
+      "Value": "FR"
+    }
+  ]
+}

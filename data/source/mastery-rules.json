@@ -1,0 +1,45 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "19_MASTERY_RULES",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 6,
+  "records": [
+    {
+      "Rule_ID": "M01",
+      "Evidence_Type": "Accuracy",
+      "Definition": "Correct response",
+      "Operational_Rule": "≥ 80% within skill practice"
+    },
+    {
+      "Rule_ID": "M02",
+      "Evidence_Type": "Independence",
+      "Definition": "Minimal hints required",
+      "Operational_Rule": "≥ 80% with no more than 1 hint"
+    },
+    {
+      "Rule_ID": "M03",
+      "Evidence_Type": "Transfer",
+      "Definition": "New scenario",
+      "Operational_Rule": "≥ 70% on unseen variation"
+    },
+    {
+      "Rule_ID": "M04",
+      "Evidence_Type": "Retention",
+      "Definition": "Delayed retrieval",
+      "Operational_Rule": "Pass after scheduled review"
+    },
+    {
+      "Rule_ID": "M05",
+      "Evidence_Type": "Mastered",
+      "Definition": "All four evidence types",
+      "Operational_Rule": "Accuracy + Independence + Transfer + Retention"
+    },
+    {
+      "Rule_ID": "M06",
+      "Evidence_Type": "Reopen",
+      "Definition": "Performance drops after mastery",
+      "Operational_Rule": "Move back to Developing and schedule review"
+    }
+  ]
+}

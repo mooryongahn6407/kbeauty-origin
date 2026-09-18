@@ -1,0 +1,144 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "07_CONCERNS",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 15,
+  "records": [
+    {
+      "Concern_ID": "CON-001",
+      "Concern_Name": "Dryness",
+      "Description": "건조감·당김·각질",
+      "Boundary": "Education",
+      "Level": "Basic",
+      "Learning_Goal": "피부 건조와 수화의 기본 이해",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-002",
+      "Concern_Name": "Oiliness",
+      "Description": "과도한 유분/번들거림",
+      "Boundary": "Education",
+      "Level": "Basic",
+      "Learning_Goal": "피지와 수분 구분",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-003",
+      "Concern_Name": "Congestion",
+      "Description": "면포·막힘 appearance",
+      "Boundary": "Education",
+      "Level": "Intermediate",
+      "Learning_Goal": "모공/면포 literacy",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-004",
+      "Concern_Name": "Acne",
+      "Description": "여드름 literacy",
+      "Boundary": "Safety",
+      "Level": "Advanced",
+      "Learning_Goal": "자가관리 교육, 치료 주장 금지",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-005",
+      "Concern_Name": "Redness",
+      "Description": "붉음 appearance",
+      "Boundary": "Safety",
+      "Level": "Intermediate",
+      "Learning_Goal": "지속/심한 경우 상담",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-006",
+      "Concern_Name": "Sensitivity",
+      "Description": "민감/자극 반응",
+      "Boundary": "Safety",
+      "Level": "Intermediate",
+      "Learning_Goal": "진단이 아닌 관찰 중심",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-007",
+      "Concern_Name": "Pigmentation",
+      "Description": "색소·잡티 appearance",
+      "Boundary": "Education",
+      "Level": "Advanced",
+      "Learning_Goal": "색소의 기본 개념",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-008",
+      "Concern_Name": "Photoaging",
+      "Description": "광노화 literacy",
+      "Boundary": "Education",
+      "Level": "Advanced",
+      "Learning_Goal": "UV 보호 중심",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-009",
+      "Concern_Name": "Texture",
+      "Description": "거칠기·결 texture",
+      "Boundary": "Education",
+      "Level": "Intermediate",
+      "Learning_Goal": "각질/장벽과 연결",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-010",
+      "Concern_Name": "Dehydration",
+      "Description": "수분 부족 체감",
+      "Boundary": "Education",
+      "Level": "Basic",
+      "Learning_Goal": "수분과 유분을 구분",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-011",
+      "Concern_Name": "Dullness",
+      "Description": "칙칙해 보임",
+      "Boundary": "Media Literacy",
+      "Level": "Intermediate",
+      "Learning_Goal": "appearance claim과 근거",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-012",
+      "Concern_Name": "Dry Body Skin",
+      "Description": "바디 건조",
+      "Boundary": "Education",
+      "Level": "Basic",
+      "Learning_Goal": "바디 보습",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-013",
+      "Concern_Name": "Scalp Flakes",
+      "Description": "두피 각질/플레이크",
+      "Boundary": "Safety",
+      "Level": "Intermediate",
+      "Learning_Goal": "지속 시 전문가 상담",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-014",
+      "Concern_Name": "Hair Dryness",
+      "Description": "모발 건조감",
+      "Boundary": "Education",
+      "Level": "Basic",
+      "Learning_Goal": "컨디셔닝",
+      "Status": "Draft"
+    },
+    {
+      "Concern_ID": "CON-015",
+      "Concern_Name": "Hair Damage",
+      "Description": "열·마찰·화학적 손상",
+      "Boundary": "Education",
+      "Level": "Intermediate",
+      "Learning_Goal": "손상 예방",
+      "Status": "Draft"
+    }
+  ]
+}

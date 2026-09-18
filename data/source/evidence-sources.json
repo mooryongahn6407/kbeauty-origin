@@ -1,0 +1,89 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "14_EVIDENCE",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 10,
+  "records": [
+    {
+      "Source_ID": "SRC-001",
+      "Publisher": "AAD",
+      "Source_Title": "Skin care basics",
+      "URL": "https://www.aad.org/public/everyday-care/skin-care-basics",
+      "Tier": "A",
+      "Use": "General skin-care education"
+    },
+    {
+      "Source_ID": "SRC-002",
+      "Publisher": "AAD",
+      "Source_Title": "Face washing 101",
+      "URL": "https://www.aad.org/public/everyday-care/skin-care-basics/care/face-washing-101",
+      "Tier": "A",
+      "Use": "Cleansing guidance"
+    },
+    {
+      "Source_ID": "SRC-003",
+      "Publisher": "AAD",
+      "Source_Title": "Skin-care product order",
+      "URL": "https://www.aad.org/public/everyday-care/skin-care-basics/care/apply-skin-care-certain-order",
+      "Tier": "A",
+      "Use": "Routine order"
+    },
+    {
+      "Source_ID": "SRC-004",
+      "Publisher": "AAD",
+      "Source_Title": "10 skin care secrets",
+      "URL": "https://www.aad.org/public/everyday-care/skin-care-secrets/routine/healthier-looking-skin",
+      "Tier": "A",
+      "Use": "Daily skin-care habits"
+    },
+    {
+      "Source_ID": "SRC-005",
+      "Publisher": "FDA",
+      "Source_Title": "Cosmetics Labeling Claims",
+      "URL": "https://www.fda.gov/cosmetics/cosmetics-labeling/cosmetics-labeling-claims",
+      "Tier": "A",
+      "Use": "Claims/marketing boundary"
+    },
+    {
+      "Source_ID": "SRC-006",
+      "Publisher": "FDA",
+      "Source_Title": "Cosmetic Ingredient Names",
+      "URL": "https://www.fda.gov/cosmetics/cosmetics-labeling/cosmetic-ingredient-names",
+      "Tier": "A",
+      "Use": "Ingredient naming/labeling"
+    },
+    {
+      "Source_ID": "SRC-007",
+      "Publisher": "FDA",
+      "Source_Title": "Cosmetics Labeling",
+      "URL": "https://www.fda.gov/cosmetics/cosmetics-labeling",
+      "Tier": "A",
+      "Use": "Labeling overview"
+    },
+    {
+      "Source_ID": "SRC-008",
+      "Publisher": "FDA",
+      "Source_Title": "Cosmetics Labeling Requirements",
+      "URL": "https://www.fda.gov/cosmetics/cosmetics-labeling-regulations/summary-cosmetics-labeling-requirements",
+      "Tier": "A",
+      "Use": "U.S. labeling requirements"
+    },
+    {
+      "Source_ID": "SRC-009",
+      "Publisher": "EU Commission",
+      "Source_Title": "CosIng",
+      "URL": "https://single-market-economy.ec.europa.eu/sectors/cosmetics/cosmetic-ingredient-database_en",
+      "Tier": "A",
+      "Use": "Ingredient database / EU context"
+    },
+    {
+      "Source_ID": "SRC-010",
+      "Publisher": "Cosmetic Europe",
+      "Source_Title": "Cosmetics Europe",
+      "URL": "https://cosmeticseurope.eu/",
+      "Tier": "B",
+      "Use": "Industry context; verify before factual claims"
+    }
+  ]
+}

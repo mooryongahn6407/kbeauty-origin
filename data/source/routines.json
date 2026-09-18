@@ -1,0 +1,79 @@
+{
+  "$schema_note": "Verbatim extraction of an official KOREA GLOW source. Field names and values are unmodified. Do not edit by hand; regenerate with `npm run extract:sources`.",
+  "sourceFile": "KOREA_GLOW_Beauty_Knowledge_Master_Database_v1.0.xlsx",
+  "sourceSheet": "09_ROUTINES",
+  "sourceSha256": "54dd2eaf26866a65a3bb3e64890f51ea1d4b8e6cbb4212754c39786098a3f557",
+  "recordCount": 10,
+  "records": [
+    {
+      "Routine_ID": "RUT-001",
+      "Routine_Name": "AM Basic",
+      "Description": "일상 아침 3–4단계",
+      "Default_Sequence": "정돈 → 선택적 트리트먼트 → 보습 → 자외선 보호",
+      "Status": "Approved"
+    },
+    {
+      "Routine_ID": "RUT-002",
+      "Routine_Name": "PM Basic",
+      "Description": "일상 저녁 기본",
+      "Default_Sequence": "클렌징 → 선택적 트리트먼트 → 보습",
+      "Status": "Approved"
+    },
+    {
+      "Routine_ID": "RUT-003",
+      "Routine_Name": "Minimal 3-Step",
+      "Description": "제품을 줄인 기본 루틴",
+      "Default_Sequence": "Cleanse → Moisturize → Protect (AM)",
+      "Status": "Approved"
+    },
+    {
+      "Routine_ID": "RUT-004",
+      "Routine_Name": "Hot & Humid",
+      "Description": "고온·고습 환경",
+      "Default_Sequence": "가벼운 세정/보습 + 외부활동 보호",
+      "Status": "Approved"
+    },
+    {
+      "Routine_ID": "RUT-005",
+      "Routine_Name": "Dry Indoor",
+      "Description": "건조한 실내환경",
+      "Default_Sequence": "gentle cleanse + 보습 지원",
+      "Status": "Approved"
+    },
+    {
+      "Routine_ID": "RUT-006",
+      "Routine_Name": "New Product Introduction",
+      "Description": "새 제품 도입",
+      "Default_Sequence": "한 번에 너무 많은 변화 방지 + 관찰",
+      "Status": "Approved"
+    },
+    {
+      "Routine_ID": "RUT-007",
+      "Routine_Name": "Routine Reset",
+      "Description": "자극이 의심되는 상황",
+      "Default_Sequence": "루틴 단순화 + 필요 시 전문가 상담",
+      "Status": "Approved"
+    },
+    {
+      "Routine_ID": "RUT-008",
+      "Routine_Name": "Active Night",
+      "Description": "active를 포함한 저녁",
+      "Default_Sequence": "제품 설명/주의사항에 따른 단계 설정",
+      "Status": "Approved"
+    },
+    {
+      "Routine_ID": "RUT-009",
+      "Routine_Name": "Body Basic",
+      "Description": "샤워 후 바디 케어",
+      "Default_Sequence": "세정 → 보습",
+      "Status": "Approved"
+    },
+    {
+      "Routine_ID": "RUT-010",
+      "Routine_Name": "Hair Basic",
+      "Description": "기본 헤어 루틴",
+      "Default_Sequence": "샴푸 → 컨디셔닝 → 필요 시 트리트먼트",
+      "Status": "Approved"
+    }
+  ]
+}

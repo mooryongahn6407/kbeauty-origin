@@ -1,0 +1,30 @@
+{
+  "name": "korea-glow-beauty-learning-world",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "KOREA GLOW Beauty Learning World — Beauty Intelligence learning platform. Learn Beauty. Know Yourself. Choose Better.",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "extract:sources": "node scripts/extract-sources.mjs",
+    "verify:sources": "node scripts/extract-sources.mjs --verify"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.1",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.7",
+    "vitest": "^2.1.8"
+  }
+}
