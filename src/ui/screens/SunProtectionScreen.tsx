@@ -136,6 +136,7 @@ function ExposureLog({ locale }: { locale: string }) {
                   band,
                   setting,
                   minutes: Number(minutes),
+                  at: now(),
                 });
                 setActivity('');
               }}

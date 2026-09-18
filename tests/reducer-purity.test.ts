@@ -99,9 +99,9 @@ const reflectionScenario: Scenario<ReflectionState, ReflectionAction> = {
   reducer: reflectionReducer,
   create: () => createReflection('purity'),
   actions: [
-    { type: 'ADD_STEP', label: 'cleanser' },
+    { type: 'ADD_STEP', label: 'cleanser', at: AT },
     { type: 'GO_TO_PURPOSE' },
-    { type: 'SET_PURPOSE', entryId: 'step-1', purpose: 'to wash' },
+    { type: 'SET_PURPOSE', entryId: 'step-1', purpose: 'to wash', at: AT },
     { type: 'COMPLETE_REVIEW', at: AT },
   ],
   expectedEvents: 1,
@@ -112,7 +112,7 @@ const exposureScenario: Scenario<ExposureLogState, ExposureAction> = {
   reducer: exposureReducer,
   create: () => createExposureLog('purity'),
   actions: [
-    { type: 'ADD_ENTRY', activity: 'walk to work', band: 'midday', setting: 'open', minutes: 20 },
+    { type: 'ADD_ENTRY', activity: 'walk to work', band: 'midday', setting: 'open', minutes: 20, at: AT },
     { type: 'REVIEW', at: AT },
   ],
   expectedEvents: 1,
@@ -341,7 +341,7 @@ describe('the apply helpers drain exactly what the reducer declared', () => {
 
   it('an apply helper called with no sink still advances state', () => {
     let state = createReflection('purity');
-    state = applyReflection(state, { type: 'ADD_STEP', label: 'toner' });
+    state = applyReflection(state, { type: 'ADD_STEP', label: 'toner', at: AT });
     expect(state.entries).toHaveLength(1);
     expect(state.emitted).toEqual([]);
   });

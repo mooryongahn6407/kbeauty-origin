@@ -210,13 +210,13 @@ $ npm test
 
  ✓ tests/reducer-purity.test.ts     (40 tests)
  ✓ tests/ingredient-garden.test.ts  (35 tests)
- ✓ tests/routine-studio.test.ts     (29 tests)
+ ✓ tests/routine-studio.test.ts     (30 tests)
  ✓ tests/ai-tutor.test.ts           (32 tests)
- ✓ tests/localization.test.ts       (35 tests)
+ ✓ tests/localization.test.ts       (36 tests)
  ✓ tests/quest-mastery.test.ts      (25 tests)
  ✓ tests/speech.test.ts             (25 tests)
  ✓ tests/label-detective.test.ts    (27 tests)
- ✓ tests/sun-protection.test.ts     (26 tests)
+ ✓ tests/sun-protection.test.ts     (27 tests)
  ✓ tests/design-system.test.ts      (69 tests)
  ✓ tests/product-proposals.test.ts  (23 tests)
  ✓ tests/governance-gates.test.ts   (18 tests)
@@ -228,7 +228,7 @@ $ npm test
  ✓ tests/source-integrity.test.ts   (11 tests)
 
  Test Files  18 passed (18)
-      Tests  481 passed (481)
+      Tests  484 passed (484)
    Duration  2.8s
 
 $ npm run typecheck     # clean
@@ -929,6 +929,37 @@ console errors: none
 
 The spoken text is the app's own Thai catalog string, not a transliteration and not the Lao
 characters relabelled — exactly the substitution PR-037 specifies.
+
+### Own review before merge — three real bugs, found and fixed
+
+No human collaborator exists on this repository to request a pull request review from, and
+GitHub Copilot review was requested but never returned a result (most likely not enabled on
+this account). Rather than merge unreviewed, I ran a thorough self-review of the branch and it
+found three genuine defects — recorded here rather than silently folded into an earlier section,
+because the discipline that matters is catching this class of bug, not just this instance of it.
+
+1. **`exposure-log.ts` and `routine-reflection.ts` still stamped safety events with the
+   epoch.** The exact bug already found and fixed once in `learning-session.ts` (a
+   `safety_intervention` event dated 1970-01-01, because `halt()` was called with a hardcoded
+   `AT_ZERO` instead of the action's real time) was never propagated to these two sibling
+   reducers. `ADD_ENTRY`, `ADD_STEP` and `SET_PURPOSE` now all carry `at: string`, supplied by
+   the UI's existing `now()` helper, and `halt()` uses it. This is CLAUDE.md rule 6 territory —
+   safety data — so it is not a cosmetic fix.
+2. **`SafetyNotice` marked the wrong text as English.** `lang="en"` wrapped the whole
+   "original wording, for safety" line, including its *label*, which is itself translated into
+   the reader's own language. A screen reader or this component's own read-aloud control would
+   pronounce a Thai or Lao label using English phonetics. Fixed by moving `lang="en"` onto only
+   `{original}`.
+
+All three were confirmed against source before fixing, given a regression test each
+(`tests/sun-protection.test.ts`, `tests/routine-studio.test.ts`,
+`tests/localization.test.ts` — `localization.test.ts` +36, `routine-studio.test.ts` +30,
+`sun-protection.test.ts` +27 over the prior count), and checked against a mutation that
+reintroduces each bug — all three caught. Verified live in Chromium: adding a step, setting a
+purpose, and logging an exposure entry all still work with zero console errors, and a safety
+halt in both Routine Studio and Sun Protection now renders through `SafetyNotice` correctly.
+
+484 tests pass; typecheck, build and verify:sources clean.
 
 ## 10. How to run the project
 

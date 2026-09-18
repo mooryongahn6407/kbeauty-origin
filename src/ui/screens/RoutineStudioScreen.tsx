@@ -73,7 +73,7 @@ function ReflectionStudio({ locale }: { locale: string }) {
               onChange={(event) => setDraft(event.target.value)}
               onKeyDown={(event) => {
                 if (event.key === 'Enter' && draft.trim() !== '') {
-                  dispatch({ type: 'ADD_STEP', label: draft });
+                  dispatch({ type: 'ADD_STEP', label: draft, at: now() });
                   setDraft('');
                 }
               }}
@@ -83,7 +83,7 @@ function ReflectionStudio({ locale }: { locale: string }) {
               type="button"
               disabled={draft.trim() === '' || state.entries.length >= MAX_STEPS}
               onClick={() => {
-                dispatch({ type: 'ADD_STEP', label: draft });
+                dispatch({ type: 'ADD_STEP', label: draft, at: now() });
                 setDraft('');
               }}
             >
@@ -135,7 +135,12 @@ function ReflectionStudio({ locale }: { locale: string }) {
                 value={entry.purpose ?? ''}
                 placeholder={translate('routine.purposePlaceholder', locale)}
                 onChange={(event) =>
-                  dispatch({ type: 'SET_PURPOSE', entryId: entry.entryId, purpose: event.target.value })
+                  dispatch({
+                    type: 'SET_PURPOSE',
+                    entryId: entry.entryId,
+                    purpose: event.target.value,
+                    at: now(),
+                  })
                 }
               />
             </div>

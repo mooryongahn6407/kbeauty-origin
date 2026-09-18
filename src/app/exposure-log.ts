@@ -65,6 +65,8 @@ export type ExposureAction =
       readonly band: ExposureBand;
       readonly setting: ExposureSetting;
       readonly minutes: number;
+      /** When this was logged. Also the timestamp a safety intervention is recorded with. */
+      readonly at: string;
     }
   | { readonly type: 'REMOVE_ENTRY'; readonly entryId: string }
   | { readonly type: 'REVIEW'; readonly at: string }
@@ -123,8 +125,6 @@ export function summariseExposure(state: ExposureLogState): ExposureSummary {
   };
 }
 
-const AT_ZERO = new Date(0).toISOString();
-
 function halt(
   state: ExposureLogState,
   text: string,
@@ -166,7 +166,7 @@ function reduceExposure(
       if (!Number.isFinite(minutes) || minutes <= 0 || minutes > MAX_MINUTES) return state;
 
       // A description of a burn or a painful reaction is a safety signal, not a log entry.
-      const halted = halt(state, activity, AT_ZERO, emit);
+      const halted = halt(state, activity, action.at, emit);
       if (halted) return halted;
 
       return {

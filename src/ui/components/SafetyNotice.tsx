@@ -41,8 +41,11 @@ export function SafetyNotice({
         {original ? (
           <>
             <br />
-            <span className="fine" lang="en">
-              {translate('catalog.safetyOriginal', locale)}: {original}
+            {/* The label is in the reader's own language; only `original` itself is English —
+                `lang` must cover exactly what it is spoken/read as, or a screen reader (and
+                this component's own read-aloud) mispronounces the label using English rules. */}
+            <span className="fine">
+              {translate('catalog.safetyOriginal', locale)}: <span lang="en">{original}</span>
             </span>
           </>
         ) : null}

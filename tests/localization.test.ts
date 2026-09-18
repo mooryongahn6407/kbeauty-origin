@@ -306,6 +306,22 @@ describe('safety wording survives an unreviewed translation', () => {
     expect(source).toMatch(/<ReadAloud[^>]*fallback=\{fallback\}/s);
   });
 
+  it('marks only the English original as English, not the label naming it', async () => {
+    // The label ("original wording, for safety") is translated into the reader's own
+    // language via `catalog.safetyOriginal` — only `original` itself is actual English text.
+    // `lang="en"` wrapping the label too would have a screen reader, or this component's own
+    // read-aloud, pronounce a Thai or Lao label using English phonetics: exactly the kind of
+    // mispronunciation this component exists to prevent, on its own highest-stakes wording.
+    const { readFileSync } = await import('node:fs');
+    const source = readFileSync(
+      new URL('../src/ui/components/SafetyNotice.tsx', import.meta.url),
+      'utf8',
+    );
+    expect(source).toMatch(/<span lang="en">\{original\}<\/span>/);
+    // And the label/colon prefix must sit outside that span, not inside it.
+    expect(source).not.toMatch(/<span[^>]*lang="en"[^>]*>\s*\{translate\('catalog\.safetyOriginal'/);
+  });
+
   it('tells LessonRunner\u2019s read-aloud the real language of a fallen-back passage', async () => {
     // Lesson content exists only in en/ko. A reader in fr/lo/th who is looking at the English
     // fallback must have that read as English \u2014 asking a device for a voice in a language

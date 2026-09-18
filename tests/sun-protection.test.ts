@@ -224,6 +224,7 @@ describe('exposure log records without judging', () => {
       band: ExposureBand;
       setting: ExposureSetting;
       minutes: number;
+      at: string;
     }> = {},
   ) =>
     ({
@@ -232,6 +233,7 @@ describe('exposure log records without judging', () => {
       band: 'midday',
       setting: 'open',
       minutes: 40,
+      at: AT,
       ...overrides,
     }) as const;
 
@@ -309,6 +311,17 @@ describe('exposure log records without judging', () => {
     expect(state.entries).toEqual([]);
     expect(state.safetyHaltMessageKey).toMatch(/^safety\.escalation\.R[234]$/);
     expect(sink.countOf('safety_intervention')).toBe(1);
+  });
+
+  it('stamps a safety_intervention with the real time, never the epoch', () => {
+    // ADD_ENTRY carries `at`; halt() must actually use it rather than a hardcoded stand-in —
+    // an event dated 1970 records nothing.
+    const laterThanAT = '2026-09-18T09:30:00.000Z';
+    dispatch(entry({ activity: '너무 아파요', at: laterThanAT }));
+    const [event] = sink.all();
+    expect(event?.type).toBe('safety_intervention');
+    expect(event?.at).toBe(laterThanAT);
+    expect(new Date(event!.at).getTime()).toBeGreaterThan(0);
   });
 
   it('accepts nothing but a reset once halted', () => {

@@ -225,33 +225,33 @@ describe('routine reflection studio', () => {
   });
 
   it('records the learner’s own steps verbatim', () => {
-    dispatch({ type: 'ADD_STEP', label: '  cleanser  ' });
-    dispatch({ type: 'ADD_STEP', label: 'sunscreen' });
+    dispatch({ type: 'ADD_STEP', label: '  cleanser  ', at: AT });
+    dispatch({ type: 'ADD_STEP', label: 'sunscreen', at: AT });
     expect(state.entries.map((entry) => entry.label)).toEqual(['cleanser', 'sunscreen']);
     expect(state.entries.every((entry) => entry.purpose === null)).toBe(true);
   });
 
   it('ignores an empty step and caps the list', () => {
-    dispatch({ type: 'ADD_STEP', label: '   ' });
+    dispatch({ type: 'ADD_STEP', label: '   ', at: AT });
     expect(state.entries).toHaveLength(0);
-    for (let i = 0; i < MAX_STEPS + 3; i += 1) dispatch({ type: 'ADD_STEP', label: `step ${i}` });
+    for (let i = 0; i < MAX_STEPS + 3; i += 1) dispatch({ type: 'ADD_STEP', label: `step ${i}`, at: AT });
     expect(state.entries).toHaveLength(MAX_STEPS);
   });
 
   it('removes a step by id', () => {
-    dispatch({ type: 'ADD_STEP', label: 'a' });
-    dispatch({ type: 'ADD_STEP', label: 'b' });
+    dispatch({ type: 'ADD_STEP', label: 'a', at: AT });
+    dispatch({ type: 'ADD_STEP', label: 'b', at: AT });
     dispatch({ type: 'REMOVE_STEP', entryId: state.entries[0]!.entryId });
     expect(state.entries.map((entry) => entry.label)).toEqual(['b']);
   });
 
   it('counts only the steps the learner could account for, and grades nothing', () => {
-    dispatch({ type: 'ADD_STEP', label: 'a' });
-    dispatch({ type: 'ADD_STEP', label: 'b' });
-    dispatch({ type: 'ADD_STEP', label: 'c' });
+    dispatch({ type: 'ADD_STEP', label: 'a', at: AT });
+    dispatch({ type: 'ADD_STEP', label: 'b', at: AT });
+    dispatch({ type: 'ADD_STEP', label: 'c', at: AT });
     dispatch({ type: 'GO_TO_PURPOSE' });
-    dispatch({ type: 'SET_PURPOSE', entryId: 'step-1', purpose: 'removes the day' });
-    dispatch({ type: 'SET_PURPOSE', entryId: 'step-2', purpose: '   ' });
+    dispatch({ type: 'SET_PURPOSE', entryId: 'step-1', purpose: 'removes the day', at: AT });
+    dispatch({ type: 'SET_PURPOSE', entryId: 'step-2', purpose: '   ', at: AT });
 
     const summary = summariseReflection(state);
     expect(summary).toEqual({ total: 3, withPurpose: 1, withoutPurpose: 2 });
@@ -273,15 +273,15 @@ describe('routine reflection studio', () => {
   });
 
   it('emits a reflection event on completion', () => {
-    dispatch({ type: 'ADD_STEP', label: 'a' });
+    dispatch({ type: 'ADD_STEP', label: 'a', at: AT });
     dispatch({ type: 'GO_TO_PURPOSE' });
-    dispatch({ type: 'SET_PURPOSE', entryId: 'step-1', purpose: 'because' });
+    dispatch({ type: 'SET_PURPOSE', entryId: 'step-1', purpose: 'because', at: AT });
     expect(dispatch({ type: 'COMPLETE_REVIEW', at: AT }).phase).toBe('REVIEW');
     expect(sink.countOf('reflection_completed')).toBe(1);
   });
 
   it('halts on a risk signal in a step label, before storing it', () => {
-    dispatch({ type: 'ADD_STEP', label: '이 단계 하고 나면 너무 아파요' });
+    dispatch({ type: 'ADD_STEP', label: '이 단계 하고 나면 너무 아파요', at: AT });
     expect(state.phase).toBe('HALTED');
     expect(state.entries).toHaveLength(0);
     expect(state.safetyHaltMessageKey).toMatch(/^safety\.escalation\.R[234]$/);
@@ -289,16 +289,27 @@ describe('routine reflection studio', () => {
   });
 
   it('halts on a risk signal in a stated purpose', () => {
-    dispatch({ type: 'ADD_STEP', label: 'a toner' });
+    dispatch({ type: 'ADD_STEP', label: 'a toner', at: AT });
     dispatch({ type: 'GO_TO_PURPOSE' });
-    dispatch({ type: 'SET_PURPOSE', entryId: 'step-1', purpose: '감염된 것 같아서요' });
+    dispatch({ type: 'SET_PURPOSE', entryId: 'step-1', purpose: '감염된 것 같아서요', at: AT });
     expect(state.phase).toBe('HALTED');
     expect(sink.countOf('safety_intervention')).toBe(1);
   });
 
+  it('stamps a safety_intervention with the real time, never the epoch', () => {
+    // ADD_STEP and SET_PURPOSE both carry `at`; halt() must actually use it rather than a
+    // hardcoded stand-in — an event dated 1970 records nothing.
+    const laterThanAT = '2026-09-18T09:30:00.000Z';
+    dispatch({ type: 'ADD_STEP', label: '너무 아파요', at: laterThanAT });
+    const [event] = sink.all();
+    expect(event?.type).toBe('safety_intervention');
+    expect(event?.at).toBe(laterThanAT);
+    expect(new Date(event!.at).getTime()).toBeGreaterThan(0);
+  });
+
   it('accepts nothing but a reset once halted', () => {
-    dispatch({ type: 'ADD_STEP', label: '너무 아파요' });
-    dispatch({ type: 'ADD_STEP', label: 'a normal step' });
+    dispatch({ type: 'ADD_STEP', label: '너무 아파요', at: AT });
+    dispatch({ type: 'ADD_STEP', label: 'a normal step', at: AT });
     expect(state.phase).toBe('HALTED');
     expect(state.entries).toHaveLength(0);
     expect(dispatch({ type: 'RESET' }).phase).toBe('LISTING');

@@ -46,9 +46,14 @@ export interface ReflectionState extends EmittingState {
 }
 
 export type ReflectionAction =
-  | { readonly type: 'ADD_STEP'; readonly label: string }
+  | { readonly type: 'ADD_STEP'; readonly label: string; readonly at: string }
   | { readonly type: 'REMOVE_STEP'; readonly entryId: string }
-  | { readonly type: 'SET_PURPOSE'; readonly entryId: string; readonly purpose: string }
+  | {
+      readonly type: 'SET_PURPOSE';
+      readonly entryId: string;
+      readonly purpose: string;
+      readonly at: string;
+    }
   | { readonly type: 'GO_TO_PURPOSE' }
   | { readonly type: 'COMPLETE_REVIEW'; readonly at: string }
   | { readonly type: 'RESET' };
@@ -117,8 +122,6 @@ function halt(
   };
 }
 
-const AT_ZERO = new Date(0).toISOString();
-
 /** The transition table. Declares events through `emit`; performs none. See `./transition`. */
 function reduceReflection(
   state: ReflectionState,
@@ -133,7 +136,7 @@ function reduceReflection(
       if (state.phase !== 'LISTING' || label === '' || state.entries.length >= MAX_STEPS) {
         return state;
       }
-      const halted = halt(state, label, AT_ZERO, emit);
+      const halted = halt(state, label, action.at, emit);
       if (halted) return halted;
 
       return {
@@ -158,7 +161,7 @@ function reduceReflection(
 
     case 'SET_PURPOSE': {
       if (state.phase !== 'PURPOSE') return state;
-      const halted = halt(state, action.purpose, AT_ZERO, emit);
+      const halted = halt(state, action.purpose, action.at, emit);
       if (halted) return halted;
 
       return {
