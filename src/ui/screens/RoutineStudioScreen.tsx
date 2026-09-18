@@ -27,7 +27,8 @@ import { evaluateQuestAvailability } from '@/governance/learning-availability';
 import { findQuestNumericMismatches } from '@/governance/integrity';
 import { routineCorpusReport, routineViews } from '@/knowledge/routines';
 import { findNode } from '@/knowledge/repository';
-import { translate } from '@/localization/messages';
+import { translate, type MessageKey } from '@/localization/messages';
+import { SafetyNotice } from '../components/SafetyNotice';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { LessonRunner } from '../components/LessonRunner';
 
@@ -52,10 +53,7 @@ function ReflectionStudio({ locale }: { locale: string }) {
 
       {state.phase === 'HALTED' ? (
         <>
-          <p className="disclosure disclosure--caution">
-            <span className="disclosure__mark">!</span>
-            <span>{translate(state.safetyHaltMessageKey as never, locale)}</span>
-          </p>
+          <SafetyNotice messageKey={state.safetyHaltMessageKey as MessageKey} locale={locale} />
           <div className="btn--row">
             <button className="btn btn--quiet" type="button" onClick={() => dispatch({ type: 'RESET' })}>
               {translate('routine.startOver', locale)}

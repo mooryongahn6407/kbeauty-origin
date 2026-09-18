@@ -741,8 +741,39 @@ const PR_035: ProductProposal = {
     'UI chrome only. No French lesson content exists, so a French reader gets the interface in ' +
       'French and the lesson text in English with the fallback stated on screen \u2014 never passed ' +
       'off as a translation.',
-    'Filling one registered locale does not resolve OQ-L01. The locale set is still unapproved ' +
-      'and Lao, which the database names the launch language, still has no catalog.',
+    'Filling a registered locale does not resolve OQ-L01. The locale set is still unapproved.',
+  ],
+};
+
+const PR_036: ProductProposal = {
+  id: 'PR-036',
+  title: 'Lao UI catalog \u2014 shipped as an unreviewed draft, and labelled as one',
+  classification: 'DECISION',
+  summary:
+    'Lao (LOC-003) is the locale the Master Database calls the "Laos launch language" and the ' +
+    'Constitution names the first localization target, and it had no catalog at all. One now ' +
+    'exists. It was written without a Lao speaker, so it is registered UNREVIEWED_DRAFT, the app ' +
+    'says so on every screen while Lao is selected, and the safety wording is shown with its ' +
+    'English original underneath.',
+  sourceBasis: [
+    'Master DB 15_LOCALIZATION LOC-003, Stage=Market, Notes="Laos launch language"',
+    'AI Tutor Constitution \u00a713.1: Lao is the first localization target',
+    'Owner instruction, 2026-09-18, after being told review would be needed',
+  ],
+  governedRecords: [],
+  blockedBy: [
+    'Native review. Until a Lao speaker reads it, the wording is a draft and is presented as one.',
+  ],
+  constraints: [
+    'CLAUDE.md rule 6 \u2014 safety outranks everything: an unreviewed catalog shows the English ' +
+      'original beneath every safety escalation, so a mistranslated instruction cannot silently ' +
+      'replace the one the reader must act on.',
+    'CLAUDE.md rule 2 by analogy \u2014 an unreviewed translation is a draft and must not be ' +
+      'presented as finished. CATALOG_REVIEW records the status; only a person can change it.',
+    'No Lao lesson content exists and none was invented. Lesson text stays English with the ' +
+      'fallback stated on screen.',
+    'No device voice for Lao exists on typical hardware, so read-aloud reports that it cannot ' +
+      'speak Lao rather than reading it in a Thai or English voice.',
   ],
 };
 
@@ -752,7 +783,7 @@ export const PRODUCT_PROPOSALS: readonly ProductProposal[] = [
   PR_017, PR_018, PR_019, PR_020, PR_021, PR_022,
   PR_023, PR_024, PR_025, PR_026, PR_027,
   PR_028, PR_029, PR_030, PR_031,
-  PR_032, PR_033, PR_034, PR_035,
+  PR_032, PR_033, PR_034, PR_035, PR_036,
 ];
 
 /* ── Conflicts that must be resolved before building ────────────────────── */

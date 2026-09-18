@@ -70,9 +70,44 @@
   --tap: 44px; /* Minimum interactive target, both dimensions. */
   --max-width: 900px;
 
-  --font-body: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Noto Serif KR', serif;
-  --font-ui: 'Inter', 'Helvetica Neue', -apple-system, 'Noto Sans KR', sans-serif;
+  /* Lao and Korean faces are named in every stack, not only under their own :lang rule, so a
+     Lao string inside an English sentence still renders in a Lao face rather than in tofu. */
+  --font-body: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Noto Serif KR',
+    'Noto Sans Lao', 'Phetsarath OT', serif;
+  --font-ui: 'Inter', 'Helvetica Neue', -apple-system, 'Noto Sans KR', 'Noto Sans Lao',
+    'Phetsarath OT', sans-serif;
 }
+
+/*
+ * Lao.
+ *
+ * Two things the Latin defaults get wrong for it. Lao stacks vowel and tone marks both above
+ * and below the consonant, so lines set at 1.7 collide; and Lao writes phrases without spaces
+ * between words, so a browser breaking on spaces alone overflows the line. `line-break: normal`
+ * with `overflow-wrap: anywhere` lets it wrap where it must.
+ *
+ * A serif body face has no Lao equivalent worth using, so Lao is set in its sans face
+ * throughout — which is also how Lao is normally set.
+ */
+:root[lang='lo'] body,
+:root[lang='lo'] .option,
+:root[lang='lo'] .textarea,
+:root[lang='lo'] .field {
+  font-family: 'Noto Sans Lao', 'Phetsarath OT', 'Saysettha OT', 'Lao UI', var(--font-ui);
+  line-height: 1.95;
+}
+:root[lang='lo'] h1,
+:root[lang='lo'] h2,
+:root[lang='lo'] h3 { line-height: 1.5; }
+:root[lang='lo'] p,
+:root[lang='lo'] td,
+:root[lang='lo'] th,
+:root[lang='lo'] .option { overflow-wrap: anywhere; line-break: normal; }
+/* Uppercasing does nothing to Lao and only widens an already long label. */
+:root[lang='lo'] .eyebrow,
+:root[lang='lo'] .settings__label,
+:root[lang='lo'] .phase-rail,
+:root[lang='lo'] .table th { text-transform: none; letter-spacing: 0; }
 
 /* The reader's text-size choice. Applied to <html> by src/ui/preferences.ts. */
 :root[data-text-size='large'] { --text-scale: 1.15; }

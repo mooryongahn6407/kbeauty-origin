@@ -283,6 +283,10 @@ const MESSAGES_EN = {
   'speech.listen': 'Listen',
   'speech.stop': 'Stop',
   'speech.unavailable': 'No voice for this language on this device',
+
+  'catalog.unreviewed':
+    'This interface translation has not yet been checked by a speaker of this language. Wording may be wrong. The lessons themselves are unaffected.',
+  'catalog.safetyOriginal': 'Original wording, for safety',
 } as const;
 
 /**
@@ -556,6 +560,10 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'speech.listen': '들기',
   'speech.stop': '정지',
   'speech.unavailable': '이 기기에는 이 언어의 음성이 없습니다',
+
+  'catalog.unreviewed':
+    '이 화면의 번역은 아직 해당 언어 사용자의 검수를 받지 않았습니다. 표현이 틀릴 수 있습니다. 레슨 내용 자체는 영향을 받지 않습니다.',
+  'catalog.safetyOriginal': '안전을 위한 원문',
 };
 
 
@@ -849,12 +857,306 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'speech.listen': 'Écouter',
   'speech.stop': 'Arrêter',
   'speech.unavailable': 'Aucune voix pour cette langue sur cet appareil',
+
+  'catalog.unreviewed':
+    'Cette interface a été traduite en français mais n’a pas encore été relue par une personne francophone. La formulation peut être inexacte. Les leçons elles-mêmes ne sont pas concernées.',
+  'catalog.safetyOriginal': 'Formulation d’origine, par sécurité',
+};
+
+
+/**
+ * Lao catalog. Lao is LOC-003 in Master DB 15_LOCALIZATION, marked "Laos launch language",
+ * and AI Tutor Constitution §13.1 names it the first localization target. It is the single
+ * most important locale in the registry and had no catalog at all until now.
+ *
+ * ⚠ THIS CATALOG HAS NOT BEEN CHECKED BY A LAO SPEAKER. It is registered as
+ * `UNREVIEWED_DRAFT` in CATALOG_REVIEW below, the app says so on screen while it is selected,
+ * and the safety wording is shown with its English original underneath — see `safetyWording`.
+ * Replacing this with reviewed text is a market task, not an engineering one (SR-014).
+ */
+const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
+  'app.title': 'ໂລກແຫ່ງການຮຽນຮູ້ຄວາມງາມ',
+  'app.northStar': 'ຮຽນຮູ້ຄວາມງາມ. ຮູ້ຈັກຕົນເອງ. ເລືອກໃຫ້ດີຂຶ້ນ.',
+
+  'nav.mySkin': 'ຜິວຂອງຂ້ອຍ',
+  'nav.ingredientGarden': 'ສວນສ່ວນປະກອບ',
+  'nav.routineStudio': 'ສະຕູດິໂອກິດຈະວັດ',
+  'nav.sunProtection': 'ການປ້ອງກັນແສງແດດ',
+  'nav.labelDetective': 'ນັກສືບສະຫຼາກ',
+  'nav.aiTutor': 'ຄູສອນ AI',
+  'nav.quests': 'ພາລະກິດ ແລະ ຄວາມຊຳນານ',
+  'nav.governance': 'ການກຳກັບດູແລເນື້ອຫາ',
+
+  'disclosure.pendingVerification':
+    'ບັນທຶກຄວາມຮູ້ນີ້ຍັງບໍ່ທັນຜ່ານການກວດສອບຫຼັກຖານ. ສະແດງໄວ້ເພື່ອການຮຽນຮູ້ ບໍ່ແມ່ນເປັນຂໍ້ເທັດຈິງທີ່ຢັ້ງຢືນແລ້ວ.',
+  'disclosure.workingDataset':
+    'ຊຸດຂໍ້ມູນທີ່ກຳລັງໃຊ້ງານ. ໂຄງສ້າງຫຼັກສູດມາດຕະຖານຍັງບໍ່ທັນໄດ້ຮັບການອະນຸມັດ.',
+  'disclosure.notMedicalAdvice':
+    'ນີ້ແມ່ນການສຶກສາດ້ານເຄື່ອງສຳອາງ ບໍ່ແມ່ນການວິນິດໄສ ຫຼື ການປິ່ນປົວທາງການແພດ.',
+  'disclosure.authoredScaffold':
+    'ໂຄງຮ່າງການຮຽນທີ່ຂຽນຂຶ້ນສຳລັບຕົ້ນແບບນີ້. ມັນສອນວິທີຄິດ ແລະ ບໍ່ໄດ້ກ່າວອ້າງທາງວິທະຍາສາດໃດໆ.',
+
+  'safety.escalation.R2':
+    'ສິ່ງນີ້ຟັງຄືວ່າຄວນຢຸດ ແລະ ກວດເບິ່ງ ຫຼາຍກວ່າຈະຮຽນຕໍ່ໄປ. ຂໍແນະນຳໃຫ້ປຶກສາຜູ້ຊ່ຽວຊານທີ່ມີຄຸນວຸດທິ ແລະ ຢຸດໃຊ້ຜະລິດຕະພັນໃໝ່ໄວ້ກ່ອນ.',
+  'safety.escalation.R3':
+    'ສິ່ງທີ່ທ່ານອະທິບາຍຄວນໄດ້ຮັບການກວດຈາກຜູ້ຊ່ຽວຊານທີ່ມີຄຸນວຸດທິ. ການແນະນຳຜະລິດຕະພັນຖືກປິດໄວ້ຢູ່ນີ້.',
+  'safety.escalation.R4':
+    'ກະລຸນາຂໍຄວາມຊ່ວຍເຫຼືອດ່ວນຈາກໜ່ວຍງານສຸກເສີນ ຫຼື ການແພດໃນທ້ອງຖິ່ນທັນທີ. ບົດຮຽນນີ້ຈະຢຸດຢູ່ນີ້.',
+
+  'lesson.phase.lesson': 'ບົດຮຽນຫຍໍ້',
+  'lesson.phase.ask': 'ຄຳຖາມ',
+  'lesson.phase.think': 'ຄິດເບິ່ງກ່ອນ',
+  'lesson.phase.hint': 'ຄຳໃບ້',
+  'lesson.phase.try': 'ຄຳຕອບຂອງທ່ານ',
+  'lesson.phase.feedback': 'ຄຳຕິຊົມ',
+  'lesson.phase.reflect': 'ທົບທວນ',
+  'lesson.phase.master': 'ຫຼັກຖານຄວາມຊຳນານ',
+  'lesson.phase.complete': 'ສຳເລັດ',
+
+  'lesson.think.prompt': 'ກ່ອນຈະຕອບ — ຂໍ້ໃດທີ່ຄົນອື່ນສາມາດກວດສອບແທນທ່ານໄດ້?',
+  'lesson.think.continue': 'ຂ້ອຍພໍເດົາໄດ້ແລ້ວ',
+  'lesson.hint.request': 'ຂ້ອຍຕ້ອງການຄຳໃບ້',
+  'lesson.hint.noneLeft': 'ບໍ່ມີຄຳໃບ້ຕໍ່ໄປແລ້ວ; ຄຳອະທິບາຍຢູ່ລຸ່ມນີ້ແມ່ນຂັ້ນຕອນສຸດທ້າຍ.',
+  'lesson.reflect.placeholder': 'ຂຽນໜຶ່ງປະໂຫຍກດ້ວຍຄຳເວົ້າຂອງທ່ານເອງ…',
+  'lesson.reflect.submit': 'ບັນທຶກການທົບທວນຂອງຂ້ອຍ',
+  'lesson.next': 'ຕໍ່ໄປ',
+  'lesson.restart': 'ເລີ່ມໃໝ່',
+  'lesson.continueToTransfer': 'ລອງສະຖານະການໃໝ່',
+  'lesson.finish': 'ຈົບບົດຮຽນນີ້',
+  'lesson.finished': 'ຈົບບົດຮຽນແລ້ວ. ຫຼັກຖານຂອງທ່ານຖືກເກັບໄວ້ໃນ ພາລະກິດ ແລະ ຄວາມຊຳນານ.',
+
+  'mastery.title': 'ຫຼັກຖານຄວາມຊຳນານ',
+  'mastery.accuracy': 'ຄວາມຖືກຕ້ອງ',
+  'mastery.independence': 'ຄວາມເປັນເອກະລາດ',
+  'mastery.transfer': 'ການນຳໄປໃຊ້',
+  'mastery.retention': 'ການຈື່ຈຳ',
+  'mastery.notYet': 'ຍັງບໍ່ມີຫຼັກຖານ',
+  'mastery.satisfied': 'ມີຫຼັກຖານແລ້ວ',
+  'mastery.explainer': 'ຄວາມຊຳນານຕ້ອງການຫຼັກຖານທັງສີ່ປະເພດ. ຕອບຖືກເທື່ອດຽວບໍ່ແມ່ນຄວາມຊຳນານ.',
+  'mastery.state': 'ສະຖານະຜູ້ຮຽນ',
+
+  'governance.title': 'ການກຳກັບດູແລເນື້ອຫາ',
+  'governance.openItems': 'ລາຍການກຳກັບດູແລທີ່ຍັງເປີດຢູ່',
+  'governance.strandTitle': 'ການຈັດໝວດສາຍວິຊາ',
+  'governance.integrityTitle': 'ຄວາມສົມບູນຂອງການອ້າງອີງ',
+  'governance.localeTitle': 'ຄວາມຄຸ້ມຄອງຂອງພາສາ',
+  'governance.noCanonical': 'ຍັງບໍ່ມີການຈັດໝວດມາດຕະຖານໃດໄດ້ຮັບການອະນຸມັດ.',
+  'governance.statusCounts': 'ສະຖານະຂອງບັນທຶກຄວາມຮູ້',
+
+  'common.source': 'ແຫຼ່ງທີ່ມາ',
+  'common.status': 'ສະຖານະ',
+  'common.evidence': 'ຫຼັກຖານ',
+  'common.version': 'ເວີຊັນ',
+  'common.node': 'ບັນທຶກຄວາມຮູ້',
+  'common.skill': 'ທັກສະ',
+  'common.locale': 'ພາສາ',
+  'common.fallbackLocale': 'ສະແດງເປັນ {locale} — ຍັງບໍ່ມີຄຳແປ.',
+  'common.notAvailable': 'ບໍ່ມີ',
+  'common.comingSoon': 'ຍັງບໍ່ໄດ້ສ້າງໃນຕົ້ນແບບສ່ວນນີ້.',
+
+  'ingredient.catalogTitle': 'ລາຍການສ່ວນປະກອບ',
+  'ingredient.catalogIntro':
+    'ທຸກບັນທຶກສ່ວນປະກອບໃນຖານຂໍ້ມູນທີ່ກຳກັບດູແລ ສະແດງຕາມທີ່ມັນເປັນຢູ່. ຍັງບໍ່ມີອັນໃດຜ່ານການກວດສອບຫຼັກຖານ ສະນັ້ນນີ້ແມ່ນບັນທຶກໃຫ້ກວດເບິ່ງ — ບໍ່ແມ່ນຄຳກ່າວວ່າສ່ວນປະກອບໃດເຮັດຫຍັງ.',
+  'ingredient.family': 'ກຸ່ມ',
+  'ingredient.function': 'ໜ້າທີ່ຫຼັກ',
+  'ingredient.level': 'ລະດັບ',
+  'ingredient.learningGoal': 'ເປົ້າໝາຍການຮຽນ',
+  'ingredient.reference': 'ເອກະສານອ້າງອີງ',
+  'ingredient.noReference': 'ບໍ່ມີການບັນທຶກເອກະສານອ້າງອີງ',
+  'ingredient.questTitle': 'ພາລະກິດຂອງສວນສ່ວນປະກອບ',
+  'ingredient.questIntro':
+    'ສາມພາລະກິດທີ່ກຳກັບດູແລຂອງໂລກນີ້ ເຊື່ອມກັບແຜນທີ່ບັນທຶກຕົວຈິງຂອງມັນ. ແຕ່ລະອັນຂໍໃຫ້ຜູ້ຮຽນບອກວ່າສ່ວນປະກອບເຮັດຫຍັງ ຊຶ່ງເປັນການກ່າວອ້າງທາງວິທະຍາສາດ ສະນັ້ນແຕ່ລະອັນຍັງປິດຢູ່ຈົນກວ່າບັນທຶກຈະຜ່ານການກວດສອບ.',
+  'ingredient.winCondition': 'ເງື່ອນໄຂການສຳເລັດ',
+  'ingredient.coreNode': 'ບັນທຶກຫຼັກ',
+  'ingredient.blockedBy': 'ຖືກກີດຂວາງໂດຍ',
+  'ingredient.lessonTitle': 'ສິ່ງທີ່ທ່ານຮຽນໄດ້ຢູ່ນີ້ໃນມື້ນີ້',
+  'ingredient.lessonIntro':
+    'ການອ່ານສ່ວນປະກອບໃຫ້ເປັນ ບໍ່ໄດ້ຂຶ້ນກັບຂໍ້ມູນສ່ວນປະກອບທີ່ຍັງບໍ່ໄດ້ຢັ້ງຢືນ. ການອ່ານຄຳກ່າວອ້າງແມ່ນທັກສະການຄິດ ສະນັ້ນບົດຮຽນນີ້ຈຶ່ງເປີດຢູ່.',
+  'ingredient.startLesson': 'ເລີ່ມການອ່ານສ່ວນປະກອບ',
+  'ingredient.backToGarden': 'ກັບໄປສວນ',
+  'ingredient.openLesson': 'ເປີດ',
+  'ingredient.closedLesson': 'ປິດ',
+
+  'routine.lessonTitle': 'ກ່ອນທີ່ທ່ານຈະຈັດລຳດັບໃໝ່',
+  'routine.lessonIntro':
+    'ໂລກນີ້ບໍ່ໄດ້ບອກທ່ານວ່າກິດຈະວັດຂອງທ່ານຄວນເປັນແນວໃດ. ມັນສອນຄຳຖາມທີ່ເຮັດໃຫ້ກິດຈະວັດຂອງທ່ານເອງຕອບໄດ້ ສະນັ້ນບົດຮຽນຈຶ່ງເປີດຢູ່ໃນຂະນະທີ່ບັນທຶກກິດຈະວັດຍັງຢູ່ໃນການກວດສອບ.',
+  'routine.startLesson': 'ເລີ່ມການຄິດເລື່ອງກິດຈະວັດ',
+  'routine.backToStudio': 'ກັບໄປສະຕູດິໂອ',
+  'routine.catalogTitle': 'ຮູບແບບກິດຈະວັດທີ່ກຳກັບດູແລ',
+  'routine.catalogIntro':
+    'ສິບບັນທຶກກິດຈະວັດຕາມທີ່ຖານຂໍ້ມູນເກັບໄວ້. ແຕ່ລະອັນຖືກໝາຍວ່າອະນຸມັດແລ້ວ ແຕ່ຕາຕະລາງບໍ່ມີຊ່ອງໃດທີ່ກິດຈະວັດຈະອ້າງຫຼັກຖານໄດ້ ສະນັ້ນຈຶ່ງບໍ່ມີອັນໃດຖືກນຳສະເໜີເປັນວິທີທີ່ຖືກຕ້ອງໄດ້.',
+  'routine.sequence': 'ລຳດັບຕັ້ງຕົ້ນ',
+  'routine.proseSequence': 'ບັນທຶກເປັນຂໍ້ຄວາມ ບໍ່ແມ່ນລາຍການຂັ້ນຕອນທີ່ຈັດລຳດັບ. ສະແດງຕາມທີ່ຂຽນໄວ້.',
+  'routine.linkedNodes': 'ຄວາມຮູ້ທີ່ເຊື່ອມໂຍງ',
+  'routine.missingNode': 'ບັນທຶກທີ່ອ້າງເຖິງບໍ່ມີຢູ່',
+  'routine.questTitle': 'ພາລະກິດຂອງສະຕູດິໂອກິດຈະວັດ',
+  'routine.studioTitle': 'ກິດຈະວັດຂອງຂ້ອຍ — ການທົບທວນ',
+  'routine.studioIntro':
+    'ຂຽນລາຍການຂັ້ນຕອນທີ່ທ່ານເຮັດຈິງ ແລ້ວບອກວ່າແຕ່ລະຂັ້ນຕອນມີໄວ້ເພື່ອຫຍັງ. ເຄື່ອງມືນີ້ບັນທຶກສິ່ງທີ່ທ່ານຂຽນ ແລະ ນັບສິ່ງທີ່ທ່ານອະທິບາຍໄດ້. ມັນບໍ່ປະເມີນກິດຈະວັດຂອງທ່ານ ບໍ່ຈັດອັນດັບຂັ້ນຕອນ ແລະ ບໍ່ແນະນຳຫຍັງ.',
+  'routine.addStep': 'ເພີ່ມຂັ້ນຕອນ',
+  'routine.stepPlaceholder': 'ຂັ້ນຕອນທີ່ທ່ານເຮັດຈິງ…',
+  'routine.purposePlaceholder': 'ຂັ້ນຕອນນີ້ມີໄວ້ເພື່ອຫຍັງ ແລະ ທ່ານຈະສັງເກດເຫັນແນວໃດ?',
+  'routine.toPurpose': 'ຕອນນີ້ ຖາມວ່າເປັນຫຍັງ',
+  'routine.finishReview': 'ເບິ່ງສິ່ງທີ່ຂ້ອຍອະທິບາຍໄດ້',
+  'routine.reviewHeading': 'ສິ່ງທີ່ທ່ານອະທິບາຍໄດ້',
+  'routine.reviewSummary': '{withPurpose} ໃນ {total} ຂັ້ນຕອນ ມີຈຸດປະສົງທີ່ທ່ານບອກໄວ້.',
+  'routine.reviewNote':
+    'ຕົວເລກນັ້ນເປັນຂອງທ່ານ ບໍ່ແມ່ນຄະແນນ. ຂັ້ນຕອນທີ່ທ່ານອະທິບາຍບໍ່ໄດ້ ບໍ່ແມ່ນຜິດ — ພຽງແຕ່ເປັນຂັ້ນຕອນທີ່ທ່ານຍັງບໍ່ສາມາດປຽບທຽບ ປົກປ້ອງ ຫຼື ຕັດອອກຢ່າງຕັ້ງໃຈໄດ້.',
+  'routine.startOver': 'ເລີ່ມໃໝ່ທັງໝົດ',
+  'routine.noSteps': 'ຍັງບໍ່ມີຂັ້ນຕອນໃນລາຍການ.',
+  'routine.stepLabel': 'ຂັ້ນຕອນ',
+  'routine.purposeLabel': 'ຈຸດປະສົງ',
+  'routine.notStated': 'ບໍ່ໄດ້ບອກໄວ້',
+
+  'sun.lessonTitle': 'ສິ່ງທີ່ທ່ານຢືນຢັນເອງໄດ້',
+  'sun.lessonIntro':
+    'ໂລກນີ້ບໍ່ໄດ້ບອກທ່ານວ່າຄວນໃຊ້ການປ້ອງກັນແບບໃດ. ທະບຽນຫຼັກຖານບໍ່ມີແຫຼ່ງຂໍ້ມູນໃດກ່ຽວກັບແສງແດດ ຫຼື ລັງສີອຸນຕຣາໄວໂອເລັດເລີຍ ສະນັ້ນສິ່ງດຽວທີ່ຊື່ສັດທີ່ມັນສອນໄດ້ ຄືເສັ້ນແບ່ງລະຫວ່າງສິ່ງທີ່ທ່ານສັງເກດເຫັນ ກັບສິ່ງທີ່ຕ້ອງການຫຼັກຖານ.',
+  'sun.startLesson': 'ເລີ່ມການຄິດເລື່ອງການສຳຜັດແດດ',
+  'sun.backToObservatory': 'ກັບໄປຫໍສັງເກດການ',
+  'sun.logTitle': 'ບັນທຶກການສຳຜັດແດດຂອງຂ້ອຍ',
+  'sun.logIntro':
+    'ບັນທຶກຊ່ວງເວລາຂອງມື້ທີ່ທ່ານຢູ່ຕົວຈິງ: ທ່ານເຮັດຫຍັງ ປະມານເວລາໃດ ດົນເທົ່າໃດ ແລະ ຢູ່ສະພາບແວດລ້ອມແບບໃດ. ເຄື່ອງມືນີ້ບັນທຶກ ແລະ ນັບ. ມັນບໍ່ໃຫ້ຄະແນນ ບໍ່ໃຫ້ເກນ ແລະ ບໍ່ໃຫ້ຄຳແນະນຳ.',
+  'sun.activity': 'ທ່ານເຮັດຫຍັງຢູ່?',
+  'sun.activityPlaceholder': 'ຍ່າງໄປຕະຫຼາດ…',
+  'sun.band': 'ປະມານເວລາໃດ',
+  'sun.setting': 'ສະພາບແວດລ້ອມ',
+  'sun.minutes': 'ນາທີ',
+  'sun.addEntry': 'ເພີ່ມເຂົ້າບັນທຶກ',
+  'sun.review': 'ເບິ່ງສິ່ງທີ່ຂ້ອຍບັນທຶກໄວ້',
+  'sun.noEntries': 'ຍັງບໍ່ໄດ້ບັນທຶກຫຍັງ.',
+  'sun.summaryTotal': 'ບັນທຶກໄວ້ {entries} ຊ່ວງ, ລວມ {minutes} ນາທີ.',
+  'sun.summaryNote':
+    'ນີ້ແມ່ນການສັງເກດຂອງທ່ານເອງ ບໍ່ແມ່ນການວັດແທກ ແລະ ບໍ່ແມ່ນລະດັບຄວາມສ່ຽງ. ຊ່ວງເວລາທີ່ທ່ານບໍ່ໄດ້ບັນທຶກ ແມ່ນຊ່ອງວ່າງໃນບັນທຶກ ບໍ່ແມ່ນຄຳກ່າວກ່ຽວກັບມື້ຂອງທ່ານ.',
+  'sun.notRecorded': 'ບໍ່ໄດ້ບັນທຶກ',
+  'sun.startOver': 'ເລີ່ມໃໝ່ທັງໝົດ',
+  'sun.evidenceTitle': 'ສະຖານະຫຼັກຖານຂອງຂົງເຂດນີ້',
+  'sun.questTitle': 'ພາລະກິດຂອງຫໍສັງເກດການແສງແດດ',
+  'sun.band.early-morning': 'ເຊົ້າຕຼູ່',
+  'sun.band.midday': 'ທ່ຽງ',
+  'sun.band.afternoon': 'ຕອນບ່າຍ',
+  'sun.band.evening': 'ຕອນແລງ',
+  'sun.setting.open': 'ກາງແຈ້ງ ບໍ່ມີບັງ',
+  'sun.setting.partial-shade': 'ຮົ່ມບາງສ່ວນ',
+  'sun.setting.shade': 'ຢູ່ຮົ່ມ',
+  'sun.setting.indoors-by-window': 'ຢູ່ໃນເຮືອນ ໃກ້ປ່ອງຢ້ຽມ',
+
+  'label.title': 'ສີ່ຂໍ້ຄວາມ ໃນກັບດຽວ',
+  'label.intro':
+    'ການອ່ານສະຫຼາກແມ່ນການແຍກປະເພດ ບໍ່ແມ່ນການຕັດສິນ. ໂລກນີ້ຊ່ວຍໃຫ້ທ່ານແຍກສີ່ສ່ວນອອກຈາກກັນ. ມັນບໍ່ເຄີຍບອກວ່າຄຳກ່າວອ້າງເປັນຈິງ ຫຼື ຜະລິດຕະພັນເໝາະກັບທ່ານ.',
+  'label.startLesson': 'ເລີ່ມການອ່ານສະຫຼາກ',
+  'label.backToLibrary': 'ກັບໄປຫ້ອງສະໝຸດ',
+  'label.sorterTitle': 'ແຍກສະຫຼາກນີ້',
+  'label.sorterIntro': 'ວາງແຕ່ລະແຖວໄວ້ບ່ອນທີ່ທ່ານຄິດວ່າມັນຄວນຢູ່. ຈະບໍ່ມີການກວດຈົນກວ່າທ່ານຈະຂໍ.',
+  'label.specimenWarning': 'ສະຫຼາກຝຶກຫັດ — ສົມມຸດຂຶ້ນ ບໍ່ມີຍີ່ຫໍ້.',
+  'label.unplaced': 'ແຖວທີ່ຕ້ອງແຍກ',
+  'label.allSorted': 'ທຸກແຖວຖືກວາງແລ້ວ. ເບິ່ງນຳກັນບໍ?',
+  'label.check': 'ກວດການແຍກຂອງຂ້ອຍ',
+  'label.keepSorting': 'ຂໍຍ້າຍອີກໜ້ອຍ',
+  'label.finish': 'ຈົບ',
+  'label.startOver': 'ເລີ່ມໃໝ່ທັງໝົດ',
+  'label.allCorrectTitle': 'ສີ່ສ່ວນ ແຍກອອກໄດ້ໝົດ.',
+  'label.allCorrectBody':
+    'ຕອນນີ້ທ່ານເຮັດແບບນີ້ກັບກັບໃດກໍໄດ້ທີ່ທ່ານຈັບຂຶ້ນມາ. ໃນສະຫຼາກຈິງ ສ່ວນຕ່າງໆຈະປົນກັນຫຼາຍກວ່າອັນນີ້.',
+  'label.someWrongTitle': 'ເກືອບແລ້ວ — {correct} ໃນ {total} ຢູ່ຖືກບ່ອນ.',
+  'label.someWrongBody':
+    'ອັນຢູ່ລຸ່ມນີ້ໄປຢູ່ຜິດບ່ອນ. ລອງອ່ານເບິ່ງ ແລ້ວຍ້າຍ ແລະ ກວດອີກເທື່ອ. ການຜິດກ່ອນ ຄືວິທີທີ່ຄວາມແຕກຕ່າງຈະຊັດເຈນຂຶ້ນ.',
+  'label.whyLabel': 'ເວົ້າງ່າຍໆ',
+  'label.movedTo': 'ທ່ານວາງອັນນີ້ໄວ້ໃຕ້',
+  'label.belongsIn': 'ມັນຄວນຢູ່ໃຕ້',
+  'label.bucket.CLAIM': 'ສິ່ງທີ່ມັນເວົ້າກ່ຽວກັບຕົນເອງ',
+  'label.bucket.INGREDIENTS': 'ສິ່ງທີ່ຢູ່ຂ້າງໃນ',
+  'label.bucket.HOW_TO_USE': 'ວິທີໃຊ້ມັນ',
+  'label.bucket.CAUTION': 'ສິ່ງທີ່ຕ້ອງລະວັງ',
+  'label.bucketHint.CLAIM': 'ຂຽນຂຶ້ນເພື່ອດຶງດູດທ່ານ. ບໍລິສັດເລືອກທີ່ຈະເວົ້າແບບນັ້ນ.',
+  'label.bucketHint.INGREDIENTS': 'ຊື່ຂອງສິ່ງທີ່ຢູ່ໃນຂວດ. ກົດໝາຍບັງຄັບໃຫ້ພິມໄວ້.',
+  'label.bucketHint.HOW_TO_USE': 'ຄຳແນະນຳຈາກຜູ້ຜະລິດກ່ຽວກັບການໃຊ້.',
+  'label.bucketHint.CAUTION': 'ຄຳເຕືອນເລື່ອງການຢຸດໃຊ້ ການເກັບຮັກສາ ຫຼື ການໄປປຶກສາຜູ້ໃດຜູ້ໜຶ່ງ.',
+  'label.questTitle': 'ພາລະກິດຂອງນັກສືບສະຫຼາກ',
+  'label.evidenceTitle': 'ສະຖານະຫຼັກຖານຂອງຂົງເຂດນີ້',
+
+  'tutor.title': 'ຖາມມາ ແລ້ວເບິ່ງວ່າຂ້ອຍຢືນຢູ່ເທິງຫຍັງ',
+  'tutor.intro':
+    'ຄູສອນນີ້ບໍ່ໄດ້ສ້າງຄຳຕອບຂຶ້ນມາ. ມັນສະແດງໃຫ້ທ່ານເຫັນສິ່ງທີ່ມັນເຂົ້າໃຈ ບັນທຶກທີ່ກຳກັບດູແລອັນໃດທີ່ມັນພົບ ແລະ ສິ່ງທີ່ມັນເວົ້າໄດ້ ແລະ ເວົ້າບໍ່ໄດ້ — ເພື່ອໃຫ້ທ່ານຕັດສິນເຫດຜົນ ແທນທີ່ຈະເຊື່ອຖ້ອຍຄຳ.',
+  'tutor.placeholder': 'ຖາມຫຍັງກໍໄດ້ກ່ຽວກັບຄວາມງາມ…',
+  'tutor.ask': 'ຖາມ',
+  'tutor.tryThese': 'ລອງອັນໃດອັນໜຶ່ງນີ້',
+  'tutor.understood': 'ສິ່ງທີ່ຂ້ອຍເຂົ້າໃຈ',
+  'tutor.intent': 'ເຈດຕະນາ',
+  'tutor.mode': 'ໂໝດ',
+  'tutor.risk': 'ຄວາມສ່ຽງ',
+  'tutor.hintLevel': 'ລະດັບຄຳໃບ້',
+  'tutor.grounding': 'ສິ່ງທີ່ຂ້ອຍພົບ',
+  'tutor.groundingEmpty': 'ບໍ່ມີຫຍັງໃນຄວາມຮູ້ທີ່ກຳກັບດູແລທີ່ກົງກັນ. ຂ້ອຍຈະບໍ່ແຕ່ງບັນທຶກຂຶ້ນມາເພື່ອຕອບ.',
+  'tutor.groundingCount': 'ຄົ້ນຫາ {searched} ບັນທຶກ · ກົງກັນ {found}',
+  'tutor.matched': 'ກົງກັນ',
+  'tutor.canSay': 'ສິ່ງທີ່ຂ້ອຍເວົ້າໄດ້',
+  'tutor.contractNote': 'ຄຳຕອບແບບ {mode} ມີ {total} ສ່ວນ. {filled} ສ່ວນສາມາດຕື່ມໄດ້ຢ່າງຊື່ສັດຕອນນີ້.',
+  'tutor.slotBlocked': 'ຕື່ມບໍ່ໄດ້',
+  'tutor.uncertainty': 'ສິ່ງທີ່ຂ້ອຍບໍ່ແນ່ໃຈ',
+  'tutor.commerce': 'ການແນະນຳຜະລິດຕະພັນ',
+  'tutor.commerceBlocked': 'ຖືກລະງັບໄວ້. ດ່ານທີ່ບໍ່ຜ່ານ: {gates}',
+  'tutor.trace': 'ຮ່ອງຮອຍການເຮັດວຽກ',
+  'tutor.traceNote':
+    'ເຈັດຂັ້ນຕອນທີ່ທຳມະນູນກຳນົດໄວ້: ບໍລິບົດ ການຍຶດຫຼັກ ການຈັດປະເພດ ດ່ານຄວາມສ່ຽງ ການຕອບ ການກວດສອບ ການຮຽນຮູ້.',
+  'tutor.rulesTitle': 'ກົດທີ່ບັງຄັບໃຊ້ເປັນດ່ານເຂັ້ມ',
+  'tutor.rulesNote':
+    'ບັງຄັບໃຊ້ສະເພາະກົດ AI ທີ່ທັງອະນຸມັດແລ້ວ ແລະ ບັງຄັບໃນຖານຂໍ້ມູນ. ກົດທີ່ຍັງເປັນຮ່າງ ອ່ານໄດ້ ແຕ່ບໍ່ກາຍເປັນການບັງຄັບໃຊ້ຢ່າງງຽບໆ.',
+  'tutor.evalTitle': 'ຊຸດປະເມີນ ທຳມະນູນ §16',
+  'tutor.evalNote': 'ສິບສະຖານະການທີ່ທຳມະນູນຮຽກຮ້ອງໃຫ້ຜ່ານກ່ອນເປີດໃຊ້. ພວກມັນແລ່ນເທິງລະບົບດຽວກັນນີ້.',
+  'tutor.evalPassed': 'ຜ່ານ {passed} ໃນ {total}',
+
+  'quest.title': 'ຊາວຫ້າພາລະກິດ ແລະ ສິ່ງທີ່ແຕ່ລະອັນລໍຖ້າ',
+  'quest.intro':
+    'ນີ້ແມ່ນແຜນທີ່ຂອງຫຼັກສູດ ບໍ່ແມ່ນແຖບຄວາມຄືບໜ້າ. ພາລະກິດສ່ວນຫຼາຍຍັງເປີດບໍ່ໄດ້ ແລະ ແຕ່ລະອັນບອກວ່າບັນທຶກໃດກີດຂວາງມັນຢູ່. ຢູ່ນີ້ບໍ່ມີການໃຫ້ຄະແນນ: ບໍ່ມີແຫຼ່ງຂໍ້ມູນໃດກຳນົດຈຳນວນລາງວັນໄວ້.',
+  'quest.mapTitle': 'ແຜນທີ່ພາລະກິດ',
+  'quest.summary':
+    '{open} ໃນ {total} ພາລະກິດເປີດໄດ້ · {worlds} ໂລກ · {served} ມີບົດຮຽນຮອງຮັບແລ້ວ · {missing} ຖືກກີດຂວາງໂດຍບັນທຶກທີ່ບໍ່ມີຢູ່',
+  'quest.open': 'ເປີດ',
+  'quest.closed': 'ລັອກຢູ່',
+  'quest.reward': 'ລາງວັນ',
+  'quest.rewardNote':
+    'ປ້າຍລາງວັນສະແດງຕາມທີ່ຖານຂໍ້ມູນບັນທຶກໄວ້ທຸກປະການ. ບໍ່ມີແຫຼ່ງຂໍ້ມູນໃດລະບຸຈຳນວນ ສະນັ້ນຈຶ່ງບໍ່ມີການລວມຍອດ.',
+  'quest.claimClass': 'ປະເພດຄຳກ່າວອ້າງ',
+  'quest.servedBy': 'ຮອງຮັບໂດຍ',
+  'quest.blockers': 'ລໍຖ້າ',
+  'quest.noBlockers': 'ບໍ່ມີຫຍັງກີດຂວາງພາລະກິດນີ້.',
+  'quest.unresolvedSkill': 'ອ້າງເຖິງທັກສະທີ່ບໍ່ມີຢູ່',
+  'quest.masteryTitle': 'ຫຼັກຖານຄວາມຊຳນານ',
+  'quest.masteryIntro':
+    'ສິບສອງທັກສະທີ່ກຳກັບດູແລ. ຫຼັກຖານໄດ້ມາຈາກການຕອບເທົ່ານັ້ນ ແລະ ມັນສະສົມຂ້າມທຸກໂລກ — ທັກສະທີ່ຝຶກຕອນອ່ານສະຫຼາກ ແມ່ນທັກສະດຽວກັບທີ່ຝຶກໃນສວນ.',
+  'quest.noEvidence': 'ຍັງບໍ່ມີຫຼັກຖານ',
+  'quest.evidenceFrom': 'ຫຼັກຖານຈາກ',
+  'quest.attempts': 'ຄັ້ງ',
+  'quest.ladderTitle': 'ຂັ້ນໄດເຈັດລະດັບ',
+  'quest.ladderNote':
+    'Mastery Competency Matrix ສະເໜີເຈັດລະດັບ ຈາກ Beauty Explorer ຫາ Beauty Master. ມັນຖືກໝາຍວ່າ "DECISION DRAFT — NOT CANONICAL" ສະນັ້ນຢູ່ນີ້ຈຶ່ງບໍ່ມີການກຳນົດລະດັບໃຫ້ຜູ້ໃດ.',
+  'quest.resetLedger': 'ລຶບຫຼັກຖານຂອງຂ້ອຍ',
+  'quest.ledgerSummary': 'ບັນທຶກ {attempts} ຄັ້ງ · {started} ໃນ 12 ທັກສະມີຫຼັກຖານ · ຊຳນານ {mastered}',
+
+  'display.theme': 'ໜ້າຈໍ',
+  'display.theme.auto': 'ອັດຕະໂນມັດ',
+  'display.theme.light': 'ສະຫວ່າງ',
+  'display.theme.dark': 'ມືດ',
+  'display.textSize': 'ຂະໜາດຕົວອັກສອນ',
+  'display.textSize.normal': 'ກ',
+  'display.textSize.large': 'ກ+',
+  'display.textSize.larger': 'ກ++',
+  'display.skipToContent': 'ຂ້າມໄປຫາເນື້ອຫາຫຼັກ',
+
+  'speech.listen': 'ຟັງ',
+  'speech.stop': 'ຢຸດ',
+  'speech.unavailable': 'ບໍ່ມີສຽງສຳລັບພາສານີ້ໃນອຸປະກອນນີ້',
+
+  'catalog.unreviewed':
+    'ໜ້າຈໍນີ້ຖືກແປເປັນພາສາລາວ ແຕ່ຍັງບໍ່ທັນໄດ້ຮັບການກວດຈາກຜູ້ເວົ້າພາສາລາວ. ຖ້ອຍຄຳອາດຜິດ. ບົດຮຽນເອງບໍ່ໄດ້ຮັບຜົນກະທົບ.',
+  'catalog.safetyOriginal': 'ຖ້ອຍຄຳຕົ້ນສະບັບ ເພື່ອຄວາມປອດໄພ',
 };
 
 const CATALOGS: Readonly<Record<string, Partial<Record<MessageKey, string>>>> = {
   en: MESSAGES_EN,
   ko: MESSAGES_KO,
   fr: MESSAGES_FR,
+  lo: MESSAGES_LO,
 };
 
 export interface TranslationResult {
@@ -886,5 +1188,55 @@ export const translate = (
 
 /** Locales that have a UI catalog. Distinct from locales the content layer can render. */
 export const UI_CATALOG_LOCALES: readonly string[] = Object.keys(CATALOGS);
+
+/**
+ * How much confidence each catalog has earned.
+ *
+ * The same discipline the rest of this codebase applies to knowledge records: a translation
+ * nobody has checked is a draft, and must not be presented as if it were reviewed. Existing
+ * only in code is not review.
+ *
+ *   BASE             — authored in this language. Not a translation, so nothing to review.
+ *   OWNER_REVIEWED   — the product owner works in this language and has read these screens.
+ *   UNREVIEWED_DRAFT — machine-assisted, awaiting a speaker of the language. Said on screen.
+ */
+export type CatalogReview = 'BASE' | 'OWNER_REVIEWED' | 'UNREVIEWED_DRAFT';
+
+export const CATALOG_REVIEW: Readonly<Record<string, CatalogReview>> = {
+  en: 'BASE',
+  ko: 'OWNER_REVIEWED',
+  fr: 'UNREVIEWED_DRAFT',
+  // LOC-003, "Laos launch language". Being the launch market makes review urgent, not optional.
+  lo: 'UNREVIEWED_DRAFT',
+};
+
+export const catalogReview = (locale: string): CatalogReview =>
+  CATALOG_REVIEW[locale] ?? 'BASE';
+
+export const isUnreviewedCatalog = (locale: string): boolean =>
+  catalogReview(locale) === 'UNREVIEWED_DRAFT';
+
+/**
+ * Safety wording, plus the base-locale original when the catalog has not been reviewed.
+ *
+ * CLAUDE.md rule 6 puts safety above everything else, and a safety instruction is the one
+ * string where a translation error could do real harm — "seek emergency help" has to survive
+ * the trip. So an unreviewed locale shows both: the translation the reader can act on, and the
+ * English it was made from, so a mistranslation cannot silently replace the instruction.
+ *
+ * `original` is null for a reviewed catalog and for the base locale itself; there is nothing
+ * to compare against and the second line would only be noise.
+ */
+export interface SafetyWording {
+  readonly text: string;
+  readonly original: string | null;
+}
+
+export function safetyWording(key: MessageKey, locale: string): SafetyWording {
+  const text = translate(key, locale);
+  if (!isUnreviewedCatalog(locale)) return { text, original: null };
+  const original = translate(key, BASE_LOCALE);
+  return { text, original: original === text ? null : original };
+}
 
 export const messageKeys = Object.keys(MESSAGES_EN) as readonly MessageKey[];

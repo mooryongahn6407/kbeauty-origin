@@ -123,15 +123,32 @@ describe('the reading itself', () => {
     expect(SPEECH_RATE).toBeGreaterThan(0.8);
   });
 
-  it('covers every locale that has a UI catalog with a plausible device voice', async () => {
+  it('either finds a voice for the right language or none at all, for every UI locale', async () => {
     const { UI_CATALOG_LOCALES } = await import('@/localization/messages');
     const device = [...MAC, ...CHROME];
     for (const locale of UI_CATALOG_LOCALES) {
-      // en, ko and fr are the three catalogs; a typical device has a voice for each, and the
-      // picker must find one rather than falling back to another language.
       const picked = pickVoice(device, locale);
-      expect(picked, locale).not.toBeNull();
-      expect(picked!.lang.slice(0, 2), locale).toBe(locale);
+      // The only two acceptable answers. What must never happen is a voice for a *different*
+      // language, which is what a naive "use the default voice" fallback would give.
+      if (picked !== null) expect(picked.lang.slice(0, 2), locale).toBe(locale);
     }
+  });
+
+  it('has no voice for Lao on a typical device, and says so rather than substituting', async () => {
+    // Lao is LOC-003, the Master Database's launch language, and the locale least likely to
+    // have a system voice anywhere. Adding a UI catalog for a language does not conjure a voice
+    // for it, and the control must report that rather than read Lao text in a Thai or English
+    // voice. This is the case the whole null-return contract exists for.
+    const { UI_CATALOG_LOCALES } = await import('@/localization/messages');
+    expect(UI_CATALOG_LOCALES).toContain('lo');
+    expect(pickVoice([...MAC, ...CHROME], 'lo')).toBeNull();
+    // Thai is the nearest neighbouring script and must not stand in for it.
+    expect(pickVoice([voice('Kanya', 'th-TH')], 'lo')).toBeNull();
+  });
+
+  it('finds a Lao voice when the device genuinely has one', async () => {
+    // Some Android builds do ship one. Nothing about the null case should block that.
+    const withLao = [...MAC, voice('Google ລາວ', 'lo-LA', false)];
+    expect(pickVoice(withLao, 'lo')?.lang).toBe('lo-LA');
   });
 });

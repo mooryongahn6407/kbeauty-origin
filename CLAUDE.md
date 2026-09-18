@@ -13,7 +13,7 @@ Current build state is in `ENGINEERING_STATUS.md`.
 ```bash
 npm install
 npm run dev              # http://127.0.0.1:5173
-npm test                 # vitest, 440 tests
+npm test                 # vitest, 455 tests
 npm run typecheck        # tsc --noEmit
 npm run build            # typecheck + production build
 npm run extract:sources  # regenerate data/source/*.json from sources/*.xlsx
@@ -59,7 +59,12 @@ These are not style preferences. Each has a test that fails if it is broken.
     pair clears WCAG AA in **both** themes, interactive targets are 44px and focus is visible.
     Colours are semantic tokens — a component never names one, and never sets a `fontSize`
     inline. `tests/design-system.test.ts` computes the ratios from the shipped stylesheet.
-14. **Reducers are pure; effects happen in the drain.** `sessionReducer`, `reflectionReducer`,
+14. **An unreviewed translation is a draft.** `CATALOG_REVIEW` records how much review each UI
+    catalog has actually had; `fr` and `lo` are `UNREVIEWED_DRAFT` and the app says so on every
+    screen while they are selected. Safety escalations in an unreviewed catalog show the English
+    original underneath, through the one `SafetyNotice` component every halting surface uses.
+    Only a person changes that status — committing a catalog does not review it.
+15. **Reducers are pure; effects happen in the drain.** `sessionReducer`, `reflectionReducer`,
     `exposureReducer` and `sorterReducer` take exactly `(state, action)` — there is no third
     parameter to hand a sink into. A transition returns what it wants to do in `emitted`
     (and `recordedAttempt`), and `createDrainGuard()` performs it once. StrictMode stays on:

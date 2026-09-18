@@ -231,8 +231,10 @@ describe('everything you can press is big enough to press', () => {
   });
 
   it('applies it to the controls a learner uses most', () => {
-    for (const rule of ['.btn ', '.option ', '.nav__item ', '.textarea, .field ']) {
-      const start = CSS.indexOf(rule + '{');
+    for (const rule of ['.btn', '.option', '.nav__item', '.textarea, .field']) {
+      // Anchored to the start of a line: a per-language override such as
+      // `:root[lang='lo'] .option` is a different rule and must not be mistaken for this one.
+      const start = CSS.search(new RegExp(`^${rule.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} \\{`, 'm'));
       expect(start, rule).toBeGreaterThan(-1);
       const body = CSS.slice(start, CSS.indexOf('}', start));
       expect(body, rule).toMatch(/min-height:\s*var\(--tap\)/);

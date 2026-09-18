@@ -220,16 +220,16 @@ $ npm test
  ✓ tests/tutor-runtime.test.ts      (18 tests)
  ✓ tests/design-system.test.ts      (60 tests)
  ✓ tests/learning-slice.test.ts     (28 tests)
- ✓ tests/speech.test.ts             (13 tests)
+ ✓ tests/speech.test.ts             (15 tests)
  ✓ tests/content-governance.test.ts (15 tests)
  ✓ tests/mastery-engine.test.ts     (13 tests)
  ✓ tests/strand-taxonomy.test.ts    (12 tests)
- ✓ tests/localization.test.ts       (15 tests)
+ ✓ tests/localization.test.ts       (30 tests)
  ✓ tests/source-integrity.test.ts   (11 tests)
 
  Test Files  18 passed (18)
-      Tests  440 passed (440)
-   Duration  2.9s
+      Tests  455 passed (455)
+   Duration  3.0s
 
 $ npm run typecheck     # clean
 $ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 608.07 kB (gzip 149.34 kB)
@@ -310,11 +310,12 @@ screen. Nothing below was decided in code.
 5. **No AI generation layer.** The tutor runtime, router, ladder and gates are implemented and
    tested deterministically; no model call is wired up, because there is nothing it may state
    as fact. Appendix B of the Constitution requires steps 1–5 to be stable before commerce work.
-6. **Translations exist for en, ko and fr only.** 9 of 12 registered locales have 0% UI
-   coverage, and **no locale has translated lesson content** — French shows the interface in
-   French and the lesson text in English, with the fallback stated on screen. Lao, which the
-   Master Database names the launch language, still has no catalog. Filling these requires human
-   translation and local-market review, not machine text.
+6. **French and Lao are unreviewed translations, and no locale has translated lesson content.**
+   4 UI catalogs (en, ko, fr, lo) cover 4 of 12 registered locales. **Neither fr nor lo has been
+   read by a speaker of the language**; both are registered `UNREVIEWED_DRAFT`, the app says so
+   on every screen while they are selected, and safety wording carries its English original
+   underneath. Lesson text is English in every locale, with the fallback stated on screen.
+   Clearing this is a market task — a Lao and a French reviewer — not an engineering one.
 7. **Persistence is in-memory.** The reflection studio's entries, the exposure log and the
    mastery ledger are all lost on reload. Session state and mastery do not survive a reload; no database
    or auth has been chosen. This is also why a lesson session is lost when the learner navigates
@@ -541,7 +542,7 @@ what OQ-E02 shows for D04.
 ### Product proposal register
 
 The 2026-09-18 product direction discussion is recorded in `src/governance/product-proposals.ts`
-as 35 classified proposals: **9 CONFIRMED, 19 DECISION, 3 HYPOTHESIS, 3 IDEA, 1 OPEN QUESTION**.
+as 36 classified proposals: **9 CONFIRMED, 20 DECISION, 3 HYPOTHESIS, 3 IDEA, 1 OPEN QUESTION**.
 Only 5 of the product-direction entries have nothing blocking them. Seven conflicts with governed rules are recorded, 3 of them
 MUST_RESOLVE.
 
@@ -786,6 +787,72 @@ read-aloud                   headless Chromium ships no voices, so the control c
 console errors: none
 ```
 
+### Lao — the launch language finally has a UI, labelled as the draft it is
+
+Lao is LOC-003, `Stage=Market`, `Notes="Laos launch language"`, and Constitution §13.1 names it
+the first localization target. It had no catalog at all. It has one now: **229 of the 230 UI keys**,
+written in Lao script. The one exception is `app.brand` — "KOREA GLOW" is a brand name and is
+not translated in any catalog.
+
+**It has not been read by a Lao speaker, and the app says so.** I said before building it that
+Lao needs native review; asked to build it anyway, the honest way to do that is to ship it and
+label it, which is the same discipline the corpus gets — a record nobody has verified is a
+draft, and drafts are not presented as finished.
+
+Three mechanisms carry that:
+
+1. **`CATALOG_REVIEW`** gives every catalog a status: `BASE` (en — authored, not translated),
+   `OWNER_REVIEWED` (ko — the owner works in this language and has read these screens),
+   `UNREVIEWED_DRAFT` (**fr and lo**). A catalog cannot become reviewed by being committed; only
+   a person changes that field. French is re-labelled honestly here too — I wrote it, nobody has
+   checked it.
+2. **A banner on every screen** while an unreviewed language is selected, phrased in that
+   language. It carries no `{language}` placeholder: `Intl` has no Lao endonym in Chromium's
+   ICU, so it rendered "Lao" in English inside a Lao sentence. Each catalog now names its own
+   language in its own grammar and is reviewed together with it.
+3. **Safety wording shows its English original underneath.** CLAUDE.md rule 6 puts safety above
+   everything, and a safety instruction is the one string where a translation error could do
+   real harm. A mistranslated "seek emergency help" cannot silently replace the instruction,
+   because the English is right there. All three halting surfaces — lesson runner, routine
+   studio, exposure log — now go through one `SafetyNotice` component, so they cannot drift
+   apart on the thing that matters most.
+
+**Lao typography.** Two things the Latin defaults get wrong: Lao stacks vowel and tone marks
+both above and below the consonant, so lines set at 1.7 collide (Lao is set at 1.95); and Lao
+writes phrases without spaces between words, so a browser breaking on spaces alone overflows
+(`overflow-wrap: anywhere`). Uppercasing and letter-spacing are switched off for Lao, where they
+do nothing but widen an already long label. The Lao font stack is named in *every* stack, not
+only under `:lang(lo)`, so a Lao string inside an English sentence renders rather than showing
+tofu.
+
+**No voice for Lao, and it says so.** The read-aloud control reports
+`ບໍ່ມີສຽງສຳລັບພາສານີ້ໃນອຸປະກອນນີ້` and is disabled. Adding a UI catalog does not conjure a
+system voice, and reading Lao in a Thai or English voice would mispronounce the words a learner
+is trying to learn. A test asserts Thai specifically must not stand in for Lao, and a second
+asserts a genuine `lo-LA` voice is used where a device has one.
+
+**Tests: localization 15 → 30, speech 13 → 15.** Beyond full-coverage and no-echo checks, Lao is
+verified to be *in Lao script* (U+0E80–U+0EFF) key by key, which catches a key left in English
+that a coverage test would pass. Checked against four mutations: marking the Lao catalog reviewed
+fails 3 tests, one Lao key left in English fails the script test, a safety halt bypassing
+`SafetyNotice` fails the routing test, and suppressing the English original fails the safety test.
+
+**Browser verification (Chromium, desktop and 390×844 phone, light and dark):**
+
+```
+banner    en no · ko no · fr SHOWN · lo SHOWN        (only unreviewed catalogs)
+lo        html lang=lo · font Noto Sans Lao · line-height 33.15px · 42 Lao elements
+          smallest rendered font 13px · no text under 13px · no horizontal overflow
+all 8 worlds in Lao — every h1 renders, no overflow, nothing under 13px, no console errors
+safety    Lao R2 text, with "ຖ້ອຍຄຳຕົ້ນສະບັບ ເພື່ອຄວາມປອດໄພ: This sounds like something to
+          stop and check…" beneath it
+voice     ▶ ບໍ່ມີສຽງສຳລັບພາສານີ້ໃນອຸປະກອນນີ້ · disabled
+```
+
+**What is still needed, and it is not code.** A Lao speaker reading these 229 strings, with the
+three safety escalations first. Until then `CATALOG_REVIEW.lo` stays `UNREVIEWED_DRAFT` and the
+banner stays up. OQ-L01 is untouched: a catalog existing is not the locale set being approved.
+
 ## 10. How to run the project
 
 ```bash
@@ -793,7 +860,7 @@ git clone <repo> && cd kbeauty-origin
 npm install
 
 npm run dev       # http://127.0.0.1:5173  — My Skin slice + Content Governance screen
-npm test          # 440 tests
+npm test          # 455 tests
 npm run build     # typecheck + production build into dist/
 ```
 

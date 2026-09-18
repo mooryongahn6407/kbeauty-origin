@@ -32,6 +32,7 @@ import {
 } from '@/governance/evidence-resolution';
 import { findNode, nodesForDomain } from '@/knowledge/repository';
 import { translate, type MessageKey } from '@/localization/messages';
+import { SafetyNotice } from '../components/SafetyNotice';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { LessonRunner } from '../components/LessonRunner';
 
@@ -60,10 +61,7 @@ function ExposureLog({ locale }: { locale: string }) {
 
       {state.phase === 'HALTED' ? (
         <>
-          <p className="disclosure disclosure--caution">
-            <span className="disclosure__mark">!</span>
-            <span>{translate(state.safetyHaltMessageKey as MessageKey, locale)}</span>
-          </p>
+          <SafetyNotice messageKey={state.safetyHaltMessageKey as MessageKey} locale={locale} />
           <div className="btn--row">
             <button className="btn btn--quiet" type="button" onClick={() => dispatch({ type: 'RESET' })}>
               {translate('sun.startOver', locale)}

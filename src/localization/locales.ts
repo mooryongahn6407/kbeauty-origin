@@ -45,7 +45,9 @@ export const OQ_L01: OpenGovernanceItem = {
   engineeringPosture:
     'The union of both sets is registered, each locale tagged with the source that defines it. ' +
     'No locale is dropped and none is invented. Translation coverage is reported per locale so ' +
-    'an unresolved set does not silently become a shipping decision.',
+    'an unresolved set does not silently become a shipping decision. Lao now has a UI catalog ' +
+    '(PR-036), which does not resolve this item: a catalog existing is not the locale set being ' +
+    'approved, and that catalog is itself an unreviewed draft.',
 };
 
 /** Language list from 02_GLOBAL_CONTENT_ENGINE_SPEC_v1.0.md, in document order. */
@@ -113,3 +115,23 @@ export const isKnownLocale = (tag: string): boolean =>
 
 export const findLocale = (tag: string): LocaleDefinition | undefined =>
   LOCALES.find((locale) => locale.tag === tag);
+
+/**
+ * A language's name, written in that language.
+ *
+ * Master DB 15_LOCALIZATION carries only an English `Market_Label` ("Lao", "French"), so
+ * telling a Lao reader in Lao which language they are reading needs a name the source does not
+ * hold. Inventing one in a data file would be inventing data, so it comes from `Intl`, which is
+ * the platform's own locale data rather than anything this project asserts — and falls back to
+ * the governed English label wherever the runtime has no entry.
+ */
+export function languageName(tag: string): string {
+  const fallback = findLocale(tag)?.englishName ?? tag;
+  try {
+    const names = new Intl.DisplayNames([tag], { type: 'language', fallback: 'none' });
+    const native = names.of(tag);
+    return native && native !== tag ? native : fallback;
+  } catch {
+    return fallback;
+  }
+}

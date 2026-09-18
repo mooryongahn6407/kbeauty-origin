@@ -6,8 +6,13 @@
  * are grounded in and what blocks them, rather than showing mock content.
  */
 import { useEffect, useState } from 'react';
-import { translate, type MessageKey, UI_CATALOG_LOCALES } from '@/localization/messages';
-import { LOCALES } from '@/localization/locales';
+import {
+  isUnreviewedCatalog,
+  translate,
+  type MessageKey,
+  UI_CATALOG_LOCALES,
+} from '@/localization/messages';
+import { LOCALES, languageName } from '@/localization/locales';
 import { applyPreferences, loadPreferences, savePreferences } from './preferences';
 import { DisplaySettings } from './components/DisplaySettings';
 import { MySkinScreen } from './screens/MySkinScreen';
@@ -83,7 +88,7 @@ export function App() {
                 >
                   {LOCALES.map((definition) => (
                     <option key={definition.tag} value={definition.tag}>
-                      {definition.tag} · {definition.englishName}
+                      {definition.tag} · {languageName(definition.tag)}
                       {UI_CATALOG_LOCALES.includes(definition.tag) ? '' : ' (UI: en)'}
                     </option>
                   ))}
@@ -113,6 +118,20 @@ export function App() {
       </header>
 
       <main className="main" id="main" tabIndex={-1}>
+        {isUnreviewedCatalog(locale) ? (
+          // Said once, at the top of every screen, for as long as the reader stays in an
+          // unchecked language. A translation nobody has read is a draft, and the app does not
+          // present drafts as finished anywhere else either.
+          <p className="disclosure disclosure--caution">
+            <span className="disclosure__mark">!</span>
+            <span>
+              {/* No placeholder: this notice only ever renders in the language it is about,
+                  so each catalog names its own language in its own grammar and is reviewed
+                  together with it. */}
+              {translate('catalog.unreviewed', locale)}
+            </span>
+          </p>
+        ) : null}
         {screen === 'mySkin' ? <MySkinScreen key={locale} locale={locale} /> : null}
         {screen === 'ingredientGarden' ? (
           <IngredientGardenScreen key={locale} locale={locale} />

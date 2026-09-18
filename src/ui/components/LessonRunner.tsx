@@ -26,7 +26,8 @@ import {
   type SessionState,
 } from '@/app/learning-session';
 import { masteryLedger } from '@/mastery/mastery-ledger';
-import { translate } from '@/localization/messages';
+import { translate, type MessageKey } from '@/localization/messages';
+import { SafetyNotice } from './SafetyNotice';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { ReadAloud } from '../components/ReadAloud';
 import { MasteryPanel } from '../components/MasteryPanel';
@@ -307,10 +308,7 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
         <>
           {state.safetyHaltMessageKey ? (
             <section className="card">
-              <p className="disclosure disclosure--caution">
-                <span className="disclosure__mark">!</span>
-                <span>{translate(state.safetyHaltMessageKey as never, locale)}</span>
-              </p>
+              <SafetyNotice messageKey={state.safetyHaltMessageKey as MessageKey} locale={locale} />
             </section>
           ) : null}
           {state.lessonCompletedAt ? (
