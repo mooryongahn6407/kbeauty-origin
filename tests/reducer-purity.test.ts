@@ -83,10 +83,10 @@ const sessionScenario: Scenario<SessionState, SessionAction> = {
   reducer: sessionReducer,
   create: () => createSession('purity', 'en', AT, INGREDIENT_HALO_PLAN),
   actions: [
-    { type: 'START_LESSON' },
+    { type: 'START_LESSON', at: AT },
     { type: 'LESSON_READ' },
     { type: 'THINK_DONE' },
-    { type: 'REQUEST_HINT' },
+    { type: 'REQUEST_HINT', at: AT },
     { type: 'SELECT_OPTION', optionIndex: 0 },
     { type: 'SUBMIT_ANSWER', at: AT },
   ],
@@ -237,7 +237,7 @@ describe('the drain guard performs a transition at most once', () => {
   it('ignores a repeat of the same transitionId, however often the effect re-runs', () => {
     const sink = createEventSink();
     const drainOnce = createDrainGuard();
-    const state = sessionReducer(createSession('purity', 'en', AT), { type: 'START_LESSON' });
+    const state = sessionReducer(createSession('purity', 'en', AT), { type: 'START_LESSON', at: AT });
 
     expect(drainOnce(state, sink)).toBe(true);
     // StrictMode mounts, unmounts and remounts the effect; the guard outlives that.

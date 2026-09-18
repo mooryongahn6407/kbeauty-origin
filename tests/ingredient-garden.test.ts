@@ -231,7 +231,7 @@ describe('the ingredient-literacy lesson that is open', () => {
     expect(state.phase).toBe('LESSON');
     expect(dispatch({ type: 'LESSON_READ' }).phase).toBe('ASK');
     expect(dispatch({ type: 'THINK_DONE' }).phase).toBe('THINK');
-    expect(dispatch({ type: 'REQUEST_HINT' }).phase).toBe('HINT');
+    expect(dispatch({ type: 'REQUEST_HINT', at: AT }).phase).toBe('HINT');
 
     const activity = findActivity(state.activityId)!;
     dispatch({ type: 'SELECT_OPTION', optionIndex: activity.correctOptionIndex });
@@ -242,7 +242,7 @@ describe('the ingredient-literacy lesson that is open', () => {
       dispatch({ type: 'SUBMIT_REFLECTION', text: 'A label states presence, not effect.', at: AT })
         .phase,
     ).toBe('MASTER');
-    expect(dispatch({ type: 'CONTINUE_TO_MASTERY' }).phase).toBe('COMPLETE');
+    expect(dispatch({ type: 'CONTINUE_TO_MASTERY', at: AT }).phase).toBe('COMPLETE');
   });
 
   it('records mastery evidence against SK06, not the My Skin skill', () => {

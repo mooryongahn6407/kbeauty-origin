@@ -218,7 +218,7 @@ $ npm test
  ✓ tests/product-proposals.test.ts  (23 tests)
  ✓ tests/governance-gates.test.ts   (18 tests)
  ✓ tests/tutor-runtime.test.ts      (18 tests)
- ✓ tests/learning-slice.test.ts     (16 tests)
+ ✓ tests/learning-slice.test.ts     (28 tests)
  ✓ tests/content-governance.test.ts (15 tests)
  ✓ tests/mastery-engine.test.ts     (13 tests)
  ✓ tests/strand-taxonomy.test.ts    (12 tests)
@@ -226,8 +226,8 @@ $ npm test
  ✓ tests/source-integrity.test.ts   (11 tests)
 
  Test Files  16 passed (16)
-      Tests  352 passed (352)
-   Duration  2.68s
+      Tests  364 passed (364)
+   Duration  2.71s
 
 $ npm run typecheck     # clean
 $ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 608.07 kB (gzip 149.34 kB)
@@ -310,18 +310,12 @@ screen. Nothing below was decided in code.
    as fact. Appendix B of the Constitution requires steps 1–5 to be stable before commerce work.
 6. **Translations exist for en + ko only.** 10 of 12 registered locales have 0% coverage.
    Filling them requires human translation and local-market review, not machine text.
-7. **`lesson_started` and `lesson_completed` are never emitted by the running app.** The
-   reducer emits both and the tests drive both, but no screen dispatches `START_LESSON` or
-   `CONTINUE_TO_MASTERY`: the lesson mounts straight into the LESSON phase and the MASTER panel
-   offers only "continue to transfer" and "restart". So in the browser a lesson has no recorded
-   start or end. Found while verifying the purity fix. Not repaired here because deciding when
-   a lesson counts as started and finished is a curriculum judgement, not a wiring detail —
-   emitting `lesson_started` on mount, for instance, would count a remount as a new lesson.
-8. **Persistence is in-memory.** The reflection studio's entries, the exposure log and the
+7. **Persistence is in-memory.** The reflection studio's entries, the exposure log and the
    mastery ledger are all lost on reload. Session state and mastery do not survive a reload; no database
-   or auth has been chosen.
-9. **No deployment target chosen.** `npm run build` produces a static `dist/`.
-10. **npm audit reports 5 advisories** in the dev toolchain (Vite/esbuild dev-server class).
+   or auth has been chosen. This is also why a lesson session is lost when the learner navigates
+   to another world and back: the remount is genuinely a new session, and is counted as one.
+8. **No deployment target chosen.** `npm run build` produces a static `dist/`.
+9. **npm audit reports 5 advisories** in the dev toolchain (Vite/esbuild dev-server class).
    They do not affect the production bundle; worth resolving before any hosted deployment.
 
 ## 9. Next coding step
@@ -636,10 +630,81 @@ is idempotent per `attemptId` — that idempotency is kept, as a second line of 
 than as the fix.
 
 **What this surfaced.** Verifying the full lesson path showed that `lesson_started` and
-`lesson_completed` never fire in the browser at all: the reducer emits them and the tests drive
-them, but no screen dispatches `START_LESSON` or `CONTINUE_TO_MASTERY`. Recorded as known
-technical item 7 rather than repaired, because when a lesson counts as started and finished is a
-curriculum judgement.
+`lesson_completed` never fired in the browser at all. Fixed next; see below.
+
+### Lesson lifecycle — `lesson_started` and `lesson_completed` now fire
+
+Found while verifying the purity fix, and fixed here. Both events existed in the reducer from
+the day the slice was written and both were covered by a passing test, yet neither had ever
+fired in the running app: no screen dispatched `START_LESSON` or `CONTINUE_TO_MASTERY`. A
+reducer test cannot catch that — it drives the reducer directly, so it proves the transition
+works and says nothing about whether anything reaches it.
+
+**Three separate defects, all in the same five lines:**
+
+| | Defect | Fix |
+| --- | --- | --- |
+| 1 | No screen dispatched `START_LESSON` | `LessonRunner` dispatches it from a mount effect. Mounting *is* the learner entering the lesson: four of the five worlds mount it only after a "Start …" button, and My Skin is the app's entry point. |
+| 2 | No control dispatched `CONTINUE_TO_MASTERY` | The mastery panel now offers **Finish this lesson**, next to "try a new situation" and "start again". A finished lesson says so and the control disappears. |
+| 3 | `lesson_started`, `lesson_completed` and `hint_used` emitted with `new Date(0)` | All three actions now carry the real `at`, like every other event. An event stamped 1970 is not a record of anything. |
+
+**The subtle part: purity is not idempotency.** A mount effect under StrictMode dispatches
+`START_LESSON` *twice*, and those are two genuinely different actions — a pure reducer is
+obliged to handle both. Purity protects against a repeated **invocation**; only state can
+protect against a repeated **action**. So the guard lives in the state:
+
+```ts
+lessonStartedAt: string | null      // null until the lesson starts
+lessonCompletedAt: string | null    // null until the learner finishes it
+```
+
+Timestamps rather than booleans, because "has this fired?" and "when?" are the same fact. Three
+consequences follow, each with a test:
+
+- **A doubled mount effect emits one `lesson_started`,** and keeps the *first* timestamp: the
+  lesson started when it started.
+- **The transfer question does not complete the lesson twice.** It sends the learner back
+  through LESSON → … → MASTER inside the same lesson, so arriving a second time is not a
+  second completion. The phase still advances when they press Finish — an event that must not
+  repeat is not a reason to leave a dead control on screen.
+- **A safety halt is not a completion.** `SUBMIT_REFLECTION` with an escalating signal reaches
+  phase COMPLETE, because that is what stops the flow, but leaves `lessonCompletedAt` null,
+  emits no `lesson_completed`, and offers no Finish button. A lesson that ended in an
+  intervention cannot be completed afterwards either.
+
+**Tests: `tests/learning-slice.test.ts` grows from 16 to 28.** Twelve new tests cover the
+lifecycle, plus a wiring check that reads `LessonRunner.tsx` and asserts the two dispatches and
+the absence of `new Date(0)` — because the whole defect was that the reducer was right and
+nothing called it. Checked against three mutations: dropping the `lessonStartedAt` guard fails
+2 tests, removing the mount dispatch fails the wiring test, and letting a safety halt set
+`lessonCompletedAt` fails the safety test.
+
+**Browser verification (dev server, StrictMode on, Chromium):**
+
+```
+Fresh page load — My Skin mounts once
+  {"lesson_started":1}                      lesson_started 2026-09-18T10:46:35.722Z
+Answer, reflect, press "Finish this lesson"
+  {"lesson_started":1,"question_answered":1,"mastery_dimension_updated":1,
+   "reflection_completed":1,"lesson_completed":1}
+  phase Complete · "Lesson finished" notice shown · Finish button gone
+Transfer round, press Finish again
+  phase advances Mastery evidence -> Complete   (the control is not dead)
+  lesson_completed still 1 · question_answered 2 · transfer_attempted 1
+Safety halt (reflection "얼굴이 너무 아파요")
+  {"lesson_started":1,"question_answered":1,"mastery_dimension_updated":1,
+   "safety_intervention":1}
+  lesson_completed 0 · no Finish button · caution shown
+console errors: none
+```
+
+Every event now carries a real timestamp; the suite asserts `new Date(event.at).getTime() > 0`
+for every event a lesson produces, not only the two this task was about.
+
+**One behaviour worth naming, not a defect:** navigating to another world and back emits a new
+`lesson_started`, because the remount really is a new session — the learner's progress is gone
+with it. That is known technical item 7 (in-memory persistence), not a lifecycle bug, and the
+event is telling the truth about it.
 
 ## 10. How to run the project
 
@@ -648,7 +713,7 @@ git clone <repo> && cd kbeauty-origin
 npm install
 
 npm run dev       # http://127.0.0.1:5173  — My Skin slice + Content Governance screen
-npm test          # 352 tests
+npm test          # 364 tests
 npm run build     # typecheck + production build into dist/
 ```
 

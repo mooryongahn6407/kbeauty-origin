@@ -173,6 +173,19 @@ export interface SessionState extends EmittingState {
   readonly disclosures: readonly Disclosure[];
   /** Set when a safety signal halted the flow. */
   readonly safetyHaltMessageKey: string | null;
+  /**
+   * When the learner entered this lesson, and when they finished it. Null until each happens.
+   *
+   * These are the idempotency guards for `lesson_started` and `lesson_completed`, and they are
+   * timestamps rather than booleans because the answer to "has this fired?" and "when?" is the
+   * same fact. A pure reducer is safe against a repeated *invocation*; only state is safe
+   * against a repeated *action*, which is what a mount effect under StrictMode produces.
+   *
+   * A safety halt reaches phase COMPLETE without setting `lessonCompletedAt`: an intervention
+   * is not a completed lesson, and must not be counted as one.
+   */
+  readonly lessonStartedAt: string | null;
+  readonly lessonCompletedAt: string | null;
   /** True when the rendered content fell back to the base locale. */
   readonly usedFallbackLocale: boolean;
   /**
@@ -184,18 +197,23 @@ export interface SessionState extends EmittingState {
   readonly emitted: readonly LearningEvent[];
 }
 
+/**
+ * Every action that emits an event carries the `at` it happened. Three of them used to emit
+ * with `new Date(0)` — an event stamped 1970 is not a record of anything, so the timestamp is
+ * now supplied by the caller like every other one.
+ */
 export type SessionAction =
-  | { readonly type: 'START_LESSON' }
+  | { readonly type: 'START_LESSON'; readonly at: string }
   | { readonly type: 'LESSON_READ' }
   | { readonly type: 'THINK_DONE' }
-  | { readonly type: 'REQUEST_HINT' }
+  | { readonly type: 'REQUEST_HINT'; readonly at: string }
   | { readonly type: 'SELECT_OPTION'; readonly optionIndex: number }
   | { readonly type: 'SUBMIT_ANSWER'; readonly at: string }
   | { readonly type: 'CONTINUE_TO_REFLECT' }
   | { readonly type: 'SUBMIT_REFLECTION'; readonly text: string; readonly at: string }
-  | { readonly type: 'CONTINUE_TO_MASTERY' }
+  | { readonly type: 'CONTINUE_TO_MASTERY'; readonly at: string }
   | { readonly type: 'START_ACTIVITY'; readonly activityId: string }
-  | { readonly type: 'COMPLETE' }
+  | { readonly type: 'COMPLETE'; readonly at: string }
   | { readonly type: 'RESTART'; readonly at: string };
 
 export interface SliceGrounding {
@@ -319,6 +337,8 @@ export function createSession(
     attempts: [],
     disclosures: grounding.disclosures,
     safetyHaltMessageKey: null,
+    lessonStartedAt: null,
+    lessonCompletedAt: null,
     usedFallbackLocale: false,
     recordedAttempt: null,
     ...INITIAL_TRANSITION,
@@ -339,16 +359,19 @@ function reduceSession(
 ): SessionState {
   switch (action.type) {
     case 'START_LESSON': {
-      if (state.phase !== 'LESSON') return state;
+      // Dispatched from a mount effect, which React StrictMode runs twice. The reducer being
+      // pure does not help here — these are two genuinely different actions — so the guard has
+      // to live in state: a lesson that has already started cannot start again.
+      if (state.phase !== 'LESSON' || state.lessonStartedAt !== null) return state;
       emit({
         type: 'lesson_started',
         userId: state.userId,
-        at: new Date(0).toISOString(),
+        at: action.at,
         nodeId: state.nodeId,
         skillId: state.skillId,
         locale: state.locale,
       });
-      return state;
+      return { ...state, lessonStartedAt: action.at };
     }
 
     case 'LESSON_READ':
@@ -365,7 +388,7 @@ function reduceSession(
       emit({
         type: 'hint_used',
         userId: state.userId,
-        at: new Date(0).toISOString(),
+        at: action.at,
         nodeId: state.nodeId,
         skillId: state.skillId,
         detail: { hintLevel: nextHintLevel(state.hintsUsed + 1, state.failedAttempts) },
@@ -484,16 +507,20 @@ function reduceSession(
     }
 
     case 'CONTINUE_TO_MASTERY': {
+      // Finishing is the end of the lesson on the normal path.
       if (state.phase !== 'MASTER') return state;
-      // Reaching the mastery panel is the end of the lesson on the normal path.
+      // The event fires once per lesson: the transfer activity sends the learner back through
+      // LESSON → … → MASTER within the same lesson, and arriving a second time is not a second
+      // completion. The phase still advances, so the control the learner pressed is never dead.
+      if (state.lessonCompletedAt !== null) return { ...state, phase: 'COMPLETE' };
       emit({
         type: 'lesson_completed',
         userId: state.userId,
-        at: new Date(0).toISOString(),
+        at: action.at,
         nodeId: state.nodeId,
         skillId: state.skillId,
       });
-      return { ...state, phase: 'COMPLETE' };
+      return { ...state, phase: 'COMPLETE', lessonCompletedAt: action.at };
     }
 
     case 'START_ACTIVITY': {
@@ -512,15 +539,17 @@ function reduceSession(
     }
 
     case 'COMPLETE': {
+      // The direct route to the end, for a caller that is not walking the phase rail.
       if (state.phase === 'COMPLETE') return state;
+      if (state.lessonCompletedAt !== null) return { ...state, phase: 'COMPLETE' };
       emit({
         type: 'lesson_completed',
         userId: state.userId,
-        at: new Date(0).toISOString(),
+        at: action.at,
         nodeId: state.nodeId,
         skillId: state.skillId,
       });
-      return { ...state, phase: 'COMPLETE' };
+      return { ...state, phase: 'COMPLETE', lessonCompletedAt: action.at };
     }
 
     case 'RESTART':

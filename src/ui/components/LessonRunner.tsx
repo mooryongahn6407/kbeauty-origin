@@ -9,7 +9,7 @@
  * Flow: micro lesson -> question -> think -> hint ladder -> answer -> feedback
  *       -> reflection -> mastery evidence.
  */
-import { useMemo, useReducer, useState } from 'react';
+import { useEffect, useMemo, useReducer, useState } from 'react';
 import type { LessonPhase } from '@/domain/learning';
 import { eventSink } from '@/analytics/events';
 import { useTransitionDrain } from '../hooks/use-transition-drain';
@@ -90,6 +90,16 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
 
   // The session carries its own locale; switching language restarts the slice cleanly.
   const dispatch = rawDispatch;
+
+  // Mounting this component *is* the learner entering the lesson: four of the five worlds
+  // mount it only after a "Start …" button, and My Skin is the app's entry point. StrictMode
+  // runs this effect twice; `START_LESSON` is idempotent on `lessonStartedAt`, so the event
+  // fires once. That guard is in the reducer, not here, because state is the only thing that
+  // can tell two identical actions apart.
+  useEffect(() => {
+    dispatch({ type: 'START_LESSON', at: now() });
+  }, [dispatch]);
+
   const active = currentActivityText({ ...state, locale });
   const atom = sliceAtoms(plan)[0];
   const boundaryAtom = sliceAtoms(plan)[1];
@@ -225,7 +235,7 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
               className="btn btn--quiet"
               type="button"
               disabled={state.hintsUsed >= 3}
-              onClick={() => dispatch({ type: 'REQUEST_HINT' })}
+              onClick={() => dispatch({ type: 'REQUEST_HINT', at: now() })}
             >
               {translate('lesson.hint.request', locale)}
             </button>
@@ -286,6 +296,12 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
               </p>
             </section>
           ) : null}
+          {state.lessonCompletedAt ? (
+            <p className="disclosure disclosure--info">
+              <span className="disclosure__mark">i</span>
+              <span>{translate('lesson.finished', locale)}</span>
+            </p>
+          ) : null}
           <MasteryPanel mastery={state.mastery} locale={locale} />
           <section className="card card--sunk">
             <p className="eyebrow">{translate('lesson.phase.master', locale)}</p>
@@ -321,6 +337,15 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
                   }
                 >
                   {translate('lesson.continueToTransfer', locale)}
+                </button>
+              ) : null}
+              {state.phase === 'MASTER' ? (
+                <button
+                  className="btn"
+                  type="button"
+                  onClick={() => dispatch({ type: 'CONTINUE_TO_MASTERY', at: now() })}
+                >
+                  {translate('lesson.finish', locale)}
                 </button>
               ) : null}
               <button

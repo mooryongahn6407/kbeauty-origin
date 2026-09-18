@@ -60,6 +60,8 @@ const MESSAGES_EN = {
   'lesson.next': 'Next',
   'lesson.restart': 'Start again',
   'lesson.continueToTransfer': 'Try a new situation',
+  'lesson.finish': 'Finish this lesson',
+  'lesson.finished': 'Lesson finished. Your evidence is kept in Quests & Mastery.',
 
   'mastery.title': 'Mastery evidence',
   'mastery.accuracy': 'Accuracy',
@@ -318,6 +320,8 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'lesson.next': '다음',
   'lesson.restart': '다시 시작',
   'lesson.continueToTransfer': '새로운 상황으로 시도하기',
+  'lesson.finish': '이 레슨 마치기',
+  'lesson.finished': '레슨을 마쳤습니다. 증거는 퀘스트와 숙달에 기록되어 있습니다.',
 
   'mastery.title': '숙달 증거',
   'mastery.accuracy': '정확성',
