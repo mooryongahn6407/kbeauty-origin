@@ -13,7 +13,7 @@ Current build state is in `ENGINEERING_STATUS.md`.
 ```bash
 npm install
 npm run dev              # http://127.0.0.1:5173
-npm test                 # vitest, 255 tests
+npm test                 # vitest, 287 tests
 npm run typecheck        # tsc --noEmit
 npm run build            # typecheck + production build
 npm run extract:sources  # regenerate data/source/*.json from sources/*.xlsx
@@ -45,7 +45,11 @@ These are not style preferences. Each has a test that fails if it is broken.
     OPEN QUESTION / REJECTED. Source contradictions go in `src/governance/open-items.ts`;
     product proposals go in `src/governance/product-proposals.ts`, where a test verifies every
     Master Database ID they cite actually exists.
-11. **A number stated twice must agree.** `src/governance/numeric-audit.ts` compares governed
+11. **The AI Tutor generates no prose.** `respond()` returns `message: null` on every branch;
+    safety wording is a localization key. A mode's unfilled response slots are reported, never
+    papered over with fluent text. The Constitution §16 scenarios run as a regression gate in
+    `src/tutor/evaluation-suite.ts` and must stay at 10/10.
+12. **A number stated twice must agree.** `src/governance/numeric-audit.ts` compares governed
     numbers against each other and against the constants the code runs on, and raises a
     governance warning on disagreement. It never reconciles.
 

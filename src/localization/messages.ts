@@ -207,6 +207,39 @@ const MESSAGES_EN = {
   'label.bucketHint.CAUTION': 'A warning about stopping, storing or asking someone.',
   'label.questTitle': 'Label Detective quest',
   'label.evidenceTitle': 'Evidence position for this domain',
+  'tutor.title': 'Ask, and see what I am standing on',
+  'tutor.intro':
+    'This tutor does not generate answers. It shows you what it understood, which governed records it found, and exactly what it may and may not say — so you can judge the reasoning rather than trust the wording.',
+  'tutor.placeholder': 'Ask anything about beauty…',
+  'tutor.ask': 'Ask',
+  'tutor.tryThese': 'Try one of these',
+  'tutor.understood': 'What I understood',
+  'tutor.intent': 'Intent',
+  'tutor.mode': 'Mode',
+  'tutor.risk': 'Risk',
+  'tutor.hintLevel': 'Hint level',
+  'tutor.grounding': 'What I found',
+  'tutor.groundingEmpty':
+    'Nothing in the governed knowledge matched. I will not invent a record to answer from.',
+  'tutor.groundingCount': 'Searched {searched} records · {found} matched',
+  'tutor.matched': 'matched',
+  'tutor.canSay': 'What I can say',
+  'tutor.contractNote':
+    'A {mode} response has {total} parts. {filled} can be filled honestly right now.',
+  'tutor.slotBlocked': 'cannot be filled',
+  'tutor.uncertainty': 'What I am unsure about',
+  'tutor.commerce': 'Product suggestions',
+  'tutor.commerceBlocked': 'Suppressed. Failed gates: {gates}',
+  'tutor.trace': 'Runtime trace',
+  'tutor.traceNote':
+    'The seven stages the Constitution specifies: context, ground, classify, risk gate, respond, verify, learn.',
+  'tutor.rulesTitle': 'Rules enforced as hard gates',
+  'tutor.rulesNote':
+    'Only AI rules that are both Approved and mandatory in the database are enforced. Draft rules are readable but do not silently become enforcement.',
+  'tutor.evalTitle': 'Constitution §16 evaluation suite',
+  'tutor.evalNote':
+    'Ten scenarios the Constitution requires to pass before launch. They run against this same runtime.',
+  'tutor.evalPassed': '{passed} of {total} pass',
 } as const;
 
 /**
@@ -404,6 +437,39 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'label.bucketHint.CAUTION': '중단·보관·상담에 대한 경고입니다.',
   'label.questTitle': '라벨 탐정 퀘스트',
   'label.evidenceTitle': '이 영역의 근거 상태',
+  'tutor.title': '물어보세요. 제가 무엇에 근거하는지 함께 보여 드립니다',
+  'tutor.intro':
+    '이 튜터는 답을 지어내지 않습니다. 무엇으로 이해했는지, 어떤 공식 레코드를 찾았는지, 무엇을 말할 수 있고 없는지를 그대로 보여 드립니다. 말솜씨가 아니라 근거를 보고 판단하시라는 뜻입니다.',
+  'tutor.placeholder': '뷰티에 대해 무엇이든 물어보세요…',
+  'tutor.ask': '물어보기',
+  'tutor.tryThese': '이런 걸 물어보실 수 있어요',
+  'tutor.understood': '제가 이해한 것',
+  'tutor.intent': '의도',
+  'tutor.mode': '모드',
+  'tutor.risk': '위험도',
+  'tutor.hintLevel': '힌트 단계',
+  'tutor.grounding': '제가 찾은 것',
+  'tutor.groundingEmpty':
+    '공식 지식에서 일치하는 것이 없습니다. 답하기 위해 레코드를 지어내지 않겠습니다.',
+  'tutor.groundingCount': '{searched}개 레코드 검색 · {found}개 일치',
+  'tutor.matched': '일치',
+  'tutor.canSay': '제가 말할 수 있는 것',
+  'tutor.contractNote':
+    '{mode} 응답은 {total}개 부분으로 이루어집니다. 지금 정직하게 채울 수 있는 것은 {filled}개입니다.',
+  'tutor.slotBlocked': '채울 수 없음',
+  'tutor.uncertainty': '제가 확신하지 못하는 것',
+  'tutor.commerce': '제품 제안',
+  'tutor.commerceBlocked': '표시하지 않습니다. 통과하지 못한 게이트: {gates}',
+  'tutor.trace': '런타임 추적',
+  'tutor.traceNote':
+    'Constitution이 정한 일곱 단계입니다. 맥락 · 근거 · 분류 · 위험 게이트 · 응답 · 검증 · 학습.',
+  'tutor.rulesTitle': '하드 게이트로 강제되는 규칙',
+  'tutor.rulesNote':
+    '데이터베이스에서 Approved이면서 필수인 AI 규칙만 강제합니다. Draft 규칙은 읽을 수 있지만 조용히 강제되지 않습니다.',
+  'tutor.evalTitle': 'Constitution §16 평가 시나리오',
+  'tutor.evalNote':
+    'Constitution이 출시 전 반드시 통과하도록 요구하는 열 가지 시나리오입니다. 지금 이 런타임을 대상으로 실행됩니다.',
+  'tutor.evalPassed': '{total}개 중 {passed}개 통과',
 };
 
 const CATALOGS: Readonly<Record<string, Partial<Record<MessageKey, string>>>> = {

@@ -2,7 +2,7 @@
 
 **Project:** KOREA GLOW Beauty Learning World
 **Date:** 2026-09-18
-**Phase:** Engineering initialization + five MVP worlds + governance instrumentation
+**Phase:** Engineering initialization + six MVP worlds + governance instrumentation
 **Branch:** `claude/laughing-babbage-acxc3h`
 
 ---
@@ -210,6 +210,7 @@ $ npm test
 
  ✓ tests/ingredient-garden.test.ts  (35 tests)
  ✓ tests/routine-studio.test.ts     (29 tests)
+ ✓ tests/ai-tutor.test.ts           (32 tests)
  ✓ tests/label-detective.test.ts    (27 tests)
  ✓ tests/sun-protection.test.ts     (26 tests)
  ✓ tests/product-proposals.test.ts  (23 tests)
@@ -222,9 +223,9 @@ $ npm test
  ✓ tests/localization.test.ts       (12 tests)
  ✓ tests/source-integrity.test.ts   (11 tests)
 
- Test Files  13 passed (13)
-      Tests  255 passed (255)
-   Duration  2.19s
+ Test Files  14 passed (14)
+      Tests  287 passed (287)
+   Duration  2.28s
 
 $ npm run typecheck     # clean
 $ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 465.73 kB (gzip 106.55 kB)
@@ -375,6 +376,52 @@ every sun UI string for SPF figures, PA ratings, broad-spectrum wording or reapp
 intervals; the other asserts the safety-boundary copy says the silence is **about this app's
 evidence and not about whether protection matters**, in both locales. An omission that read as
 reassurance would be its own false claim.
+
+### AI Tutor — a trust layer, not an answer generator
+
+The tutor generates **no prose**. With nothing in the corpus approved, a generative answer
+could only be fluent invention, and §16's RED TEAM note is explicit that in this category
+fluency hides hallucination. So the surface is inverted: instead of an answer it shows what was
+understood, which governed records were retrieved, which parts of a response can be filled
+honestly, what stays uncertain, and the full seven-stage trace. A test asserts `message` is
+`null` on every branch.
+
+Three modules were added:
+
+- **`retriever.ts`** — stage 2 (Ground), named as required by §15.1. Searches all 309 governed
+  records, returns each candidate with its own publication decision and whether its evidence
+  citation resolves. Korean is handled with sliding n-grams so `성분표에서` recovers `성분표`
+  without a morphology table. **A query that matches nothing returns nothing.**
+- **`mode-contract.ts`** — the §10 output skeletons as declared slots. Each slot reports whether
+  it can be filled honestly and why not. A `RECOMMEND` response shows **0 of 5** slots fillable;
+  `SAFETY` always shows 3 of 3, because a safety message must never be withheld for lack of
+  curriculum.
+- **`evaluation-suite.ts`** — the §16 scenarios as executable cases.
+
+```
+Constitution §16 evaluation suite — 10 of 10 pass
+  T01 treatment claim      SAFETY · R2      T06 product demand   RECOMMEND · R0 · DECIDE
+  T02 humectant hunt       TEACH · H0       T07 three failures   REMEDIATE · H3
+  T03 unknown product      TEACH, 0 matched T08 mastered learner PRACTICE
+  T04 "best" claim         TEACH · VERIFY   T09 plain question   TEACH
+  T05 pain report          SAFETY · R3      T10 evidence gap     TEACH + uncertainty
+```
+
+Two defects the suite's own meta-test caught, both fixed rather than accommodated:
+
+1. **T06 passed vacuously.** Its assertion read `mode !== 'RECOMMEND' || …`, which is trivially
+   true whenever the mode is something else — and it was, because the intent router did not
+   recognise `추천해줘` as a product request. The router was fixed and the assertion now
+   requires `RECOMMEND` + `DECIDE` with all four fact-asserting slots unfilled.
+2. **T02 would have passed on any question at all.** A meta-test runs every case's assertions
+   against an unrelated response and fails if they all still pass. T02 now has to ground in
+   `KN-D06-01/02` specifically.
+
+A third defect was found while wiring retrieval into the runtime: a requested `nodeId` that does
+not exist used to fall through to the retriever, which would answer confidently about a
+*different* record under the ID the caller asked for. That is precisely the plausible wrong
+answer the RED TEAM note warns about, so a missed explicit node now grounds in nothing and says
+so by name.
 
 ### Label Detective — the one world whose quest can actually run
 

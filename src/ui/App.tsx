@@ -13,6 +13,7 @@ import { IngredientGardenScreen } from './screens/IngredientGardenScreen';
 import { RoutineStudioScreen } from './screens/RoutineStudioScreen';
 import { SunProtectionScreen } from './screens/SunProtectionScreen';
 import { LabelDetectiveScreen } from './screens/LabelDetectiveScreen';
+import { AITutorScreen } from './screens/AITutorScreen';
 import { GovernanceScreen } from './screens/GovernanceScreen';
 import { PlaceholderScreen } from './screens/PlaceholderScreen';
 
@@ -41,12 +42,6 @@ const NAV: readonly { id: ScreenId; key: MessageKey }[] = [
 const PLACEHOLDERS: Partial<
   Record<ScreenId, { groundedIn: readonly string[]; blockedBy: string }>
 > = {
-  aiTutor: {
-    groundedIn: ['13_AI_RULES (20 rules)', 'AI Tutor Constitution v1.0', 'src/tutor/tutor-engine.ts'],
-    blockedBy:
-      'The runtime, mode router, hint ladder and safety gate are implemented and tested, but no ' +
-      'generation layer is wired up: with every node unapproved there is nothing it may state as fact.',
-  },
   quests: {
     groundedIn: ['11_QUESTS (25 quests)', '12_QUEST_NODE_MAP', '19_MASTERY_RULES'],
     blockedBy:
@@ -110,12 +105,14 @@ export function App() {
         {screen === 'labelDetective' ? (
           <LabelDetectiveScreen key={locale} locale={locale} />
         ) : null}
+        {screen === 'aiTutor' ? <AITutorScreen key={locale} locale={locale} /> : null}
         {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
         {screen !== 'mySkin' &&
         screen !== 'ingredientGarden' &&
         screen !== 'routineStudio' &&
         screen !== 'sunProtection' &&
         screen !== 'labelDetective' &&
+        screen !== 'aiTutor' &&
         screen !== 'governance' ? (
           <PlaceholderScreen
             locale={locale}
