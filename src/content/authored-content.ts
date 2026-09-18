@@ -13,9 +13,10 @@ import type { AuthoredContentAtom, ContentVariant, LearningActivity } from './ty
 import { BASE_LOCALE } from '@/localization/locales';
 import firstSlice from '../../data/authored/first-slice.json';
 import ingredientLiteracy from '../../data/authored/ingredient-literacy.json';
+import routineReasoning from '../../data/authored/routine-reasoning.json';
 
 /** All authored packs. A new pack is added here and inherits every governance test. */
-const PACKS = [firstSlice, ingredientLiteracy];
+const PACKS = [firstSlice, ingredientLiteracy, routineReasoning];
 
 export const authoredAtoms = PACKS.flatMap(
   (pack) => pack.atoms,

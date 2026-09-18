@@ -72,7 +72,31 @@ export const INGREDIENT_HALO_PLAN: LessonPlan = {
   claimClass: 'PEDAGOGICAL',
 };
 
-export const LESSON_PLANS: readonly LessonPlan[] = [MIRROR_DETECTIVE_PLAN, INGREDIENT_HALO_PLAN];
+/**
+ * Routine Studio — routine reasoning.
+ *
+ * Grounded in KN-D08-03-001 "제품 역할로 순서 판단하기" (D08 Routine & Layering, strand 08.3
+ * Order Logic) with primary skill SK05 Sequence per 05_NODE_SKILL_MAP.
+ *
+ * QST-007 "Routine Rescue" is the Routine Studio quest, but it is not used here: its
+ * Win_Condition asks for a 4-step routine while its Core node teaches a 3-step one (OQ-R02),
+ * so it cannot be authored yet. The lesson teaches the reasoning that precedes any ordering
+ * judgement — you cannot evaluate a step until you can say what it is for — and so asserts
+ * nothing about what a routine should contain or in what order.
+ */
+export const ROUTINE_PURPOSE_PLAN: LessonPlan = {
+  planId: 'routine-purpose',
+  questId: null,
+  nodeId: 'KN-D08-03-001',
+  skillId: 'SK05',
+  claimClass: 'PEDAGOGICAL',
+};
+
+export const LESSON_PLANS: readonly LessonPlan[] = [
+  MIRROR_DETECTIVE_PLAN,
+  INGREDIENT_HALO_PLAN,
+  ROUTINE_PURPOSE_PLAN,
+];
 
 export const findLessonPlan = (planId: string): LessonPlan | undefined =>
   LESSON_PLANS.find((plan) => plan.planId === planId);

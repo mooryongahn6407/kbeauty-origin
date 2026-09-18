@@ -2,7 +2,7 @@
 
 **Project:** KOREA GLOW Beauty Learning World
 **Date:** 2026-09-18
-**Phase:** Engineering initialization + first vertical slice + Ingredient Garden
+**Phase:** Engineering initialization + first vertical slice + Ingredient Garden + Routine Studio
 **Branch:** `claude/laughing-babbage-acxc3h`
 
 ---
@@ -161,6 +161,43 @@ The three governed quests are **wired to their real 12_QUEST_NODE_MAP node lists
 closed** — each blocker names the exact record, reason and register entry. This is the
 publication gate doing its job on real content, not a placeholder screen.
 
+### Routine Studio
+
+Every routine record is Approved but carries no evidence linkage at all (OQ-R01), so the
+product must not tell anyone what their routine should be, in what order, or how many steps it
+should have. The world therefore ships three honest things. Verified in Chromium:
+
+```
+Routine Studio
+  open lesson: 제품 역할로 순서 판단하기   (D08 08.3 Order Logic · SK05 Sequence)
+  QST-007 Routine Rescue: Closed, 4 blockers
+    OQ-R02 warning rendered: "the quest asks for 4 step(s) while its core node
+    KN-D08-04-001 '3-step routine 만들기' teaches 3"
+  catalog: 10 records · 10 Approved · 0 may be stated as fact
+           5 ordered sequences, 5 recorded as prose
+           1 with a broken node reference · evidence column present: no
+    RUT-001 tagged "Approved · SR-007"; KN-D04-02-003 shown as "Referenced node does not exist"
+  reflection studio: 4 steps listed -> "2 of 4 steps have a purpose you stated"
+  safety halt: a step written as "이 단계 하고 나면 너무 아파요" halts the tool,
+               stores 0 steps, and shows the R2 escalation message
+console errors: none
+```
+
+1. **The governed routine catalog**, shown as records rather than advice. Prose sequences are
+   printed as written and never split into invented steps; the broken `KN-D04-02-003` link in
+   RUT-001 is shown in place rather than dropped.
+2. **QST-007**, wired to its real node map and reported as unauthorable.
+3. **A reflection studio and one reasoning lesson** — what the product can honestly offer. The
+   studio asks the learner to list their own steps and say what each is for, then counts what
+   they could account for. It ranks nothing, recommends nothing and has no "ideal" step count
+   to compare against, because there is no approved basis for one. A test asserts the state
+   object contains no score field at all. Free text runs through the safety gate first, so a
+   step or purpose carrying a risk signal halts the tool before it is stored.
+
+The one open lesson teaches the reasoning that precedes any ordering judgement — you cannot
+evaluate a step until you can say what it is for and how you would notice — and so asserts
+nothing about what a routine should contain.
+
 One lesson *is* open: ingredient literacy, grounded in `KN-D11-02-001` (Ingredient Halo) with
 skill `SK06`. It teaches that naming an ingredient establishes presence and an editorial
 choice, not effect or quantity — a reasoning skill that asserts nothing about what any
@@ -172,6 +209,7 @@ ingredient does, and therefore does not depend on the unverified ingredient corp
 $ npm test
 
  ✓ tests/ingredient-garden.test.ts  (35 tests)
+ ✓ tests/routine-studio.test.ts     (29 tests)
  ✓ tests/governance-gates.test.ts   (18 tests)
  ✓ tests/tutor-runtime.test.ts      (18 tests)
  ✓ tests/learning-slice.test.ts     (16 tests)
@@ -181,12 +219,12 @@ $ npm test
  ✓ tests/localization.test.ts       (12 tests)
  ✓ tests/source-integrity.test.ts   (11 tests)
 
- Test Files  9 passed (9)
-      Tests  150 passed (150)
-   Duration  1.50s
+ Test Files  10 passed (10)
+      Tests  179 passed (179)
+   Duration  1.71s
 
 $ npm run typecheck     # clean
-$ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 437.43 kB (gzip 98.89 kB)
+$ npm run build         # dist/index.html 0.57 kB, index.css 5.91 kB, index.js 465.73 kB (gzip 106.55 kB)
 $ npm run verify:sources
 OK: 25 datasets match the official sources.
 ```
@@ -227,6 +265,8 @@ screen. Nothing below was decided in code.
 | SR-013 | OPEN | Mastery rules state ratios but no sample size | Minimum attempt counts in one table, labelled an engineering DECISION |
 | **OQ-E01** | BLOCKER | **New finding.** The 92 nodes marked `Evidence_Status=Anchor` cite `FDA-01`, `EU-01`, `AAD-01..03` — the AI Tutor Constitution §17 label namespace. `14_EVIDENCE` registers `SRC-001…SRC-010`. **0 of 92 references resolve**, so evidence traceability is broken for every node claiming an anchor | Each unresolved reference reported; no `Source_ID` rewritten and no mapping guessed, since picking which registered source a claim was anchored to is a governance decision and a wrong guess attaches a node to the wrong evidence. Treated as blocking for scientific claims |
 | **OQ-S01** | CRITICAL | **New finding.** In D06, node content is filed one strand later than its subject from 06.3 onward — "Retinol 기본" under *06.8 Exfoliating Acids*, "Niacinamide 기본 개념" under *06.5 Barrier Lipids*, "Panthenol 기본" under *06.9 Retinoid Family*. Breaks QST-010, QST-011, QST-012, whose supporting nodes are about a different subject from the quest | Detected from governed vocabulary only (an ingredient named in a node title whose `Family` matches a different strand in the same domain). 5 nodes reported as **suspicions needing owner confirmation** — the fix could be to move the node, rename the strand or re-title the node. Nothing is moved |
+| **OQ-R01** | CRITICAL | **New finding.** `09_ROUTINES` has columns `Routine_ID`, `Routine_Name`, `Description`, `Default_Sequence`, `Status` — and **no evidence linkage column**. All 10 rows are `Approved`, yet a sequence such as "정돈 → 선택적 트리트먼트 → 보습 → 자외선 보호" is a procedural claim, and `SRC-003` (AAD, routine order) already exists to support it. There is no field in which that link could be recorded. Separately, 5 of 10 sequences are prose, not step lists | The gate already refuses to state an Approved-but-unevidenced routine as fact. Prose sequences are printed as written, never split into invented steps. The missing column is a schema change and is not worked around in code |
+| **OQ-R02** | OPEN | **New finding.** `QST-007` "Routine Rescue" asks for a **4**-step routine, while its Core node `KN-D08-04-001` is "**3**-step routine 만들기" and the governed minimal routine `RUT-003` has 3 steps. The only numeric contradiction of its kind across all 25 quests | Detected by comparing integers in each quest `Win_Condition` against its Core node title. Neither number is chosen; the quest is reported as unauthorable and stays closed |
 | **OQ-L01** | OPEN | **New finding.** Master DB `15_LOCALIZATION` defines 7 locales including Lao ("Laos launch language") and Portuguese; the Global Content Engine spec lists 10 languages that include Chinese, Japanese, Italian, Vietnamese and Indonesian but **omit Lao**. AI Tutor Constitution §13.1 names Lao as the first localization target. The two sets are not equal and neither is approved | Union of both registered (12 locales), each tagged with its defining source; per-locale coverage reported |
 
 ### Classification of decisions made during this build
@@ -245,52 +285,60 @@ screen. Nothing below was decided in code.
 1. **No approved knowledge to teach.** The single largest blocker. The architecture is complete
    and gated, but with 0 verified records the product can teach only reasoning skills, not
    beauty facts. Unblocking this is a governance task (SR-009), not an engineering one.
-2. **Ingredient Garden's three governed quests cannot open.** QST-008, QST-009 and QST-010 all
+2. **Routine Studio can describe routines but not prescribe them.** All 10 routine records are
+   Approved with no field in which to cite evidence (OQ-R01), so no routine may be presented as
+   correct, and QST-007 cannot be authored until OQ-R02 settles whether the target is 3 or 4
+   steps. The world ships its catalog, the quest's real wiring, a reflection tool and one
+   reasoning lesson.
+3. **Ingredient Garden's three governed quests cannot open.** QST-008, QST-009 and QST-010 all
    ask what an ingredient *does*, which is a scientific claim, and every node and ingredient
    record they stand on is unverified — compounded by OQ-E01, which means their evidence
    citations do not resolve either. The world ships with its catalog, its real quest wiring and
    one reasoning lesson; the function-matching quests stay closed until the records pass.
-3. **No authored content beyond the two lessons.** `21_CONTENT_ATOMS` holds 20 templated rows
+4. **No authored content beyond the three lessons.** `21_CONTENT_ATOMS` holds 20 templated rows
    with placeholder hooks and no question options, so it cannot drive a lesson. The four
-   authored atoms and four activities in `data/authored/` are explicitly labelled prototype
+   authored atoms and six activities in `data/authored/` are explicitly labelled prototype
    scaffolding and make only pedagogical and safety-boundary claims.
-4. **No AI generation layer.** The tutor runtime, router, ladder and gates are implemented and
+5. **No AI generation layer.** The tutor runtime, router, ladder and gates are implemented and
    tested deterministically; no model call is wired up, because there is nothing it may state
    as fact. Appendix B of the Constitution requires steps 1–5 to be stable before commerce work.
-5. **Translations exist for en + ko only.** 10 of 12 registered locales have 0% coverage.
+6. **Translations exist for en + ko only.** 10 of 12 registered locales have 0% coverage.
    Filling them requires human translation and local-market review, not machine text.
-6. **Persistence is in-memory.** Session state and mastery do not survive a reload; no database
+7. **Persistence is in-memory.** The reflection studio's entries are lost on reload. Session state and mastery do not survive a reload; no database
    or auth has been chosen.
-7. **No deployment target chosen.** `npm run build` produces a static `dist/`.
-8. **npm audit reports 5 advisories** in the dev toolchain (Vite/esbuild dev-server class).
+8. **No deployment target chosen.** `npm run build` produces a static `dist/`.
+9. **npm audit reports 5 advisories** in the dev toolchain (Vite/esbuild dev-server class).
    They do not affect the production bundle; worth resolving before any hosted deployment.
 
 ## 9. Next coding step
 
-**Governance first — three decisions, none of which are mine to make:**
+Three of the seven MVP experiences now run (My Skin, Ingredient Garden, Routine Studio), all on
+one learning engine. Every remaining blocker is a governance decision, not an engineering one.
 
-1. **OQ-E01 — reconcile the evidence ID namespaces.** This is now the highest-leverage item.
-   Every node that claims an evidence anchor cites an ID that does not exist in the registry,
-   so even approving a node's `Status` would leave its evidence chain broken. Decide whether
-   `14_EVIDENCE` adopts the `FDA-01`/`EU-01`/`AAD-0n` IDs, or the nodes are re-pointed at
-   `SRC-nnn`, and record the mapping in the workbook. One decision unblocks all 92 anchors.
+**Governance, in leverage order:**
 
-2. **OQ-S01 — confirm or correct the D06 strand placement.** Until this is settled, QST-010,
-   QST-011 and QST-012 would teach the wrong subject even if their records were approved.
-   Five nodes are flagged with evidence; a curriculum owner decides whether to move the node,
-   rename the strand, or re-title the node.
+1. **OQ-E01 — reconcile the evidence ID namespaces.** Still the highest-leverage item. Every
+   node claiming an evidence anchor cites an ID absent from the registry, so approving a node's
+   `Status` would still leave its evidence chain broken. One decision unblocks all 92 anchors.
 
-3. **SR-009 / SR-010 — approve a small evidence seed set.** With OQ-E01 resolved, pick the
-   D06 strand 06.2 cluster (`KN-D06-02-001/002/003` + `ING-001`, `ING-002`, `ING-003`) — it is
-   the one place where node content, strand and ingredient family already agree, and the three
-   humectant records are among the only ingredients carrying a reference URL. Approving it
-   opens QST-009 Humectant Hunt with no code change.
+2. **OQ-R01 — add an evidence linkage column to `09_ROUTINES`.** This one cannot be fixed by
+   data entry: the sheet has nowhere to put a `Source_ID`. Until it does, no routine can ever
+   pass the gate, whatever its `Status` says.
 
-**Then, in code:** build the QST-009 function-matching activity. The availability gate, quest
-wiring, catalog and lesson runner are already in place, so that work is authoring a content
-pack plus a matching interaction type — not new architecture.
+3. **OQ-S01 and OQ-R02 — settle the two content contradictions.** Five D06 nodes are filed
+   under the wrong strand, and QST-007 asks for a step count its own core node contradicts.
+   Both would teach the wrong thing even after approval.
 
-Exact next command once step 3 lands:
+4. **SR-009 / SR-010 — approve a small evidence seed set.** With OQ-E01 resolved, the D06
+   strand 06.2 cluster (`KN-D06-02-001/002/003` + `ING-001/002/003`) remains the best candidate:
+   it is the one place where node content, strand and ingredient family already agree, and those
+   three humectant records carry the only reference URLs in the sheet.
+
+**Then, in code:** author the QST-009 function-matching activity. The availability gate, quest
+wiring, catalogs and lesson runner already exist, so that is a content pack plus one new
+interaction type — not new architecture.
+
+Exact next command once step 4 lands:
 
 ```
 npm run extract:sources && npm test

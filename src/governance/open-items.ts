@@ -135,6 +135,49 @@ const OQ_S01: OpenGovernanceItem = {
     'strand or re-title the node, and only a curriculum owner can decide which. Nothing is moved.',
 };
 
+
+/**
+ * Observed during the Routine Studio build (2026-09-18) by inspecting the columns of
+ * 09_ROUTINES against the procedural claims its rows make.
+ */
+const OQ_R01: OpenGovernanceItem = {
+  id: 'OQ-R01',
+  title: '09_ROUTINES has no column in which a routine could cite evidence',
+  classification: 'OPEN_QUESTION',
+  severity: 'CRITICAL',
+  summary:
+    'The routine sheet has only Routine_ID, Routine_Name, Description, Default_Sequence and ' +
+    'Status. All 10 rows are Status=Approved, yet a Default_Sequence such as ' +
+    '"정돈 → 선택적 트리트먼트 → 보습 → 자외선 보호" is a procedural claim, and the evidence ' +
+    'registry already holds a Tier-A source for routine order (SRC-003, AAD). There is no ' +
+    'field in which that link could be recorded. Separately, 5 of the 10 Default_Sequence ' +
+    'values are prose rather than ordered step lists.',
+  engineeringPosture:
+    'The publication gate already refuses to state an Approved-but-unevidenced routine as ' +
+    'fact, so no routine is presented as correct. Routines whose sequence is prose are shown ' +
+    'as written and never split into invented steps. The missing column is a schema change ' +
+    'and is not worked around in code.',
+};
+
+/**
+ * Observed during the Routine Studio build (2026-09-18) by comparing quest win conditions
+ * against their Core node titles.
+ */
+const OQ_R02: OpenGovernanceItem = {
+  id: 'OQ-R02',
+  title: 'QST-007 asks for a 4-step routine while its Core node teaches a 3-step routine',
+  classification: 'OPEN_QUESTION',
+  severity: 'OPEN',
+  summary:
+    'Quest QST-007 "Routine Rescue" has Win_Condition "과도한 루틴을 4단계로 단순화", but its ' +
+    'Core node KN-D08-04-001 is "3-step routine 만들기" and the governed minimal routine ' +
+    'RUT-003 has three steps. The quest cannot be authored until the target number is settled. ' +
+    'This is the only numeric contradiction of its kind across all 25 quests.',
+  engineeringPosture:
+    'Detected by comparing integers in each quest Win_Condition against its Core node title. ' +
+    'Neither number is chosen; the quest is reported as unauthorable and stays closed.',
+};
+
 /** All open items, most blocking first. */
 export const OPEN_GOVERNANCE_ITEMS: readonly OpenGovernanceItem[] = [
   SR_009,
@@ -145,8 +188,10 @@ export const OPEN_GOVERNANCE_ITEMS: readonly OpenGovernanceItem[] = [
   SR_001,
   SR_002_003,
   OQ_S01,
+  OQ_R01,
   SR_012,
   SR_013,
+  OQ_R02,
   OQ_L01,
 ];
 

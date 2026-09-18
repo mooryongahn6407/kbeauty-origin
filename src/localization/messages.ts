@@ -113,6 +113,36 @@ const MESSAGES_EN = {
   'ingredient.backToGarden': 'Back to the garden',
   'ingredient.openLesson': 'Open',
   'ingredient.closedLesson': 'Closed',
+  'routine.lessonTitle': 'Before you reorder anything',
+  'routine.lessonIntro':
+    'This world does not tell you what your routine should be. It teaches the question that makes your own routine answerable, so the lesson is open while the routine records are still in review.',
+  'routine.startLesson': 'Start routine reasoning',
+  'routine.backToStudio': 'Back to the studio',
+  'routine.catalogTitle': 'Governed routine patterns',
+  'routine.catalogIntro':
+    'The ten routine records as the database holds them. Each is marked Approved, but the sheet has no field in which a routine could cite evidence, so none may be presented as the correct way to do anything.',
+  'routine.sequence': 'Default sequence',
+  'routine.proseSequence': 'Recorded as prose, not as an ordered step list. Shown as written.',
+  'routine.linkedNodes': 'Linked knowledge',
+  'routine.missingNode': 'Referenced node does not exist',
+  'routine.questTitle': 'Routine Studio quest',
+  'routine.studioTitle': 'My routine — a reflection',
+  'routine.studioIntro':
+    'List the steps you actually take, then say what each one is for. This records what you write and counts what you could account for. It does not evaluate your routine, rank your steps, or recommend anything.',
+  'routine.addStep': 'Add step',
+  'routine.stepPlaceholder': 'A step you actually take…',
+  'routine.purposePlaceholder': 'What is this step for, and how would you notice?',
+  'routine.toPurpose': 'Now ask why',
+  'routine.finishReview': 'See what I could account for',
+  'routine.reviewHeading': 'What you could account for',
+  'routine.reviewSummary': '{withPurpose} of {total} steps have a purpose you stated.',
+  'routine.reviewNote':
+    'That number is yours, not a score. A step you could not account for is not wrong — it is simply one you cannot yet compare, defend or drop on purpose.',
+  'routine.startOver': 'Start over',
+  'routine.noSteps': 'No steps listed yet.',
+  'routine.stepLabel': 'Step',
+  'routine.purposeLabel': 'Purpose',
+  'routine.notStated': 'Not stated',
 } as const;
 
 /**
@@ -216,6 +246,36 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'ingredient.backToGarden': '가든으로 돌아가기',
   'ingredient.openLesson': '열림',
   'ingredient.closedLesson': '닫힘',
+  'routine.lessonTitle': '순서를 바꾸기 전에',
+  'routine.lessonIntro':
+    '이 세계는 당신의 루틴이 어때야 하는지 말하지 않습니다. 내 루틴에 대해 답할 수 있게 만드는 질문을 가르치므로, 루틴 레코드가 검토 중이어도 이 수업은 열려 있습니다.',
+  'routine.startLesson': '루틴 사고 시작하기',
+  'routine.backToStudio': '스튜디오로 돌아가기',
+  'routine.catalogTitle': '공식 루틴 패턴',
+  'routine.catalogIntro':
+    '데이터베이스가 보관한 그대로의 루틴 레코드 열 개입니다. 모두 Approved로 표시되어 있지만, 이 시트에는 루틴이 근거를 인용할 수 있는 칸이 없습니다. 따라서 어느 것도 올바른 방법으로 제시될 수 없습니다.',
+  'routine.sequence': '기본 순서',
+  'routine.proseSequence': '순서 목록이 아니라 서술형으로 기록되어 있습니다. 적힌 그대로 표시합니다.',
+  'routine.linkedNodes': '연결된 지식',
+  'routine.missingNode': '참조된 노드가 존재하지 않음',
+  'routine.questTitle': '루틴 스튜디오 퀘스트',
+  'routine.studioTitle': '나의 루틴 — 돌아보기',
+  'routine.studioIntro':
+    '실제로 하고 있는 단계를 적고, 각각이 무엇을 위한 것인지 말해 보세요. 적은 내용을 기록하고 설명할 수 있었던 개수를 세어 드립니다. 루틴을 평가하거나 단계에 순위를 매기거나 무언가를 추천하지 않습니다.',
+  'routine.addStep': '단계 추가',
+  'routine.stepPlaceholder': '실제로 하는 단계…',
+  'routine.purposePlaceholder': '이 단계는 무엇을 위한 것이고, 되었다면 어떻게 알아차릴까요?',
+  'routine.toPurpose': '이제 이유를 묻기',
+  'routine.finishReview': '내가 설명할 수 있었던 것 보기',
+  'routine.reviewHeading': '설명할 수 있었던 것',
+  'routine.reviewSummary': '{total}개 단계 중 {withPurpose}개에 대해 목적을 말했습니다.',
+  'routine.reviewNote':
+    '이 숫자는 점수가 아니라 당신의 것입니다. 설명하지 못한 단계가 틀린 것은 아닙니다. 다만 아직은 비교하거나 근거를 대거나 의도를 가지고 뺄 수 없는 단계일 뿐입니다.',
+  'routine.startOver': '다시 시작',
+  'routine.noSteps': '아직 적은 단계가 없습니다.',
+  'routine.stepLabel': '단계',
+  'routine.purposeLabel': '목적',
+  'routine.notStated': '말하지 않음',
 };
 
 const CATALOGS: Readonly<Record<string, Partial<Record<MessageKey, string>>>> = {

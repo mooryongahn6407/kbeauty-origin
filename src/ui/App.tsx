@@ -10,6 +10,7 @@ import { translate, type MessageKey, UI_CATALOG_LOCALES } from '@/localization/m
 import { LOCALES } from '@/localization/locales';
 import { MySkinScreen } from './screens/MySkinScreen';
 import { IngredientGardenScreen } from './screens/IngredientGardenScreen';
+import { RoutineStudioScreen } from './screens/RoutineStudioScreen';
 import { GovernanceScreen } from './screens/GovernanceScreen';
 import { PlaceholderScreen } from './screens/PlaceholderScreen';
 
@@ -38,12 +39,6 @@ const NAV: readonly { id: ScreenId; key: MessageKey }[] = [
 const PLACEHOLDERS: Partial<
   Record<ScreenId, { groundedIn: readonly string[]; blockedBy: string }>
 > = {
-  routineStudio: {
-    groundedIn: ['Domain D08', '09_ROUTINES (RUT-001 … RUT-010)', 'Quest QST-007'],
-    blockedBy:
-      'SR-007: RUT-001 references KN-D04-02-003, which does not exist in 03_KNOWLEDGE_NODES. ' +
-      'Lineage must be traced before the routine is rendered.',
-  },
   sunProtection: {
     groundedIn: ['Domain D04', 'Quests QST-004 / QST-005', 'Evidence AAD-05'],
     blockedBy:
@@ -115,8 +110,14 @@ export function App() {
         {screen === 'ingredientGarden' ? (
           <IngredientGardenScreen key={locale} locale={locale} />
         ) : null}
+        {screen === 'routineStudio' ? (
+          <RoutineStudioScreen key={locale} locale={locale} />
+        ) : null}
         {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
-        {screen !== 'mySkin' && screen !== 'ingredientGarden' && screen !== 'governance' ? (
+        {screen !== 'mySkin' &&
+        screen !== 'ingredientGarden' &&
+        screen !== 'routineStudio' &&
+        screen !== 'governance' ? (
           <PlaceholderScreen
             locale={locale}
             titleKey={NAV.find((item) => item.id === screen)!.key}

@@ -17,6 +17,7 @@ import {
   knowledgeNodes,
   nodeRoutineLinks,
   questNodeLinks,
+  quests,
   routines,
 } from '@/knowledge/repository';
 import { masterDbStrands } from '@/knowledge/strand-taxonomy';
@@ -236,4 +237,62 @@ export function findSuspectedStrandMisplacements(): readonly SuspectedStrandMisp
   }
 
   return found;
+}
+
+/* -------------------------------------------------------------------------- *
+ * Quest numeric consistency (observed 2026-09-18, registered as OQ-R02)
+ * -------------------------------------------------------------------------- */
+
+export interface QuestNumericMismatch {
+  readonly questId: string;
+  readonly questName: string;
+  readonly winCondition: string;
+  readonly winConditionNumbers: readonly number[];
+  readonly coreNodeId: string;
+  readonly coreNodeTitle: string;
+  readonly coreNodeNumbers: readonly number[];
+}
+
+const integersIn = (text: string): readonly number[] => [
+  ...new Set((text.match(/\d+/g) ?? []).map(Number)),
+];
+
+/**
+ * Quests whose Win_Condition states a number that its Core knowledge node contradicts.
+ *
+ * Method: extract integers from the quest's Win_Condition and from its Core node's title.
+ * Report only when BOTH contain at least one integer and they share none. A quest whose
+ * win condition counts something the node does not mention is not a contradiction, so it is
+ * not reported — which is why this runs clean across the other 24 quests.
+ *
+ * Reported, never reconciled: whether the quest, the node, or neither is wrong is an editorial
+ * decision about what the learner should be asked to do.
+ */
+export function findQuestNumericMismatches(): readonly QuestNumericMismatch[] {
+  const mismatches: QuestNumericMismatch[] = [];
+
+  for (const quest of quests) {
+    const coreLink = questNodeLinks.find(
+      (link) => link.Quest_ID === quest.Quest_ID && link.Role === 'Core',
+    );
+    const coreNode = coreLink ? findNode(coreLink.Node_ID) : undefined;
+    if (!coreNode) continue;
+
+    const winNumbers = integersIn(quest.Win_Condition);
+    const nodeNumbers = integersIn(coreNode.Node_Title);
+    if (winNumbers.length === 0 || nodeNumbers.length === 0) continue;
+    if (winNumbers.some((value) => nodeNumbers.includes(value))) continue;
+
+    mismatches.push({
+      questId: quest.Quest_ID,
+      questName: quest.Quest_Name,
+      winCondition: quest.Win_Condition,
+      winConditionNumbers: winNumbers,
+      coreNodeId: coreNode.Node_ID,
+      coreNodeTitle: coreNode.Node_Title,
+      coreNodeNumbers: nodeNumbers,
+    });
+  }
+
+  return mismatches;
 }

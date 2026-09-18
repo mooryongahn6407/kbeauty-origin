@@ -72,6 +72,8 @@ npm run verify:sources   # exits non-zero if data/source/ no longer matches sour
 |---|---|
 | OQ-E01 | The 92 nodes marked `Evidence_Status=Anchor` cite `FDA-01`, `EU-01`, `AAD-01..03` (the AI Tutor Constitution §17 label namespace). `14_EVIDENCE` registers `SRC-001…SRC-010`. **0 of 92 resolve.** |
 | OQ-S01 | In D06, node content is filed one strand later than its subject from 06.3 onward. `Strand_Code`/`Strand_Name` agree with `02_STRANDS` on all 212 nodes, so this is content placement, not a schema break. 5 nodes flagged as suspicions. |
+| OQ-R01 | `09_ROUTINES` has no evidence linkage column at all, yet all 10 rows are `Approved` and each `Default_Sequence` is a procedural claim. 5 of 10 sequences are prose rather than step lists. |
+| OQ-R02 | `QST-007` asks for a 4-step routine while its Core node teaches a 3-step one. The only numeric contradiction across all 25 quests. |
 
 Both are reported by `src/governance/integrity.ts` and rendered on the in-app governance
 screen. Neither is repaired in code.
