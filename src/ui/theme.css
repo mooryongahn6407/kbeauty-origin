@@ -366,6 +366,11 @@ h3 { font-size: var(--fs-md); font-weight: 600; margin: 0 0 var(--space-1); line
   border-top: 1px solid var(--line);
   padding-top: var(--space-2);
   margin-top: var(--space-3);
+  /* A source/version value such as "KOREA_GLOW_Beauty_..._v1.0" is one long unbroken token —
+     no spaces to break on — so without this a narrow screen has to scroll the whole page to
+     read it. A flex item also does not shrink below its own content width by default, so this
+     has to make that content breakable, not just ask the container to wrap. */
+  overflow-wrap: anywhere;
 }
 .provenance__key { color: var(--accent); font-weight: 700; letter-spacing: 0.04em; }
 
@@ -397,7 +402,7 @@ h3 { font-size: var(--fs-md); font-weight: 600; margin: 0 0 var(--space-1); line
   border-color: var(--line-strong);
 }
 .btn--quiet:hover:not(:disabled) { background: var(--surface-sunk); opacity: 1; }
-.btn--small { font-size: var(--fs-xs); padding: var(--space-1) var(--space-3); min-height: 36px; }
+.btn--small { font-size: var(--fs-xs); padding: var(--space-1) var(--space-3); min-height: var(--tap); }
 .btn--row {
   display: flex;
   gap: var(--space-2);
@@ -489,7 +494,7 @@ select.field, .locale-switch select, .settings__select {
   font-weight: 600;
   color: var(--text-muted);
   padding: var(--space-1) var(--space-3);
-  min-height: 38px;
+  min-height: var(--tap);
   min-width: var(--tap);
   cursor: pointer;
 }
@@ -575,7 +580,7 @@ select.field, .locale-switch select, .settings__select {
   border: 2px solid var(--line);
   border-radius: 999px;
   padding: var(--space-1) var(--space-3);
-  min-height: 38px;
+  min-height: var(--tap);
   cursor: pointer;
 }
 .speak:hover:not(:disabled) { background: var(--accent-wash); border-color: var(--accent); }
@@ -603,4 +608,8 @@ select.field, .locale-switch select, .settings__select {
   /* Too narrow to wrap without eating the screen, so it scrolls — with the current item
      always in view, which is what makes a scroller usable. */
   .nav { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: thin; }
+  /* A `.table` with several columns is wider than the screen at this width. Making the
+     table itself the scroll container (rather than wrapping every call site in a div)
+     lets it scroll on its own axis instead of dragging the whole page sideways. */
+  .table { display: block; overflow-x: auto; scrollbar-width: thin; }
 }
