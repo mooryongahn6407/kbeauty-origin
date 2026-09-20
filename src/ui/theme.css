@@ -988,6 +988,31 @@ select.field, .locale-switch select, .settings__select {
   color: var(--accent);
 }
 
+.hunt__due { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 600; color: var(--botanical); margin: 0; }
+
+/* ---- Compare Lab (QST-011) ------------------------------------------------ */
+.compare { max-width: var(--max-width); margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
+.compare__pickers { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.compare__picker { display: flex; flex-direction: column; gap: var(--space-1); flex: 1 1 12rem; }
+.compare__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); align-items: start; }
+.compare__col { border: 2px solid var(--line); border-radius: var(--radius); padding: var(--space-3); background: var(--surface); }
+.compare__family { font-size: var(--fs-md); margin: 0 0 var(--space-2); overflow-wrap: anywhere; }
+.compare__facts { margin: var(--space-3) 0; display: grid; gap: var(--space-2); }
+.compare__facts > div { display: flex; justify-content: space-between; gap: var(--space-2); border-bottom: 1px solid var(--line); padding-bottom: var(--space-1); }
+.compare__facts dt { font-size: var(--fs-xs); color: var(--text-muted); }
+.compare__facts dd { font-size: var(--fs-sm); font-weight: 700; font-variant-numeric: tabular-nums; margin: 0; }
+.compare__members { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
+.compare__members li { display: flex; flex-direction: column; gap: 2px; }
+.compare__name { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; overflow-wrap: anywhere; }
+.compare__goal { font-size: var(--fs-xs); color: var(--text-muted); line-height: 1.5; }
+
+/* ---- Day grid -------------------------------------------------------------
+ * A gap is an empty square and nothing more. No streak flame to lose, no offer to buy a day
+ * back: the grid exists to be looked at, not to be owed. */
+.daygrid { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(14px, 1fr)); gap: 4px; max-width: 22rem; }
+.daygrid__day { aspect-ratio: 1; border-radius: 3px; background: var(--surface-sunk); border: 1px solid var(--line); }
+.daygrid__day.is-on { background: var(--botanical); border-color: var(--botanical); }
+
 /* The study rooms, reached from "go deeper" rather than sitting across the first screen. */
 .rooms { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-5); align-items: center; }
 .rooms__back {

@@ -94,20 +94,32 @@ export const familyFunction = (family: string): string | null => {
  * Builds one round: every record of the chosen family, plus decoys from other families, in an
  * order the caller controls. `pick` takes the count and returns an index, so the shuffle is the
  * caller's to make deterministic — a reducer that shuffles is not a pure reducer.
+ *
+ * `preferIds` are records the review queue says are due. They are taken as decoys first, so a
+ * round quietly carries the reader's own due items instead of the queue being a separate chore
+ * on another screen. It only reorders which decoys appear; the targets are always every record
+ * of the family, so the round stays winnable and correctly marked either way.
  */
 export function buildRound(
   family: string,
   listSize: number,
   pick: (bound: number) => number,
+  preferIds: readonly string[] = [],
 ): HuntRound {
   const targets = ingredients.filter((ingredient) => ingredient.Family === family);
   const pool = ingredients.filter((ingredient) => ingredient.Family !== family);
 
+  const preferred = new Set(preferIds);
+  const due = pool.filter((ingredient) => preferred.has(ingredient.Ingredient_ID));
+  const rest = pool.filter((ingredient) => !preferred.has(ingredient.Ingredient_ID));
+
   const decoys: Ingredient[] = [];
-  const remaining = [...pool];
+  const remaining = [...due, ...rest];
   const wanted = Math.max(0, Math.min(listSize - targets.length, remaining.length));
   for (let index = 0; index < wanted; index += 1) {
-    const [taken] = remaining.splice(pick(remaining.length), 1);
+    // Due items sit at the front and are taken in order; everything after is picked at random.
+    const at = index < due.length ? 0 : pick(remaining.length);
+    const [taken] = remaining.splice(at, 1);
     if (taken) decoys.push(taken);
   }
 

@@ -15,7 +15,7 @@
  *   can see the fields it was marked against, the review status included. Apps that show their
  *   working are the ones readers say they trust.
  */
-import { useReducer, useState } from 'react';
+import { useEffect, useMemo, useReducer, useState } from 'react';
 import { translate } from '@/localization/messages';
 import { ingredients } from '@/knowledge/repository';
 import type { Ingredient } from '@/domain/entities';
@@ -28,6 +28,15 @@ import {
   initialHuntState,
   type HuntState,
 } from '@/app/ingredient-hunt';
+import {
+  dueIds,
+  loadQueue,
+  saveQueue,
+  trackedCount,
+  withMissed,
+  withRecognised,
+  type ReviewQueue,
+} from '@/app/review-queue';
 import { CompanionSays } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
 
@@ -52,11 +61,35 @@ const familyLabel = (family: string): string => {
   return fn ? `${fn} · ${family}` : family;
 };
 
+const storage = () => (typeof localStorage === 'undefined' ? undefined : localStorage);
+
 export function IngredientHuntScreen({ locale }: { locale: string }) {
+  const knownIds = useMemo(
+    () => new Set(ingredients.map((ingredient) => ingredient.Ingredient_ID)),
+    [],
+  );
+  const [queue, setQueue] = useState<ReviewQueue>(() => loadQueue(storage(), knownIds));
+  const today = useMemo(() => new Date(), []);
+  const due = useMemo(() => dueIds(queue, today), [queue, today]);
+
   const [state, dispatch] = useReducer(huntReducer, initialHuntState, (initial): HuntState => ({
     ...initial,
-    round: buildRound(nextFamily(null), LIST_SIZE, randomPick),
+    round: buildRound(nextFamily(null), LIST_SIZE, randomPick, dueIds(loadQueue(storage(), knownIds), new Date())),
   }));
+
+  // Reschedule the moment a round is marked: what was recognised moves further out, what was
+  // missed comes back tomorrow. Nothing here is written to the mastery ledger.
+  useEffect(() => {
+    if (!state.revealed || !state.round) return;
+    const result = huntResult(state);
+    setQueue((previous) => {
+      let next = previous;
+      for (const id of result.correct) next = withRecognised(next, id, new Date());
+      for (const id of result.missed) next = withMissed(next, id, new Date());
+      saveQueue(storage(), next);
+      return next;
+    });
+  }, [state.revealed, state.round]);
 
   const round = state.round;
   if (!round) return null;
@@ -107,7 +140,7 @@ export function IngredientHuntScreen({ locale }: { locale: string }) {
           onClick={() =>
             dispatch({
               type: 'next',
-              round: buildRound(nextFamily(round.family), LIST_SIZE, randomPick),
+              round: buildRound(nextFamily(round.family), LIST_SIZE, randomPick, due),
             })
           }
         >
@@ -121,6 +154,13 @@ export function IngredientHuntScreen({ locale }: { locale: string }) {
           total: String(ingredients.length),
         })}
       </p>
+      {trackedCount(queue) > 0 ? (
+        <p className="hunt__due">
+          {due.length > 0
+            ? translate('review.dueToday', locale, { count: String(due.length) })
+            : translate('review.allCaughtUp', locale, { tracked: String(trackedCount(queue)) })}
+        </p>
+      ) : null}
       <p className="record-block__note">{translate('hunt.sourceNote', locale)}</p>
     </section>
   );

@@ -55,6 +55,56 @@ export function StreakBadge({ days, locale }: { days: number; locale: string }) 
 }
 
 /**
+ * The last few weeks as a grid of days, filled where the app was opened.
+ *
+ * A gap is drawn as a quiet empty square and nothing else happens: no lost progress, no
+ * apology, no offer to buy the day back. The grid is there because seeing a row fill is worth
+ * more than a number, not because a missed day should cost something.
+ */
+export function VisitCalendar({
+  visitDays,
+  today,
+  locale,
+  weeks = 8,
+}: {
+  visitDays: readonly string[];
+  today: Date;
+  locale: string;
+  weeks?: number;
+}) {
+  const visited = new Set(visitDays);
+  const days: { iso: string; visited: boolean }[] = [];
+  // Whole weeks ending today, so the last column is always the day the reader is looking at.
+  const total = weeks * 7;
+  for (let back = total - 1; back >= 0; back -= 1) {
+    const day = new Date(today);
+    day.setUTCDate(day.getUTCDate() - back);
+    const iso = day.toISOString().slice(0, 10);
+    days.push({ iso, visited: visited.has(iso) });
+  }
+
+  return (
+    <section className="record-block">
+      <h2 className="record-block__title">{translate('calendar.title', locale)}</h2>
+      <ul className="daygrid" role="list" aria-label={translate('calendar.title', locale)}>
+        {days.map((day) => (
+          <li
+            key={day.iso}
+            className={day.visited ? 'daygrid__day is-on' : 'daygrid__day'}
+            title={day.iso}
+          >
+            <span className="visually-hidden">
+              {day.iso} {translate(day.visited ? 'calendar.here' : 'calendar.away', locale)}
+            </span>
+          </li>
+        ))}
+      </ul>
+      <p className="record-block__note">{translate('calendar.note', locale)}</p>
+    </section>
+  );
+}
+
+/**
  * The gift.
  *
  * Kept in its own card, after the learning content and after any safety notice, because

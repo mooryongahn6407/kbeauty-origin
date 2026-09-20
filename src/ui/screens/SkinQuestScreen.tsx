@@ -24,7 +24,7 @@ import {
   withVisit,
   type CollectionState,
 } from '@/app/collection';
-import { CollectionShelf, GiftCard, StreakBadge } from '../components/Collection';
+import { CollectionShelf, GiftCard, StreakBadge, VisitCalendar } from '../components/Collection';
 import { RoutineDiagram, SkinMap, type SkinRegion } from '../components/SkinMap';
 import {
   ESCALATING_CONCERN_IDS,
@@ -374,6 +374,8 @@ function QuestRecord({
       ) : null}
 
       <CollectionShelf discoveredIds={collection.discoveredConcernIds} locale={locale} />
+
+      <VisitCalendar visitDays={collection.visitDays} today={now} locale={locale} />
 
       {/* Last, and after the safety notice above: education outranks commerce (rule 6), and
           the order things appear in is where that is honoured or quietly reversed. */}
