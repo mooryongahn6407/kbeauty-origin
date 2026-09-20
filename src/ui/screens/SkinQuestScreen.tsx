@@ -12,9 +12,20 @@
  * says the topic is *for*), and the approved routine sequence appears verbatim. Everything
  * about review status lives on the owner screen now, not here.
  */
-import { useReducer } from 'react';
+import { useEffect, useMemo, useReducer, useState } from 'react';
 import { translate, type MessageKey } from '@/localization/messages';
 import { concerns, routines } from '@/knowledge/repository';
+import {
+  currentStreak,
+  issueGift,
+  loadCollection,
+  saveCollection,
+  withDiscovered,
+  withVisit,
+  type CollectionState,
+} from '@/app/collection';
+import { CollectionShelf, GiftCard, StreakBadge } from '../components/Collection';
+import { RoutineDiagram, SkinMap, type SkinRegion } from '../components/SkinMap';
 import {
   ESCALATING_CONCERN_IDS,
   QUEST_LEVELS,
@@ -39,8 +50,37 @@ export function SkinQuestScreen({
   onExplore: () => void;
 }) {
   const [state, dispatch] = useReducer(skinQuestReducer, initialQuestState);
+  // The shelf and the streak live in this browser only, and the app renders fine when the
+  // read comes back empty — which it does in a private window, and during thumbnail capture.
+  const [collection, setCollection] = useState<CollectionState>(() =>
+    loadCollection(typeof localStorage === 'undefined' ? undefined : localStorage),
+  );
   const t = (key: MessageKey, params?: Record<string, string>) =>
     translate(key, locale, params ?? {});
+
+  useEffect(() => {
+    setCollection((previous) => {
+      const next = withVisit(previous, new Date());
+      if (next !== previous) {
+        saveCollection(typeof localStorage === 'undefined' ? undefined : localStorage, next);
+      }
+      return next;
+    });
+  }, []);
+
+  // A card is discovered by opening its concern, so the shelf fills as the journey is walked
+  // rather than only at the end.
+  useEffect(() => {
+    if (state.pickedConcernIds.length === 0) return;
+    setCollection((previous) => {
+      const next = withDiscovered(previous, state.pickedConcernIds);
+      if (next.discoveredConcernIds.length === previous.discoveredConcernIds.length) {
+        return previous;
+      }
+      saveCollection(typeof localStorage === 'undefined' ? undefined : localStorage, next);
+      return next;
+    });
+  }, [state.pickedConcernIds]);
 
   if (state.phase === 'welcome') {
     return (
@@ -64,7 +104,15 @@ export function SkinQuestScreen({
   }
 
   if (state.phase === 'record') {
-    return <QuestRecord state={state} locale={locale} onExplore={onExplore} dispatch={dispatch} />;
+    return (
+      <QuestRecord
+        state={state}
+        locale={locale}
+        collection={collection}
+        onExplore={onExplore}
+        dispatch={dispatch}
+      />
+    );
   }
 
   const level = QUEST_LEVELS[state.levelIndex];
@@ -221,14 +269,23 @@ function QuestConcernPicker({
 function QuestRecord({
   state,
   locale,
+  collection,
   onExplore,
   dispatch,
 }: {
   state: SkinQuestState;
   locale: string;
+  collection: CollectionState;
   onExplore: () => void;
   dispatch: (action: Parameters<typeof skinQuestReducer>[1]) => void;
 }) {
+  const now = useMemo(() => new Date(), []);
+  const gift = useMemo(() => issueGift(now), [now]);
+  const streak = currentStreak(collection, now);
+  // Which region the reader said they were looking at, for the map. Their own answer, not a
+  // guess made from the others.
+  const region = (state.answers['L1-S2'] ?? null) as SkinRegion | null;
+
   const answered = QUEST_LEVELS.flatMap((level) =>
     level.steps
       .map((step) => {
@@ -252,12 +309,15 @@ function QuestRecord({
   return (
     <section className="quest quest--record" aria-labelledby="record-headline">
       <p className="eyebrow">{translate('skinquest.record.eyebrow', locale)}</p>
+      <StreakBadge days={streak} locale={locale} />
       <CompanionSays mood="pleased" size={84}>
         <p className="bubble__prompt" id="record-headline">
           {translate('skinquest.record.headline', locale)}
         </p>
         <p className="bubble__help">{translate('skinquest.record.lead', locale)}</p>
       </CompanionSays>
+
+      <SkinMap active={region} title={translate('skinquest.record.picked', locale)} />
 
       {needsProfessional ? (
         <p className="boundary boundary--strong">{translate('skinquest.record.escalation', locale)}</p>
@@ -308,10 +368,16 @@ function QuestRecord({
       {approvedRoutine ? (
         <section className="record-block record-block--approved">
           <h2 className="record-block__title">{translate('skinquest.record.routine', locale)}</h2>
-          <p className="record-block__sequence">{approvedRoutine.Default_Sequence}</p>
+          <RoutineDiagram sequence={approvedRoutine.Default_Sequence} />
           <p className="record-block__note">{translate('skinquest.record.routineNote', locale)}</p>
         </section>
       ) : null}
+
+      <CollectionShelf discoveredIds={collection.discoveredConcernIds} locale={locale} />
+
+      {/* Last, and after the safety notice above: education outranks commerce (rule 6), and
+          the order things appear in is where that is honoured or quietly reversed. */}
+      <GiftCard gift={gift} locale={locale} />
 
       <div className="quest__foot">
         <button

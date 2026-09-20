@@ -364,6 +364,17 @@ const MESSAGES_EN = {
     'One or more of the things you picked is marked in the source as needing a qualified professional rather than self-care learning. Please give it that weight.',
   'skinquest.record.restart': 'Start over',
   'skinquest.record.explore': 'Go deeper into the lessons',
+  /* ---- Collection, streak and the store gift -----------------------------
+   * The gift is a commercial object and lives nowhere near the mastery ledger (rule 9). It
+   * is earned by finishing, never by being right. */
+  'collection.title': 'Your shelf',
+  'collection.count': '{found} of {total} found',
+  'collection.locked': 'Not opened yet',
+  'collection.streak': '{days} days in a row',
+  'gift.eyebrow': 'A gift, from us',
+  'gift.headline': 'Show this at a KOREA GLOW partner shop.',
+  'gift.note':
+    'Made when you finished — not for answering well. There are no right answers here.',
 } as const;
 
 /**
@@ -715,6 +726,13 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
     '고르신 항목 중에는, 원본 자료에서 자가 관리 학습이 아니라 전문가의 판단이 필요하다고 표시된 것이 있습니다. 그렇게 다뤄 주세요.',
   'skinquest.record.restart': '처음부터 다시',
   'skinquest.record.explore': '레슨으로 더 깊이 들어가기',
+  'collection.title': '내 선반',
+  'collection.count': '{total}개 중 {found}개를 찾았습니다',
+  'collection.locked': '아직 열지 않음',
+  'collection.streak': '{days}일 연속',
+  'gift.eyebrow': '작은 선물',
+  'gift.headline': 'KOREA GLOW 파트너 매장에서 보여주세요.',
+  'gift.note': '끝까지 하셔서 드리는 것입니다. 잘 맞혀서가 아닙니다 — 여기엔 정답이 없습니다.',
 };
 
 
@@ -1079,6 +1097,14 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
     'Au moins un des éléments choisis est signalé dans la source comme relevant d’un professionnel qualifié plutôt que d’un apprentissage en autonomie. Accordez-lui ce poids.',
   'skinquest.record.restart': 'Recommencer',
   'skinquest.record.explore': 'Aller plus loin dans les leçons',
+  'collection.title': 'Votre étagère',
+  'collection.count': '{found} sur {total} trouvés',
+  'collection.locked': 'Pas encore ouvert',
+  'collection.streak': '{days} jours d’affilée',
+  'gift.eyebrow': 'Un cadeau, de notre part',
+  'gift.headline': 'Présentez ceci dans une boutique partenaire KOREA GLOW.',
+  'gift.note':
+    'Créé parce que vous êtes allé au bout, pas parce que vous avez bien répondu. Il n’y a pas de bonne réponse ici.',
 };
 
 
@@ -1435,6 +1461,14 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
     'ໃນສິ່ງທີ່ທ່ານເລືອກ ມີຢ່າງໜ້ອຍໜຶ່ງຂໍ້ ທີ່ເອກະສານຕົ້ນສະບັບລະບຸວ່າ ຕ້ອງການຜູ້ຊ່ຽວຊານ ບໍ່ແມ່ນການຮຽນຮູ້ດູແລຕົນເອງ. ກະລຸນາໃຫ້ຄວາມສຳຄັນຕາມນັ້ນ.',
   'skinquest.record.restart': 'ເລີ່ມໃໝ່ແຕ່ຕົ້ນ',
   'skinquest.record.explore': 'ເຂົ້າໄປຮຽນໃຫ້ເລິກກວ່ານີ້',
+  'collection.title': 'ຊັ້ນວາງຂອງຂ້ອຍ',
+  'collection.count': 'ພົບແລ້ວ {found} ຈາກ {total}',
+  'collection.locked': 'ຍັງບໍ່ທັນເປີດ',
+  'collection.streak': 'ຕິດຕໍ່ກັນ {days} ມື້',
+  'gift.eyebrow': 'ຂອງຂວັນນ້ອຍໆ',
+  'gift.headline': 'ສະແດງສິ່ງນີ້ຢູ່ຮ້ານຄູ່ຮ່ວມຂອງ KOREA GLOW.',
+  'gift.note':
+    'ໄດ້ມາເພາະທ່ານເຮັດຈົນຈົບ ບໍ່ແມ່ນເພາະຕອບຖືກ — ທີ່ນີ້ບໍ່ມີຄຳຕອບທີ່ຖືກຕ້ອງ.',
 };
 
 
@@ -1795,6 +1829,14 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
     'ในสิ่งที่คุณเลือก มีอย่างน้อยหนึ่งข้อที่เอกสารต้นฉบับระบุว่าต้องการผู้เชี่ยวชาญ ไม่ใช่การเรียนรู้ดูแลตนเอง กรุณาให้ความสำคัญตามนั้น',
   'skinquest.record.restart': 'เริ่มใหม่ตั้งแต่ต้น',
   'skinquest.record.explore': 'เข้าไปเรียนให้ลึกกว่านี้',
+  'collection.title': 'ชั้นวางของฉัน',
+  'collection.count': 'พบแล้ว {found} จาก {total}',
+  'collection.locked': 'ยังไม่ได้เปิด',
+  'collection.streak': 'ติดต่อกัน {days} วัน',
+  'gift.eyebrow': 'ของขวัญเล็ก ๆ',
+  'gift.headline': 'แสดงสิ่งนี้ที่ร้านพันธมิตรของ KOREA GLOW',
+  'gift.note':
+    'ได้มาเพราะคุณทำจนจบ ไม่ใช่เพราะตอบถูก ที่นี่ไม่มีคำตอบที่ถูกต้อง',
 
 };
 
