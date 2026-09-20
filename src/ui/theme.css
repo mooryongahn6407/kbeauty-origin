@@ -726,6 +726,53 @@ select.field, .locale-switch select, .settings__select {
 .quest__foot { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
 .quest__foot .btn { flex: 1 1 auto; }
 
+/* LUMINA NOY. Every colour is a token, so one drawing serves both themes. The two that are
+   not on the shared palette — her hair and her skin — are declared here for both themes
+   together with the rest, so neither can end up defined only inside a media query. */
+:root {
+  --lumina-skin: #f2d9c4;
+  --lumina-hair: #33261d;
+  --lumina-blush: #eec0b4;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --lumina-skin: #d8b394;
+    --lumina-hair: #1d1511;
+    --lumina-blush: #b3796a;
+  }
+}
+:root[data-theme='dark'] {
+  --lumina-skin: #d8b394;
+  --lumina-hair: #1d1511;
+  --lumina-blush: #b3796a;
+}
+
+.lumina { flex: none; display: block; }
+.lumina__glow { fill: var(--accent-wash); }
+.lumina__hair { fill: var(--lumina-hair); }
+.lumina__face { fill: var(--lumina-skin); }
+.lumina__shoulders { fill: var(--accent); }
+.lumina__eye { fill: var(--lumina-hair); }
+.lumina__eye-line { fill: none; stroke: var(--lumina-hair); stroke-width: 2.6; stroke-linecap: round; }
+.lumina__mouth { fill: none; stroke: var(--lumina-hair); stroke-width: 2.2; stroke-linecap: round; }
+.lumina__blush { fill: var(--lumina-blush); opacity: 0.55; }
+.lumina__spark { fill: var(--accent); }
+.lumina--asking { animation: lumina-talk 2.4s ease-in-out infinite; }
+.lumina--pleased { animation: lumina-hop 0.7s ease-in-out 2; }
+.lumina--greeting .lumina__glow { animation: lumina-breathe 3.6s ease-in-out infinite; transform-origin: 60px 58px; }
+@keyframes lumina-talk {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes lumina-hop {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  40% { transform: translateY(-8px) rotate(-4deg); }
+}
+@keyframes lumina-breathe {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.75; }
+}
+
 /* The companion and what it says. */
 .says { display: flex; align-items: flex-end; gap: var(--space-3); }
 .companion { flex: none; }

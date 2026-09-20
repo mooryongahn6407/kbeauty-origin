@@ -88,7 +88,7 @@ describe('the gift is commercial, and stays out of the mastery ledger', () => {
   });
 
   it('never appears in the mastery ledger, and the ledger never gains a way to grant one', () => {
-    const ledger = createMasteryLedger();
+    const ledger = createMasteryLedger('test-reader');
     issueGift(day('2026-09-20'));
     withDiscovered(withVisit(emptyCollection, day('2026-09-20')), ['CON-001']);
     const snapshot = ledger.snapshot();

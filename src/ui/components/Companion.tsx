@@ -11,32 +11,19 @@
  * light belongs to nobody and so belongs to everyone.
  */
 import type { ReactNode } from 'react';
+import { Lumina, type LuminaMood } from './Lumina';
 
 export type CompanionMood = 'calm' | 'speaking' | 'pleased';
 
+const AS_LUMINA: Readonly<Record<CompanionMood, LuminaMood>> = {
+  calm: 'greeting',
+  speaking: 'asking',
+  pleased: 'pleased',
+};
+
+/** The guide, wherever a screen wants one. Every screen asks for her through this. */
 export function Companion({ mood = 'calm', size = 96 }: { mood?: CompanionMood; size?: number }) {
-  return (
-    <svg
-      className={`companion companion--${mood}`}
-      width={size}
-      height={size}
-      viewBox="0 0 120 120"
-      role="presentation"
-      aria-hidden="true"
-      focusable="false"
-    >
-      {/* The drop. */}
-      <path
-        className="companion__body"
-        d="M60 14c14 20 30 34 30 52a30 30 0 0 1-60 0c0-18 16-32 30-52z"
-      />
-      {/* A highlight, so it reads as something with light in it rather than a flat shape. */}
-      <ellipse className="companion__gleam" cx="47" cy="60" rx="8" ry="12" />
-      <circle className="companion__eye" cx="50" cy="70" r="3.4" />
-      <circle className="companion__eye" cx="70" cy="70" r="3.4" />
-      <path className="companion__smile" d="M52 80c3 3.4 13 3.4 16 0" />
-    </svg>
-  );
+  return <Lumina mood={AS_LUMINA[mood]} size={size} />;
 }
 
 /**
