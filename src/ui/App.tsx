@@ -27,6 +27,7 @@ import { DisplaySettings } from './components/DisplaySettings';
 import { SkinQuestScreen } from './screens/SkinQuestScreen';
 import { IngredientHuntScreen } from './screens/IngredientHuntScreen';
 import { CompareLabScreen } from './screens/CompareLabScreen';
+import { RoutineOrderScreen } from './screens/RoutineOrderScreen';
 import { MySkinScreen } from './screens/MySkinScreen';
 import { IngredientGardenScreen } from './screens/IngredientGardenScreen';
 import { RoutineStudioScreen } from './screens/RoutineStudioScreen';
@@ -40,6 +41,7 @@ type ScreenId =
   | 'quest'
   | 'hunt'
   | 'compare'
+  | 'order'
   | 'mySkin'
   | 'ingredientGarden'
   | 'routineStudio'
@@ -53,6 +55,7 @@ type ScreenId =
 const STUDY_ROOMS: readonly { id: ScreenId; key: MessageKey }[] = [
   { id: 'hunt', key: 'hunt.title' },
   { id: 'compare', key: 'compare.title' },
+  { id: 'order', key: 'order.title' },
   { id: 'mySkin', key: 'nav.mySkin' },
   { id: 'ingredientGarden', key: 'nav.ingredientGarden' },
   { id: 'routineStudio', key: 'nav.routineStudio' },
@@ -186,6 +189,7 @@ export function App() {
 
             {screen === 'hunt' ? <IngredientHuntScreen key={locale} locale={locale} /> : null}
             {screen === 'compare' ? <CompareLabScreen key={locale} locale={locale} /> : null}
+            {screen === 'order' ? <RoutineOrderScreen key={locale} locale={locale} /> : null}
             {screen === 'mySkin' ? <MySkinScreen key={locale} locale={locale} /> : null}
             {screen === 'ingredientGarden' ? (
               <IngredientGardenScreen key={locale} locale={locale} />
