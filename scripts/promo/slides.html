@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>KOREA GLOW — promo slides</title>
+<style>
+  /* Each .slide is one cut, captured at 1080×1920 (9:16). Colours echo the app's own tokens
+     rather than a second palette, so the film and the product look like one thing. */
+  :root{
+    --ink:#f4eee6; --ink-dim:#b6aa9c; --bg:#15120f; --surface:#1e1a16;
+    --accent:#dcbc80; --accent-wash:#2c2418; --warn:#e8b57f; --good:#9fb599;
+    --font: 'Noto Sans KR','Noto Sans Lao','Noto Sans Thai','Helvetica Neue',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#000;font-family:var(--font)}
+  .slide{
+    width:1080px;height:1920px;background:var(--bg);color:var(--ink);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    padding:120px 96px;gap:48px;text-align:center;position:relative;overflow:hidden;
+  }
+  .slide::after{
+    /* A soft warm glow, low enough not to fight the text. */
+    content:'';position:absolute;inset:auto -20% -30% -20%;height:70%;
+    background:radial-gradient(ellipse at center, rgba(220,188,128,.13), transparent 70%);
+    pointer-events:none;
+  }
+  h1{font-size:104px;line-height:1.24;font-weight:800;letter-spacing:-.02em;text-wrap:balance}
+  h1.sm{font-size:86px}
+  .dim{color:var(--ink-dim);font-weight:600}
+  .warn{color:var(--warn)}
+  .good{color:var(--good)}
+  .accent{color:var(--accent)}
+  .sub{font-size:52px;line-height:1.5;color:var(--ink-dim);font-weight:600;max-width:20ch}
+  .kicker{font-size:38px;letter-spacing:.32em;color:var(--accent);font-weight:700;text-transform:uppercase}
+
+  /* The phone: a real screenshot in a frame, so cut 6-10 are evidence rather than mock-up. */
+  .phone{
+    width:660px;border-radius:56px;border:10px solid #3d352e;background:#000;
+    overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.6);flex:none;
+  }
+  .phone img{display:block;width:100%}
+  .caption{font-size:54px;line-height:1.45;font-weight:700;max-width:22ch}
+
+  /* Cut 4: the score gauge other apps show, with the question nobody answers. */
+  .gauge{width:520px;height:520px;position:relative;display:grid;place-items:center}
+  .gauge svg{position:absolute;inset:0;transform:rotate(-90deg)}
+  .gauge .num{font-size:170px;font-weight:800;color:var(--warn);line-height:1}
+  .gauge .q{font-size:64px;color:var(--ink-dim);font-weight:700;margin-top:8px}
+
+  .langs{display:flex;flex-wrap:wrap;gap:22px;justify-content:center;max-width:840px}
+  .lang{font-size:46px;font-weight:700;padding:22px 40px;border-radius:999px;
+        border:3px solid #3d352e;color:var(--ink-dim)}
+  .lang.on{border-color:var(--accent);background:var(--accent-wash);color:var(--accent)}
+
+  .logo{font-size:74px;font-weight:800;letter-spacing:.3em;color:var(--accent)}
+  .rule{width:160px;height:6px;background:var(--accent);border-radius:99px}
+</style>
+</head>
+<body>
+
+<!-- 1 -->
+<section class="slide" id="s01">
+  <h1>같은 크림.<br><span class="dim">두 사람.</span></h1>
+</section>
+
+<!-- 2 -->
+<section class="slide" id="s02">
+  <h1>한 사람은 좋아졌고,<br><span class="warn">한 사람은 뒤집어졌습니다.</span></h1>
+</section>
+
+<!-- 3 -->
+<section class="slide" id="s03">
+  <svg width="300" height="300" viewBox="0 0 120 120" aria-hidden="true">
+    <circle cx="60" cy="58" r="42" fill="#2c2418"/>
+    <path d="M60 15c-20 0-33 14-33 34 0 10-1 19-3 27-1 6-2 12-4 17 6 3 12 4 17 4-2-8-3-17-3-26 0-6 0-13 1-20 1-16 10-25 25-25s24 9 25 25c1 7 1 14 1 20 0 9-1 18-3 26 5 0 11-1 17-4-2-5-3-11-4-17-2-8-3-17-3-27 0-20-13-34-33-34z" fill="#1d1511"/>
+    <path d="M60 90c-19 0-33 9-36 22h72c-3-13-17-22-36-22z" fill="#dcbc80"/>
+    <ellipse cx="60" cy="58" rx="21" ry="25" fill="#d8b394"/>
+    <path d="M60 31c-13 0-21 8-22 20 5-7 12-11 22-11s17 4 22 11c-1-12-9-20-22-20z" fill="#1d1511"/>
+    <circle cx="51.5" cy="57" r="2.8" fill="#1d1511"/><circle cx="68.5" cy="57" r="2.8" fill="#1d1511"/>
+    <path d="M55 69c3 2.5 7 2.5 10 0" fill="none" stroke="#1d1511" stroke-width="2.2" stroke-linecap="round"/>
+    <circle cx="43" cy="65" r="4.5" fill="#b3796a" opacity=".55"/><circle cx="77" cy="65" r="4.5" fill="#b3796a" opacity=".55"/>
+  </svg>
+  <h1 class="sm">크림 탓일까요,<br><span class="accent">내 피부를 몰랐던 탓일까요?</span></h1>
+</section>
+
+<!-- 4 -->
+<section class="slide" id="s04">
+  <p class="kicker">다른 앱은</p>
+  <div class="gauge">
+    <svg viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="86" fill="none" stroke="#3d352e" stroke-width="18"/>
+      <circle cx="100" cy="100" r="86" fill="none" stroke="#e8b57f" stroke-width="18"
+              stroke-linecap="round" stroke-dasharray="394 540"/>
+    </svg>
+    <div>
+      <div class="num">73</div>
+      <div class="q">…근거는?</div>
+    </div>
+  </div>
+  <p class="sub">점수를 줍니다.</p>
+</section>
+
+<!-- 5 -->
+<section class="slide" id="s05">
+  <h1>우리는 점수를<br>주지 않습니다.</h1>
+  <div class="rule"></div>
+  <h1 class="sm accent">읽는 법을 가르칩니다.</h1>
+</section>
+
+<!-- 6 -->
+<section class="slide" id="s06">
+  <p class="caption">“이 성분표에서<br>보습 성분을 찾아보세요”</p>
+  <div class="phone"><img src="frames/hunt-question.png" alt=""></div>
+</section>
+
+<!-- 7 -->
+<section class="slide" id="s07">
+  <p class="caption">틀려도 잃는 게 없습니다.<br><span class="good">왜 다른 계열인지 알려줍니다.</span></p>
+  <div class="phone"><img src="frames/hunt-reveal.png" alt=""></div>
+</section>
+
+<!-- 8 -->
+<section class="slide" id="s08">
+  <p class="caption">출처까지 전부 보여줍니다.<br><span class="accent">검수 중이면 “검수 중”이라고 씁니다.</span></p>
+  <div class="phone"><img src="frames/record-open.png" alt=""></div>
+</section>
+
+<!-- 9 -->
+<section class="slide" id="s09">
+  <p class="kicker">5개 언어</p>
+  <div class="langs">
+    <span class="lang">EN</span>
+    <span class="lang">한국어</span>
+    <span class="lang">Français</span>
+    <span class="lang">ไทย</span>
+    <span class="lang on">ລາວ</span>
+  </div>
+  <p class="sub">라오어로, 처음부터 끝까지.</p>
+</section>
+
+<!-- 10 -->
+<section class="slide" id="s10">
+  <p class="caption">4분이면<br>내 피부 기록이 남습니다.</p>
+  <div class="phone"><img src="frames/gift.png" alt=""></div>
+</section>
+
+<!-- 11 -->
+<section class="slide" id="s11">
+  <div class="logo">KOREA GLOW</div>
+  <div class="rule"></div>
+  <h1 class="sm">끝까지 하시면,<br><span class="accent">매장에 선물이 기다립니다.</span></h1>
+</section>
+
+</body>
+</html>
