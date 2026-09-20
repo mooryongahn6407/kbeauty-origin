@@ -288,6 +288,82 @@ const MESSAGES_EN = {
   'catalog.unreviewed':
     'This interface translation has not yet been checked by a speaker of this language. Wording may be wrong. The lessons themselves are unaffected.',
   'catalog.safetyOriginal': 'Original wording, for safety',
+
+  /* ---- Skin Quest ---------------------------------------------------------
+   * Every line below is about the activity — what to look at, what to tap, what was
+   * recorded. None of it says what skin is, does, or needs, because no knowledge record has
+   * passed the evidence gate yet. */
+  'skinquest.title': 'Skin Quest',
+  'skinquest.welcome.eyebrow': 'Four minutes, with your own skin',
+  'skinquest.welcome.headline': 'Nobody has looked at your skin as often as you have.',
+  'skinquest.welcome.lead':
+    'This is not a test and there are no wrong answers. You look, you answer, and at the end you keep the record you made.',
+  'skinquest.welcome.begin': 'Start looking',
+  'skinquest.welcome.boundary':
+    'This is cosmetic observation, not diagnosis. If something hurts, spreads or keeps getting worse, that is for a qualified professional, not for an app.',
+  'skinquest.progress': 'Step {done} of {total}',
+  'skinquest.level.L1': 'Level 1 · What you can see',
+  'skinquest.level.L2': 'Level 2 · How it changes',
+  'skinquest.level.L3': 'Level 3 · What you already do',
+  'skinquest.back': 'Back',
+  'skinquest.continue': 'Continue',
+  'skinquest.thatsMe': "That's me",
+
+  'skinquest.L1.S1.prompt': 'An hour after washing, with nothing applied — how does your face feel?',
+  'skinquest.L1.S1.help': 'Pick the closest one. You can change it later.',
+  'skinquest.L1.S1.tight': 'Tight',
+  'skinquest.L1.S1.comfortable': 'Comfortable',
+  'skinquest.L1.S1.shiny': 'Shiny',
+  'skinquest.L1.S1.mixed': 'Different in different places',
+
+  'skinquest.L1.S2.prompt': 'Where are you looking today?',
+  'skinquest.L1.S2.help': 'Start wherever you are actually curious.',
+  'skinquest.L1.S2.face': 'My face',
+  'skinquest.L1.S2.body': 'My body',
+  'skinquest.L1.S2.hair': 'My scalp and hair',
+
+  'skinquest.L2.S1.prompt': 'When you try something new, does your skin react?',
+  'skinquest.L2.S1.help': 'React means anything you noticed afterwards — not only stinging.',
+  'skinquest.L2.S1.never': 'Not that I have noticed',
+  'skinquest.L2.S1.sometimes': 'Sometimes',
+  'skinquest.L2.S1.often': 'Often',
+  'skinquest.L2.S1.unsure': 'I have never paid attention',
+
+  'skinquest.L2.S2.prompt': 'When do you notice it most?',
+  'skinquest.L2.S2.help': 'Think of an ordinary day, not your worst one.',
+  'skinquest.L2.S2.morning': 'In the morning',
+  'skinquest.L2.S2.evening': 'By the end of the day',
+  'skinquest.L2.S2.both': 'Both',
+  'skinquest.L2.S2.varies': 'It changes with the weather',
+
+  'skinquest.L3.S1.prompt': 'How often do you use sun protection?',
+  'skinquest.L3.S1.help': 'Answer for what you actually do, not what you mean to do.',
+  'skinquest.L3.S1.daily': 'Every day',
+  'skinquest.L3.S1.sunny': 'On sunny days',
+  'skinquest.L3.S1.rarely': 'Rarely',
+  'skinquest.L3.S1.never': 'Never',
+
+  'skinquest.concerns.prompt': 'Which of these are you noticing right now?',
+  'skinquest.concerns.help': 'Pick as many as you like, or none. This is your list, not a verdict.',
+  'skinquest.concerns.none': 'None of these right now',
+
+  'skinquest.record.eyebrow': 'Your record',
+  'skinquest.record.headline': 'Here is what you observed.',
+  'skinquest.record.lead':
+    'These are your own answers, written down. Nothing here has been interpreted, scored or diagnosed.',
+  'skinquest.record.answers': 'What you answered',
+  'skinquest.record.picked': 'What you are noticing',
+  'skinquest.record.nothingPicked': 'You did not pick anything to watch — that is a valid answer.',
+  'skinquest.record.learnNext': 'What this world can teach you about these',
+  'skinquest.record.pendingReview':
+    'The topics above are drawn from the Master Database and are still in review, so they are named as topics to learn — not stated as fact.',
+  'skinquest.record.routine': 'The one sequence that is approved',
+  'skinquest.record.routineNote':
+    'Of everything in the Master Database, the routine sequences are the records that have been approved. This is that sequence, unchanged.',
+  'skinquest.record.escalation':
+    'One or more of the things you picked is marked in the source as needing a qualified professional rather than self-care learning. Please give it that weight.',
+  'skinquest.record.restart': 'Start over',
+  'skinquest.record.explore': 'Go deeper into the lessons',
 } as const;
 
 /**
@@ -558,7 +634,7 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'display.textSize.larger': '가++',
   'display.skipToContent': '본문으로 건너뛰기',
 
-  'speech.listen': '들기',
+  'speech.listen': '듣기',
   'speech.stop': '정지',
   'speech.unavailable': '이 기기에는 이 언어의 음성이 없습니다',
   'speech.listenIn': '{language}로 듣기',
@@ -566,6 +642,79 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'catalog.unreviewed':
     '이 화면의 번역은 아직 해당 언어 사용자의 검수를 받지 않았습니다. 표현이 틀릴 수 있습니다. 레슨 내용 자체는 영향을 받지 않습니다.',
   'catalog.safetyOriginal': '안전을 위한 원문',
+
+  'skinquest.title': '스킨 퀘스트',
+  'skinquest.welcome.eyebrow': '내 피부와 함께하는 4분',
+  'skinquest.welcome.headline': '당신의 피부를 당신만큼 자주 본 사람은 없습니다.',
+  'skinquest.welcome.lead':
+    '시험이 아니고 틀린 답도 없습니다. 보고, 답하고, 끝나면 당신이 만든 기록이 남습니다.',
+  'skinquest.welcome.begin': '내 피부 보러 가기',
+  'skinquest.welcome.boundary':
+    '이것은 화장품 관점의 관찰이며 진단이 아닙니다. 아프거나, 번지거나, 점점 심해진다면 그때는 앱이 아니라 전문가를 찾을 때입니다.',
+  'skinquest.progress': '{total}단계 중 {done}단계',
+  'skinquest.level.L1': '1단계 · 지금 보이는 것',
+  'skinquest.level.L2': '2단계 · 달라지는 것',
+  'skinquest.level.L3': '3단계 · 이미 하고 있는 것',
+  'skinquest.back': '이전',
+  'skinquest.continue': '다음',
+  'skinquest.thatsMe': '이게 나예요',
+
+  'skinquest.L1.S1.prompt': '세수하고 한 시간, 아무것도 바르지 않았을 때 얼굴이 어떤가요?',
+  'skinquest.L1.S1.help': '가장 가까운 것을 고르세요. 나중에 바꿀 수 있습니다.',
+  'skinquest.L1.S1.tight': '당깁니다',
+  'skinquest.L1.S1.comfortable': '편안합니다',
+  'skinquest.L1.S1.shiny': '번들거립니다',
+  'skinquest.L1.S1.mixed': '부위마다 다릅니다',
+
+  'skinquest.L1.S2.prompt': '오늘은 어디를 보고 계신가요?',
+  'skinquest.L1.S2.help': '지금 정말 궁금한 곳부터 시작하세요.',
+  'skinquest.L1.S2.face': '얼굴',
+  'skinquest.L1.S2.body': '몸',
+  'skinquest.L1.S2.hair': '두피와 머리카락',
+
+  'skinquest.L2.S1.prompt': '새로운 것을 써 보면 피부가 반응하나요?',
+  'skinquest.L2.S1.help': '반응은 따가움만이 아니라, 쓰고 나서 알아차린 모든 것을 말합니다.',
+  'skinquest.L2.S1.never': '알아차린 적 없습니다',
+  'skinquest.L2.S1.sometimes': '가끔 그렇습니다',
+  'skinquest.L2.S1.often': '자주 그렇습니다',
+  'skinquest.L2.S1.unsure': '신경 써 본 적이 없습니다',
+
+  'skinquest.L2.S2.prompt': '언제 가장 많이 느끼시나요?',
+  'skinquest.L2.S2.help': '가장 심했던 날 말고, 보통의 하루를 떠올려 보세요.',
+  'skinquest.L2.S2.morning': '아침에',
+  'skinquest.L2.S2.evening': '하루가 끝날 무렵',
+  'skinquest.L2.S2.both': '둘 다',
+  'skinquest.L2.S2.varies': '날씨에 따라 달라집니다',
+
+  'skinquest.L3.S1.prompt': '자외선 차단은 얼마나 자주 하시나요?',
+  'skinquest.L3.S1.help': '하려고 마음먹은 것 말고, 실제로 하고 있는 것을 답해 주세요.',
+  'skinquest.L3.S1.daily': '매일',
+  'skinquest.L3.S1.sunny': '햇빛이 강한 날',
+  'skinquest.L3.S1.rarely': '가끔',
+  'skinquest.L3.S1.never': '하지 않습니다',
+
+  'skinquest.concerns.prompt': '지금 눈에 들어오는 것이 있나요?',
+  'skinquest.concerns.help':
+    '여러 개를 골라도 되고, 하나도 안 골라도 됩니다. 이것은 판정이 아니라 당신의 목록입니다.',
+  'skinquest.concerns.none': '지금은 해당하는 것이 없습니다',
+
+  'skinquest.record.eyebrow': '내 기록',
+  'skinquest.record.headline': '당신이 관찰한 것입니다.',
+  'skinquest.record.lead':
+    '전부 당신이 직접 답한 내용을 그대로 적은 것입니다. 해석하거나, 점수를 매기거나, 진단하지 않았습니다.',
+  'skinquest.record.answers': '당신의 답',
+  'skinquest.record.picked': '눈에 들어온 것',
+  'skinquest.record.nothingPicked': '지켜볼 것을 고르지 않으셨습니다. 그것도 유효한 답입니다.',
+  'skinquest.record.learnNext': '이 주제로 앞으로 배울 수 있는 것',
+  'skinquest.record.pendingReview':
+    '위 주제들은 마스터 데이터베이스에서 가져온 것이며 아직 검수 중입니다. 그래서 사실로 단정하지 않고 "앞으로 배울 주제"로만 적었습니다.',
+  'skinquest.record.routine': '승인된 단 하나의 순서',
+  'skinquest.record.routineNote':
+    '마스터 데이터베이스 전체에서 승인(Approved) 상태인 기록은 루틴 순서입니다. 아래는 그 순서를 그대로 옮긴 것입니다.',
+  'skinquest.record.escalation':
+    '고르신 항목 중에는, 원본 자료에서 자가 관리 학습이 아니라 전문가의 판단이 필요하다고 표시된 것이 있습니다. 그렇게 다뤄 주세요.',
+  'skinquest.record.restart': '처음부터 다시',
+  'skinquest.record.explore': '레슨으로 더 깊이 들어가기',
 };
 
 
@@ -864,6 +1013,72 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'catalog.unreviewed':
     'Cette interface a été traduite en français mais n’a pas encore été relue par une personne francophone. La formulation peut être inexacte. Les leçons elles-mêmes ne sont pas concernées.',
   'catalog.safetyOriginal': 'Formulation d’origine, par sécurité',
+
+  'skinquest.title': 'Quête de la peau',
+  'skinquest.welcome.eyebrow': 'Quatre minutes, avec votre propre peau',
+  'skinquest.welcome.headline': 'Personne n’a regardé votre peau aussi souvent que vous.',
+  'skinquest.welcome.lead':
+    'Ce n’est pas un test et il n’y a pas de mauvaise réponse. Vous regardez, vous répondez, et à la fin vous gardez le relevé que vous avez fait.',
+  'skinquest.welcome.begin': 'Commencer à regarder',
+  'skinquest.welcome.boundary':
+    'Il s’agit d’observation cosmétique, pas d’un diagnostic. Si quelque chose fait mal, s’étend ou empire, cela relève d’un professionnel qualifié, pas d’une application.',
+  'skinquest.progress': 'Étape {done} sur {total}',
+  'skinquest.level.L1': 'Niveau 1 · Ce que vous voyez',
+  'skinquest.level.L2': 'Niveau 2 · Ce qui change',
+  'skinquest.level.L3': 'Niveau 3 · Ce que vous faites déjà',
+  'skinquest.back': 'Retour',
+  'skinquest.continue': 'Continuer',
+  'skinquest.thatsMe': 'C’est moi',
+  'skinquest.L1.S1.prompt': 'Une heure après le nettoyage, sans rien appliquer — comment se sent votre visage ?',
+  'skinquest.L1.S1.help': 'Choisissez le plus proche. Vous pourrez changer plus tard.',
+  'skinquest.L1.S1.tight': 'Tiraillé',
+  'skinquest.L1.S1.comfortable': 'Confortable',
+  'skinquest.L1.S1.shiny': 'Brillant',
+  'skinquest.L1.S1.mixed': 'Différent selon les zones',
+  'skinquest.L1.S2.prompt': 'Que regardez-vous aujourd’hui ?',
+  'skinquest.L1.S2.help': 'Commencez là où vous êtes vraiment curieux.',
+  'skinquest.L1.S2.face': 'Mon visage',
+  'skinquest.L1.S2.body': 'Mon corps',
+  'skinquest.L1.S2.hair': 'Mon cuir chevelu et mes cheveux',
+  'skinquest.L2.S1.prompt': 'Quand vous essayez quelque chose de nouveau, votre peau réagit-elle ?',
+  'skinquest.L2.S1.help': 'Réagir veut dire tout ce que vous avez remarqué ensuite, pas seulement des picotements.',
+  'skinquest.L2.S1.never': 'Pas que j’aie remarqué',
+  'skinquest.L2.S1.sometimes': 'Parfois',
+  'skinquest.L2.S1.often': 'Souvent',
+  'skinquest.L2.S1.unsure': 'Je n’y ai jamais fait attention',
+  'skinquest.L2.S2.prompt': 'Quand le remarquez-vous le plus ?',
+  'skinquest.L2.S2.help': 'Pensez à une journée ordinaire, pas à la pire.',
+  'skinquest.L2.S2.morning': 'Le matin',
+  'skinquest.L2.S2.evening': 'En fin de journée',
+  'skinquest.L2.S2.both': 'Les deux',
+  'skinquest.L2.S2.varies': 'Cela change avec le temps qu’il fait',
+  'skinquest.L3.S1.prompt': 'À quelle fréquence utilisez-vous une protection solaire ?',
+  'skinquest.L3.S1.help': 'Répondez pour ce que vous faites vraiment, pas ce que vous comptez faire.',
+  'skinquest.L3.S1.daily': 'Tous les jours',
+  'skinquest.L3.S1.sunny': 'Les jours ensoleillés',
+  'skinquest.L3.S1.rarely': 'Rarement',
+  'skinquest.L3.S1.never': 'Jamais',
+  'skinquest.concerns.prompt': 'Lesquelles remarquez-vous en ce moment ?',
+  'skinquest.concerns.help':
+    'Choisissez-en autant que vous voulez, ou aucune. C’est votre liste, pas un verdict.',
+  'skinquest.concerns.none': 'Aucune pour l’instant',
+  'skinquest.record.eyebrow': 'Votre relevé',
+  'skinquest.record.headline': 'Voici ce que vous avez observé.',
+  'skinquest.record.lead':
+    'Ce sont vos propres réponses, notées. Rien ici n’a été interprété, noté ni diagnostiqué.',
+  'skinquest.record.answers': 'Vos réponses',
+  'skinquest.record.picked': 'Ce que vous remarquez',
+  'skinquest.record.nothingPicked': 'Vous n’avez rien choisi à surveiller — c’est une réponse valable.',
+  'skinquest.record.learnNext': 'Ce que ce monde peut vous apprendre à ce sujet',
+  'skinquest.record.pendingReview':
+    'Les sujets ci-dessus proviennent de la base de connaissances et sont encore en révision : ils sont donc nommés comme sujets d’apprentissage, non énoncés comme des faits.',
+  'skinquest.record.routine': 'La seule séquence approuvée',
+  'skinquest.record.routineNote':
+    'De toute la base de connaissances, les séquences de routine sont les enregistrements qui ont été approuvés. Voici cette séquence, inchangée.',
+  'skinquest.record.escalation':
+    'Au moins un des éléments choisis est signalé dans la source comme relevant d’un professionnel qualifié plutôt que d’un apprentissage en autonomie. Accordez-lui ce poids.',
+  'skinquest.record.restart': 'Recommencer',
+  'skinquest.record.explore': 'Aller plus loin dans les leçons',
 };
 
 
@@ -1154,6 +1369,72 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'catalog.unreviewed':
     'ໜ້າຈໍນີ້ຖືກແປເປັນພາສາລາວ ແຕ່ຍັງບໍ່ທັນໄດ້ຮັບການກວດຈາກຜູ້ເວົ້າພາສາລາວ. ຖ້ອຍຄຳອາດຜິດ. ບົດຮຽນເອງບໍ່ໄດ້ຮັບຜົນກະທົບ.',
   'catalog.safetyOriginal': 'ຖ້ອຍຄຳຕົ້ນສະບັບ ເພື່ອຄວາມປອດໄພ',
+
+  'skinquest.title': 'ການເດີນທາງຂອງຜິວ',
+  'skinquest.welcome.eyebrow': 'ສີ່ນາທີ ກັບຜິວຂອງທ່ານເອງ',
+  'skinquest.welcome.headline': 'ບໍ່ມີໃຜເບິ່ງຜິວຂອງທ່ານ ຫຼາຍເທົ່າກັບທ່ານເອງ.',
+  'skinquest.welcome.lead':
+    'ນີ້ບໍ່ແມ່ນການສອບເສັງ ແລະ ບໍ່ມີຄຳຕອບທີ່ຜິດ. ທ່ານເບິ່ງ, ທ່ານຕອບ, ແລະ ໃນທີ່ສຸດ ທ່ານຈະໄດ້ບັນທຶກທີ່ທ່ານສ້າງເອງ.',
+  'skinquest.welcome.begin': 'ເລີ່ມເບິ່ງຜິວຂອງຂ້ອຍ',
+  'skinquest.welcome.boundary':
+    'ນີ້ແມ່ນການສັງເກດໃນມຸມມອງເຄື່ອງສຳອາງ ບໍ່ແມ່ນການວິນິດໄສ. ຖ້າມີອາການເຈັບ, ລາມ ຫຼື ຮ້າຍແຮງຂຶ້ນ ນັ້ນແມ່ນເລື່ອງຂອງຜູ້ຊ່ຽວຊານ ບໍ່ແມ່ນຂອງແອັບ.',
+  'skinquest.progress': 'ຂັ້ນຕອນທີ {done} ຈາກ {total}',
+  'skinquest.level.L1': 'ລະດັບ 1 · ສິ່ງທີ່ທ່ານເຫັນ',
+  'skinquest.level.L2': 'ລະດັບ 2 · ສິ່ງທີ່ປ່ຽນແປງ',
+  'skinquest.level.L3': 'ລະດັບ 3 · ສິ່ງທີ່ທ່ານເຮັດຢູ່ແລ້ວ',
+  'skinquest.back': 'ກັບຄືນ',
+  'skinquest.continue': 'ຕໍ່ໄປ',
+  'skinquest.thatsMe': 'ແມ່ນຂ້ອຍເອງ',
+  'skinquest.L1.S1.prompt': 'ຫຼັງລ້າງໜ້າໜຶ່ງຊົ່ວໂມງ ໂດຍບໍ່ທາຫຍັງເລີຍ — ໜ້າຂອງທ່ານຮູ້ສຶກແນວໃດ?',
+  'skinquest.L1.S1.help': 'ເລືອກຂໍ້ທີ່ໃກ້ຄຽງທີ່ສຸດ. ທ່ານປ່ຽນໄດ້ພາຍຫຼັງ.',
+  'skinquest.L1.S1.tight': 'ຕຶງ',
+  'skinquest.L1.S1.comfortable': 'ສະບາຍ',
+  'skinquest.L1.S1.shiny': 'ເປັນມັນ',
+  'skinquest.L1.S1.mixed': 'ຕ່າງກັນຕາມບໍລິເວນ',
+  'skinquest.L1.S2.prompt': 'ມື້ນີ້ທ່ານກຳລັງເບິ່ງບ່ອນໃດ?',
+  'skinquest.L1.S2.help': 'ເລີ່ມຈາກບ່ອນທີ່ທ່ານຢາກຮູ້ແທ້ໆ.',
+  'skinquest.L1.S2.face': 'ໜ້າຂອງຂ້ອຍ',
+  'skinquest.L1.S2.body': 'ຮ່າງກາຍຂອງຂ້ອຍ',
+  'skinquest.L1.S2.hair': 'ໜັງຫົວ ແລະ ເສັ້ນຜົມ',
+  'skinquest.L2.S1.prompt': 'ເມື່ອທ່ານລອງຜະລິດຕະພັນໃໝ່ ຜິວຂອງທ່ານມີປະຕິກິລິຍາບໍ?',
+  'skinquest.L2.S1.help': 'ປະຕິກິລິຍາໝາຍເຖິງທຸກສິ່ງທີ່ທ່ານສັງເກດເຫັນຫຼັງຈາກນັ້ນ ບໍ່ແມ່ນແຕ່ອາການແສບ.',
+  'skinquest.L2.S1.never': 'ບໍ່ເຄີຍສັງເກດເຫັນ',
+  'skinquest.L2.S1.sometimes': 'ບາງເທື່ອ',
+  'skinquest.L2.S1.often': 'ເລື້ອຍໆ',
+  'skinquest.L2.S1.unsure': 'ບໍ່ເຄີຍໃສ່ໃຈ',
+  'skinquest.L2.S2.prompt': 'ທ່ານສັງເກດເຫັນຫຼາຍທີ່ສຸດຕອນໃດ?',
+  'skinquest.L2.S2.help': 'ຄິດເຖິງມື້ປົກກະຕິ ບໍ່ແມ່ນມື້ທີ່ຮ້າຍແຮງທີ່ສຸດ.',
+  'skinquest.L2.S2.morning': 'ຕອນເຊົ້າ',
+  'skinquest.L2.S2.evening': 'ຕອນທ້າຍມື້',
+  'skinquest.L2.S2.both': 'ທັງສອງ',
+  'skinquest.L2.S2.varies': 'ປ່ຽນໄປຕາມອາກາດ',
+  'skinquest.L3.S1.prompt': 'ທ່ານໃຊ້ການປ້ອງກັນແດດເລື້ອຍປານໃດ?',
+  'skinquest.L3.S1.help': 'ຕອບຕາມສິ່ງທີ່ທ່ານເຮັດແທ້ ບໍ່ແມ່ນສິ່ງທີ່ຕັ້ງໃຈຈະເຮັດ.',
+  'skinquest.L3.S1.daily': 'ທຸກມື້',
+  'skinquest.L3.S1.sunny': 'ມື້ທີ່ແດດແຮງ',
+  'skinquest.L3.S1.rarely': 'ບໍ່ຄ່ອຍ',
+  'skinquest.L3.S1.never': 'ບໍ່ເຄີຍ',
+  'skinquest.concerns.prompt': 'ຕອນນີ້ທ່ານສັງເກດເຫັນຂໍ້ໃດແດ່?',
+  'skinquest.concerns.help':
+    'ເລືອກໄດ້ຫຼາຍຂໍ້ ຫຼື ບໍ່ເລືອກກໍໄດ້. ນີ້ແມ່ນລາຍການຂອງທ່ານ ບໍ່ແມ່ນຄຳຕັດສິນ.',
+  'skinquest.concerns.none': 'ຕອນນີ້ບໍ່ມີຂໍ້ໃດກົງ',
+  'skinquest.record.eyebrow': 'ບັນທຶກຂອງຂ້ອຍ',
+  'skinquest.record.headline': 'ນີ້ແມ່ນສິ່ງທີ່ທ່ານສັງເກດເຫັນ.',
+  'skinquest.record.lead':
+    'ທັງໝົດນີ້ແມ່ນຄຳຕອບຂອງທ່ານເອງ ທີ່ຂຽນໄວ້ຕາມນັ້ນ. ບໍ່ໄດ້ຕີຄວາມ, ບໍ່ໄດ້ໃຫ້ຄະແນນ ແລະ ບໍ່ໄດ້ວິນິດໄສ.',
+  'skinquest.record.answers': 'ຄຳຕອບຂອງທ່ານ',
+  'skinquest.record.picked': 'ສິ່ງທີ່ທ່ານສັງເກດເຫັນ',
+  'skinquest.record.nothingPicked': 'ທ່ານບໍ່ໄດ້ເລືອກສິ່ງໃດໄວ້ຕິດຕາມ — ນັ້ນກໍເປັນຄຳຕອບທີ່ໃຊ້ໄດ້.',
+  'skinquest.record.learnNext': 'ສິ່ງທີ່ໂລກນີ້ສອນທ່ານໄດ້ກ່ຽວກັບເລື່ອງນີ້',
+  'skinquest.record.pendingReview':
+    'ຫົວຂໍ້ຂ້າງເທິງມາຈາກຖານຂໍ້ມູນຄວາມຮູ້ ແລະ ຍັງຢູ່ໃນຂັ້ນຕອນກວດສອບ ຈຶ່ງລະບຸໄວ້ເປັນຫົວຂໍ້ທີ່ຈະຮຽນ ບໍ່ແມ່ນຂໍ້ເທັດຈິງທີ່ຢືນຢັນແລ້ວ.',
+  'skinquest.record.routine': 'ລຳດັບດຽວທີ່ໄດ້ຮັບການອະນຸມັດ',
+  'skinquest.record.routineNote':
+    'ໃນຖານຂໍ້ມູນຄວາມຮູ້ທັງໝົດ ລຳດັບກິດຈະວັດແມ່ນບັນທຶກທີ່ໄດ້ຮັບການອະນຸມັດ. ຂ້າງລຸ່ມນີ້ແມ່ນລຳດັບນັ້ນ ຕາມຕົ້ນສະບັບ.',
+  'skinquest.record.escalation':
+    'ໃນສິ່ງທີ່ທ່ານເລືອກ ມີຢ່າງໜ້ອຍໜຶ່ງຂໍ້ ທີ່ເອກະສານຕົ້ນສະບັບລະບຸວ່າ ຕ້ອງການຜູ້ຊ່ຽວຊານ ບໍ່ແມ່ນການຮຽນຮູ້ດູແລຕົນເອງ. ກະລຸນາໃຫ້ຄວາມສຳຄັນຕາມນັ້ນ.',
+  'skinquest.record.restart': 'ເລີ່ມໃໝ່ແຕ່ຕົ້ນ',
+  'skinquest.record.explore': 'ເຂົ້າໄປຮຽນໃຫ້ເລິກກວ່ານີ້',
 };
 
 
@@ -1448,6 +1729,73 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'catalog.unreviewed':
     'หน้าจอนี้ถูกแปลเป็นภาษาไทย แต่ยังไม่ได้รับการตรวจจากผู้พูดภาษาไทย ถ้อยคำอาจผิด บทเรียนเองไม่ได้รับผลกระทบ',
   'catalog.safetyOriginal': 'ถ้อยคำต้นฉบับ เพื่อความปลอดภัย',
+
+  'skinquest.title': 'การเดินทางของผิว',
+  'skinquest.welcome.eyebrow': 'สี่นาที กับผิวของคุณเอง',
+  'skinquest.welcome.headline': 'ไม่มีใครมองผิวของคุณบ่อยเท่าตัวคุณเอง',
+  'skinquest.welcome.lead':
+    'นี่ไม่ใช่ข้อสอบ และไม่มีคำตอบที่ผิด คุณมอง คุณตอบ และในตอนท้ายคุณจะได้บันทึกที่คุณสร้างขึ้นเอง',
+  'skinquest.welcome.begin': 'เริ่มมองผิวของฉัน',
+  'skinquest.welcome.boundary':
+    'นี่คือการสังเกตในมุมมองเครื่องสำอาง ไม่ใช่การวินิจฉัย หากมีอาการเจ็บ ลุกลาม หรือแย่ลงเรื่อย ๆ นั่นเป็นเรื่องของผู้เชี่ยวชาญ ไม่ใช่ของแอป',
+  'skinquest.progress': 'ขั้นที่ {done} จาก {total}',
+  'skinquest.level.L1': 'ระดับ 1 · สิ่งที่คุณเห็น',
+  'skinquest.level.L2': 'ระดับ 2 · สิ่งที่เปลี่ยนไป',
+  'skinquest.level.L3': 'ระดับ 3 · สิ่งที่คุณทำอยู่แล้ว',
+  'skinquest.back': 'ย้อนกลับ',
+  'skinquest.continue': 'ต่อไป',
+  'skinquest.thatsMe': 'นี่คือฉัน',
+  'skinquest.L1.S1.prompt': 'หนึ่งชั่วโมงหลังล้างหน้า โดยไม่ทาอะไรเลย ใบหน้าของคุณรู้สึกอย่างไร',
+  'skinquest.L1.S1.help': 'เลือกข้อที่ใกล้เคียงที่สุด เปลี่ยนภายหลังได้',
+  'skinquest.L1.S1.tight': 'ตึง',
+  'skinquest.L1.S1.comfortable': 'สบาย',
+  'skinquest.L1.S1.shiny': 'มันวาว',
+  'skinquest.L1.S1.mixed': 'ต่างกันตามบริเวณ',
+  'skinquest.L1.S2.prompt': 'วันนี้คุณกำลังมองตรงไหน',
+  'skinquest.L1.S2.help': 'เริ่มจากตรงที่คุณอยากรู้จริง ๆ',
+  'skinquest.L1.S2.face': 'ใบหน้าของฉัน',
+  'skinquest.L1.S2.body': 'ร่างกายของฉัน',
+  'skinquest.L1.S2.hair': 'หนังศีรษะและเส้นผม',
+  'skinquest.L2.S1.prompt': 'เมื่อคุณลองของใหม่ ผิวของคุณมีปฏิกิริยาไหม',
+  'skinquest.L2.S1.help': 'ปฏิกิริยาหมายถึงทุกอย่างที่คุณสังเกตเห็นหลังจากนั้น ไม่ใช่แค่อาการแสบ',
+  'skinquest.L2.S1.never': 'ไม่เคยสังเกตเห็น',
+  'skinquest.L2.S1.sometimes': 'บางครั้ง',
+  'skinquest.L2.S1.often': 'บ่อย ๆ',
+  'skinquest.L2.S1.unsure': 'ไม่เคยใส่ใจ',
+  'skinquest.L2.S2.prompt': 'คุณสังเกตเห็นมากที่สุดตอนไหน',
+  'skinquest.L2.S2.help': 'นึกถึงวันธรรมดา ไม่ใช่วันที่แย่ที่สุด',
+  'skinquest.L2.S2.morning': 'ตอนเช้า',
+  'skinquest.L2.S2.evening': 'ตอนท้ายวัน',
+  'skinquest.L2.S2.both': 'ทั้งสองช่วง',
+  'skinquest.L2.S2.varies': 'เปลี่ยนไปตามอากาศ',
+  'skinquest.L3.S1.prompt': 'คุณใช้การป้องกันแดดบ่อยแค่ไหน',
+  'skinquest.L3.S1.help': 'ตอบตามสิ่งที่ทำจริง ไม่ใช่สิ่งที่ตั้งใจจะทำ',
+  'skinquest.L3.S1.daily': 'ทุกวัน',
+  'skinquest.L3.S1.sunny': 'วันที่แดดแรง',
+  'skinquest.L3.S1.rarely': 'นาน ๆ ครั้ง',
+  'skinquest.L3.S1.never': 'ไม่เคย',
+  'skinquest.concerns.prompt': 'ตอนนี้คุณสังเกตเห็นข้อใดบ้าง',
+  'skinquest.concerns.help':
+    'เลือกกี่ข้อก็ได้ หรือไม่เลือกเลยก็ได้ นี่คือรายการของคุณ ไม่ใช่คำตัดสิน',
+  'skinquest.concerns.none': 'ตอนนี้ไม่มีข้อใดตรง',
+  'skinquest.record.eyebrow': 'บันทึกของฉัน',
+  'skinquest.record.headline': 'นี่คือสิ่งที่คุณสังเกตเห็น',
+  'skinquest.record.lead':
+    'ทั้งหมดนี้คือคำตอบของคุณเอง ที่เขียนไว้ตามนั้น ไม่ได้ตีความ ไม่ได้ให้คะแนน และไม่ได้วินิจฉัย',
+  'skinquest.record.answers': 'คำตอบของคุณ',
+  'skinquest.record.picked': 'สิ่งที่คุณสังเกตเห็น',
+  'skinquest.record.nothingPicked': 'คุณไม่ได้เลือกสิ่งใดไว้ติดตาม นั่นก็เป็นคำตอบที่ใช้ได้',
+  'skinquest.record.learnNext': 'สิ่งที่โลกนี้สอนคุณได้เกี่ยวกับเรื่องนี้',
+  'skinquest.record.pendingReview':
+    'หัวข้อข้างต้นมาจากฐานข้อมูลความรู้และยังอยู่ระหว่างการตรวจสอบ จึงระบุไว้เป็นหัวข้อที่จะเรียน ไม่ใช่ข้อเท็จจริงที่ยืนยันแล้ว',
+  'skinquest.record.routine': 'ลำดับเดียวที่ได้รับการอนุมัติ',
+  'skinquest.record.routineNote':
+    'ในฐานข้อมูลความรู้ทั้งหมด ลำดับกิจวัตรคือบันทึกที่ได้รับการอนุมัติ ด้านล่างคือลำดับนั้นตามต้นฉบับ',
+  'skinquest.record.escalation':
+    'ในสิ่งที่คุณเลือก มีอย่างน้อยหนึ่งข้อที่เอกสารต้นฉบับระบุว่าต้องการผู้เชี่ยวชาญ ไม่ใช่การเรียนรู้ดูแลตนเอง กรุณาให้ความสำคัญตามนั้น',
+  'skinquest.record.restart': 'เริ่มใหม่ตั้งแต่ต้น',
+  'skinquest.record.explore': 'เข้าไปเรียนให้ลึกกว่านี้',
+
 };
 
 const CATALOGS: Readonly<Record<string, Partial<Record<MessageKey, string>>>> = {

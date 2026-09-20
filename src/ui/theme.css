@@ -596,9 +596,256 @@ select.field, .locale-switch select, .settings__select {
 .stack > * + * { margin-top: var(--space-3); }
 
 /* ------------------------------------------------------------------ *
+ * Skin Quest — the front door
+ *
+ * The quest is the one place in the app that is deliberately not dense. One question fills the
+ * screen, the options are large enough to hit with a thumb on a bus, and the companion says
+ * things rather than the page printing them. Everything here still draws from the same tokens,
+ * so both themes and all three text sizes keep working without this section knowing they exist.
+ * ------------------------------------------------------------------ */
+
+.topbar {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.topbar__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.topbar__right { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
+
+/* Language first, in the open. A dropdown hides four of five choices behind a tap; chips do not.
+   They stay on one line and scroll rather than wrapping: five wrapped chips put one lonely
+   language on a second row and push the first question further down a phone screen. */
+.langchips {
+  display: flex;
+  gap: var(--space-1);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.langchips::-webkit-scrollbar { display: none; }
+.langchips > li { flex: none; }
+.langchip {
+  appearance: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text-muted);
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  min-height: var(--tap);
+  cursor: pointer;
+}
+.langchip:hover { color: var(--text); background: var(--surface-sunk); }
+.langchip[aria-pressed='true'] {
+  color: var(--text);
+  background: var(--accent-wash);
+  border-color: var(--accent);
+}
+
+.brandmark {
+  appearance: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
+  border: 0;
+  min-height: var(--tap);
+  cursor: pointer;
+}
+
+.settings-toggle {
+  appearance: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  min-height: var(--tap);
+  cursor: pointer;
+}
+.settings-toggle:hover { color: var(--text); border-color: var(--line-strong); }
+.topbar__settings {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4) var(--space-3);
+}
+
+.quest {
+  max-width: 34rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.quest--welcome { align-items: center; text-align: center; }
+.quest__headline { font-size: var(--fs-xl); line-height: 1.25; text-wrap: balance; margin: 0; }
+.quest__lead { font-size: var(--fs-md); color: var(--text-muted); line-height: 1.6; margin: 0; max-width: 30ch; }
+
+/* Announced to a screen reader, never painted. Without it the spoken-only progress sentence
+   renders beside the numerals it exists to replace, which is exactly what happened. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Title on its own line, bar and count beneath it: at 390px the three do not share a row
+   without squeezing the title into a four-line column. */
+.quest__header { display: grid; grid-template-columns: 1fr auto; gap: var(--space-2) var(--space-3); align-items: center; }
+.quest__level { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0; grid-column: 1 / -1; }
+.quest__bar { height: 8px; border-radius: 999px; background: var(--surface-sunk); border: 1px solid var(--line); overflow: hidden; }
+.quest__bar-fill { display: block; height: 100%; background: var(--accent); transition: width 400ms ease; }
+.quest__count { font-family: var(--font-ui); font-size: var(--fs-xs); font-variant-numeric: tabular-nums; color: var(--text-muted); margin: 0; white-space: nowrap; }
+.quest__foot { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+.quest__foot .btn { flex: 1 1 auto; }
+
+/* The companion and what it says. */
+.says { display: flex; align-items: flex-end; gap: var(--space-3); }
+.companion { flex: none; }
+.companion__body { fill: var(--accent-wash); stroke: var(--accent); stroke-width: 3; }
+.companion__gleam { fill: var(--surface); opacity: 0.85; }
+.companion__eye { fill: var(--accent); }
+.companion__smile { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
+.companion--speaking { animation: companion-talk 1.6s ease-in-out infinite; }
+.companion--pleased { animation: companion-hop 0.7s ease-in-out 2; }
+@keyframes companion-talk {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.03); }
+}
+@keyframes companion-hop {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  40% { transform: translateY(-10px) rotate(-6deg); }
+}
+
+.bubble {
+  position: relative;
+  flex: 1;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: var(--shadow);
+}
+.bubble::after {
+  content: '';
+  position: absolute;
+  left: -9px;
+  bottom: 18px;
+  width: 14px;
+  height: 14px;
+  background: var(--surface);
+  border-left: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+  transform: rotate(45deg);
+}
+.bubble__prompt { font-size: var(--fs-md); line-height: 1.45; margin: 0; text-wrap: balance; }
+.bubble__help { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.55; margin: var(--space-2) 0 0; }
+
+.options { list-style: none; margin: 0; padding: 0; }
+.option--concern { display: flex; flex-direction: column; gap: 2px; }
+.option__name { font-family: var(--font-ui); font-weight: 600; }
+.option__detail { font-size: var(--fs-sm); color: var(--text-muted); }
+
+/* The boundary line. Present on the first screen and again wherever the source record says a
+   concern needs a professional — stated plainly, never as a scare. */
+.boundary {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--text-muted);
+  background: var(--surface-sunk);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  margin: 0;
+}
+.boundary--strong {
+  color: var(--caution);
+  background: var(--caution-wash);
+  border: 2px solid var(--caution);
+  font-weight: 600;
+}
+
+/* The record. */
+.record-block { border-top: 1px solid var(--line); padding-top: var(--space-4); }
+.record-block__title { font-size: var(--fs-lg); margin: 0 0 var(--space-3); }
+.record-block__subtitle { font-size: var(--fs-base); margin: var(--space-4) 0 var(--space-2); }
+.record-block__note { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.6; margin: var(--space-3) 0 0; }
+.record-block__sequence { font-size: var(--fs-md); line-height: 1.7; margin: 0; }
+.record-block--approved { background: var(--botanical-wash); border-radius: var(--radius); border-top: 0; padding: var(--space-4); }
+.record-list { margin: 0; }
+.record-list__row { display: flex; flex-direction: column; gap: 2px; padding: var(--space-2) 0; border-bottom: 1px solid var(--line); }
+.record-list__row dt { font-size: var(--fs-sm); color: var(--text-muted); }
+.record-list__row dd { font-size: var(--fs-base); font-weight: 600; margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
+.chip { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 600; background: var(--accent-wash); color: var(--accent); border-radius: 999px; padding: var(--space-1) var(--space-3); }
+.goals { margin: 0; padding-left: 1.2em; }
+.goals li { font-size: var(--fs-base); line-height: 1.6; margin-bottom: var(--space-2); }
+
+/* The study rooms, reached from "go deeper" rather than sitting across the first screen. */
+.rooms { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-5); align-items: center; }
+.rooms__back {
+  appearance: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent);
+  background: transparent;
+  border: 0;
+  min-height: var(--tap);
+  padding: 0 var(--space-2) 0 0;
+  cursor: pointer;
+}
+.rooms__item {
+  appearance: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  min-height: var(--tap);
+  cursor: pointer;
+}
+.rooms__item:hover { color: var(--text); border-color: var(--line-strong); }
+.rooms__item[aria-current='page'] { color: var(--text); background: var(--accent-wash); border-color: var(--accent); font-weight: 600; }
+/* The owner's door, set apart so nobody wanders into review status looking for skincare. */
+.rooms__item--owner { margin-left: auto; border-style: dashed; }
+
+/* ------------------------------------------------------------------ *
  * Narrow screens
  * ------------------------------------------------------------------ */
 @media (max-width: 640px) {
+  .quest__headline { font-size: var(--fs-lg); }
+  .topbar__inner { padding: var(--space-2) var(--space-3); }
+  .says { gap: var(--space-2); }
+  .rooms__item--owner { margin-left: 0; }
   .main { padding: var(--space-4) var(--space-3) var(--space-6); }
   .masthead { padding: var(--space-3) var(--space-3) 0; position: static; }
   .card { padding: var(--space-3); }
