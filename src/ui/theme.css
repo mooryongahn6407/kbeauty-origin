@@ -932,6 +932,62 @@ select.field, .locale-switch select, .settings__select {
 }
 .gift__note { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.6; margin: var(--space-3) 0 0; }
 
+/* ---- Ingredient hunt ------------------------------------------------------
+ * The list is set the way a bottle sets one, so the thing being learned on screen is the thing
+ * the reader will meet in a shop. Nothing here marks a wrong tap in red-for-failure: a miss is
+ * shown as "this one too", because the reveal is the lesson. */
+.hunt { max-width: 34rem; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
+.inci { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.inci__item {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  color: var(--text);
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--tap);
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+.inci__item:hover:not(:disabled) { border-color: var(--line-strong); }
+.inci__item.is-picked { border-color: var(--accent); background: var(--accent-wash); font-weight: 600; }
+.inci__item.is-correct { border-color: var(--botanical); background: var(--botanical-wash); font-weight: 700; }
+.inci__item.is-missed { border-color: var(--botanical); border-style: dashed; background: var(--surface); }
+.inci__item.is-wrong { border-color: var(--line-strong); background: var(--surface-sunk); opacity: 0.7; }
+.inci__item[disabled] { cursor: default; }
+.inci__family { font-size: var(--fs-2xs); color: var(--text-muted); }
+.inci__item.is-correct .inci__family, .inci__item.is-missed .inci__family { color: var(--botanical); }
+
+.hunt__reveal { display: flex; flex-direction: column; gap: var(--space-3); }
+.hunt__score { font-size: var(--fs-lg); font-weight: 600; margin: 0; }
+.hunt__label { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin: var(--space-2) 0 0; }
+.hunt__progress { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 600; color: var(--accent); margin: 0; }
+
+/* One record, opened. Showing the review status is the point, not the apology. */
+.inci-record { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-3); background: var(--surface); }
+.inci-record__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); }
+.inci-record__name { font-family: var(--font-ui); font-size: var(--fs-base); font-weight: 700; }
+.chip--soft { background: var(--surface-sunk); color: var(--text-muted); }
+.inci-record__fields { margin: var(--space-3) 0 0; display: grid; gap: var(--space-2); }
+.inci-record__fields > div { display: grid; grid-template-columns: 7rem 1fr; gap: var(--space-2); }
+.inci-record__fields dt { font-size: var(--fs-xs); color: var(--text-muted); }
+.inci-record__fields dd { font-size: var(--fs-sm); margin: 0; overflow-wrap: anywhere; }
+/* The citation is the one thing on this card a reader is most likely to want to follow, and it
+   sits on its own line rather than inline in prose — so it gets a real target rather than the
+   inline-link exemption. */
+.inci-record__fields a {
+  display: inline-block;
+  min-height: var(--tap);
+  padding-block: var(--space-2);
+  color: var(--accent);
+}
+
 /* The study rooms, reached from "go deeper" rather than sitting across the first screen. */
 .rooms { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-5); align-items: center; }
 .rooms__back {

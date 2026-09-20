@@ -25,6 +25,7 @@ import {
 import { applyPreferences, loadPreferences, savePreferences } from './preferences';
 import { DisplaySettings } from './components/DisplaySettings';
 import { SkinQuestScreen } from './screens/SkinQuestScreen';
+import { IngredientHuntScreen } from './screens/IngredientHuntScreen';
 import { MySkinScreen } from './screens/MySkinScreen';
 import { IngredientGardenScreen } from './screens/IngredientGardenScreen';
 import { RoutineStudioScreen } from './screens/RoutineStudioScreen';
@@ -36,6 +37,7 @@ import { GovernanceScreen } from './screens/GovernanceScreen';
 
 type ScreenId =
   | 'quest'
+  | 'hunt'
   | 'mySkin'
   | 'ingredientGarden'
   | 'routineStudio'
@@ -47,6 +49,7 @@ type ScreenId =
 
 /** The study rooms, reached from the quest's record or the "go deeper" row. */
 const STUDY_ROOMS: readonly { id: ScreenId; key: MessageKey }[] = [
+  { id: 'hunt', key: 'hunt.title' },
   { id: 'mySkin', key: 'nav.mySkin' },
   { id: 'ingredientGarden', key: 'nav.ingredientGarden' },
   { id: 'routineStudio', key: 'nav.routineStudio' },
@@ -178,6 +181,7 @@ export function App() {
               </button>
             </nav>
 
+            {screen === 'hunt' ? <IngredientHuntScreen key={locale} locale={locale} /> : null}
             {screen === 'mySkin' ? <MySkinScreen key={locale} locale={locale} /> : null}
             {screen === 'ingredientGarden' ? (
               <IngredientGardenScreen key={locale} locale={locale} />
