@@ -1074,6 +1074,18 @@ select.field, .locale-switch select, .settings__select {
 /* The label specimens on offer, when the data holds more than one. */
 .specimens { list-style: none; margin: 0 0 var(--space-3); padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
 
+/* ---- Claim vs observation (QST-012) ---------------------------------------
+ * Two buttons per card rather than a drag: on a phone, one-handed, in a shop, a tap wins. */
+.claim { max-width: 34rem; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
+.claim__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+.claim__card { border: 2px solid var(--line); border-radius: var(--radius); padding: var(--space-3); background: var(--surface); }
+.claim__card.is-right { border-color: var(--botanical); background: var(--botanical-wash); }
+.claim__card.is-wrong { border-color: var(--caution); background: var(--caution-wash); }
+.claim__text { font-size: var(--fs-base); line-height: 1.6; margin: 0 0 var(--space-3); }
+.claim__buttons { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.claim__buttons .btn[aria-pressed='true'] { background: var(--accent-wash); border-color: var(--accent); color: var(--accent); font-weight: 700; }
+.claim__why { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.6; margin: var(--space-3) 0 0; }
+
 /* ---- Day grid -------------------------------------------------------------
  * A gap is an empty square and nothing more. No streak flame to lose, no offer to buy a day
  * back: the grid exists to be looked at, not to be owed. */

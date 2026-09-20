@@ -1,0 +1,158 @@
+{
+  "$schema_note": "Application-AUTHORED practice statements for QST-012 (Retinol Myth Lab, Win_Condition '주장과 사실 구분'). NOT an official KOREA GLOW source. Every statement is claimClass PEDAGOGICAL: the exercise asks which KIND of sentence each one is, never whether it is true. No statement asserts that any ingredient, product or routine does anything, and the correct answer never depends on knowing whether a claim is accurate.",
+  "governanceNote": "Grounded in SK01 Observe ('관찰 가능한 사실과 주관적 느낌을 구분해 기록') and D11 Beauty Media Literacy. Written under the same allowance as data/authored/label-specimens.json: sorting text by kind is a categorisation, not an evaluation. Review status is Draft and must not be promoted in code.",
+  "buckets": ["OBSERVATION", "CLAIM"],
+  "bucketNote": {
+    "en": "An observation is something another person could go and check for themselves. A claim is someone telling you what to conclude. Both can be true; only one of them is evidence.",
+    "ko": "관찰은 다른 사람이 가서 직접 확인할 수 있는 것입니다. 주장은 어떤 결론을 내리라고 누군가 말해주는 것입니다. 둘 다 사실일 수 있지만, 증거가 되는 것은 하나뿐입니다.",
+    "fr": "Une observation est quelque chose qu’une autre personne pourrait aller vérifier. Une allégation est quelqu’un qui vous dit quoi conclure. Les deux peuvent être vraies ; une seule est une preuve.",
+    "lo": "ການສັງເກດແມ່ນສິ່ງທີ່ຄົນອື່ນສາມາດໄປກວດເບິ່ງເອງໄດ້. ຄຳອ້າງແມ່ນການທີ່ໃຜຜູ້ໜຶ່ງບອກທ່ານວ່າຄວນສະຫຼຸບແນວໃດ. ທັງສອງອາດເປັນຄວາມຈິງ ແຕ່ມີພຽງອັນດຽວທີ່ເປັນຫຼັກຖານ.",
+    "th": "การสังเกตคือสิ่งที่คนอื่นไปตรวจสอบเองได้ คำกล่าวอ้างคือการที่ใครบางคนบอกคุณว่าควรสรุปอย่างไร ทั้งสองอาจเป็นจริง แต่มีเพียงอย่างเดียวที่เป็นหลักฐาน"
+  },
+  "statements": [
+    {
+      "statementId": "CVO-001",
+      "kind": "OBSERVATION",
+      "text": {
+        "en": "On Tuesday morning my cheeks felt tight after washing.",
+        "ko": "화요일 아침, 세수한 뒤에 볼이 당겼습니다.",
+        "fr": "Mardi matin, mes joues tiraient après le nettoyage.",
+        "lo": "ເຊົ້າວັນອັງຄານ ຫຼັງລ້າງໜ້າ ແກ້ມຂອງຂ້ອຍຮູ້ສຶກຕຶງ.",
+        "th": "เช้าวันอังคาร หลังล้างหน้า แก้มของฉันรู้สึกตึง"
+      },
+      "why": {
+        "en": "It names when, where and what — someone else could ask you about that morning. Nothing is concluded from it.",
+        "ko": "언제, 어디가, 어땠는지를 말합니다. 다른 사람이 그 아침에 대해 물어볼 수 있습니다. 여기서 결론을 내리지는 않았습니다.",
+        "fr": "Cela nomme quand, où et quoi — on pourrait vous interroger sur ce matin-là. Rien n’en est conclu.",
+        "lo": "ບອກວ່າເມື່ອໃດ ບ່ອນໃດ ແລະ ແນວໃດ — ຄົນອື່ນສາມາດຖາມກ່ຽວກັບເຊົ້ານັ້ນໄດ້. ບໍ່ໄດ້ສະຫຼຸບຫຍັງ.",
+        "th": "บอกว่าเมื่อไร ตรงไหน และอย่างไร คนอื่นถามถึงเช้านั้นได้ ไม่ได้สรุปอะไร"
+      }
+    },
+    {
+      "statementId": "CVO-002",
+      "kind": "CLAIM",
+      "text": {
+        "en": "My skin barrier is damaged.",
+        "ko": "제 피부 장벽이 손상됐어요.",
+        "fr": "Ma barrière cutanée est abîmée.",
+        "lo": "ເກາະປ້ອງກັນຜິວຂອງຂ້ອຍເສຍຫາຍ.",
+        "th": "เกราะป้องกันผิวของฉันเสียหาย"
+      },
+      "why": {
+        "en": "This is a conclusion with a name attached. It may be right, but it is the verdict rather than what was seen.",
+        "ko": "이름을 붙인 결론입니다. 맞을 수도 있지만, 본 것이 아니라 판정입니다.",
+        "fr": "C’est une conclusion, avec un nom. Elle peut être juste, mais c’est le verdict, pas ce qui a été vu.",
+        "lo": "ນີ້ແມ່ນຂໍ້ສະຫຼຸບທີ່ມີຊື່ຕິດມາ. ອາດຈະຖືກ ແຕ່ເປັນຄຳຕັດສິນ ບໍ່ແມ່ນສິ່ງທີ່ເຫັນ.",
+        "th": "นี่คือข้อสรุปที่มีชื่อเรียกติดมา อาจถูกก็ได้ แต่เป็นคำตัดสิน ไม่ใช่สิ่งที่เห็น"
+      }
+    },
+    {
+      "statementId": "CVO-003",
+      "kind": "OBSERVATION",
+      "text": {
+        "en": "I used the new cream for four nights, then stopped.",
+        "ko": "새 크림을 나흘 밤 쓰고 나서 중단했습니다.",
+        "fr": "J’ai utilisé la nouvelle crème quatre soirs, puis j’ai arrêté.",
+        "lo": "ຂ້ອຍໃຊ້ຄີມໃໝ່ສີ່ຄືນ ແລ້ວຢຸດ.",
+        "th": "ฉันใช้ครีมใหม่สี่คืน แล้วหยุด"
+      },
+      "why": {
+        "en": "A record of what you did and for how long. Countable, and checkable against your own shelf.",
+        "ko": "무엇을 얼마나 했는지 적은 기록입니다. 셀 수 있고, 화장대를 보면 확인됩니다.",
+        "fr": "Un relevé de ce que vous avez fait et pendant combien de temps. Comptable et vérifiable.",
+        "lo": "ເປັນບັນທຶກວ່າທ່ານເຮັດຫຍັງ ດົນປານໃດ. ນັບໄດ້ ແລະ ກວດຄືນໄດ້.",
+        "th": "เป็นบันทึกว่าคุณทำอะไร นานแค่ไหน นับได้และตรวจสอบย้อนหลังได้"
+      }
+    },
+    {
+      "statementId": "CVO-004",
+      "kind": "CLAIM",
+      "text": {
+        "en": "The cream broke me out.",
+        "ko": "그 크림 때문에 뒤집어졌어요.",
+        "fr": "C’est la crème qui m’a fait faire des boutons.",
+        "lo": "ຄີມນັ້ນເຮັດໃຫ້ຜິວຂ້ອຍແຕກ.",
+        "th": "ครีมนั้นทำให้ผิวฉันแตก"
+      },
+      "why": {
+        "en": "It names a cause. Something did happen, but which thing caused it is the part being decided here, not seen.",
+        "ko": "원인을 지목합니다. 무언가 일어난 건 맞지만, 무엇 때문인지는 본 것이 아니라 여기서 정해진 것입니다.",
+        "fr": "Cela désigne une cause. Quelque chose s’est produit, mais la cause est ici décidée, pas observée.",
+        "lo": "ເປັນການຊີ້ສາເຫດ. ມີບາງຢ່າງເກີດຂຶ້ນແທ້ ແຕ່ວ່າແມ່ນຫຍັງເປັນສາເຫດ ແມ່ນການຕັດສິນ ບໍ່ແມ່ນການເຫັນ.",
+        "th": "เป็นการชี้สาเหตุ มีบางอย่างเกิดขึ้นจริง แต่อะไรเป็นสาเหตุนั้นเป็นการตัดสิน ไม่ใช่การเห็น"
+      }
+    },
+    {
+      "statementId": "CVO-005",
+      "kind": "OBSERVATION",
+      "text": {
+        "en": "There were three small red spots along my jaw on Friday.",
+        "ko": "금요일에 턱선을 따라 작고 붉은 자국이 세 개 있었습니다.",
+        "fr": "Vendredi, j’avais trois petites taches rouges le long de la mâchoire.",
+        "lo": "ວັນສຸກ ມີຈຸດແດງນ້ອຍໆສາມຈຸດຕາມແຄມຄາງ.",
+        "th": "วันศุกร์ มีจุดแดงเล็ก ๆ สามจุดตามแนวกราม"
+      },
+      "why": {
+        "en": "How many, where, and when. A photograph would settle it either way.",
+        "ko": "몇 개가, 어디에, 언제. 사진 한 장이면 확인됩니다.",
+        "fr": "Combien, où et quand. Une photo trancherait.",
+        "lo": "ຈຳນວນເທົ່າໃດ ຢູ່ໃສ ເມື່ອໃດ. ຮູບຖ່າຍໜຶ່ງໃບກໍຢືນຢັນໄດ້.",
+        "th": "จำนวนเท่าไร ตรงไหน เมื่อไร รูปถ่ายใบเดียวก็ยืนยันได้"
+      }
+    },
+    {
+      "statementId": "CVO-006",
+      "kind": "CLAIM",
+      "text": {
+        "en": "This works for everyone.",
+        "ko": "이건 누구한테나 잘 맞아요.",
+        "fr": "Ça marche pour tout le monde.",
+        "lo": "ອັນນີ້ໃຊ້ໄດ້ກັບທຸກຄົນ.",
+        "th": "อันนี้ใช้ได้กับทุกคน"
+      },
+      "why": {
+        "en": "A statement about everybody, made by one person. Nobody could go and check it.",
+        "ko": "한 사람이 모두에 대해 하는 말입니다. 누구도 가서 확인할 수 없습니다.",
+        "fr": "Une affirmation sur tout le monde, faite par une seule personne. Personne ne peut aller la vérifier.",
+        "lo": "ເປັນຄຳເວົ້າກ່ຽວກັບທຸກຄົນ ທີ່ຄົນດຽວເວົ້າ. ບໍ່ມີໃຜໄປກວດໄດ້.",
+        "th": "เป็นคำพูดเกี่ยวกับทุกคน ที่คนเดียวพูด ไม่มีใครไปตรวจสอบได้"
+      }
+    },
+    {
+      "statementId": "CVO-007",
+      "kind": "OBSERVATION",
+      "text": {
+        "en": "The label lists eleven ingredients.",
+        "ko": "라벨에 성분이 열한 개 적혀 있습니다.",
+        "fr": "L’étiquette liste onze ingrédients.",
+        "lo": "ສະຫຼາກລະບຸສ່ວນປະກອບສິບເອັດລາຍການ.",
+        "th": "ฉลากระบุส่วนผสมสิบเอ็ดรายการ"
+      },
+      "why": {
+        "en": "Anyone holding the box can count them and get the same answer.",
+        "ko": "상자를 든 사람이면 누구나 세어서 같은 답을 얻습니다.",
+        "fr": "N’importe qui tenant la boîte peut les compter et trouver pareil.",
+        "lo": "ໃຜກໍຕາມທີ່ຖືກ່ອງຢູ່ ສາມາດນັບ ແລະ ໄດ້ຄຳຕອບດຽວກັນ.",
+        "th": "ใครก็ตามที่ถือกล่องอยู่ นับแล้วได้คำตอบเดียวกัน"
+      }
+    },
+    {
+      "statementId": "CVO-008",
+      "kind": "CLAIM",
+      "text": {
+        "en": "Natural ingredients are gentler.",
+        "ko": "천연 성분이 더 순해요.",
+        "fr": "Les ingrédients naturels sont plus doux.",
+        "lo": "ສ່ວນປະກອບທຳມະຊາດອ່ອນໂຍນກວ່າ.",
+        "th": "ส่วนผสมจากธรรมชาติอ่อนโยนกว่า"
+      },
+      "why": {
+        "en": "A general rule about a whole category. Whether it holds is exactly the sort of thing that needs evidence behind it, which is why it is a claim and not a note.",
+        "ko": "한 범주 전체에 대한 일반 규칙입니다. 그것이 맞는지는 근거가 있어야 할 종류의 이야기이고, 그래서 기록이 아니라 주장입니다.",
+        "fr": "Une règle générale sur toute une catégorie. Savoir si elle tient demande des preuves : c’est donc une allégation, pas une note.",
+        "lo": "ເປັນກົດທົ່ວໄປກ່ຽວກັບໝວດທັງໝົດ. ຈະຖືກ ຫຼື ບໍ່ ຕ້ອງມີຫຼັກຖານ ຈຶ່ງເປັນຄຳອ້າງ ບໍ່ແມ່ນບັນທຶກ.",
+        "th": "เป็นกฎทั่วไปเกี่ยวกับทั้งหมวด จะถูกหรือไม่ต้องมีหลักฐาน จึงเป็นคำกล่าวอ้าง ไม่ใช่บันทึก"
+      }
+    }
+  ]
+}
