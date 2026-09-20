@@ -1,0 +1,6 @@
+## Netlify serves the site at the domain root, unlike the GitHub Pages project-site path
+## (`/kbeauty-origin/`) that the default `npm run build` is prefixed for — so the Netlify build
+## overrides the base path back to `/` instead of reusing that prefix.
+[build]
+  command = "npm run build -- --base=/"
+  publish = "dist"
