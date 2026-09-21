@@ -16,9 +16,14 @@ import {
   planSpeech,
   rankVoices,
   scoreVoice,
+  speak,
+  stopSpeaking,
   voicesForLocale,
   type VoiceLike,
 } from '@/ui/speech';
+import { spokenFallback } from '@/ui/spoken-fallback';
+import { VOICE_DEFAULT, parseVoiceSetting } from '@/ui/voice';
+import { translate } from '@/localization/messages';
 
 const voice = (
   name: string,
@@ -229,5 +234,91 @@ describe('the Lao voice fallback', () => {
     const plan = planSpeech([voice('Kanya', 'th-TH')], 'th', ['th']);
     expect(plan.spokenLocale).toBe('th');
     expect(plan.isSubstitute).toBe(false);
+  });
+});
+
+/* ------------------------------------------------------------------ *
+ * The master voice switch
+ * ------------------------------------------------------------------ */
+
+describe('the master switch is a stored boolean and nothing more', () => {
+  it('starts off, because sound that begins by itself on a first visit is startling', () => {
+    expect(VOICE_DEFAULT).toBe(false);
+  });
+
+  it('reads back exactly what it wrote, and ignores anything else', () => {
+    expect(parseVoiceSetting('on')).toBe(true);
+    expect(parseVoiceSetting('off')).toBe(false);
+    // Left over from another build, or written by something that is not this app.
+    expect(parseVoiceSetting('true')).toBe(VOICE_DEFAULT);
+    expect(parseVoiceSetting('')).toBe(VOICE_DEFAULT);
+    expect(parseVoiceSetting(null)).toBe(VOICE_DEFAULT);
+  });
+});
+
+describe('a borrowed voice is only ever given the borrowed language’s own text', () => {
+  it('hands Lao the Thai translation, named as Thai', () => {
+    const passage = spokenFallback('lo', (locale) => `passage in ${locale}`);
+    expect(passage).toEqual({ locale: 'th', text: 'passage in th' });
+  });
+
+  it('offers nothing for a locale no other locale speaks for', () => {
+    for (const locale of ['en', 'ko', 'fr', 'th']) {
+      expect(spokenFallback(locale, () => 'anything'), locale).toBeUndefined();
+    }
+  });
+
+  it('offers nothing when the lending locale has no text for this passage', () => {
+    // A voice with no words is as useless as words with no voice, and offering the pair would
+    // make `planSpeech` promise speech that never arrives.
+    expect(spokenFallback('lo', () => '')).toBeUndefined();
+    expect(spokenFallback('lo', () => '   ')).toBeUndefined();
+  });
+
+  it('names a lender that actually has a UI catalog to translate into', () => {
+    for (const lender of Object.values(SPOKEN_FALLBACK)) {
+      expect(spokenFallback('lo', (locale) => translate('speech.listen', locale))?.text).toBeTruthy();
+      expect(translate('speech.listen', lender)).toBeTruthy();
+    }
+  });
+});
+
+describe('speech never takes the page down with it', () => {
+  it('reports failure instead of throwing when the synthesiser rejects the utterance', () => {
+    // What actually happened: a voice object the browser would not accept threw out of
+    // `speak()`, through the effect that called it, and blanked the whole React tree. The
+    // reader lost the lesson to save the narration.
+    const synth = {
+      cancel: () => {},
+      speak: () => {
+        throw new TypeError('Failed to set the voice property');
+      },
+      getVoices: () => [],
+    };
+    const restore = Object.getOwnPropertyDescriptor(globalThis, 'speechSynthesis');
+    Object.defineProperty(globalThis, 'speechSynthesis', { value: synth, configurable: true });
+    class FakeUtterance {
+      constructor(public text: string) {}
+    }
+    const restoreUtterance = Object.getOwnPropertyDescriptor(globalThis, 'SpeechSynthesisUtterance');
+    Object.defineProperty(globalThis, 'SpeechSynthesisUtterance', {
+      value: FakeUtterance,
+      configurable: true,
+    });
+
+    try {
+      const spoke = speak('hello', 'en', {
+        voice: voice('Someone', 'en-US') as unknown as SpeechSynthesisVoice,
+      });
+      expect(spoke).toBe(false);
+      // And stopping something that never started is not an error either.
+      expect(() => stopSpeaking()).not.toThrow();
+    } finally {
+      if (restore) Object.defineProperty(globalThis, 'speechSynthesis', restore);
+      else Reflect.deleteProperty(globalThis, 'speechSynthesis');
+      if (restoreUtterance)
+        Object.defineProperty(globalThis, 'SpeechSynthesisUtterance', restoreUtterance);
+      else Reflect.deleteProperty(globalThis, 'SpeechSynthesisUtterance');
+    }
   });
 });

@@ -91,6 +91,7 @@ const TEXT_PAIRS: readonly { fg: string; bg: string; where: string }[] = [
   { fg: 'botanical', bg: 'bg', where: '.eyebrow on the page' },
   { fg: 'botanical', bg: 'botanical-wash', where: '.disclosure--info, satisfied dimension' },
   { fg: 'caution', bg: 'caution-wash', where: '.disclosure--caution, .tag--critical' },
+  { fg: 'caution', bg: 'surface', where: "the voice switch's language-substitution notice" },
   { fg: 'blocker', bg: 'blocker-wash', where: '.tag--blocker' },
   { fg: 'btn-fg', bg: 'btn-bg', where: 'primary button label' },
 ];
@@ -238,6 +239,7 @@ describe('everything you can press is big enough to press', () => {
       '.textarea, .field',
       '.segmented__item',
       '.speak',
+      '.voiceswitch__btn',
       '.btn--small',
     ]) {
       // Anchored to the start of a line: a per-language override such as

@@ -1,20 +1,40 @@
 /**
- * Application shell and navigation.
+ * Application shell.
  *
- * The seven MVP experiences named in the handoff command are all present in the navigation.
- * Only My Skin is implemented end-to-end in this slice; the rest state honestly what they
- * are grounded in and what blocks them, rather than showing mock content.
+ * The front door is the Skin Quest: a question about your own face, asked by someone, with big
+ * things to tap. The seven study rooms are still all here, but they are behind "go deeper"
+ * rather than spread across the first screen as eight equal tabs — a row of tabs is a filing
+ * cabinet, and a filing cabinet is what made this read like a paper.
+ *
+ * Two things moved deliberately:
+ *
+ * - **Language is chosen first, in the open.** Five flat buttons at the very top, all five on
+ *   the screen at once — not a dropdown below the fold and not a row that has to be scrolled
+ *   sideways to reach Lao. Someone in Vientiane should not have to hunt for their own language.
+ * - **Voice is offered second, in words.** The master switch sits directly under the language
+ *   buttons, says what pressing it does, and once it is on says how to turn it off. It used to
+ *   be a small control beside each passage, one screen down, which is indistinguishable from
+ *   not existing for a reader meeting the app for the first time.
+ * - **Content governance is behind a door.** Review status, provenance and the open-items
+ *   register are how this app keeps itself honest, and they still run on every screen — but
+ *   they are for whoever owns the content, not for someone looking at their own skin. The rule
+ *   they enforce is unchanged: nothing unverified is ever stated as fact anywhere.
  */
 import { useEffect, useState } from 'react';
 import {
   isUnreviewedCatalog,
   translate,
   type MessageKey,
-  UI_CATALOG_LOCALES,
 } from '@/localization/messages';
-import { LOCALES, languageName } from '@/localization/locales';
 import { applyPreferences, loadPreferences, savePreferences } from './preferences';
 import { DisplaySettings } from './components/DisplaySettings';
+import { VoiceSwitch } from './components/VoiceSwitch';
+import { VoiceProvider } from './voice';
+import { SkinQuestScreen } from './screens/SkinQuestScreen';
+import { IngredientHuntScreen } from './screens/IngredientHuntScreen';
+import { CompareLabScreen } from './screens/CompareLabScreen';
+import { RoutineOrderScreen } from './screens/RoutineOrderScreen';
+import { ClaimSorterScreen } from './screens/ClaimSorterScreen';
 import { MySkinScreen } from './screens/MySkinScreen';
 import { IngredientGardenScreen } from './screens/IngredientGardenScreen';
 import { RoutineStudioScreen } from './screens/RoutineStudioScreen';
@@ -25,6 +45,11 @@ import { QuestMasteryScreen } from './screens/QuestMasteryScreen';
 import { GovernanceScreen } from './screens/GovernanceScreen';
 
 type ScreenId =
+  | 'quest'
+  | 'hunt'
+  | 'compare'
+  | 'order'
+  | 'claimSort'
   | 'mySkin'
   | 'ingredientGarden'
   | 'routineStudio'
@@ -34,7 +59,12 @@ type ScreenId =
   | 'quests'
   | 'governance';
 
-const NAV: readonly { id: ScreenId; key: MessageKey }[] = [
+/** The study rooms, reached from the quest's record or the "go deeper" row. */
+const STUDY_ROOMS: readonly { id: ScreenId; key: MessageKey }[] = [
+  { id: 'hunt', key: 'hunt.title' },
+  { id: 'compare', key: 'compare.title' },
+  { id: 'order', key: 'order.title' },
+  { id: 'claimSort', key: 'claim.title' },
   { id: 'mySkin', key: 'nav.mySkin' },
   { id: 'ingredientGarden', key: 'nav.ingredientGarden' },
   { id: 'routineStudio', key: 'nav.routineStudio' },
@@ -42,78 +72,89 @@ const NAV: readonly { id: ScreenId; key: MessageKey }[] = [
   { id: 'labelDetective', key: 'nav.labelDetective' },
   { id: 'aiTutor', key: 'nav.aiTutor' },
   { id: 'quests', key: 'nav.quests' },
-  { id: 'governance', key: 'nav.governance' },
+];
+
+/**
+ * The languages offered as chips. Four, not ten: these are the catalogs that exist, and an
+ * offer to read in a language the app has no words for is not an offer. Lao ships as an
+ * unreviewed draft and says so on screen — which is why it is still offered rather than hidden:
+ * Laos is who this is for, and a labelled draft beats no Lao at all.
+ */
+const OFFERED_LOCALES: readonly { tag: string; label: string }[] = [
+  { tag: 'en', label: 'EN' },
+  { tag: 'ko', label: '한국어' },
+  { tag: 'fr', label: 'Français' },
+  { tag: 'th', label: 'ไทย' },
+  { tag: 'lo', label: 'ລາວ' },
 ];
 
 export function App() {
-  const [screen, setScreen] = useState<ScreenId>('mySkin');
+  const [screen, setScreen] = useState<ScreenId>('quest');
   const [locale, setLocale] = useState('en');
   const [preferences, setPreferences] = useState(loadPreferences);
+  // Theme and text size matter to whoever needs them and to nobody else, and expanded they
+  // cost a phone screen's whole top third before the first question is even visible. Folded
+  // away they are one tap, and the question is the first thing on the screen.
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
-  // Theme and text size are attributes on <html>, so they apply before any component renders
-  // and cover anything outside the React root. Re-running on every change is the whole job.
   useEffect(() => {
     applyPreferences(preferences, document.documentElement);
     savePreferences(preferences);
   }, [preferences]);
 
-  // `lang` matters for more than correctness: it is what a screen reader and the read-aloud
-  // voice use to decide how to pronounce the page.
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
 
+  const onQuest = screen === 'quest';
+
   return (
+    <VoiceProvider>
     <div className="app">
       <a className="skip-link" href="#main">
         {translate('display.skipToContent', locale)}
       </a>
-      <header className="masthead">
-        <div className="masthead__inner">
-          <div className="masthead__row">
-            <div>
-              <p className="masthead__brand">{translate('app.brand', locale)}</p>
-              <p className="masthead__star">{translate('app.northStar', locale)}</p>
-            </div>
-            <div className="settings">
-              <div className="settings__group">
-                <span className="settings__label" id="locale-label">
-                  {translate('common.locale', locale)}
-                </span>
-                <select
-                  className="settings__select"
-                  aria-labelledby="locale-label"
-                  value={locale}
-                  onChange={(event) => setLocale(event.target.value)}
+
+      <header className="topbar">
+        <div className="topbar__inner">
+          <ul className="langchips" role="list" aria-label={translate('common.locale', locale)}>
+            {OFFERED_LOCALES.map((option) => (
+              <li key={option.tag}>
+                <button
+                  type="button"
+                  className="langchip"
+                  aria-pressed={locale === option.tag}
+                  lang={option.tag}
+                  onClick={() => setLocale(option.tag)}
                 >
-                  {LOCALES.map((definition) => (
-                    <option key={definition.tag} value={definition.tag}>
-                      {definition.tag} · {languageName(definition.tag)}
-                      {UI_CATALOG_LOCALES.includes(definition.tag) ? '' : ' (UI: en)'}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <DisplaySettings
-                preferences={preferences}
-                onChange={setPreferences}
-                locale={locale}
-              />
-            </div>
-          </div>
-          <nav className="nav" aria-label="Main">
-            {NAV.map((item) => (
-              <button
-                key={item.id}
-                type="button"
-                className="nav__item"
-                aria-current={screen === item.id ? 'page' : undefined}
-                onClick={() => setScreen(item.id)}
-              >
-                {translate(item.key, locale)}
-              </button>
+                  {option.label}
+                </button>
+              </li>
             ))}
-          </nav>
+          </ul>
+          <VoiceSwitch locale={locale} />
+          <div className="topbar__right">
+            <button
+              type="button"
+              className="brandmark"
+              onClick={() => setScreen('quest')}
+              aria-current={onQuest ? 'page' : undefined}
+            >
+              {translate('app.brand', locale)}
+            </button>
+            <button
+              type="button"
+              className="settings-toggle"
+              aria-expanded={settingsOpen}
+              aria-controls="display-settings"
+              onClick={() => setSettingsOpen((open) => !open)}
+            >
+              {translate('display.theme', locale)} · {translate('display.textSize', locale)}
+            </button>
+          </div>
+        </div>
+        <div className="topbar__settings" id="display-settings" hidden={!settingsOpen}>
+          <DisplaySettings preferences={preferences} onChange={setPreferences} locale={locale} />
         </div>
       </header>
 
@@ -124,31 +165,63 @@ export function App() {
           // present drafts as finished anywhere else either.
           <p className="disclosure disclosure--caution">
             <span className="disclosure__mark">!</span>
-            <span>
-              {/* No placeholder: this notice only ever renders in the language it is about,
-                  so each catalog names its own language in its own grammar and is reviewed
-                  together with it. */}
-              {translate('catalog.unreviewed', locale)}
-            </span>
+            <span>{translate('catalog.unreviewed', locale)}</span>
           </p>
         ) : null}
-        {screen === 'mySkin' ? <MySkinScreen key={locale} locale={locale} /> : null}
-        {screen === 'ingredientGarden' ? (
-          <IngredientGardenScreen key={locale} locale={locale} />
-        ) : null}
-        {screen === 'routineStudio' ? (
-          <RoutineStudioScreen key={locale} locale={locale} />
-        ) : null}
-        {screen === 'sunProtection' ? (
-          <SunProtectionScreen key={locale} locale={locale} />
-        ) : null}
-        {screen === 'labelDetective' ? (
-          <LabelDetectiveScreen key={locale} locale={locale} />
-        ) : null}
-        {screen === 'aiTutor' ? <AITutorScreen key={locale} locale={locale} /> : null}
-        {screen === 'quests' ? <QuestMasteryScreen key={locale} locale={locale} /> : null}
-        {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
+
+        {onQuest ? (
+          <SkinQuestScreen key={locale} locale={locale} onExplore={() => setScreen('mySkin')} />
+        ) : (
+          <>
+            <nav className="rooms" aria-label="Lessons">
+              <button type="button" className="rooms__back" onClick={() => setScreen('quest')}>
+                ‹ {translate('skinquest.title', locale)}
+              </button>
+              {STUDY_ROOMS.map((room) => (
+                <button
+                  key={room.id}
+                  type="button"
+                  className="rooms__item"
+                  aria-current={screen === room.id ? 'page' : undefined}
+                  onClick={() => setScreen(room.id)}
+                >
+                  {translate(room.key, locale)}
+                </button>
+              ))}
+              <button
+                type="button"
+                className="rooms__item rooms__item--owner"
+                aria-current={screen === 'governance' ? 'page' : undefined}
+                onClick={() => setScreen('governance')}
+              >
+                {translate('nav.governance', locale)}
+              </button>
+            </nav>
+
+            {screen === 'hunt' ? <IngredientHuntScreen key={locale} locale={locale} /> : null}
+            {screen === 'compare' ? <CompareLabScreen key={locale} locale={locale} /> : null}
+            {screen === 'order' ? <RoutineOrderScreen key={locale} locale={locale} /> : null}
+            {screen === 'claimSort' ? <ClaimSorterScreen key={locale} locale={locale} /> : null}
+            {screen === 'mySkin' ? <MySkinScreen key={locale} locale={locale} /> : null}
+            {screen === 'ingredientGarden' ? (
+              <IngredientGardenScreen key={locale} locale={locale} />
+            ) : null}
+            {screen === 'routineStudio' ? (
+              <RoutineStudioScreen key={locale} locale={locale} />
+            ) : null}
+            {screen === 'sunProtection' ? (
+              <SunProtectionScreen key={locale} locale={locale} />
+            ) : null}
+            {screen === 'labelDetective' ? (
+              <LabelDetectiveScreen key={locale} locale={locale} />
+            ) : null}
+            {screen === 'aiTutor' ? <AITutorScreen key={locale} locale={locale} /> : null}
+            {screen === 'quests' ? <QuestMasteryScreen key={locale} locale={locale} /> : null}
+            {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
+          </>
+        )}
       </main>
     </div>
+    </VoiceProvider>
   );
 }

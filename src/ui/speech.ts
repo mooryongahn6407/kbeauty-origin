@@ -160,8 +160,15 @@ export interface SpeakOptions {
 /**
  * Speak one passage, cancelling anything already speaking.
  *
- * Returns false when nothing was spoken — no support, nothing to say, or no voice for this
- * language — so the caller can report that instead of appearing to do nothing.
+ * Returns false when nothing was spoken — no support, nothing to say, no voice for this
+ * language, or the browser refusing the utterance — so the caller can report that instead of
+ * appearing to do nothing.
+ *
+ * The try/catch is not defensive padding. Speech synthesis is a convenience layered on top of
+ * text that is already on the screen, and browsers do throw here: a stale voice object after a
+ * device's voice list changes, a synthesiser that has gone away. Letting that exception out
+ * takes down the React tree and blanks the page — the reader loses the lesson to save the
+ * narration, which is exactly backwards.
  */
 export function speak(text: string, locale: string, options: SpeakOptions = {}): boolean {
   if (!speechSupported() || text.trim() === '') return false;
@@ -169,21 +176,30 @@ export function speak(text: string, locale: string, options: SpeakOptions = {}):
   const voice = options.voice ?? pickVoice(availableVoices(), locale);
   if (!voice) return false;
 
-  globalThis.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.voice = voice;
-  utterance.lang = voice.lang;
-  utterance.rate = SPEECH_RATE;
-  if (options.onEnd) {
-    utterance.onend = options.onEnd;
-    utterance.onerror = options.onEnd;
+  try {
+    globalThis.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.voice = voice;
+    utterance.lang = voice.lang;
+    utterance.rate = SPEECH_RATE;
+    if (options.onEnd) {
+      utterance.onend = options.onEnd;
+      utterance.onerror = options.onEnd;
+    }
+    globalThis.speechSynthesis.speak(utterance);
+    return true;
+  } catch {
+    return false;
   }
-  globalThis.speechSynthesis.speak(utterance);
-  return true;
 }
 
 export function stopSpeaking(): void {
-  if (speechSupported()) globalThis.speechSynthesis.cancel();
+  if (!speechSupported()) return;
+  try {
+    globalThis.speechSynthesis.cancel();
+  } catch {
+    // Nothing was speaking, or the synthesiser is gone. Either way there is nothing to stop.
+  }
 }
 
 /* ------------------------------------------------------------------ *

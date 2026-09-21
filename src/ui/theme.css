@@ -26,25 +26,25 @@
 :root {
   color-scheme: light;
 
-  --bg: #faf7f3;
+  --bg: #fdfaf7;
   --surface: #ffffff;
-  --surface-sunk: #f3eee8;
-  --text: #1f1b17;
-  --text-muted: #5a534b;
-  --accent: #7d5f28;
-  --accent-wash: #f5ecdb;
-  --botanical: #4d6147;
-  --botanical-wash: #eef2ed;
-  --caution: #8a4a1c;
-  --caution-wash: #fbf1e4;
-  --blocker: #8b2f22;
-  --blocker-wash: #f8e4e0;
-  --line: #e2d8cd;
-  --line-strong: #c9bcae;
-  --btn-bg: #2b2724;
-  --btn-fg: #faf7f3;
-  --focus: #7d5f28;
-  --shadow: 0 1px 2px rgba(31, 27, 23, 0.05), 0 8px 24px rgba(31, 27, 23, 0.06);
+  --surface-sunk: #f7f0ea;
+  --text: #241c1a;
+  --text-muted: #665551;
+  --accent: #a33753;
+  --accent-wash: #fceef2;
+  --botanical: #2b6b50;
+  --botanical-wash: #e7f2ec;
+  --caution: #8f4a13;
+  --caution-wash: #fdf0e2;
+  --blocker: #9b2233;
+  --blocker-wash: #fbe7e9;
+  --line: #ecdfd7;
+  --line-strong: #d2bcb2;
+  --btn-bg: #241c1a;
+  --btn-fg: #fdfaf7;
+  --focus: #a33753;
+  --shadow: 0 1px 2px rgba(36, 28, 26, 0.04), 0 10px 30px -12px rgba(163, 55, 83, 0.18);
 
   /* Type scale. 0.8125rem = 13px at the browser default, 14.6px at the "Large" step; nothing
      in the app is smaller. Every step is multiplied by the reader's chosen --text-scale. */
@@ -70,14 +70,28 @@
   --tap: 44px; /* Minimum interactive target, both dimensions. */
   --max-width: 900px;
 
-  /* Lao, Thai and Korean faces are named in every stack, not only under their own :lang rule,
-     so a string in one of these scripts inside an English sentence still renders in its own
-     face rather than in tofu — including a Thai passage spoken (via SPOKEN_FALLBACK) or shown
-     as the safety-notice original for a Lao reader. */
-  --font-body: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Noto Serif KR',
-    'Noto Sans Lao', 'Noto Sans Thai', 'Phetsarath OT', serif;
-  --font-ui: 'Inter', 'Helvetica Neue', -apple-system, 'Noto Sans KR', 'Noto Sans Lao',
-    'Noto Sans Thai', 'Phetsarath OT', sans-serif;
+  /* Two faces, and which is which matters on a phone.
+     Body was set in a serif, which reads as a printed report at 17px on a handset and was a
+     large part of why this looked like a paper. Everything a reader *uses* is now in the sans,
+     which is also what Korean, Lao and Thai are normally set in; the serif is kept for display
+     headings only, where it carries the warmth the brand wants without costing legibility.
+
+     Each stack names the Korean, Lao and Thai faces, not only the :lang rules below, so a
+     string in one of those scripts inside an English sentence renders in its own face rather
+     than in tofu — including a Thai passage spoken via SPOKEN_FALLBACK, or the English
+     original shown under a safety notice for a Lao reader.
+
+     No webfont. A display face over the network would be one more thing to wait for on a
+     Vientiane connection and one more thing to break offline; the system stacks below are
+     already the faces these scripts are designed for. */
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Noto Serif KR',
+    'Apple SD Gothic Neo', 'Noto Sans Lao', 'Noto Sans Thai', 'Phetsarath OT', serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Pretendard', 'Apple SD Gothic Neo',
+    'Malgun Gothic', 'Noto Sans KR', 'Noto Sans Lao', 'Noto Sans Thai', 'Phetsarath OT',
+    'Helvetica Neue', sans-serif;
+  --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Pretendard', 'Apple SD Gothic Neo',
+    'Malgun Gothic', 'Noto Sans KR', 'Noto Sans Lao', 'Noto Sans Thai', 'Phetsarath OT',
+    'Helvetica Neue', sans-serif;
 }
 
 /*
@@ -112,11 +126,22 @@
   overflow-wrap: anywhere;
   line-break: normal;
 }
-/* Uppercasing does nothing to either script and only widens an already long label. */
+/* Uppercasing does nothing to any of these scripts and only widens an already long label.
+   Tracking is worse than useless in Korean: Hangul syllables are already evenly spaced, and
+   adding 0.14em between them reads as a typesetting fault rather than as emphasis. */
 :root[lang='lo'] .eyebrow, :root[lang='lo'] .settings__label,
 :root[lang='lo'] .phase-rail, :root[lang='lo'] .table th,
 :root[lang='th'] .eyebrow, :root[lang='th'] .settings__label,
-:root[lang='th'] .phase-rail, :root[lang='th'] .table th { text-transform: none; letter-spacing: 0; }
+:root[lang='th'] .phase-rail, :root[lang='th'] .table th,
+:root[lang='ko'] .eyebrow, :root[lang='ko'] .settings__label,
+:root[lang='ko'] .phase-rail, :root[lang='ko'] .table th { text-transform: none; letter-spacing: 0; }
+
+/* Korean breaks lines between words, not inside them. Without this a headline splits 사람은 into
+   사 / 람은 at the wrap, which is the difference between a designed page and a broken one. The
+   display face's negative tracking is also wrong for Hangul, so it is neutralised here. */
+:root[lang='ko'] { word-break: keep-all; }
+:root[lang='ko'] h1, :root[lang='ko'] h2, :root[lang='ko'] h3,
+:root[lang='ko'] .quest__headline { letter-spacing: 0; }
 
 /* The reader's text-size choice. Applied to <html> by src/ui/preferences.ts. */
 :root[data-text-size='large'] { --text-scale: 1.15; }
@@ -133,50 +158,50 @@
   :root:not([data-theme='light']) {
     color-scheme: dark;
 
-    --bg: #15120f;
-    --surface: #1e1a16;
-    --surface-sunk: #191510;
-    --text: #f4eee6;
-    --text-muted: #b6aa9c;
-    --accent: #dcbc80;
-    --accent-wash: #2c2418;
-    --botanical: #9fb599;
-    --botanical-wash: #1c231b;
-    --caution: #e8b57f;
-    --caution-wash: #35281a;
-    --blocker: #f0a89b;
-    --blocker-wash: #3a201c;
-    --line: #3d352e;
-    --line-strong: #584d43;
-    --btn-bg: #e9dcc4;
-    --btn-fg: #1a1611;
-    --focus: #dcbc80;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+    --bg: #191310;
+    --surface: #231b17;
+    --surface-sunk: #1e1613;
+    --text: #f7efe9;
+    --text-muted: #c0ada5;
+    --accent: #f0a3b6;
+    --accent-wash: #3a1f27;
+    --botanical: #93c9ab;
+    --botanical-wash: #18291f;
+    --caution: #edb277;
+    --caution-wash: #3a2a18;
+    --blocker: #f5a3a3;
+    --blocker-wash: #3d1d1f;
+    --line: #3a2e29;
+    --line-strong: #584740;
+    --btn-bg: #f3e7df;
+    --btn-fg: #1a1310;
+    --focus: #f0a3b6;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 10px 30px -12px rgba(0, 0, 0, 0.55);
   }
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
 
-  --bg: #15120f;
-  --surface: #1e1a16;
-  --surface-sunk: #191510;
-  --text: #f4eee6;
-  --text-muted: #b6aa9c;
-  --accent: #dcbc80;
-  --accent-wash: #2c2418;
-  --botanical: #9fb599;
-  --botanical-wash: #1c231b;
-  --caution: #e8b57f;
-  --caution-wash: #35281a;
-  --blocker: #f0a89b;
-  --blocker-wash: #3a201c;
-  --line: #3d352e;
-  --line-strong: #584d43;
-  --btn-bg: #e9dcc4;
-  --btn-fg: #1a1611;
-  --focus: #dcbc80;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --bg: #191310;
+  --surface: #231b17;
+  --surface-sunk: #1e1613;
+  --text: #f7efe9;
+  --text-muted: #c0ada5;
+  --accent: #f0a3b6;
+  --accent-wash: #3a1f27;
+  --botanical: #93c9ab;
+  --botanical-wash: #18291f;
+  --caution: #edb277;
+  --caution-wash: #3a2a18;
+  --blocker: #f5a3a3;
+  --blocker-wash: #3d1d1f;
+  --line: #3a2e29;
+  --line-strong: #584740;
+  --btn-bg: #f3e7df;
+  --btn-fg: #1a1310;
+  --focus: #f0a3b6;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 10px 30px -12px rgba(0, 0, 0, 0.55);
 }
 
 /* ------------------------------------------------------------------ *
@@ -201,10 +226,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, .ui-sans { font-family: var(--font-ui); letter-spacing: -0.012em; }
-h1 { font-size: var(--fs-xl); font-weight: 600; margin: 0; line-height: 1.25; }
-h2 { font-size: var(--fs-lg); font-weight: 600; margin: 0 0 var(--space-2); line-height: 1.3; }
-h3 { font-size: var(--fs-md); font-weight: 600; margin: 0 0 var(--space-1); line-height: 1.35; }
+/* Headings carry the brand's warmth in the display face; everything else is the sans, because
+   everything else is read on a phone. Tighter tracking and a heavier weight than before: the
+   old 600 at default tracking read as a paragraph that happened to be large. */
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; text-wrap: balance; }
+.ui-sans { font-family: var(--font-ui); }
+h1 { font-size: var(--fs-xl); font-weight: 700; margin: 0; line-height: 1.2; }
+h2 { font-size: var(--fs-lg); font-weight: 700; margin: 0 0 var(--space-2); line-height: 1.28; }
+h3 { font-size: var(--fs-md); font-weight: 700; margin: 0 0 var(--space-1); line-height: 1.35; }
 
 /* One visible focus ring for everything, in a colour that clears 3:1 against the page. An
    invisible focus ring is the fastest way to make a keyboard unusable. */
@@ -596,9 +625,631 @@ select.field, .locale-switch select, .settings__select {
 .stack > * + * { margin-top: var(--space-3); }
 
 /* ------------------------------------------------------------------ *
+ * Skin Quest — the front door
+ *
+ * The quest is the one place in the app that is deliberately not dense. One question fills the
+ * screen, the options are large enough to hit with a thumb on a bus, and the companion says
+ * things rather than the page printing them. Everything here still draws from the same tokens,
+ * so both themes and all three text sizes keep working without this section knowing they exist.
+ * ------------------------------------------------------------------ */
+
+/* Deliberately not sticky.
+   The bar now carries three things a first-time reader needs before anything else — the name,
+   five languages, and the voice switch with its sentence of explanation — and that is 216px on
+   a 390px-wide phone. Pinned, it would take a permanent quarter of every screen for controls
+   that are only needed on arrival. It sits at the top of the page instead, where it is the
+   first thing seen and one flick away thereafter. */
+.topbar {
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+}
+.topbar__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-1) var(--space-4) var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+  flex-wrap: wrap;
+}
+/* The name and the display settings go first and stay small: they are the least urgent things
+   in the bar, and putting them last pushed the two controls that matter — language and voice —
+   further from the thumb. */
+.topbar__right {
+  order: -1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+/* Language first, in the open, and ALL of it visible.
+   The first version scrolled sideways to keep one tidy line — which hid ລາວ off the right edge
+   of a 390px phone, in the one country this app is for. A grid of five equal cells fits every
+   language on screen at once at any width; nothing is behind a swipe. */
+.langchips {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+.langchips > li { display: flex; }
+.langchip {
+  appearance: none;
+  flex: 1;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  color: var(--text-muted);
+  background: var(--surface-sunk);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  padding: var(--space-1) 2px;
+  min-height: var(--tap);
+  cursor: pointer;
+  /* Five cells on a narrow phone: a long label shrinks to fit rather than pushing a
+     neighbour off the row. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.langchip:hover { color: var(--text); background: var(--surface-sunk); }
+.langchip[aria-pressed='true'] {
+  color: var(--text);
+  background: var(--accent-wash);
+  border-color: var(--accent);
+}
+
+/* The master voice switch — the second thing on the screen, and the only control in the app
+   that explains itself in a sentence.
+
+   It is full-width on purpose. A reader who has never used a learning app does not read a
+   speaker glyph as an offer, and a small round icon button beside a paragraph reads as
+   decoration. A wide button with a sentence under it reads as an offer, which is what it is.
+   The sentence changes with the state — "press this and it reads to you" becomes "press again
+   to turn it off" — because the reason people do not press unfamiliar buttons is not knowing
+   how to undo it. */
+.voiceswitch {
+  /* Full width forces its own row in the wrapping top bar, under the language buttons. */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.voiceswitch__btn {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-wash);
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--tap);
+  cursor: pointer;
+  text-align: center;
+}
+/* Hover is scoped to the off state on purpose. Written as a bare `.voiceswitch__btn:hover` it
+   outranks the on state below on specificity, and the filled button turns pale with its label
+   still set to the light-on-dark colour — unreadable. Phones fire :hover after a tap, so this
+   was not a desktop-only fault. */
+.voiceswitch:not(.voiceswitch--on) .voiceswitch__btn:hover:not(:disabled) {
+  background: var(--surface);
+}
+.voiceswitch__btn:disabled {
+  color: var(--text-muted);
+  background: var(--surface-sunk);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+/* On: the filled state, so "it is currently reading to you" is legible at arm's length. */
+.voiceswitch--on .voiceswitch__btn {
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border-color: var(--btn-bg);
+}
+.voiceswitch--on .voiceswitch__btn:hover { background: var(--text); border-color: var(--text); }
+.voiceswitch__icon { font-size: 1em; }
+.voiceswitch__hint {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.45;
+  color: var(--text-muted);
+  text-align: center;
+}
+/* The "you will hear Thai, not Lao" line. Marked in the caution colour because it is a
+   disclosure, not a tip — the reader is being told the app is about to do something other than
+   what the screen shows. */
+.voiceswitch__hint--substitute { color: var(--caution); }
+
+.brandmark {
+  appearance: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: transparent;
+  border: 0;
+  min-height: var(--tap);
+  cursor: pointer;
+}
+
+.settings-toggle {
+  appearance: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  min-height: var(--tap);
+  cursor: pointer;
+}
+.settings-toggle:hover { color: var(--text); border-color: var(--line-strong); }
+.topbar__settings {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-4) var(--space-3);
+}
+
+.quest {
+  max-width: 34rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.quest--welcome { align-items: center; text-align: center; }
+.quest__headline { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
+.quest__lead { font-size: var(--fs-md); color: var(--text-muted); line-height: 1.6; margin: 0; max-width: 30ch; }
+
+/* Announced to a screen reader, never painted. Without it the spoken-only progress sentence
+   renders beside the numerals it exists to replace, which is exactly what happened. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Title on its own line, bar and count beneath it: at 390px the three do not share a row
+   without squeezing the title into a four-line column. */
+.quest__header { display: grid; grid-template-columns: 1fr auto; gap: var(--space-2) var(--space-3); align-items: center; }
+.quest__level { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0; grid-column: 1 / -1; }
+.quest__bar { height: 8px; border-radius: 999px; background: var(--surface-sunk); border: 1px solid var(--line); overflow: hidden; }
+.quest__bar-fill { display: block; height: 100%; background: var(--accent); transition: width 400ms ease; }
+.quest__count { font-family: var(--font-ui); font-size: var(--fs-xs); font-variant-numeric: tabular-nums; color: var(--text-muted); margin: 0; white-space: nowrap; }
+.quest__foot { display: flex; gap: var(--space-2); flex-wrap: wrap; margin-top: var(--space-2); }
+.quest__foot .btn { flex: 1 1 auto; }
+
+/* LUMINA NOY. Every colour is a token, so one drawing serves both themes. The two that are
+   not on the shared palette — her hair and her skin — are declared here for both themes
+   together with the rest, so neither can end up defined only inside a media query. */
+:root {
+  --lumina-skin: #f2d9c4;
+  --lumina-hair: #33261d;
+  --lumina-blush: #eec0b4;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --lumina-skin: #d8b394;
+    --lumina-hair: #1d1511;
+    --lumina-blush: #b3796a;
+  }
+}
+:root[data-theme='dark'] {
+  --lumina-skin: #d8b394;
+  --lumina-hair: #1d1511;
+  --lumina-blush: #b3796a;
+}
+
+.lumina { flex: none; display: block; }
+.lumina__glow { fill: var(--accent-wash); }
+.lumina__hair { fill: var(--lumina-hair); }
+.lumina__face { fill: var(--lumina-skin); }
+.lumina__shoulders { fill: var(--accent); }
+.lumina__eye { fill: var(--lumina-hair); }
+.lumina__eye-line { fill: none; stroke: var(--lumina-hair); stroke-width: 2.6; stroke-linecap: round; }
+.lumina__mouth { fill: none; stroke: var(--lumina-hair); stroke-width: 2.2; stroke-linecap: round; }
+.lumina__blush { fill: var(--lumina-blush); opacity: 0.55; }
+.lumina__spark { fill: var(--accent); }
+.lumina--asking { animation: lumina-talk 2.4s ease-in-out infinite; }
+.lumina--pleased { animation: lumina-hop 0.7s ease-in-out 2; }
+.lumina--greeting .lumina__glow { animation: lumina-breathe 3.6s ease-in-out infinite; transform-origin: 60px 58px; }
+@keyframes lumina-talk {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+@keyframes lumina-hop {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  40% { transform: translateY(-8px) rotate(-4deg); }
+}
+@keyframes lumina-breathe {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.06); opacity: 0.75; }
+}
+
+/* The companion and what it says. */
+.says { display: flex; align-items: flex-end; gap: var(--space-3); }
+.companion { flex: none; }
+.companion__body { fill: var(--accent-wash); stroke: var(--accent); stroke-width: 3; }
+.companion__gleam { fill: var(--surface); opacity: 0.85; }
+.companion__eye { fill: var(--accent); }
+.companion__smile { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; }
+.companion--speaking { animation: companion-talk 1.6s ease-in-out infinite; }
+.companion--pleased { animation: companion-hop 0.7s ease-in-out 2; }
+@keyframes companion-talk {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-3px) scale(1.03); }
+}
+@keyframes companion-hop {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  40% { transform: translateY(-10px) rotate(-6deg); }
+}
+
+.bubble {
+  position: relative;
+  flex: 1;
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: var(--radius);
+  padding: var(--space-3) var(--space-4);
+  box-shadow: var(--shadow);
+}
+.bubble::after {
+  content: '';
+  position: absolute;
+  left: -9px;
+  bottom: 18px;
+  width: 14px;
+  height: 14px;
+  background: var(--surface);
+  border-left: 2px solid var(--line);
+  border-bottom: 2px solid var(--line);
+  transform: rotate(45deg);
+}
+.bubble__prompt { font-size: var(--fs-md); line-height: 1.45; margin: 0; text-wrap: balance; }
+.bubble__help { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.55; margin: var(--space-2) 0 0; }
+
+.options { list-style: none; margin: 0; padding: 0; }
+.option--concern { display: flex; flex-direction: column; gap: 2px; }
+.option__name { font-family: var(--font-ui); font-weight: 600; }
+.option__detail { font-size: var(--fs-sm); color: var(--text-muted); }
+
+/* The boundary line. Present on the first screen and again wherever the source record says a
+   concern needs a professional — stated plainly, never as a scare. */
+.boundary {
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--text-muted);
+  background: var(--surface-sunk);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  margin: 0;
+}
+.boundary--strong {
+  color: var(--caution);
+  background: var(--caution-wash);
+  border: 2px solid var(--caution);
+  font-weight: 600;
+}
+
+/* The record. */
+.record-block { border-top: 1px solid var(--line); padding-top: var(--space-4); }
+.record-block__title { font-size: var(--fs-lg); margin: 0 0 var(--space-3); }
+.record-block__subtitle { font-size: var(--fs-base); margin: var(--space-4) 0 var(--space-2); }
+.record-block__note { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.6; margin: var(--space-3) 0 0; }
+.record-block__sequence { font-size: var(--fs-md); line-height: 1.7; margin: 0; }
+.record-block--approved { background: var(--botanical-wash); border-radius: var(--radius); border-top: 0; padding: var(--space-4); }
+.record-list { margin: 0; }
+.record-list__row { display: flex; flex-direction: column; gap: 2px; padding: var(--space-2) 0; border-bottom: 1px solid var(--line); }
+.record-list__row dt { font-size: var(--fs-sm); color: var(--text-muted); }
+.record-list__row dd { font-size: var(--fs-base); font-weight: 600; margin: 0; }
+.chips { display: flex; flex-wrap: wrap; gap: var(--space-2); list-style: none; margin: 0; padding: 0; }
+.chip { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 600; background: var(--accent-wash); color: var(--accent); border-radius: 999px; padding: var(--space-1) var(--space-3); }
+.goals { margin: 0; padding-left: 1.2em; }
+.goals li { font-size: var(--fs-base); line-height: 1.6; margin-bottom: var(--space-2); }
+
+/* The skin map: the region the reader named, lit; the rest drawn but quiet. */
+.skinmap { display: block; margin: 0 auto; }
+/* The quiet regions sit on the page surface so the lit one has something to be lighter than.
+   --accent-wash on --surface-sunk was the first attempt and the two are a shade apart: the
+   highlight was there in the markup and invisible on the screen. */
+.skinmap__part { fill: var(--surface); stroke: var(--line); stroke-width: 2; transition: fill 300ms ease, stroke 300ms ease; }
+.skinmap__part.is-active { fill: var(--accent); stroke: var(--accent); stroke-width: 3; }
+.skinmap__body-arm { fill: none; stroke: var(--line-strong); stroke-width: 2; stroke-linecap: round; }
+
+/* The approved routine, as the steps it names rather than one long line. */
+.routine-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.routine-step { display: flex; align-items: center; gap: var(--space-3); }
+.routine-step__dot {
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--botanical);
+  color: var(--bg);
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.routine-step__label { font-size: var(--fs-base); line-height: 1.5; }
+
+/* The shelf. Fifteen cards, face-down until their record has been opened — the gaps are what
+   bring someone back, and they are real records nobody has looked at, not invented slots. */
+.shelf { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr)); gap: var(--space-2); }
+.shelf__card {
+  display: grid;
+  place-items: center;
+  min-height: 3.5rem;
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  border: 2px dashed var(--line);
+  background: var(--surface-sunk);
+  text-align: center;
+}
+.shelf__card.is-found { border-style: solid; border-color: var(--accent); background: var(--accent-wash); }
+.shelf__name { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 600; color: var(--text-muted); line-height: 1.3; overflow-wrap: anywhere; }
+.shelf__card.is-found .shelf__name { color: var(--accent); }
+
+.streak {
+  align-self: flex-start;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--botanical);
+  background: var(--botanical-wash);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  margin: 0;
+}
+
+/* The gift. Its own card, last on the page. */
+.gift {
+  border: 2px solid var(--botanical);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  text-align: center;
+  background: var(--botanical-wash);
+}
+.gift__eyebrow { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--botanical); margin: 0 0 var(--space-2); }
+.gift__headline { font-size: var(--fs-md); line-height: 1.45; margin: 0 0 var(--space-3); }
+.gift__code {
+  font-family: var(--font-ui);
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  color: var(--botanical);
+  margin: 0;
+}
+.gift__note { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.6; margin: var(--space-3) 0 0; }
+
+/* ---- Ingredient hunt ------------------------------------------------------
+ * The list is set the way a bottle sets one, so the thing being learned on screen is the thing
+ * the reader will meet in a shop. Nothing here marks a wrong tap in red-for-failure: a miss is
+ * shown as "this one too", because the reveal is the lesson. */
+.hunt { max-width: 34rem; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
+.inci { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.inci__item {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  color: var(--text);
+  background: var(--surface);
+  border: 2px solid var(--line);
+  border-radius: 999px;
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--tap);
+  cursor: pointer;
+  transition: border-color 120ms ease, background 120ms ease;
+}
+.inci__item:hover:not(:disabled) { border-color: var(--line-strong); }
+.inci__item.is-picked { border-color: var(--accent); background: var(--accent-wash); font-weight: 600; }
+.inci__item.is-correct { border-color: var(--botanical); background: var(--botanical-wash); font-weight: 700; }
+.inci__item.is-missed { border-color: var(--botanical); border-style: dashed; background: var(--surface); }
+.inci__item.is-wrong { border-color: var(--line-strong); background: var(--surface-sunk); opacity: 0.7; }
+.inci__item[disabled] { cursor: default; }
+.inci__family { font-size: var(--fs-2xs); color: var(--text-muted); }
+.inci__item.is-correct .inci__family, .inci__item.is-missed .inci__family { color: var(--botanical); }
+
+.hunt__reveal { display: flex; flex-direction: column; gap: var(--space-3); }
+.hunt__score { font-size: var(--fs-lg); font-weight: 600; margin: 0; }
+.hunt__label { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin: var(--space-2) 0 0; }
+.hunt__progress { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 600; color: var(--accent); margin: 0; }
+
+/* One record, opened. Showing the review status is the point, not the apology. */
+.inci-record { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-3); background: var(--surface); }
+.inci-record__head { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2); margin-bottom: var(--space-2); }
+.inci-record__name { font-family: var(--font-ui); font-size: var(--fs-base); font-weight: 700; }
+.chip--soft { background: var(--surface-sunk); color: var(--text-muted); }
+.inci-record__fields { margin: var(--space-3) 0 0; display: grid; gap: var(--space-2); }
+.inci-record__fields > div { display: grid; grid-template-columns: 7rem 1fr; gap: var(--space-2); }
+.inci-record__fields dt { font-size: var(--fs-xs); color: var(--text-muted); }
+.inci-record__fields dd { font-size: var(--fs-sm); margin: 0; overflow-wrap: anywhere; }
+/* The citation is the one thing on this card a reader is most likely to want to follow, and it
+   sits on its own line rather than inline in prose — so it gets a real target rather than the
+   inline-link exemption. */
+.inci-record__fields a {
+  display: inline-block;
+  min-height: var(--tap);
+  padding-block: var(--space-2);
+  color: var(--accent);
+}
+
+.hunt__due { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 600; color: var(--botanical); margin: 0; }
+
+/* ---- Compare Lab (QST-011) ------------------------------------------------ */
+.compare { max-width: var(--max-width); margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
+.compare__pickers { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+.compare__picker { display: flex; flex-direction: column; gap: var(--space-1); flex: 1 1 12rem; }
+.compare__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); align-items: start; }
+.compare__col { border: 2px solid var(--line); border-radius: var(--radius); padding: var(--space-3); background: var(--surface); }
+.compare__family { font-size: var(--fs-md); margin: 0 0 var(--space-2); overflow-wrap: anywhere; }
+.compare__facts { margin: var(--space-3) 0; display: grid; gap: var(--space-2); }
+.compare__facts > div { display: flex; justify-content: space-between; gap: var(--space-2); border-bottom: 1px solid var(--line); padding-bottom: var(--space-1); }
+.compare__facts dt { font-size: var(--fs-xs); color: var(--text-muted); }
+.compare__facts dd { font-size: var(--fs-sm); font-weight: 700; font-variant-numeric: tabular-nums; margin: 0; }
+.compare__members { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
+.compare__members li { display: flex; flex-direction: column; gap: 2px; }
+.compare__name { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; overflow-wrap: anywhere; }
+.compare__goal { font-size: var(--fs-xs); color: var(--text-muted); line-height: 1.5; }
+
+/* ---- Routine Order (QST-006 / QST-007) ------------------------------------
+ * Slots are numbered before anything is placed, so what is being asked for is visible rather
+ * than implied by position. A wrong order costs nothing: the steps come back. */
+.order { max-width: 34rem; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
+.order__slots { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }
+.order__slot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  border: 2px dashed var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--tap);
+  background: var(--surface-sunk);
+}
+.order__slot.is-filled { border-style: solid; background: var(--surface); }
+.order__slot.is-right { border-color: var(--botanical); background: var(--botanical-wash); }
+.order__slot.is-wrong { border-color: var(--caution); background: var(--caution-wash); }
+.order__number {
+  flex: none;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--accent-wash);
+  color: var(--accent);
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.order__placed {
+  appearance: none;
+  flex: 1;
+  text-align: left;
+  font-family: var(--font-ui);
+  font-size: var(--fs-base);
+  font-weight: 600;
+  color: var(--text);
+  background: transparent;
+  border: 0;
+  min-height: var(--tap);
+  cursor: pointer;
+}
+.order__empty { color: var(--text-muted); font-size: var(--fs-sm); }
+.order__bank { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+.order__step {
+  appearance: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text);
+  background: var(--surface);
+  border: 2px solid var(--line-strong);
+  border-radius: 999px;
+  padding: var(--space-2) var(--space-4);
+  min-height: var(--tap);
+  cursor: pointer;
+}
+.order__step:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-wash); }
+.order__reveal { display: flex; flex-direction: column; gap: var(--space-2); }
+.order__answer { margin: 0; padding-left: 1.4em; }
+.order__answer li { font-size: var(--fs-base); line-height: 1.7; }
+
+/* The label specimens on offer, when the data holds more than one. */
+.specimens { list-style: none; margin: 0 0 var(--space-3); padding: 0; display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+/* ---- Claim vs observation (QST-012) ---------------------------------------
+ * Two buttons per card rather than a drag: on a phone, one-handed, in a shop, a tap wins. */
+.claim { max-width: 34rem; margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
+.claim__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-3); }
+.claim__card { border: 2px solid var(--line); border-radius: var(--radius); padding: var(--space-3); background: var(--surface); }
+.claim__card.is-right { border-color: var(--botanical); background: var(--botanical-wash); }
+.claim__card.is-wrong { border-color: var(--caution); background: var(--caution-wash); }
+.claim__text { font-size: var(--fs-base); line-height: 1.6; margin: 0 0 var(--space-3); }
+.claim__buttons { display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.claim__buttons .btn[aria-pressed='true'] { background: var(--accent-wash); border-color: var(--accent); color: var(--accent); font-weight: 700; }
+.claim__why { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.6; margin: var(--space-3) 0 0; }
+
+/* ---- Day grid -------------------------------------------------------------
+ * A gap is an empty square and nothing more. No streak flame to lose, no offer to buy a day
+ * back: the grid exists to be looked at, not to be owed. */
+.daygrid { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(14px, 1fr)); gap: 4px; max-width: 22rem; }
+.daygrid__day { aspect-ratio: 1; border-radius: 3px; background: var(--surface-sunk); border: 1px solid var(--line); }
+.daygrid__day.is-on { background: var(--botanical); border-color: var(--botanical); }
+
+/* The study rooms, reached from "go deeper" rather than sitting across the first screen. */
+.rooms { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-5); align-items: center; }
+.rooms__back {
+  appearance: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--accent);
+  background: transparent;
+  border: 0;
+  min-height: var(--tap);
+  padding: 0 var(--space-2) 0 0;
+  cursor: pointer;
+}
+.rooms__item {
+  appearance: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: var(--space-1) var(--space-3);
+  min-height: var(--tap);
+  cursor: pointer;
+}
+.rooms__item:hover { color: var(--text); border-color: var(--line-strong); }
+.rooms__item[aria-current='page'] { color: var(--text); background: var(--accent-wash); border-color: var(--accent); font-weight: 600; }
+/* The owner's door, set apart so nobody wanders into review status looking for skincare. */
+.rooms__item--owner { margin-left: auto; border-style: dashed; }
+
+/* ------------------------------------------------------------------ *
  * Narrow screens
  * ------------------------------------------------------------------ */
 @media (max-width: 640px) {
+  .quest__headline { font-size: var(--fs-lg); }
+  .topbar__inner { padding: var(--space-2) var(--space-3); gap: var(--space-2); }
+  /* The chips take the full row of their own on a phone, so five stay legible. */
+  .langchips { grid-column: 1 / -1; }
+  .says { gap: var(--space-2); }
+  .rooms__item--owner { margin-left: 0; }
   .main { padding: var(--space-4) var(--space-3) var(--space-6); }
   .masthead { padding: var(--space-3) var(--space-3) 0; position: static; }
   .card { padding: var(--space-3); }

@@ -21,7 +21,10 @@
         {
           "fragmentId": "f1",
           "kind": "CLAIM",
-          "text": { "en": "Skin looks instantly brighter.", "ko": "피부가 즉각 환해 보입니다." },
+          "text": {
+            "en": "Skin looks instantly brighter.",
+            "ko": "피부가 즉각 환해 보입니다."
+          },
           "why": {
             "en": "This is the packaging talking about how the product will seem. It is written to interest you, so it belongs with the claims.",
             "ko": "이건 제품이 어떻게 보일지에 대해 포장이 하는 말입니다. 관심을 끌려고 쓴 문장이니 광고 문구 쪽입니다."
@@ -102,10 +105,184 @@
         {
           "fragmentId": "f8",
           "kind": "INGREDIENTS",
-          "text": { "en": "Contains Niacinamide.", "ko": "나이아신아마이드 함유." },
+          "text": {
+            "en": "Contains Niacinamide.",
+            "ko": "나이아신아마이드 함유."
+          },
           "why": {
             "en": "This one names an ingredient, so it belongs with the ingredients — but on a real box it is usually printed large on the front, which is a marketing decision. What is present and what is emphasised are two different things.",
             "ko": "성분 이름을 말하고 있으니 성분 쪽입니다. 다만 실제 상자에서는 보통 앞면에 크게 적혀 있는데, 그건 마케팅 결정입니다. 들어 있다는 것과 내세운다는 것은 서로 다른 이야기입니다."
+          }
+        }
+      ]
+    },
+    {
+      "specimenId": "SPECIMEN-002",
+      "isFictional": true,
+      "fictionNote": {
+        "en": "A practice label for QST-005. No such product exists — nothing here is a real product or a real SPF figure.",
+        "ko": "QST-005 연습용 라벨입니다. 이런 제품은 없습니다. 여기 적힌 것은 실제 제품도, 실제 차단지수도 아닙니다.",
+        "fr": "Une étiquette d’entraînement pour QST-005. Ce produit n’existe pas : rien ici n’est un vrai produit ni un vrai indice.",
+        "lo": "ສະຫຼາກຝຶກຫັດສຳລັບ QST-005. ຜະລິດຕະພັນນີ້ບໍ່ມີຈິງ — ບໍ່ມີຫຍັງໃນນີ້ເປັນຜະລິດຕະພັນຈິງ ຫຼື ຄ່າປ້ອງກັນຈິງ.",
+        "th": "ฉลากฝึกหัดสำหรับ QST-005 ผลิตภัณฑ์นี้ไม่มีจริง ไม่มีอะไรในนี้เป็นผลิตภัณฑ์จริงหรือค่าป้องกันจริง"
+      },
+      "context": {
+        "en": "A sunscreen box in a pharmacy. Four kinds of writing are on it, and they are not the same kind of thing.",
+        "ko": "약국 진열대의 자외선 차단제 상자입니다. 네 가지 종류의 글이 적혀 있는데, 서로 같은 종류가 아닙니다.",
+        "fr": "Une boîte de protection solaire en pharmacie. Quatre sortes de texte y figurent, et ce ne sont pas la même chose.",
+        "lo": "ກ່ອງຄີມກັນແດດຢູ່ຮ້ານຂາຍຢາ. ມີຂໍ້ຄວາມສີ່ແບບຢູ່ເທິງນັ້ນ ແລະ ມັນບໍ່ແມ່ນສິ່ງດຽວກັນ.",
+        "th": "กล่องครีมกันแดดในร้านขายยา มีข้อความสี่แบบอยู่บนนั้น และไม่ใช่สิ่งเดียวกัน"
+      },
+      "identity": {
+        "en": "Unbranded specimen · 50 mL · daily sun care",
+        "ko": "브랜드 없는 연습용 견본 · 50 mL · 데일리 자외선 케어",
+        "fr": "Échantillon sans marque · 50 mL · protection solaire quotidienne",
+        "lo": "ຕົວຢ່າງບໍ່ມີຍີ່ຫໍ້ · 50 mL · ກັນແດດປະຈຳວັນ",
+        "th": "ตัวอย่างไม่มีแบรนด์ · 50 mL · กันแดดประจำวัน"
+      },
+      "fragments": [
+        {
+          "fragmentId": "s1",
+          "kind": "CLAIM",
+          "text": {
+            "en": "Weightless. Leaves no white cast.",
+            "ko": "가볍게 발리고, 백탁이 남지 않습니다.",
+            "fr": "Ultra-léger. Ne laisse pas de voile blanc.",
+            "lo": "ບາງເບົາ ບໍ່ເຫຼືອຄາບຂາວ.",
+            "th": "บางเบา ไม่ทิ้งคราบขาว"
+          },
+          "why": {
+            "en": "The packaging describing how the product will seem to you. Written to interest you, so it sits with the claims.",
+            "ko": "제품이 어떻게 느껴질지를 포장이 말하고 있습니다. 관심을 끌려고 쓴 문장이니 주장 쪽입니다.",
+            "fr": "L’emballage décrit l’impression que donnera le produit. Écrit pour vous intéresser : c’est une allégation.",
+            "lo": "ຫຸ້ມຫໍ່ກຳລັງບອກວ່າຜະລິດຕະພັນຈະຮູ້ສຶກແນວໃດ. ຂຽນເພື່ອດຶງຄວາມສົນໃຈ ຈຶ່ງຢູ່ຝ່າຍຄຳອ້າງ.",
+            "th": "บรรจุภัณฑ์กำลังบอกว่าผลิตภัณฑ์จะให้ความรู้สึกอย่างไร เขียนเพื่อดึงความสนใจ จึงอยู่ฝั่งคำกล่าวอ้าง"
+          }
+        },
+        {
+          "fragmentId": "s2",
+          "kind": "INGREDIENTS",
+          "text": {
+            "en": "Water, Homosalate, Octocrylene, Glycerin, Tocopherol, Xanthan Gum, Phenoxyethanol",
+            "ko": "정제수, 호모살레이트, 옥토크릴렌, 글리세린, 토코페롤, 잔탄검, 페녹시에탄올",
+            "fr": "Eau, Homosalate, Octocrylène, Glycérine, Tocophérol, Gomme xanthane, Phénoxyéthanol",
+            "lo": "ນ້ຳ, Homosalate, Octocrylene, ກລີເຊີລິນ, Tocopherol, Xanthan Gum, Phenoxyethanol",
+            "th": "น้ำ, Homosalate, Octocrylene, กลีเซอรีน, Tocopherol, Xanthan Gum, Phenoxyethanol"
+          },
+          "why": {
+            "en": "A run of ingredient names with no sentence around them. That is the ingredient list, whatever any of them may do.",
+            "ko": "문장 없이 성분 이름만 이어집니다. 각각이 무슨 일을 하든, 이건 전성분 표시입니다.",
+            "fr": "Une suite de noms d’ingrédients sans phrase. C’est la liste INCI, quoi que fasse chacun d’eux.",
+            "lo": "ເປັນລາຍຊື່ສ່ວນປະກອບຕິດກັນ ໂດຍບໍ່ມີປະໂຫຍກ. ນັ້ນແມ່ນລາຍການສ່ວນປະກອບ ບໍ່ວ່າແຕ່ລະອັນຈະເຮັດຫຍັງ.",
+            "th": "เป็นรายชื่อส่วนผสมต่อกันโดยไม่มีประโยค นั่นคือรายการส่วนผสม ไม่ว่าแต่ละตัวจะทำอะไร"
+          }
+        },
+        {
+          "fragmentId": "s3",
+          "kind": "HOW_TO_USE",
+          "text": {
+            "en": "Apply generously as the last step of your morning routine.",
+            "ko": "아침 루틴의 마지막 단계에 충분히 바르세요.",
+            "fr": "Appliquer généreusement en dernière étape de la routine du matin.",
+            "lo": "ທາໃຫ້ພຽງພໍ ເປັນຂັ້ນຕອນສຸດທ້າຍຂອງກິດຈະວັດຕອນເຊົ້າ.",
+            "th": "ทาให้ทั่วเป็นขั้นตอนสุดท้ายของกิจวัตรตอนเช้า"
+          },
+          "why": {
+            "en": "It tells you what to do and when. An instruction from the maker belongs with how to use.",
+            "ko": "무엇을 언제 하라고 알려줍니다. 만든 쪽의 지시이니 사용법입니다.",
+            "fr": "Cela dit quoi faire et quand. Une instruction du fabricant : mode d’emploi.",
+            "lo": "ບອກວ່າໃຫ້ເຮັດຫຍັງ ແລະ ເມື່ອໃດ. ເປັນຄຳແນະນຳຈາກຜູ້ຜະລິດ ຈຶ່ງເປັນວິທີໃຊ້.",
+            "th": "บอกว่าให้ทำอะไรและเมื่อไร เป็นคำแนะนำจากผู้ผลิต จึงเป็นวิธีใช้"
+          }
+        },
+        {
+          "fragmentId": "s4",
+          "kind": "HOW_TO_USE",
+          "text": {
+            "en": "Reapply after swimming, towelling or heavy sweating.",
+            "ko": "수영, 수건 사용, 땀을 많이 흘린 뒤에는 덧발라 주세요.",
+            "fr": "Renouveler après la baignade, l’essuyage ou une forte transpiration.",
+            "lo": "ທາຊ້ຳຫຼັງລອຍນ້ຳ ເຊັດຕົວ ຫຼື ເຫື່ອອອກຫຼາຍ.",
+            "th": "ทาซ้ำหลังว่ายน้ำ เช็ดตัว หรือเหงื่อออกมาก"
+          },
+          "why": {
+            "en": "Also an instruction — when to do it again. Still how to use, not a caution.",
+            "ko": "이것도 지시입니다. 언제 다시 하라는 것이니, 주의사항이 아니라 사용법입니다.",
+            "fr": "Également une instruction — quand recommencer. C’est le mode d’emploi, pas une précaution.",
+            "lo": "ກໍເປັນຄຳແນະນຳເຊັ່ນກັນ — ວ່າໃຫ້ເຮັດຊ້ຳເມື່ອໃດ. ຍັງເປັນວິທີໃຊ້ ບໍ່ແມ່ນຄຳເຕືອນ.",
+            "th": "ก็เป็นคำแนะนำเช่นกัน ว่าให้ทำซ้ำเมื่อไร ยังเป็นวิธีใช้ ไม่ใช่คำเตือน"
+          }
+        },
+        {
+          "fragmentId": "s5",
+          "kind": "CAUTION",
+          "text": {
+            "en": "Avoid contact with the eyes. Rinse with water if it happens.",
+            "ko": "눈에 닿지 않게 하세요. 닿았다면 물로 씻어내세요.",
+            "fr": "Éviter le contact avec les yeux. Rincer à l’eau le cas échéant.",
+            "lo": "ຫຼີກລ້ຽງບໍ່ໃຫ້ເຂົ້າຕາ. ຖ້າເຂົ້າ ໃຫ້ລ້າງດ້ວຍນ້ຳ.",
+            "th": "หลีกเลี่ยงไม่ให้เข้าตา หากเข้าตาให้ล้างด้วยน้ำ"
+          },
+          "why": {
+            "en": "It names something to avoid and what to do if it happens. That is a caution.",
+            "ko": "피해야 할 것과, 그런 일이 생겼을 때 할 일을 말합니다. 주의사항입니다.",
+            "fr": "Cela nomme ce qu’il faut éviter et quoi faire sinon. C’est une précaution.",
+            "lo": "ບອກສິ່ງທີ່ຕ້ອງຫຼີກລ້ຽງ ແລະ ຈະເຮັດແນວໃດຖ້າເກີດຂຶ້ນ. ນັ້ນແມ່ນຄຳເຕືອນ.",
+            "th": "บอกสิ่งที่ต้องหลีกเลี่ยงและจะทำอย่างไรหากเกิดขึ้น นั่นคือคำเตือน"
+          }
+        },
+        {
+          "fragmentId": "s6",
+          "kind": "CAUTION",
+          "text": {
+            "en": "Store away from direct sunlight and high heat.",
+            "ko": "직사광선과 높은 열을 피해 보관하세요.",
+            "fr": "Conserver à l’abri du soleil direct et de la chaleur.",
+            "lo": "ເກັບໄວ້ໃຫ້ພົ້ນແສງແດດໂດຍກົງ ແລະ ຄວາມຮ້ອນສູງ.",
+            "th": "เก็บให้พ้นแสงแดดโดยตรงและความร้อนสูง"
+          },
+          "why": {
+            "en": "About keeping the product safe rather than about applying it. A caution.",
+            "ko": "바르는 법이 아니라 제품을 안전하게 두는 이야기입니다. 주의사항입니다.",
+            "fr": "Il s’agit de conserver le produit, pas de l’appliquer. Une précaution.",
+            "lo": "ເປັນເລື່ອງການເກັບຮັກສາ ບໍ່ແມ່ນການທາ. ເປັນຄຳເຕືອນ.",
+            "th": "เป็นเรื่องการเก็บรักษา ไม่ใช่การทา เป็นคำเตือน"
+          }
+        },
+        {
+          "fragmentId": "s7",
+          "kind": "CLAIM",
+          "text": {
+            "en": "Your everyday shield, rain or shine.",
+            "ko": "비가 오나 해가 나나, 매일의 방패.",
+            "fr": "Votre bouclier du quotidien, qu’il pleuve ou qu’il fasse beau.",
+            "lo": "ເກາະປ້ອງກັນປະຈຳວັນຂອງທ່ານ ບໍ່ວ່າຝົນຕົກ ຫຼື ແດດອອກ.",
+            "th": "เกราะประจำวันของคุณ ไม่ว่าฝนตกหรือแดดออก"
+          },
+          "why": {
+            "en": "An image rather than an instruction or an ingredient. Packaging language, so it sits with the claims.",
+            "ko": "지시도 성분도 아니고 이미지입니다. 포장의 말이니 주장 쪽입니다.",
+            "fr": "Une image, non une instruction ni un ingrédient. Langage d’emballage : une allégation.",
+            "lo": "ເປັນພາບພົດ ບໍ່ແມ່ນຄຳແນະນຳ ຫຼື ສ່ວນປະກອບ. ເປັນພາສາຫຸ້ມຫໍ່ ຈຶ່ງຢູ່ຝ່າຍຄຳອ້າງ.",
+            "th": "เป็นภาพพจน์ ไม่ใช่คำแนะนำหรือส่วนผสม เป็นภาษาบรรจุภัณฑ์ จึงอยู่ฝั่งคำกล่าวอ้าง"
+          }
+        },
+        {
+          "fragmentId": "s8",
+          "kind": "INGREDIENTS",
+          "text": {
+            "en": "Contains Homosalate and Octocrylene as UV filters.",
+            "ko": "자외선 차단 성분으로 호모살레이트와 옥토크릴렌 함유.",
+            "fr": "Contient de l’homosalate et de l’octocrylène comme filtres UV.",
+            "lo": "ມີ Homosalate ແລະ Octocrylene ເປັນຕົວກັ່ນຕອງ UV.",
+            "th": "มี Homosalate และ Octocrylene เป็นสารกรองรังสียูวี"
+          },
+          "why": {
+            "en": "It names what is in the box. A sentence around the names does not stop them being the ingredient information.",
+            "ko": "상자 안에 무엇이 들었는지를 말합니다. 이름 주위에 문장이 붙었다고 해서 성분 정보가 아니게 되지는 않습니다.",
+            "fr": "Cela nomme ce que contient la boîte. Une phrase autour des noms n’en fait pas moins l’information ingrédients.",
+            "lo": "ບອກວ່າໃນກ່ອງມີຫຍັງ. ການມີປະໂຫຍກອ້ອມຊື່ ບໍ່ໄດ້ເຮັດໃຫ້ມັນເຊົາເປັນຂໍ້ມູນສ່ວນປະກອບ.",
+            "th": "บอกว่าในกล่องมีอะไร การมีประโยคล้อมรอบชื่อไม่ได้ทำให้เลิกเป็นข้อมูลส่วนผสม"
           }
         }
       ]

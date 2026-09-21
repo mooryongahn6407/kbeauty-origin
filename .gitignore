@@ -3,3 +3,10 @@ dist/
 .vite/
 *.local
 .DS_Store
+
+# Promo video build products. The script and the cuts are source; the captured screens and the
+# rendered film are outputs, and a 1 MB binary does not belong in the history of a learning app.
+scripts/promo/frames/
+scripts/promo/cuts/
+scripts/promo/cuts.txt
+scripts/promo/*.mp4

@@ -36,16 +36,48 @@ import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { LessonRunner } from '../components/LessonRunner';
 
 const now = () => new Date().toISOString();
-const SPECIMEN_ID = 'SPECIMEN-001';
 
 const localised = (record: Readonly<Record<string, string>>, locale: string): string =>
   record[locale] ?? record['en'] ?? '';
 
-function LabelSorter({ locale }: { locale: string }) {
+/**
+ * Which specimen is being sorted.
+ *
+ * The screen held one id as a constant, so a second specimen could be added to the data and
+ * never be reachable — which is exactly what happened when QST-005's sunscreen label arrived.
+ * Switching remounts the sorter rather than adding a reducer action, because a new specimen is
+ * a new exercise, not a transition within one.
+ */
+function LabelSorterSwitcher({ locale }: { locale: string }) {
+  const [specimenId, setSpecimenId] = useState(labelSpecimens[0]?.specimenId ?? '');
+  return (
+    <>
+      {labelSpecimens.length > 1 ? (
+        <ul className="specimens" role="list">
+          {labelSpecimens.map((option) => (
+            <li key={option.specimenId}>
+              <button
+                type="button"
+                className="rooms__item"
+                aria-pressed={option.specimenId === specimenId}
+                onClick={() => setSpecimenId(option.specimenId)}
+              >
+                {localised(option.identity, locale)}
+              </button>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      <LabelSorter key={specimenId} locale={locale} specimenId={specimenId} />
+    </>
+  );
+}
+
+function LabelSorter({ locale, specimenId }: { locale: string; specimenId: string }) {
   const [state, dispatch] = useReducer(
     (current: SorterState, action: SorterAction) => sorterReducer(current, action),
-    undefined,
-    () => createSorter('local-learner', SPECIMEN_ID),
+    specimenId,
+    (id: string) => createSorter('local-learner', id),
   );
   // The reducer is pure; this is the only place its events reach the sink.
   useTransitionDrain(state, eventSink);
@@ -420,7 +452,7 @@ export function LabelDetectiveScreen({ locale }: { locale: string }) {
         </div>
       </section>
 
-      <LabelSorter locale={locale} />
+      <LabelSorterSwitcher locale={locale} />
       <QuestPanel locale={locale} />
       <EvidencePanel locale={locale} />
     </div>
