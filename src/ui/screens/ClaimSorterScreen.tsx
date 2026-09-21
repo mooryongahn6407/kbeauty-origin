@@ -20,6 +20,7 @@ import {
 } from '@/app/claim-sorter';
 import { CompanionSays } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
+import { spokenFallback } from '../spoken-fallback';
 
 const localised = (record: Readonly<Record<string, string>>, locale: string): string =>
   record[locale] ?? record['en'] ?? '';
@@ -42,7 +43,15 @@ export function ClaimSorterScreen({ locale }: { locale: string }) {
           {prompt}
         </p>
         <p className="bubble__help">{localised(bucketNote, locale)}</p>
-        <ReadAloud text={`${prompt} ${localised(bucketNote, locale)}`} locale={locale} />
+        <ReadAloud
+          text={`${prompt} ${localised(bucketNote, locale)}`}
+          locale={locale}
+          fallback={spokenFallback(
+            locale,
+            (spoken) => `${translate('claim.prompt', spoken)} ${localised(bucketNote, spoken)}`,
+          )}
+          autoplay
+        />
       </CompanionSays>
 
       <ul className="claim__list" role="list">

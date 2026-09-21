@@ -26,25 +26,25 @@
 :root {
   color-scheme: light;
 
-  --bg: #faf7f3;
+  --bg: #fdfaf7;
   --surface: #ffffff;
-  --surface-sunk: #f3eee8;
-  --text: #1f1b17;
-  --text-muted: #5a534b;
-  --accent: #7d5f28;
-  --accent-wash: #f5ecdb;
-  --botanical: #4d6147;
-  --botanical-wash: #eef2ed;
-  --caution: #8a4a1c;
-  --caution-wash: #fbf1e4;
-  --blocker: #8b2f22;
-  --blocker-wash: #f8e4e0;
-  --line: #e2d8cd;
-  --line-strong: #c9bcae;
-  --btn-bg: #2b2724;
-  --btn-fg: #faf7f3;
-  --focus: #7d5f28;
-  --shadow: 0 1px 2px rgba(31, 27, 23, 0.05), 0 8px 24px rgba(31, 27, 23, 0.06);
+  --surface-sunk: #f7f0ea;
+  --text: #241c1a;
+  --text-muted: #665551;
+  --accent: #a33753;
+  --accent-wash: #fceef2;
+  --botanical: #2b6b50;
+  --botanical-wash: #e7f2ec;
+  --caution: #8f4a13;
+  --caution-wash: #fdf0e2;
+  --blocker: #9b2233;
+  --blocker-wash: #fbe7e9;
+  --line: #ecdfd7;
+  --line-strong: #d2bcb2;
+  --btn-bg: #241c1a;
+  --btn-fg: #fdfaf7;
+  --focus: #a33753;
+  --shadow: 0 1px 2px rgba(36, 28, 26, 0.04), 0 10px 30px -12px rgba(163, 55, 83, 0.18);
 
   /* Type scale. 0.8125rem = 13px at the browser default, 14.6px at the "Large" step; nothing
      in the app is smaller. Every step is multiplied by the reader's chosen --text-scale. */
@@ -70,14 +70,28 @@
   --tap: 44px; /* Minimum interactive target, both dimensions. */
   --max-width: 900px;
 
-  /* Lao, Thai and Korean faces are named in every stack, not only under their own :lang rule,
-     so a string in one of these scripts inside an English sentence still renders in its own
-     face rather than in tofu — including a Thai passage spoken (via SPOKEN_FALLBACK) or shown
-     as the safety-notice original for a Lao reader. */
-  --font-body: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Noto Serif KR',
-    'Noto Sans Lao', 'Noto Sans Thai', 'Phetsarath OT', serif;
-  --font-ui: 'Inter', 'Helvetica Neue', -apple-system, 'Noto Sans KR', 'Noto Sans Lao',
-    'Noto Sans Thai', 'Phetsarath OT', sans-serif;
+  /* Two faces, and which is which matters on a phone.
+     Body was set in a serif, which reads as a printed report at 17px on a handset and was a
+     large part of why this looked like a paper. Everything a reader *uses* is now in the sans,
+     which is also what Korean, Lao and Thai are normally set in; the serif is kept for display
+     headings only, where it carries the warmth the brand wants without costing legibility.
+
+     Each stack names the Korean, Lao and Thai faces, not only the :lang rules below, so a
+     string in one of those scripts inside an English sentence renders in its own face rather
+     than in tofu — including a Thai passage spoken via SPOKEN_FALLBACK, or the English
+     original shown under a safety notice for a Lao reader.
+
+     No webfont. A display face over the network would be one more thing to wait for on a
+     Vientiane connection and one more thing to break offline; the system stacks below are
+     already the faces these scripts are designed for. */
+  --font-display: 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Noto Serif KR',
+    'Apple SD Gothic Neo', 'Noto Sans Lao', 'Noto Sans Thai', 'Phetsarath OT', serif;
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Pretendard', 'Apple SD Gothic Neo',
+    'Malgun Gothic', 'Noto Sans KR', 'Noto Sans Lao', 'Noto Sans Thai', 'Phetsarath OT',
+    'Helvetica Neue', sans-serif;
+  --font-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Pretendard', 'Apple SD Gothic Neo',
+    'Malgun Gothic', 'Noto Sans KR', 'Noto Sans Lao', 'Noto Sans Thai', 'Phetsarath OT',
+    'Helvetica Neue', sans-serif;
 }
 
 /*
@@ -112,11 +126,22 @@
   overflow-wrap: anywhere;
   line-break: normal;
 }
-/* Uppercasing does nothing to either script and only widens an already long label. */
+/* Uppercasing does nothing to any of these scripts and only widens an already long label.
+   Tracking is worse than useless in Korean: Hangul syllables are already evenly spaced, and
+   adding 0.14em between them reads as a typesetting fault rather than as emphasis. */
 :root[lang='lo'] .eyebrow, :root[lang='lo'] .settings__label,
 :root[lang='lo'] .phase-rail, :root[lang='lo'] .table th,
 :root[lang='th'] .eyebrow, :root[lang='th'] .settings__label,
-:root[lang='th'] .phase-rail, :root[lang='th'] .table th { text-transform: none; letter-spacing: 0; }
+:root[lang='th'] .phase-rail, :root[lang='th'] .table th,
+:root[lang='ko'] .eyebrow, :root[lang='ko'] .settings__label,
+:root[lang='ko'] .phase-rail, :root[lang='ko'] .table th { text-transform: none; letter-spacing: 0; }
+
+/* Korean breaks lines between words, not inside them. Without this a headline splits 사람은 into
+   사 / 람은 at the wrap, which is the difference between a designed page and a broken one. The
+   display face's negative tracking is also wrong for Hangul, so it is neutralised here. */
+:root[lang='ko'] { word-break: keep-all; }
+:root[lang='ko'] h1, :root[lang='ko'] h2, :root[lang='ko'] h3,
+:root[lang='ko'] .quest__headline { letter-spacing: 0; }
 
 /* The reader's text-size choice. Applied to <html> by src/ui/preferences.ts. */
 :root[data-text-size='large'] { --text-scale: 1.15; }
@@ -133,50 +158,50 @@
   :root:not([data-theme='light']) {
     color-scheme: dark;
 
-    --bg: #15120f;
-    --surface: #1e1a16;
-    --surface-sunk: #191510;
-    --text: #f4eee6;
-    --text-muted: #b6aa9c;
-    --accent: #dcbc80;
-    --accent-wash: #2c2418;
-    --botanical: #9fb599;
-    --botanical-wash: #1c231b;
-    --caution: #e8b57f;
-    --caution-wash: #35281a;
-    --blocker: #f0a89b;
-    --blocker-wash: #3a201c;
-    --line: #3d352e;
-    --line-strong: #584d43;
-    --btn-bg: #e9dcc4;
-    --btn-fg: #1a1611;
-    --focus: #dcbc80;
-    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+    --bg: #191310;
+    --surface: #231b17;
+    --surface-sunk: #1e1613;
+    --text: #f7efe9;
+    --text-muted: #c0ada5;
+    --accent: #f0a3b6;
+    --accent-wash: #3a1f27;
+    --botanical: #93c9ab;
+    --botanical-wash: #18291f;
+    --caution: #edb277;
+    --caution-wash: #3a2a18;
+    --blocker: #f5a3a3;
+    --blocker-wash: #3d1d1f;
+    --line: #3a2e29;
+    --line-strong: #584740;
+    --btn-bg: #f3e7df;
+    --btn-fg: #1a1310;
+    --focus: #f0a3b6;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 10px 30px -12px rgba(0, 0, 0, 0.55);
   }
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
 
-  --bg: #15120f;
-  --surface: #1e1a16;
-  --surface-sunk: #191510;
-  --text: #f4eee6;
-  --text-muted: #b6aa9c;
-  --accent: #dcbc80;
-  --accent-wash: #2c2418;
-  --botanical: #9fb599;
-  --botanical-wash: #1c231b;
-  --caution: #e8b57f;
-  --caution-wash: #35281a;
-  --blocker: #f0a89b;
-  --blocker-wash: #3a201c;
-  --line: #3d352e;
-  --line-strong: #584d43;
-  --btn-bg: #e9dcc4;
-  --btn-fg: #1a1611;
-  --focus: #dcbc80;
-  --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.35);
+  --bg: #191310;
+  --surface: #231b17;
+  --surface-sunk: #1e1613;
+  --text: #f7efe9;
+  --text-muted: #c0ada5;
+  --accent: #f0a3b6;
+  --accent-wash: #3a1f27;
+  --botanical: #93c9ab;
+  --botanical-wash: #18291f;
+  --caution: #edb277;
+  --caution-wash: #3a2a18;
+  --blocker: #f5a3a3;
+  --blocker-wash: #3d1d1f;
+  --line: #3a2e29;
+  --line-strong: #584740;
+  --btn-bg: #f3e7df;
+  --btn-fg: #1a1310;
+  --focus: #f0a3b6;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 10px 30px -12px rgba(0, 0, 0, 0.55);
 }
 
 /* ------------------------------------------------------------------ *
@@ -201,10 +226,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-h1, h2, h3, .ui-sans { font-family: var(--font-ui); letter-spacing: -0.012em; }
-h1 { font-size: var(--fs-xl); font-weight: 600; margin: 0; line-height: 1.25; }
-h2 { font-size: var(--fs-lg); font-weight: 600; margin: 0 0 var(--space-2); line-height: 1.3; }
-h3 { font-size: var(--fs-md); font-weight: 600; margin: 0 0 var(--space-1); line-height: 1.35; }
+/* Headings carry the brand's warmth in the display face; everything else is the sans, because
+   everything else is read on a phone. Tighter tracking and a heavier weight than before: the
+   old 600 at default tracking read as a paragraph that happened to be large. */
+h1, h2, h3 { font-family: var(--font-display); letter-spacing: -0.02em; text-wrap: balance; }
+.ui-sans { font-family: var(--font-ui); }
+h1 { font-size: var(--fs-xl); font-weight: 700; margin: 0; line-height: 1.2; }
+h2 { font-size: var(--fs-lg); font-weight: 700; margin: 0 0 var(--space-2); line-height: 1.28; }
+h3 { font-size: var(--fs-md); font-weight: 700; margin: 0 0 var(--space-1); line-height: 1.35; }
 
 /* One visible focus ring for everything, in a colour that clears 3:1 against the page. An
    invisible focus ring is the fastest way to make a keyboard unusable. */
@@ -604,51 +633,70 @@ select.field, .locale-switch select, .settings__select {
  * so both themes and all three text sizes keep working without this section knowing they exist.
  * ------------------------------------------------------------------ */
 
+/* Deliberately not sticky.
+   The bar now carries three things a first-time reader needs before anything else — the name,
+   five languages, and the voice switch with its sentence of explanation — and that is 216px on
+   a 390px-wide phone. Pinned, it would take a permanent quarter of every screen for controls
+   that are only needed on arrival. It sits at the top of the page instead, where it is the
+   first thing seen and one flick away thereafter. */
 .topbar {
   border-bottom: 1px solid var(--line);
   background: var(--surface);
-  position: sticky;
-  top: 0;
-  z-index: 10;
 }
 .topbar__inner {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-1) var(--space-4) var(--space-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-1) var(--space-3);
+  flex-wrap: wrap;
+}
+/* The name and the display settings go first and stay small: they are the least urgent things
+   in the bar, and putting them last pushed the two controls that matter — language and voice —
+   further from the thumb. */
+.topbar__right {
+  order: -1;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-3);
-  flex-wrap: wrap;
 }
-.topbar__right { display: flex; align-items: center; gap: var(--space-3); flex-wrap: wrap; }
 
-/* Language first, in the open. A dropdown hides four of five choices behind a tap; chips do not.
-   They stay on one line and scroll rather than wrapping: five wrapped chips put one lonely
-   language on a second row and push the first question further down a phone screen. */
+/* Language first, in the open, and ALL of it visible.
+   The first version scrolled sideways to keep one tidy line — which hid ລາວ off the right edge
+   of a 390px phone, in the one country this app is for. A grid of five equal cells fits every
+   language on screen at once at any width; nothing is behind a swipe. */
 .langchips {
-  display: flex;
-  gap: var(--space-1);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
   list-style: none;
   margin: 0;
   padding: 0;
-  overflow-x: auto;
-  scrollbar-width: none;
+  width: 100%;
 }
-.langchips::-webkit-scrollbar { display: none; }
-.langchips > li { flex: none; }
+.langchips > li { display: flex; }
 .langchip {
   appearance: none;
+  flex: 1;
   font-family: var(--font-ui);
-  font-size: var(--fs-sm);
-  font-weight: 600;
+  font-size: var(--fs-xs);
+  font-weight: 700;
   color: var(--text-muted);
-  background: transparent;
+  background: var(--surface-sunk);
   border: 2px solid transparent;
-  border-radius: 999px;
-  padding: var(--space-1) var(--space-3);
+  border-radius: 12px;
+  padding: var(--space-1) 2px;
   min-height: var(--tap);
   cursor: pointer;
+  /* Five cells on a narrow phone: a long label shrinks to fit rather than pushing a
+     neighbour off the row. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .langchip:hover { color: var(--text); background: var(--surface-sunk); }
 .langchip[aria-pressed='true'] {
@@ -656,6 +704,74 @@ select.field, .locale-switch select, .settings__select {
   background: var(--accent-wash);
   border-color: var(--accent);
 }
+
+/* The master voice switch — the second thing on the screen, and the only control in the app
+   that explains itself in a sentence.
+
+   It is full-width on purpose. A reader who has never used a learning app does not read a
+   speaker glyph as an offer, and a small round icon button beside a paragraph reads as
+   decoration. A wide button with a sentence under it reads as an offer, which is what it is.
+   The sentence changes with the state — "press this and it reads to you" becomes "press again
+   to turn it off" — because the reason people do not press unfamiliar buttons is not knowing
+   how to undo it. */
+.voiceswitch {
+  /* Full width forces its own row in the wrapping top bar, under the language buttons. */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.voiceswitch__btn {
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  color: var(--accent);
+  background: var(--accent-wash);
+  border: 2px solid var(--accent);
+  border-radius: 14px;
+  padding: var(--space-2) var(--space-3);
+  min-height: var(--tap);
+  cursor: pointer;
+  text-align: center;
+}
+/* Hover is scoped to the off state on purpose. Written as a bare `.voiceswitch__btn:hover` it
+   outranks the on state below on specificity, and the filled button turns pale with its label
+   still set to the light-on-dark colour — unreadable. Phones fire :hover after a tap, so this
+   was not a desktop-only fault. */
+.voiceswitch:not(.voiceswitch--on) .voiceswitch__btn:hover:not(:disabled) {
+  background: var(--surface);
+}
+.voiceswitch__btn:disabled {
+  color: var(--text-muted);
+  background: var(--surface-sunk);
+  border-color: var(--line);
+  cursor: not-allowed;
+}
+/* On: the filled state, so "it is currently reading to you" is legible at arm's length. */
+.voiceswitch--on .voiceswitch__btn {
+  color: var(--btn-fg);
+  background: var(--btn-bg);
+  border-color: var(--btn-bg);
+}
+.voiceswitch--on .voiceswitch__btn:hover { background: var(--text); border-color: var(--text); }
+.voiceswitch__icon { font-size: 1em; }
+.voiceswitch__hint {
+  margin: 0;
+  font-size: var(--fs-xs);
+  line-height: 1.45;
+  color: var(--text-muted);
+  text-align: center;
+}
+/* The "you will hear Thai, not Lao" line. Marked in the caution colour because it is a
+   disclosure, not a tip — the reader is being told the app is about to do something other than
+   what the screen shows. */
+.voiceswitch__hint--substitute { color: var(--caution); }
 
 .brandmark {
   appearance: none;
@@ -698,7 +814,7 @@ select.field, .locale-switch select, .settings__select {
   gap: var(--space-4);
 }
 .quest--welcome { align-items: center; text-align: center; }
-.quest__headline { font-size: var(--fs-xl); line-height: 1.25; text-wrap: balance; margin: 0; }
+.quest__headline { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
 .quest__lead { font-size: var(--fs-md); color: var(--text-muted); line-height: 1.6; margin: 0; max-width: 30ch; }
 
 /* Announced to a screen reader, never painted. Without it the spoken-only progress sentence
@@ -1129,7 +1245,9 @@ select.field, .locale-switch select, .settings__select {
  * ------------------------------------------------------------------ */
 @media (max-width: 640px) {
   .quest__headline { font-size: var(--fs-lg); }
-  .topbar__inner { padding: var(--space-2) var(--space-3); }
+  .topbar__inner { padding: var(--space-2) var(--space-3); gap: var(--space-2); }
+  /* The chips take the full row of their own on a phone, so five stay legible. */
+  .langchips { grid-column: 1 / -1; }
   .says { gap: var(--space-2); }
   .rooms__item--owner { margin-left: 0; }
   .main { padding: var(--space-4) var(--space-3) var(--space-6); }

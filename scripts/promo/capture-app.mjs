@@ -55,14 +55,16 @@ await page.getByRole('button', { name: '성분 찾기' }).click();
 await page.waitForTimeout(400);
 // Scroll past the rooms nav so the question and the list fill the frame. At 120 the nav took
 // the top half of the shot and the game — the thing the cut is about — sat below the fold.
-// The topbar is sticky, so scrolling an element to y=0 puts it *behind* the bar. Offset by the
-// bar's own height, which is what clipped the question in the first render.
+// Clearance is measured from whatever is actually pinned over the content, which is nothing
+// now that the top bar scrolls with the page — but reading it rather than assuming it means
+// this keeps framing correctly if that changes again.
 const scrollTo = (selector) =>
   page.evaluate((sel) => {
     const target = document.querySelector(sel);
-    const bar = document.querySelector('.topbar');
     if (!target) return;
-    const clearance = (bar?.getBoundingClientRect().height ?? 0) + 16;
+    const bar = document.querySelector('.topbar');
+    const pinned = bar && getComputedStyle(bar).position === 'sticky';
+    const clearance = (pinned ? bar.getBoundingClientRect().height : 0) + 16;
     window.scrollTo(0, window.scrollY + target.getBoundingClientRect().top - clearance);
   }, selector);
 await scrollTo('.says');

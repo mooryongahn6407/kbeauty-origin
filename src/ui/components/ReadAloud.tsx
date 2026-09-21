@@ -24,10 +24,11 @@
  *                 missing control looks like a missing feature while a disabled one explains
  *                 itself.
  */
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { translate } from '@/localization/messages';
 import { languageName } from '@/localization/locales';
 import { availableVoices, planSpeech, speak, speechSupported, stopSpeaking } from '../speech';
+import { useVoice } from '../voice';
 
 export function ReadAloud({
   text,
@@ -35,6 +36,7 @@ export function ReadAloud({
   spokenLocale = locale,
   fallback,
   label,
+  autoplay = false,
 }: {
   text: string;
   /** The reader's UI locale — used only for this control's own button labels. */
@@ -45,8 +47,19 @@ export function ReadAloud({
   fallback?: { locale: string; text: string } | undefined;
   /** Overrides the default control label, for a passage that needs naming. */
   label?: string;
+  /**
+   * True on the one passage per screen that the master voice switch should read by itself.
+   *
+   * Only one control per screen may set it. Speech synthesis has a single channel — two
+   * controls starting together do not overlap, the second cancels the first — so "read the
+   * main passage" has to be a decision the screen makes, not something every control does.
+   */
+  autoplay?: boolean;
 }) {
+  const { on: voiceOn } = useVoice();
   const [speaking, setSpeaking] = useState(false);
+  // What this control last started saying by itself, so a re-render does not restart it.
+  const spokenRef = useRef<string | null>(null);
   const [voiceCount, setVoiceCount] = useState(() => availableVoices().length);
 
   // Chrome populates the voice list asynchronously and fires this event once it has. Without
@@ -60,8 +73,16 @@ export function ReadAloud({
     return () => globalThis.speechSynthesis.removeEventListener('voiceschanged', onVoices);
   }, []);
 
-  // Leaving the screen mid-sentence should stop the sentence.
-  useEffect(() => () => stopSpeaking(), []);
+  // Leaving the screen mid-sentence should stop the sentence. Clearing the marker below at the
+  // same time is what makes this correct under StrictMode's deliberate unmount/remount: the
+  // remounted control speaks again rather than staying silent because its twin already had.
+  useEffect(
+    () => () => {
+      stopSpeaking();
+      spokenRef.current = null;
+    },
+    [],
+  );
 
   const supported = speechSupported();
   const available = fallback ? [spokenLocale, fallback.locale] : [spokenLocale];
@@ -72,6 +93,25 @@ export function ReadAloud({
       : { voice: null, spokenLocale, isSubstitute: false };
   const unavailable = !supported || plan.voice === null;
   const spokenText = plan.isSubstitute && fallback ? fallback.text : text;
+
+  // Read the screen's main passage when the master switch is on. The effect is intentionally
+  // undepended: the guard is the marker above, not a dependency list, because the voice object
+  // the browser hands back is not stable enough to compare between renders.
+  useEffect(() => {
+    if (!autoplay || !voiceOn || unavailable) {
+      spokenRef.current = null;
+      return;
+    }
+    const passage = `${plan.spokenLocale}\u0000${spokenText}`;
+    if (spokenRef.current === passage) return;
+    spokenRef.current = passage;
+    setSpeaking(
+      speak(spokenText, plan.spokenLocale, {
+        voice: plan.voice,
+        onEnd: () => setSpeaking(false),
+      }),
+    );
+  });
 
   const toggle = () => {
     if (speaking) {
@@ -85,6 +125,11 @@ export function ReadAloud({
     });
     setSpeaking(started);
   };
+
+  // The master switch at the top of every screen already says, once, that this device has no
+  // voice for this language. Repeating it on the screen's main passage is the same sentence
+  // twice on one screen, which reads as a fault rather than as an explanation.
+  if (autoplay && unavailable) return null;
 
   const readyLabel = plan.isSubstitute
     ? translate('speech.listenIn', locale, { language: languageName(plan.spokenLocale) })

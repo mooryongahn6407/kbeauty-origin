@@ -18,6 +18,7 @@ import type { Ingredient } from '@/domain/entities';
 import { familyFunction, huntableFamilies } from '@/app/ingredient-hunt';
 import { CompanionSays } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
+import { spokenFallback } from '../spoken-fallback';
 
 /** The three acids QST-011 names, when the database holds them; otherwise whatever it holds. */
 const OPENING_FAMILIES = ['AHA', 'BHA', 'Polyhydroxy Acid'];
@@ -45,7 +46,12 @@ export function CompareLabScreen({ locale }: { locale: string }) {
           {prompt}
         </p>
         <p className="bubble__help">{translate('compare.help', locale)}</p>
-        <ReadAloud text={prompt} locale={locale} />
+        <ReadAloud
+          text={prompt}
+          locale={locale}
+          fallback={spokenFallback(locale, (spoken) => translate('compare.prompt', spoken))}
+          autoplay
+        />
       </CompanionSays>
 
       <div className="compare__pickers">

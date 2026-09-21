@@ -39,6 +39,7 @@ import {
 } from '@/app/review-queue';
 import { CompanionSays } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
+import { spokenFallback } from '../spoken-fallback';
 
 const LIST_SIZE = 9;
 
@@ -102,7 +103,14 @@ export function IngredientHuntScreen({ locale }: { locale: string }) {
           {prompt}
         </p>
         <p className="bubble__help">{translate('hunt.help', locale)}</p>
-        <ReadAloud text={prompt} locale={locale} />
+        <ReadAloud
+          text={prompt}
+          locale={locale}
+          fallback={spokenFallback(locale, (spoken) =>
+            translate('hunt.prompt', spoken, { family: familyLabel(round.family) }),
+          )}
+          autoplay
+        />
       </CompanionSays>
 
       <ul className="inci" role="list">

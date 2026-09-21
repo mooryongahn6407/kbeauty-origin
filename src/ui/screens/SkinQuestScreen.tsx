@@ -39,6 +39,7 @@ import {
 } from '@/app/skin-quest';
 import { CompanionSays, Companion } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
+import { spokenFallback } from '../spoken-fallback';
 
 const pad = (value: number) => String(value).padStart(2, '0');
 
@@ -94,6 +95,12 @@ export function SkinQuestScreen({
         <ReadAloud
           text={`${t('skinquest.welcome.headline')} ${t('skinquest.welcome.lead')}`}
           locale={locale}
+          fallback={spokenFallback(
+            locale,
+            (spoken) =>
+              `${translate('skinquest.welcome.headline', spoken)} ${translate('skinquest.welcome.lead', spoken)}`,
+          )}
+          autoplay
         />
         <button type="button" className="btn btn--primary" onClick={() => dispatch({ type: 'begin' })}>
           {t('skinquest.welcome.begin')}
@@ -183,7 +190,12 @@ function QuestStepView({
           {prompt}
         </p>
         <p className="bubble__help">{translate(step.helpKey, locale)}</p>
-        <ReadAloud text={prompt} locale={locale} />
+        <ReadAloud
+          text={prompt}
+          locale={locale}
+          fallback={spokenFallback(locale, (spoken) => translate(step.promptKey, spoken))}
+          autoplay
+        />
       </CompanionSays>
 
       <ul className="options" role="list">
@@ -231,7 +243,14 @@ function QuestConcernPicker({
           {prompt}
         </p>
         <p className="bubble__help">{translate('skinquest.concerns.help', locale)}</p>
-        <ReadAloud text={prompt} locale={locale} />
+        <ReadAloud
+          text={prompt}
+          locale={locale}
+          fallback={spokenFallback(locale, (spoken) =>
+            translate('skinquest.concerns.prompt', spoken),
+          )}
+          autoplay
+        />
       </CompanionSays>
 
       <ul className="options options--multi" role="list">

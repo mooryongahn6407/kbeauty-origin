@@ -24,6 +24,7 @@ import {
 } from '@/app/routine-order';
 import { CompanionSays } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
+import { spokenFallback } from '../spoken-fallback';
 
 const randomPick = (bound: number) => Math.floor(Math.random() * bound);
 
@@ -61,7 +62,17 @@ export function RoutineOrderScreen({ locale }: { locale: string }) {
           {prompt}
         </p>
         <p className="bubble__help">{translate('order.help', locale)}</p>
-        <ReadAloud text={prompt} locale={locale} />
+        <ReadAloud
+          text={prompt}
+          locale={locale}
+          fallback={spokenFallback(locale, (spoken) =>
+            translate('order.prompt', spoken, {
+              name: routine?.Routine_Name ?? '',
+              description: routine?.Description ?? '',
+            }),
+          )}
+          autoplay
+        />
       </CompanionSays>
 
       {/* Where the steps go. Numbered, so the order being asked for is visible before the first

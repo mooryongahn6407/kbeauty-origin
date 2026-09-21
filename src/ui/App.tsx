@@ -8,9 +8,13 @@
  *
  * Two things moved deliberately:
  *
- * - **Language is chosen first, in the open.** Four flat chips at the very top, not a dropdown
- *   below the fold. Someone in Vientiane should not have to find a select element to read in
- *   their own language.
+ * - **Language is chosen first, in the open.** Five flat buttons at the very top, all five on
+ *   the screen at once — not a dropdown below the fold and not a row that has to be scrolled
+ *   sideways to reach Lao. Someone in Vientiane should not have to hunt for their own language.
+ * - **Voice is offered second, in words.** The master switch sits directly under the language
+ *   buttons, says what pressing it does, and once it is on says how to turn it off. It used to
+ *   be a small control beside each passage, one screen down, which is indistinguishable from
+ *   not existing for a reader meeting the app for the first time.
  * - **Content governance is behind a door.** Review status, provenance and the open-items
  *   register are how this app keeps itself honest, and they still run on every screen — but
  *   they are for whoever owns the content, not for someone looking at their own skin. The rule
@@ -24,6 +28,8 @@ import {
 } from '@/localization/messages';
 import { applyPreferences, loadPreferences, savePreferences } from './preferences';
 import { DisplaySettings } from './components/DisplaySettings';
+import { VoiceSwitch } from './components/VoiceSwitch';
+import { VoiceProvider } from './voice';
 import { SkinQuestScreen } from './screens/SkinQuestScreen';
 import { IngredientHuntScreen } from './screens/IngredientHuntScreen';
 import { CompareLabScreen } from './screens/CompareLabScreen';
@@ -103,6 +109,7 @@ export function App() {
   const onQuest = screen === 'quest';
 
   return (
+    <VoiceProvider>
     <div className="app">
       <a className="skip-link" href="#main">
         {translate('display.skipToContent', locale)}
@@ -125,6 +132,7 @@ export function App() {
               </li>
             ))}
           </ul>
+          <VoiceSwitch locale={locale} />
           <div className="topbar__right">
             <button
               type="button"
@@ -214,5 +222,6 @@ export function App() {
         )}
       </main>
     </div>
+    </VoiceProvider>
   );
 }
