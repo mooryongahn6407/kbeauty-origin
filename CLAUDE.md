@@ -4,6 +4,10 @@
 
 A Beauty Intelligence learning platform. **Not** a shopping app. **Not** a medical diagnosis app.
 
+**New session? Start at `docs/기억/README.md`** — the project memory, in Korean: what was
+built and why, what the owner has already decided, what is waiting on them, and the mistakes
+this project has already made once. It is the fastest way to stop being new.
+
 Read `docs/SOURCE_OF_TRUTH.md` before changing anything under `data/`, `sources/` or `src/governance/`.
 Read `docs/ARCHITECTURE.md` before adding a layer or screen.
 Current build state is in `ENGINEERING_STATUS.md`.
