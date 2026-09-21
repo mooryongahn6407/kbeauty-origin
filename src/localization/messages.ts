@@ -17,12 +17,12 @@ const MESSAGES_EN = {
   'app.northStar': 'Learn Beauty. Know Yourself. Choose Better.',
 
   'nav.mySkin': 'My Skin',
-  'nav.ingredientGarden': 'Ingredient Garden',
-  'nav.routineStudio': 'Routine Studio',
+  'nav.ingredientGarden': 'Ingredients, one by one',
+  'nav.routineStudio': 'Putting a routine together',
   'nav.sunProtection': 'Sun Protection',
-  'nav.labelDetective': 'Label Detective',
+  'nav.labelDetective': 'Reading a box',
   'nav.aiTutor': 'AI Tutor',
-  'nav.quests': 'Quests & Mastery',
+  'nav.quests': 'How far I have got',
   'nav.governance': 'Content Governance',
 
   'disclosure.pendingVerification':
@@ -299,11 +299,12 @@ const MESSAGES_EN = {
    * recorded. None of it says what skin is, does, or needs, because no knowledge record has
    * passed the evidence gate yet. */
   'skinquest.title': 'Skin Quest',
-  'skinquest.welcome.eyebrow': 'Four minutes, with your own skin',
-  'skinquest.welcome.headline': 'Nobody has looked at your skin as often as you have.',
-  'skinquest.welcome.lead':
-    'This is not a test and there are no wrong answers. You look, you answer, and at the end you keep the record you made.',
-  'skinquest.welcome.begin': 'Start looking',
+  'skinquest.welcome.hello': 'Hello! I am LUMINA NOY, from KOREA GLOW.',
+  'skinquest.welcome.guide':
+    'I will be with you the whole way, and nothing here is hard. I ask about one thing, you look in the mirror, and you tap what you see.',
+  'skinquest.welcome.promise':
+    'Four minutes. You keep today’s record of your own skin, and there is a small gift for finishing.',
+  'skinquest.welcome.begin': 'Yes, let’s start',
   'skinquest.welcome.boundary':
     'This is cosmetic observation, not diagnosis. If something hurts, spreads or keeps getting worse, that is for a qualified professional, not for an app.',
   'skinquest.progress': 'Step {done} of {total}',
@@ -378,7 +379,7 @@ const MESSAGES_EN = {
    * against the record. It never says what an ingredient does. */
   'hunt.title': 'Ingredient Hunt',
   'review.dueToday': '{count} to see again today',
-  'compare.title': 'Compare Lab',
+  'compare.title': 'Two, side by side',
   /* ---- Routine Order (QST-006 / QST-007) ---------------------------------
    * The only exercise in the app whose answer is an Approved record. */
   'order.title': 'Put it in order',
@@ -456,12 +457,12 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'app.northStar': '뷰티를 배우고, 나를 알고, 더 잘 선택하기.',
 
   'nav.mySkin': '마이 스킨',
-  'nav.ingredientGarden': '성분 가든',
-  'nav.routineStudio': '루틴 스튜디오',
+  'nav.ingredientGarden': '성분 하나씩 보기',
+  'nav.routineStudio': '내 루틴 짜보기',
   'nav.sunProtection': '자외선 보호',
-  'nav.labelDetective': '라벨 탐정',
+  'nav.labelDetective': '화장품 상자 읽기',
   'nav.aiTutor': 'AI 튜터',
-  'nav.quests': '퀘스트와 숙달',
+  'nav.quests': '내가 어디까지 왔나',
   'nav.governance': '콘텐츠 거버넌스',
 
   'disclosure.pendingVerification':
@@ -730,11 +731,12 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'catalog.safetyOriginal': '안전을 위한 원문',
 
   'skinquest.title': '스킨 퀘스트',
-  'skinquest.welcome.eyebrow': '내 피부와 함께하는 4분',
-  'skinquest.welcome.headline': '당신의 피부를 당신만큼 자주 본 사람은 없습니다.',
-  'skinquest.welcome.lead':
-    '시험이 아니고 틀린 답도 없습니다. 보고, 답하고, 끝나면 당신이 만든 기록이 남습니다.',
-  'skinquest.welcome.begin': '내 피부 보러 가기',
+  'skinquest.welcome.hello': '안녕하세요! 저는 코리아 글로우의 루미나 노이예요.',
+  'skinquest.welcome.guide':
+    '오늘은 제가 옆에서 같이 볼게요. 어려운 말은 하나도 없어요. 제가 여쭤보면 거울을 한 번 보시고, 보이는 대로 눌러주세요.',
+  'skinquest.welcome.promise':
+    '4분이면 끝나요. 오늘 내 피부 기록이 남고, 끝까지 하시면 작은 선물도 드려요.',
+  'skinquest.welcome.begin': '네, 시작할게요',
   'skinquest.welcome.boundary':
     '이것은 화장품 관점의 관찰이며 진단이 아닙니다. 아프거나, 번지거나, 점점 심해진다면 그때는 앱이 아니라 전문가를 찾을 때입니다.',
   'skinquest.progress': '{total}단계 중 {done}단계',
@@ -804,7 +806,7 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'collection.title': '내 선반',
   'hunt.title': '성분 찾기',
   'review.dueToday': '오늘 다시 볼 것 {count}개',
-  'compare.title': '비교 실험실',
+  'compare.title': '둘을 나란히 놓고 보기',
   'order.title': '순서 맞추기',
   'claim.title': '주장일까, 기록일까',
   'claim.prompt': '이 중에서 다른 사람이 직접 확인할 수 있는 것은 어느 것일까요?',
@@ -883,12 +885,12 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'app.northStar': 'Apprendre la beauté. Se connaître. Mieux choisir.',
 
   'nav.mySkin': 'Ma peau',
-  'nav.ingredientGarden': 'Jardin des ingrédients',
-  'nav.routineStudio': 'Atelier routine',
+  'nav.ingredientGarden': 'Les ingrédients, un par un',
+  'nav.routineStudio': 'Composer sa routine',
   'nav.sunProtection': 'Protection solaire',
-  'nav.labelDetective': 'Détective d’étiquettes',
+  'nav.labelDetective': 'Lire une boîte',
   'nav.aiTutor': 'Tuteur IA',
-  'nav.quests': 'Quêtes et maîtrise',
+  'nav.quests': 'Où j’en suis',
   'nav.governance': 'Gouvernance du contenu',
 
   'disclosure.pendingVerification':
@@ -1171,11 +1173,12 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'catalog.safetyOriginal': 'Formulation d’origine, par sécurité',
 
   'skinquest.title': 'Quête de la peau',
-  'skinquest.welcome.eyebrow': 'Quatre minutes, avec votre propre peau',
-  'skinquest.welcome.headline': 'Personne n’a regardé votre peau aussi souvent que vous.',
-  'skinquest.welcome.lead':
-    'Ce n’est pas un test et il n’y a pas de mauvaise réponse. Vous regardez, vous répondez, et à la fin vous gardez le relevé que vous avez fait.',
-  'skinquest.welcome.begin': 'Commencer à regarder',
+  'skinquest.welcome.hello': 'Bonjour ! Je suis LUMINA NOY, de KOREA GLOW.',
+  'skinquest.welcome.guide':
+    'Je reste avec vous jusqu’au bout, et rien ici n’est compliqué. Je pose une question, vous vous regardez dans le miroir, et vous touchez ce que vous voyez.',
+  'skinquest.welcome.promise':
+    'Quatre minutes. Vous gardez le relevé de votre peau d’aujourd’hui, et un petit cadeau vous attend à la fin.',
+  'skinquest.welcome.begin': 'Oui, commençons',
   'skinquest.welcome.boundary':
     'Il s’agit d’observation cosmétique, pas d’un diagnostic. Si quelque chose fait mal, s’étend ou empire, cela relève d’un professionnel qualifié, pas d’une application.',
   'skinquest.progress': 'Étape {done} sur {total}',
@@ -1238,7 +1241,7 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'collection.title': 'Votre étagère',
   'hunt.title': 'Chasse aux ingrédients',
   'review.dueToday': '{count} à revoir aujourd’hui',
-  'compare.title': 'Labo comparaison',
+  'compare.title': 'Deux, côte à côte',
   'order.title': 'Remettre dans l’ordre',
   'claim.title': 'Allégation ou note ?',
   'claim.prompt': 'Parmi ces phrases, lesquelles une autre personne pourrait-elle aller vérifier ?',
@@ -1319,12 +1322,12 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'app.northStar': 'ຮຽນຮູ້ຄວາມງາມ. ຮູ້ຈັກຕົນເອງ. ເລືອກໃຫ້ດີຂຶ້ນ.',
 
   'nav.mySkin': 'ຜິວຂອງຂ້ອຍ',
-  'nav.ingredientGarden': 'ສວນສ່ວນປະກອບ',
-  'nav.routineStudio': 'ສະຕູດິໂອກິດຈະວັດ',
+  'nav.ingredientGarden': 'ເບິ່ງສ່ວນປະກອບເທື່ອລະຢ່າງ',
+  'nav.routineStudio': 'ຈັດກິດຈະວັດຂອງຂ້ອຍ',
   'nav.sunProtection': 'ການປ້ອງກັນແສງແດດ',
-  'nav.labelDetective': 'ນັກສືບສະຫຼາກ',
+  'nav.labelDetective': 'ອ່ານກ່ອງເຄື່ອງສຳອາງ',
   'nav.aiTutor': 'ຄູສອນ AI',
-  'nav.quests': 'ພາລະກິດ ແລະ ຄວາມຊຳນານ',
+  'nav.quests': 'ຂ້ອຍມາຮອດໃສແລ້ວ',
   'nav.governance': 'ການກຳກັບດູແລເນື້ອຫາ',
 
   'disclosure.pendingVerification':
@@ -1598,11 +1601,12 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'catalog.safetyOriginal': 'ຖ້ອຍຄຳຕົ້ນສະບັບ ເພື່ອຄວາມປອດໄພ',
 
   'skinquest.title': 'ການເດີນທາງຂອງຜິວ',
-  'skinquest.welcome.eyebrow': 'ສີ່ນາທີ ກັບຜິວຂອງທ່ານເອງ',
-  'skinquest.welcome.headline': 'ບໍ່ມີໃຜເບິ່ງຜິວຂອງທ່ານ ຫຼາຍເທົ່າກັບທ່ານເອງ.',
-  'skinquest.welcome.lead':
-    'ນີ້ບໍ່ແມ່ນການສອບເສັງ ແລະ ບໍ່ມີຄຳຕອບທີ່ຜິດ. ທ່ານເບິ່ງ, ທ່ານຕອບ, ແລະ ໃນທີ່ສຸດ ທ່ານຈະໄດ້ບັນທຶກທີ່ທ່ານສ້າງເອງ.',
-  'skinquest.welcome.begin': 'ເລີ່ມເບິ່ງຜິວຂອງຂ້ອຍ',
+  'skinquest.welcome.hello': 'ສະບາຍດີ! ຂ້ອຍຊື່ ລູມີນາ ນອຍ ຈາກ KOREA GLOW.',
+  'skinquest.welcome.guide':
+    'ຂ້ອຍຈະຢູ່ກັບທ່ານຕະຫຼອດ ແລະ ບໍ່ມີຫຍັງຍາກເລີຍ. ຂ້ອຍຖາມເທື່ອລະຢ່າງ, ທ່ານສ່ອງແວ່ນເບິ່ງ ແລ້ວກົດຕາມທີ່ເຫັນ.',
+  'skinquest.welcome.promise':
+    'ສີ່ນາທີກໍ່ແລ້ວ. ທ່ານຈະໄດ້ບັນທຶກຜິວມື້ນີ້ ແລະ ຖ້າເຮັດຈົນຈົບ ມີຂອງຂວັນນ້ອຍໆໃຫ້.',
+  'skinquest.welcome.begin': 'ໄດ້, ເລີ່ມເລີຍ',
   'skinquest.welcome.boundary':
     'ນີ້ແມ່ນການສັງເກດໃນມຸມມອງເຄື່ອງສຳອາງ ບໍ່ແມ່ນການວິນິດໄສ. ຖ້າມີອາການເຈັບ, ລາມ ຫຼື ຮ້າຍແຮງຂຶ້ນ ນັ້ນແມ່ນເລື່ອງຂອງຜູ້ຊ່ຽວຊານ ບໍ່ແມ່ນຂອງແອັບ.',
   'skinquest.progress': 'ຂັ້ນຕອນທີ {done} ຈາກ {total}',
@@ -1665,7 +1669,7 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'collection.title': 'ຊັ້ນວາງຂອງຂ້ອຍ',
   'hunt.title': 'ຕາມຫາສ່ວນປະກອບ',
   'review.dueToday': 'ມື້ນີ້ຕ້ອງເບິ່ງຄືນ {count} ລາຍການ',
-  'compare.title': 'ຫ້ອງທົດລອງປຽບທຽບ',
+  'compare.title': 'ວາງສອງຢ່າງຄຽງກັນເບິ່ງ',
   'order.title': 'ຈັດລຳດັບ',
   'claim.title': 'ຄຳອ້າງ ຫຼື ບັນທຶກ?',
   'claim.prompt': 'ໃນນີ້ ອັນໃດທີ່ຄົນອື່ນໄປກວດເບິ່ງເອງໄດ້?',
@@ -1749,12 +1753,12 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'app.northStar': 'เรียนรู้ความงาม รู้จักตัวเอง เลือกได้ดีขึ้น',
 
   'nav.mySkin': 'ผิวของฉัน',
-  'nav.ingredientGarden': 'สวนส่วนผสม',
-  'nav.routineStudio': 'สตูดิโอรูทีน',
+  'nav.ingredientGarden': 'ดูส่วนผสมทีละอย่าง',
+  'nav.routineStudio': 'จัดรูทีนของฉัน',
   'nav.sunProtection': 'การป้องกันแสงแดด',
-  'nav.labelDetective': 'นักสืบฉลาก',
+  'nav.labelDetective': 'อ่านกล่องเครื่องสำอาง',
   'nav.aiTutor': 'ติวเตอร์ AI',
-  'nav.quests': 'เควสต์และความเชี่ยวชาญ',
+  'nav.quests': 'ฉันมาถึงไหนแล้ว',
   'nav.governance': 'การกำกับดูแลเนื้อหา',
 
   'disclosure.pendingVerification':
@@ -2029,11 +2033,12 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'catalog.safetyOriginal': 'ถ้อยคำต้นฉบับ เพื่อความปลอดภัย',
 
   'skinquest.title': 'การเดินทางของผิว',
-  'skinquest.welcome.eyebrow': 'สี่นาที กับผิวของคุณเอง',
-  'skinquest.welcome.headline': 'ไม่มีใครมองผิวของคุณบ่อยเท่าตัวคุณเอง',
-  'skinquest.welcome.lead':
-    'นี่ไม่ใช่ข้อสอบ และไม่มีคำตอบที่ผิด คุณมอง คุณตอบ และในตอนท้ายคุณจะได้บันทึกที่คุณสร้างขึ้นเอง',
-  'skinquest.welcome.begin': 'เริ่มมองผิวของฉัน',
+  'skinquest.welcome.hello': 'สวัสดีค่ะ! ฉันชื่อ ลูมินา นอย จาก KOREA GLOW',
+  'skinquest.welcome.guide':
+    'ฉันจะอยู่กับคุณตลอดทาง และไม่มีอะไรยากเลย ฉันถามทีละอย่าง คุณส่องกระจกดู แล้วกดตามที่เห็น',
+  'skinquest.welcome.promise':
+    'สี่นาทีก็เสร็จ คุณจะได้บันทึกผิววันนี้ และถ้าทำจนจบ มีของขวัญชิ้นเล็ก ๆ ให้',
+  'skinquest.welcome.begin': 'ค่ะ เริ่มเลย',
   'skinquest.welcome.boundary':
     'นี่คือการสังเกตในมุมมองเครื่องสำอาง ไม่ใช่การวินิจฉัย หากมีอาการเจ็บ ลุกลาม หรือแย่ลงเรื่อย ๆ นั่นเป็นเรื่องของผู้เชี่ยวชาญ ไม่ใช่ของแอป',
   'skinquest.progress': 'ขั้นที่ {done} จาก {total}',
@@ -2096,7 +2101,7 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'collection.title': 'ชั้นวางของฉัน',
   'hunt.title': 'ตามหาส่วนผสม',
   'review.dueToday': 'วันนี้ต้องทบทวน {count} รายการ',
-  'compare.title': 'ห้องทดลองเปรียบเทียบ',
+  'compare.title': 'วางสองอย่างเทียบกัน',
   'order.title': 'เรียงลำดับ',
   'claim.title': 'คำกล่าวอ้างหรือบันทึก',
   'claim.prompt': 'ในนี้ อันไหนที่คนอื่นไปตรวจสอบเองได้',
