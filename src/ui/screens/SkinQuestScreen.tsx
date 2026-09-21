@@ -37,11 +37,27 @@ import {
   skinQuestReducer,
   type SkinQuestState,
 } from '@/app/skin-quest';
-import { CompanionSays, Companion } from '../components/Companion';
+import { CompanionSays, Companion, SpeechBubble } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
 import { spokenFallback } from '../spoken-fallback';
 
 const pad = (value: number) => String(value).padStart(2, '0');
+
+/**
+ * The whole greeting as one passage, for the read-aloud control.
+ *
+ * Three separate bubbles read as three separate presses; a reader who has just turned the
+ * voice on wants to be greeted, not to press twice more. Built from the same keys the screen
+ * renders, so the spoken version cannot drift from the seen one.
+ */
+const welcomeSpoken = (locale: string): string =>
+  [
+    translate('skinquest.welcome.hello', locale),
+    translate('skinquest.welcome.guide', locale),
+    translate('skinquest.welcome.promise', locale),
+  ].join(' ');
+
+const welcomeFallback = (locale: string) => spokenFallback(locale, welcomeSpoken);
 
 export function SkinQuestScreen({
   locale,
@@ -85,23 +101,22 @@ export function SkinQuestScreen({
 
   if (state.phase === 'welcome') {
     return (
-      <section className="quest quest--welcome" aria-labelledby="quest-headline">
-        <p className="eyebrow">{t('skinquest.welcome.eyebrow')}</p>
-        <Companion mood="calm" size={132} />
-        <h1 id="quest-headline" className="quest__headline">
-          {t('skinquest.welcome.headline')}
-        </h1>
-        <p className="quest__lead">{t('skinquest.welcome.lead')}</p>
-        <ReadAloud
-          text={`${t('skinquest.welcome.headline')} ${t('skinquest.welcome.lead')}`}
-          locale={locale}
-          fallback={spokenFallback(
-            locale,
-            (spoken) =>
-              `${translate('skinquest.welcome.headline', spoken)} ${translate('skinquest.welcome.lead', spoken)}`,
-          )}
-          autoplay
-        />
+      // The first screen is the one that decides whether anybody sees the second. It used to
+      // open with a printed headline and a line of explanation — true, but it read like the
+      // abstract of a paper, and a reader who has come to look at their own face has no idea
+      // what is being asked of them. Now the guide introduces herself by name and says, in
+      // three short lines, who she is, what will happen, and how long it takes. The words are
+      // the same governed catalog strings; what changed is that somebody is saying them.
+      <section className="quest quest--welcome" aria-labelledby="quest-hello">
+        <Companion mood="calm" size={116} />
+        <SpeechBubble>
+          <h1 id="quest-hello" className="bubble__hello">
+            {t('skinquest.welcome.hello')}
+          </h1>
+          <p className="bubble__prompt">{t('skinquest.welcome.guide')}</p>
+          <p className="bubble__help">{t('skinquest.welcome.promise')}</p>
+          <ReadAloud text={welcomeSpoken(locale)} locale={locale} fallback={welcomeFallback(locale)} autoplay />
+        </SpeechBubble>
         <button type="button" className="btn btn--primary" onClick={() => dispatch({ type: 'begin' })}>
           {t('skinquest.welcome.begin')}
         </button>

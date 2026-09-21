@@ -34,7 +34,7 @@ await page.waitForTimeout(200);
 await shot('welcome');
 
 // Straight to the hunt, which is the heart of the film.
-await page.getByRole('button', { name: '내 피부 보러 가기' }).click();
+await page.getByRole('button', { name: '네, 시작할게요' }).click();
 await page.getByRole('button', { name: '당깁니다' }).click();
 await page.getByRole('button', { name: '얼굴', exact: true }).click();
 await page.getByRole('button', { name: '다음' }).click();

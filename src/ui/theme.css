@@ -140,8 +140,7 @@
    사 / 람은 at the wrap, which is the difference between a designed page and a broken one. The
    display face's negative tracking is also wrong for Hangul, so it is neutralised here. */
 :root[lang='ko'] { word-break: keep-all; }
-:root[lang='ko'] h1, :root[lang='ko'] h2, :root[lang='ko'] h3,
-:root[lang='ko'] .quest__headline { letter-spacing: 0; }
+:root[lang='ko'] h1, :root[lang='ko'] h2, :root[lang='ko'] h3 { letter-spacing: 0; }
 
 /* The reader's text-size choice. Applied to <html> by src/ui/preferences.ts. */
 :root[data-text-size='large'] { --text-scale: 1.15; }
@@ -814,8 +813,32 @@ select.field, .locale-switch select, .settings__select {
   gap: var(--space-4);
 }
 .quest--welcome { align-items: center; text-align: center; }
-.quest__headline { font-family: var(--font-display); font-size: var(--fs-xl); font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; text-wrap: balance; margin: 0; }
-.quest__lead { font-size: var(--fs-md); color: var(--text-muted); line-height: 1.6; margin: 0; max-width: 30ch; }
+
+/* The greeting. The guide is above and her bubble below, so the first thing on the screen is a
+   face and the second is her saying who she is — rather than a headline printed at the reader,
+   which is what made this feel like the abstract of a paper. The tail therefore points up.
+   The sentences inside are left-aligned: three centred lines read as a poster, and this is
+   someone talking. */
+.quest--welcome .bubble {
+  flex: none;
+  width: 100%;
+  text-align: left;
+  margin-top: var(--space-2);
+}
+.quest--welcome .bubble::after {
+  left: 50%;
+  top: -9px;
+  bottom: auto;
+  margin-left: -7px;
+  border-left: 2px solid var(--line);
+  border-bottom: 0;
+  border-top: 2px solid var(--line);
+}
+.bubble__hello {
+  font-size: var(--fs-lg);
+  line-height: 1.3;
+  margin: 0 0 var(--space-2);
+}
 
 /* Announced to a screen reader, never painted. Without it the spoken-only progress sentence
    renders beside the numerals it exists to replace, which is exactly what happened. */
@@ -1244,7 +1267,7 @@ select.field, .locale-switch select, .settings__select {
  * Narrow screens
  * ------------------------------------------------------------------ */
 @media (max-width: 640px) {
-  .quest__headline { font-size: var(--fs-lg); }
+  .bubble__hello { font-size: var(--fs-md); }
   .topbar__inner { padding: var(--space-2) var(--space-3); gap: var(--space-2); }
   /* The chips take the full row of their own on a phone, so five stay legible. */
   .langchips { grid-column: 1 / -1; }
