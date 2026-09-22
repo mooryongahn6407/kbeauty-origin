@@ -11,6 +11,14 @@
  * as things to notice and as topics to learn (their `Learning_Goal`, which is what the source
  * says the topic is *for*), and the approved routine sequence appears verbatim. Everything
  * about review status lives on the owner screen now, not here.
+ *
+ * The guide speaks on every step, not only on the doorstep. The welcome screen was rewritten
+ * first and the screens behind it were left in the old form-like register, which read as if
+ * somebody had greeted you at the door and then handed you a clipboard. Prompts, helper lines
+ * and the record's opening are now LUMINA's; option labels and the record's two buttons are
+ * the reader's own words; the safety and governance sentences keep their flat register on
+ * purpose. All of it is catalog keys — this component still states nothing. See the tone note
+ * above the Skin Quest block in `src/localization/messages.ts`.
  */
 import { useEffect, useMemo, useReducer, useState } from 'react';
 import { translate, type MessageKey } from '@/localization/messages';
