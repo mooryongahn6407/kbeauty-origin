@@ -35,13 +35,13 @@ await shot('welcome');
 
 // Straight to the hunt, which is the heart of the film.
 await page.getByRole('button', { name: '네, 시작할게요' }).click();
-await page.getByRole('button', { name: '당깁니다' }).click();
+await page.getByRole('button', { name: '당겨요' }).click();
 await page.getByRole('button', { name: '얼굴', exact: true }).click();
 await page.getByRole('button', { name: '다음' }).click();
-await page.getByRole('button', { name: '가끔 그렇습니다' }).click();
+await page.getByRole('button', { name: '가끔 그래요' }).click();
 await page.getByRole('button', { name: '아침에' }).click();
 await page.getByRole('button', { name: '다음' }).click();
-await page.getByRole('button', { name: '햇빛이 강한 날' }).click();
+await page.getByRole('button', { name: '햇빛 강한 날에만' }).click();
 await page.getByRole('button', { name: '다음' }).click();
 await page.waitForTimeout(300);
 
@@ -50,7 +50,7 @@ await giftCard.scrollIntoViewIfNeeded();
 await shot('gift');
 await page.evaluate(() => window.scrollTo(0, 0));
 
-await page.getByRole('button', { name: '레슨으로 더 깊이 들어가기' }).click();
+await page.getByRole('button', { name: '이제 레슨 보러 갈래요' }).click();
 await page.getByRole('button', { name: '성분 찾기' }).click();
 await page.waitForTimeout(400);
 // Scroll past the rooms nav so the question and the list fill the frame. At 120 the nav took
