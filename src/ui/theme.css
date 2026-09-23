@@ -998,9 +998,43 @@ select.field, .locale-switch select, .settings__select {
 /* The quiet regions sit on the page surface so the lit one has something to be lighter than.
    --accent-wash on --surface-sunk was the first attempt and the two are a shade apart: the
    highlight was there in the markup and invisible on the screen. */
-.skinmap__part { fill: var(--surface); stroke: var(--line); stroke-width: 2; transition: fill 300ms ease, stroke 300ms ease; }
-.skinmap__part.is-active { fill: var(--accent); stroke: var(--accent); stroke-width: 3; }
-.skinmap__body-arm { fill: none; stroke: var(--line-strong); stroke-width: 2; stroke-linecap: round; }
+/* The figure is drawn in the sunk surface so the lit region reads as lit rather than as the
+   only thing present. Rounded joins because a skin map drawn with sharp corners looks like a
+   diagram of a person, and this is meant to be the reader. */
+.skinmap__halo { fill: var(--surface-sunk); }
+.skinmap__part {
+  fill: var(--surface);
+  stroke: var(--line-strong);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  transition: stroke 320ms ease, stroke-width 320ms ease;
+}
+/* The map is the same person as the companion, so she borrows the companion's own hair and
+   skin rather than a second set of colours. Drawn in --surface on --surface she read as a
+   paper cut-out; with her real colouring she reads as her.
+   Hair keeps a --line-strong outline because in the dark theme its fill is close to the page
+   and without the outline she looked bald. */
+.skinmap__hair { fill: var(--lumina-hair); stroke: var(--line-strong); }
+.skinmap__face, .skinmap__neck { fill: var(--lumina-skin); }
+
+/* Highlighting is a ring, never a fill.
+   Filling the active part erased what was drawn on it — the lit face lost its eyes and mouth
+   and read as a hole, which is worse in the dark theme where the wash is darker than the skin.
+   A ring says "this is where you were looking" and leaves the person intact. */
+.skinmap__part.is-active {
+  stroke: var(--accent);
+  stroke-width: 4;
+  filter: drop-shadow(0 0 6px var(--accent-wash));
+}
+
+.skinmap__features {
+  fill: none;
+  stroke: var(--text);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  opacity: 0.75;
+}
+.skinmap__eye { fill: var(--text); stroke: none; opacity: 0.75; }
 
 /* The approved routine, as the steps it names rather than one long line. */
 .routine-steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-2); }

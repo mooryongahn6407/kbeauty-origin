@@ -1,0 +1,210 @@
+{
+  "$schema_note": "Application-AUTHORED display names and consumer notices for the fifteen governed records in 07_CONCERNS. NOT an official KOREA GLOW source, and not a replacement for any source field: Concern_ID and Concern_Name are used verbatim and unchanged. This file only adds what the source has no column for — the name a shopper would recognise in her own language, and one line describing what she might notice.",
+  "governanceNote": "Every notice is claimClass OBSERVATIONAL. A notice states only what a person might SEE or FEEL. It never names a cause, never says what skin is or needs, never recommends an action, ingredient or product, and never mentions treating, curing, preventing, reducing or improving anything. CON-004 (Acne), CON-005 (Redness) and CON-013 (Scalp Flakes) carry a source Boundary; the app's existing professional-consultation notice raises it, and these lines deliberately do not restate or soften it. Review status is Draft and nothing in code promotes it.",
+
+  "translationNote": "en, ko and fr were written directly. th and lo are drafted from the vocabulary Lao and Thai skincare sellers actually use (ສິວ, ຜິວແຫ້ງ, ຮູຂຸມຂົນ, ຮັງແຄ …) rather than machine-translated from English — but they have NOT been read by a native speaker, and the app already labels both catalogs UNREVIEWED_DRAFT on screen. `laoReview: true` marks the entries where even the NAME is a phrase I constructed rather than a term I could attest in use; those are the ones to put in front of the Lao senior partner first. Every Lao and Thai sentence wants a native pass regardless.",
+
+  "concerns": [
+    {
+      "concernId": "CON-001",
+      "sourceName": "Dryness",
+      "laoReview": false,
+      "name": { "en": "Dryness", "ko": "건조", "fr": "Sécheresse", "th": "ผิวแห้ง", "lo": "ຜິວແຫ້ງ" },
+      "notice": {
+        "en": "Skin feels tight, and flakes may show.",
+        "ko": "피부가 당기고, 각질이 보일 수 있습니다.",
+        "fr": "La peau tiraille et des squames peuvent apparaître.",
+        "th": "ผิวรู้สึกตึง และอาจเห็นขุยลอก",
+        "lo": "ຜິວຮູ້ສຶກຕຶງ ແລະ ອາດເຫັນເປັນຂຸຍ"
+      }
+    },
+    {
+      "concernId": "CON-002",
+      "sourceName": "Oiliness",
+      "laoReview": false,
+      "name": { "en": "Oiliness", "ko": "번들거림", "fr": "Peau grasse", "th": "ผิวมัน", "lo": "ຜິວມັນ" },
+      "notice": {
+        "en": "Skin looks shiny, often a few hours after washing.",
+        "ko": "세안 몇 시간 뒤부터 번들거려 보입니다.",
+        "fr": "La peau brille, souvent quelques heures après le nettoyage.",
+        "th": "ผิวดูเป็นมันวาว มักหลังล้างหน้าไม่กี่ชั่วโมง",
+        "lo": "ຜິວເບິ່ງເປັນມັນ ມັກຈະຫຼັງລ້າງໜ້າສອງສາມຊົ່ວໂມງ"
+      }
+    },
+    {
+      "concernId": "CON-003",
+      "sourceName": "Congestion",
+      "laoReview": false,
+      "name": { "en": "Clogged pores", "ko": "모공 막힘", "fr": "Pores obstrués", "th": "รูขุมขนอุดตัน", "lo": "ຮູຂຸມຂົນອຸດຕັນ" },
+      "notice": {
+        "en": "Pores look filled, and the skin feels bumpy to the touch.",
+        "ko": "모공이 막혀 보이고, 만지면 오돌토돌합니다.",
+        "fr": "Les pores semblent bouchés et la peau est granuleuse au toucher.",
+        "th": "รูขุมขนดูอุดตัน และสัมผัสแล้วรู้สึกเป็นตุ่ม",
+        "lo": "ຮູຂຸມຂົນເບິ່ງຄືອຸດຕັນ ແລະ ຈັບແລ້ວຮູ້ສຶກເປັນຕຸ່ມ"
+      }
+    },
+    {
+      "concernId": "CON-004",
+      "sourceName": "Acne",
+      "laoReview": false,
+      "name": { "en": "Acne", "ko": "여드름", "fr": "Acné", "th": "สิว", "lo": "ສິວ" },
+      "notice": {
+        "en": "Raised spots appear, sometimes red or sore.",
+        "ko": "붉거나 아픈 뾰루지가 올라옵니다.",
+        "fr": "Des boutons apparaissent, parfois rouges ou sensibles.",
+        "th": "มีตุ่มขึ้น บางครั้งแดงหรือเจ็บ",
+        "lo": "ມີຕຸ່ມຂຶ້ນ ບາງເທື່ອແດງ ຫຼື ເຈັບ"
+      }
+    },
+    {
+      "concernId": "CON-005",
+      "sourceName": "Redness",
+      "laoReview": false,
+      "name": { "en": "Redness", "ko": "붉어짐", "fr": "Rougeurs", "th": "ผิวแดง", "lo": "ຜິວແດງ" },
+      "notice": {
+        "en": "Skin looks red, in patches or across the face.",
+        "ko": "부분적으로, 또는 얼굴 전체가 붉어 보입니다.",
+        "fr": "La peau paraît rouge, par plaques ou sur tout le visage.",
+        "th": "ผิวดูแดง เป็นหย่อมหรือทั่วใบหน้า",
+        "lo": "ຜິວເບິ່ງແດງ ເປັນຈຸດ ຫຼື ທົ່ວໜ້າ"
+      }
+    },
+    {
+      "concernId": "CON-006",
+      "sourceName": "Sensitivity",
+      "laoReview": false,
+      "name": { "en": "Sensitivity", "ko": "예민함", "fr": "Sensibilité", "th": "ผิวแพ้ง่าย", "lo": "ຜິວແພ້ງ່າຍ" },
+      "notice": {
+        "en": "Skin stings or reacts to things it used to accept.",
+        "ko": "예전에는 괜찮던 것에도 따갑거나 반응합니다.",
+        "fr": "La peau picote ou réagit à ce qu’elle tolérait avant.",
+        "th": "ผิวแสบหรือตอบสนองต่อสิ่งที่เคยใช้ได้",
+        "lo": "ຜິວແສບ ຫຼື ມີປະຕິກິລິຍາກັບສິ່ງທີ່ເຄີຍໃຊ້ໄດ້"
+      }
+    },
+    {
+      "concernId": "CON-007",
+      "sourceName": "Pigmentation",
+      "laoReview": false,
+      "name": { "en": "Dark spots", "ko": "색소 침착", "fr": "Taches pigmentaires", "th": "จุดด่างดำ", "lo": "ຈຸດດ່າງດຳ" },
+      "notice": {
+        "en": "Some patches look darker than the skin around them.",
+        "ko": "주변보다 어두운 부분이 보입니다.",
+        "fr": "Certaines zones paraissent plus foncées que la peau autour.",
+        "th": "มีบางจุดสีเข้มกว่าผิวรอบ ๆ",
+        "lo": "ມີບາງຈຸດສີເຂັ້ມກວ່າຜິວອ້ອມຂ້າງ"
+      }
+    },
+    {
+      "concernId": "CON-008",
+      "sourceName": "Photoaging",
+      "laoReview": true,
+      "name": {
+        "en": "Sun-exposed changes",
+        "ko": "햇빛 닿는 곳의 변화",
+        "fr": "Zones exposées au soleil",
+        "th": "ความเปลี่ยนแปลงจากแสงแดด",
+        "lo": "ການປ່ຽນແປງຈາກແສງແດດ"
+      },
+      "notice": {
+        "en": "Changes show up on the places the sun reaches most.",
+        "ko": "햇빛을 가장 많이 받는 부위에 변화가 나타납니다.",
+        "fr": "Des changements apparaissent là où le soleil frappe le plus.",
+        "th": "ความเปลี่ยนแปลงปรากฏบริเวณที่โดนแดดมากที่สุด",
+        "lo": "ການປ່ຽນແປງປາກົດຢູ່ບ່ອນທີ່ຖືກແດດຫຼາຍທີ່ສຸດ"
+      }
+    },
+    {
+      "concernId": "CON-009",
+      "sourceName": "Texture",
+      "laoReview": true,
+      "name": { "en": "Uneven texture", "ko": "피부결", "fr": "Grain de peau irrégulier", "th": "ผิวไม่เรียบเนียน", "lo": "ຜິວບໍ່ລຽບ" },
+      "notice": {
+        "en": "Skin feels rough or uneven under your fingers.",
+        "ko": "손끝에 거칠거나 고르지 않게 느껴집니다.",
+        "fr": "La peau est rugueuse ou irrégulière sous les doigts.",
+        "th": "สัมผัสแล้วรู้สึกสากหรือไม่เรียบ",
+        "lo": "ຈັບແລ້ວຮູ້ສຶກສາກ ຫຼື ບໍ່ສະໝໍ່າສະເໝີ"
+      }
+    },
+    {
+      "concernId": "CON-010",
+      "sourceName": "Dehydration",
+      "laoReview": false,
+      "name": { "en": "Dehydration", "ko": "수분 부족", "fr": "Déshydratation", "th": "ผิวขาดน้ำ", "lo": "ຜິວຂາດນ້ຳ" },
+      "notice": {
+        "en": "Skin can feel tight and look oily at the same time.",
+        "ko": "당기면서 동시에 번들거릴 수 있습니다.",
+        "fr": "La peau peut tirailler et briller en même temps.",
+        "th": "ผิวอาจรู้สึกตึงและมันไปพร้อมกัน",
+        "lo": "ຜິວອາດຮູ້ສຶກຕຶງ ແລະ ມັນໃນເວລາດຽວກັນ"
+      }
+    },
+    {
+      "concernId": "CON-011",
+      "sourceName": "Dullness",
+      "laoReview": false,
+      "name": { "en": "Dullness", "ko": "칙칙함", "fr": "Teint terne", "th": "ผิวหมองคล้ำ", "lo": "ຜິວໝອງຄ້ຳ" },
+      "notice": {
+        "en": "Skin looks tired or grey rather than bright.",
+        "ko": "화사하기보다 지쳐 보이거나 어두워 보입니다.",
+        "fr": "La peau paraît fatiguée ou grise plutôt qu’éclatante.",
+        "th": "ผิวดูเหนื่อยหรือหมอง ไม่กระจ่างใส",
+        "lo": "ຜິວເບິ່ງອິດເມື່ອຍ ຫຼື ໝອງ ບໍ່ສົດໃສ"
+      }
+    },
+    {
+      "concernId": "CON-012",
+      "sourceName": "Dry Body Skin",
+      "laoReview": false,
+      "name": { "en": "Dry body skin", "ko": "몸 건조", "fr": "Peau du corps sèche", "th": "ผิวกายแห้ง", "lo": "ຜິວກາຍແຫ້ງ" },
+      "notice": {
+        "en": "Arms or legs feel tight, especially after washing.",
+        "ko": "팔다리가 당기고, 씻은 뒤에 더합니다.",
+        "fr": "Les bras ou les jambes tiraillent, surtout après la douche.",
+        "th": "แขนขารู้สึกตึง โดยเฉพาะหลังอาบน้ำ",
+        "lo": "ແຂນຂາຮູ້ສຶກຕຶງ ໂດຍສະເພາະຫຼັງອາບນ້ຳ"
+      }
+    },
+    {
+      "concernId": "CON-013",
+      "sourceName": "Scalp Flakes",
+      "laoReview": false,
+      "name": { "en": "Scalp flakes", "ko": "두피 각질", "fr": "Pellicules", "th": "รังแค", "lo": "ຮັງແຄ" },
+      "notice": {
+        "en": "White flakes show on the scalp or on your shoulders.",
+        "ko": "두피나 어깨에 흰 각질이 보입니다.",
+        "fr": "Des squames blanches apparaissent sur le cuir chevelu ou les épaules.",
+        "th": "มีสะเก็ดขาวบนหนังศีรษะหรือบนบ่า",
+        "lo": "ມີຂຸຍຂາວຢູ່ໜັງຫົວ ຫຼື ເທິງບ່າ"
+      }
+    },
+    {
+      "concernId": "CON-014",
+      "sourceName": "Hair Dryness",
+      "laoReview": false,
+      "name": { "en": "Dry hair", "ko": "모발 건조", "fr": "Cheveux secs", "th": "ผมแห้ง", "lo": "ຜົມແຫ້ງ" },
+      "notice": {
+        "en": "Hair feels rough and is hard to comb through.",
+        "ko": "머릿결이 푸석하고 빗질이 잘 안 됩니다.",
+        "fr": "Les cheveux sont rêches et difficiles à démêler.",
+        "th": "ผมรู้สึกกระด้างและหวียาก",
+        "lo": "ຜົມຮູ້ສຶກກະດ້າງ ແລະ ຫວີຍາກ"
+      }
+    },
+    {
+      "concernId": "CON-015",
+      "sourceName": "Hair Damage",
+      "laoReview": false,
+      "name": { "en": "Damaged hair", "ko": "모발 손상", "fr": "Cheveux abîmés", "th": "ผมเสีย", "lo": "ຜົມເສຍ" },
+      "notice": {
+        "en": "Ends split, or hair breaks when you brush it.",
+        "ko": "끝이 갈라지거나 빗을 때 끊어집니다.",
+        "fr": "Les pointes fourchent ou les cheveux cassent au brossage.",
+        "th": "ปลายแตกหรือผมขาดเวลาหวี",
+        "lo": "ປາຍແຕກ ຫຼື ຜົມຂາດເວລາຫວີ"
+      }
+    }
+  ]
+}

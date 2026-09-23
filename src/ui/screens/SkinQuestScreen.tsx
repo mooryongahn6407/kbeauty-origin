@@ -48,6 +48,7 @@ import {
 import { CompanionSays, Companion, SpeechBubble } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
 import { spokenFallback } from '../spoken-fallback';
+import { concernName, concernNotice } from '@/content/concern-display';
 
 const pad = (value: number) => String(value).padStart(2, '0');
 
@@ -285,8 +286,16 @@ function QuestConcernPicker({
               aria-pressed={state.pickedConcernIds.includes(concern.Concern_ID)}
               onClick={() => dispatch({ type: 'toggleConcern', concernId: concern.Concern_ID })}
             >
-              <span className="option__name">{concern.Concern_Name}</span>
-              <span className="option__detail">{concern.Description}</span>
+              {/* The record's own `Concern_Name` is English and its `Description` is Korean
+                  shorthand for the content team ("면포·막힘 appearance"). Both were going
+                  straight to the screen. The record is unchanged; the reader gets her own
+                  language. */}
+              <span className="option__name">
+                {concernName(concern.Concern_ID, locale, concern.Concern_Name)}
+              </span>
+              <span className="option__detail">
+                {concernNotice(concern.Concern_ID, locale) ?? concern.Description}
+              </span>
             </button>
           </li>
         ))}
@@ -388,17 +397,22 @@ function QuestRecord({
             <ul className="chips" role="list">
               {picked.map((concern) => (
                 <li className="chip" key={concern.Concern_ID}>
-                  {concern.Concern_Name}
+                  {concernName(concern.Concern_ID, locale, concern.Concern_Name)}
                 </li>
               ))}
             </ul>
+            {/* This list used to print `Learning_Goal`, which is an instruction to whoever
+                authors the lessons — "자가관리 교육, 치료 주장 금지" — in Korean, on a
+                consumer's screen. What belongs here is what she might notice, in her own
+                language, and nothing about causes or what to do. */}
             <h3 className="record-block__subtitle">
-              {translate('skinquest.record.learnNext', locale)}
+              {translate('skinquest.record.whatYouNotice', locale)}
             </h3>
             <ul className="goals" role="list">
-              {picked.map((concern) => (
-                <li key={concern.Concern_ID}>{concern.Learning_Goal}</li>
-              ))}
+              {picked.map((concern) => {
+                const notice = concernNotice(concern.Concern_ID, locale);
+                return notice ? <li key={concern.Concern_ID}>{notice}</li> : null;
+              })}
             </ul>
             <p className="record-block__note">
               {translate('skinquest.record.pendingReview', locale)}
