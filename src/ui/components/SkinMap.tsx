@@ -39,21 +39,40 @@ export function SkinMap({
     >
       <title id={REGION_LABEL_ID}>{title}</title>
 
-      {/* hair / scalp */}
+      {/* A soft halo behind the figure, so she sits on the page rather than floating on it. */}
+      <ellipse className="skinmap__halo" cx="60" cy="62" rx="46" ry="52" />
+
+      {/* Hair behind the head. Drawn first so the face overlaps it, which is what gives the
+          hairline its shape instead of a hard line across the forehead. */}
       <path
         className={`skinmap__part skinmap__hair${on('hair')}`}
-        d="M60 8c-16 0-26 11-26 25 0 5 1 9 2 12 1-9 5-16 11-19 5 7 20 9 30 4 3 3 5 8 6 15 1-3 3-7 3-12 0-14-10-25-26-25z"
+        d="M60 12c-18 0-29 13-29 30 0 9 1 17 0 25 -1 7-3 12-5 17 5 2 11 3 16 3
+           -2-8-3-17-3-25 0-7 0-14 1-21 1-14 8-22 20-22s19 8 20 22c1 7 1 14 1 21
+           0 8-1 17-3 25 5 0 11-1 16-3 -2-5-4-10-5-17 -1-8 0-16 0-25 0-17-11-30-29-30z"
       />
-      {/* face */}
-      <ellipse className={`skinmap__part skinmap__face${on('face')}`} cx="60" cy="47" rx="20" ry="24" />
-      {/* neck */}
-      <rect className="skinmap__part skinmap__neck" x="53" y="68" width="14" height="10" rx="4" />
-      {/* body */}
+
+      {/* Shoulders and torso. */}
       <path
         className={`skinmap__part skinmap__body${on('body')}`}
-        d="M60 76c-14 0-24 7-26 18l-4 26c-1 6 2 10 7 10h46c5 0 8-4 7-10l-4-26c-2-11-12-18-26-18z"
+        d="M60 82c-17 0-29 9-32 23l-4 26c-1 7 3 12 9 12h54c6 0 10-5 9-12l-4-26c-3-14-15-23-32-23z"
       />
-      <path className="skinmap__part skinmap__body-arm" d="M32 96l-9 26M88 96l9 26" />
+
+      {/* Neck, then the face on top. */}
+      <path className="skinmap__part skinmap__neck" d="M52 66h16v14c0 4-4 7-8 7s-8-3-8-7z" />
+      <path
+        className={`skinmap__part skinmap__face${on('face')}`}
+        d="M60 20c-13 0-21 9-21 23 0 7 1 14 4 20 3 7 9 12 17 12s14-5 17-12c3-6 4-13 4-20
+           0-14-8-23-21-23z"
+      />
+
+      {/* A face, not an oval. Two eyes and a mouth are what make this read as a person at
+         40px on a phone — and the reader is here to look at her own face. */}
+      <g className="skinmap__features" aria-hidden="true">
+        <path d="M49 40c2.5-2 6-2 8.5 0M62.5 40c2.5-2 6-2 8.5 0" />
+        <circle className="skinmap__eye" cx="53" cy="47" r="2.1" />
+        <circle className="skinmap__eye" cx="67" cy="47" r="2.1" />
+        <path d="M56 61c2.5 2 5.5 2 8 0" />
+      </g>
     </svg>
   );
 }

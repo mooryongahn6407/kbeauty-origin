@@ -381,6 +381,7 @@ const MESSAGES_EN = {
   'skinquest.record.nothingPicked':
     'You did not pick anything to watch — that is a good answer too.',
   'skinquest.record.learnNext': 'What we can learn about these together',
+  'skinquest.record.whatYouNotice': 'What you might notice',
   'skinquest.record.pendingReview':
     'The topics above are drawn from the Master Database and are still in review, so they are named as topics to learn — not stated as fact.',
   'skinquest.record.routine': 'The one sequence that is approved',
@@ -816,6 +817,7 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'skinquest.record.picked': '눈에 들어온 것',
   'skinquest.record.nothingPicked': '지켜볼 것을 고르지 않으셨네요. 그것도 훌륭한 답이에요.',
   'skinquest.record.learnNext': '이 주제로 앞으로 같이 배울 수 있는 것',
+  'skinquest.record.whatYouNotice': '이런 것이 보일 수 있어요',
   'skinquest.record.pendingReview':
     '위 주제들은 마스터 데이터베이스에서 가져온 것이며 아직 검수 중입니다. 그래서 사실로 단정하지 않고 "앞으로 배울 주제"로만 적었습니다.',
   'skinquest.record.routine': '승인된 단 하나의 순서',
@@ -1255,6 +1257,7 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'skinquest.record.nothingPicked':
     'Vous n’avez rien choisi à surveiller — c’est aussi une bonne réponse.',
   'skinquest.record.learnNext': 'Ce que nous pouvons apprendre ensemble à ce sujet',
+  'skinquest.record.whatYouNotice': 'Ce que vous pourriez remarquer',
   'skinquest.record.pendingReview':
     'Les sujets ci-dessus proviennent de la base de connaissances et sont encore en révision : ils sont donc nommés comme sujets d’apprentissage, non énoncés comme des faits.',
   'skinquest.record.routine': 'La seule séquence approuvée',
@@ -1685,6 +1688,7 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'skinquest.record.picked': 'ສິ່ງທີ່ທ່ານສັງເກດເຫັນ',
   'skinquest.record.nothingPicked': 'ທ່ານບໍ່ໄດ້ເລືອກສິ່ງໃດໄວ້ຕິດຕາມ — ນັ້ນກໍເປັນຄຳຕອບທີ່ດີຄືກັນ.',
   'skinquest.record.learnNext': 'ສິ່ງທີ່ເຮົາຈະຮຽນນຳກັນໄດ້ກ່ຽວກັບເລື່ອງນີ້',
+  'skinquest.record.whatYouNotice': 'ສິ່ງທີ່ທ່ານອາດສັງເກດເຫັນ',
   'skinquest.record.pendingReview':
     'ຫົວຂໍ້ຂ້າງເທິງມາຈາກຖານຂໍ້ມູນຄວາມຮູ້ ແລະ ຍັງຢູ່ໃນຂັ້ນຕອນກວດສອບ ຈຶ່ງລະບຸໄວ້ເປັນຫົວຂໍ້ທີ່ຈະຮຽນ ບໍ່ແມ່ນຂໍ້ເທັດຈິງທີ່ຢືນຢັນແລ້ວ.',
   'skinquest.record.routine': 'ລຳດັບດຽວທີ່ໄດ້ຮັບການອະນຸມັດ',
@@ -2119,6 +2123,7 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'skinquest.record.picked': 'สิ่งที่คุณสังเกตเห็น',
   'skinquest.record.nothingPicked': 'คุณไม่ได้เลือกสิ่งใดไว้ติดตาม นั่นก็เป็นคำตอบที่ดีเช่นกัน',
   'skinquest.record.learnNext': 'สิ่งที่เราจะเรียนรู้ด้วยกันได้เกี่ยวกับเรื่องนี้',
+  'skinquest.record.whatYouNotice': 'สิ่งที่คุณอาจสังเกตเห็น',
   'skinquest.record.pendingReview':
     'หัวข้อข้างต้นมาจากฐานข้อมูลความรู้และยังอยู่ระหว่างการตรวจสอบ จึงระบุไว้เป็นหัวข้อที่จะเรียน ไม่ใช่ข้อเท็จจริงที่ยืนยันแล้ว',
   'skinquest.record.routine': 'ลำดับเดียวที่ได้รับการอนุมัติ',

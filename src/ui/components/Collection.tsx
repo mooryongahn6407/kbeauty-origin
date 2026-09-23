@@ -7,6 +7,7 @@
  */
 import { concerns } from '@/knowledge/repository';
 import { translate } from '@/localization/messages';
+import { concernName } from '@/content/concern-display';
 import type { StoreGift } from '@/app/collection';
 
 export function CollectionShelf({
@@ -34,10 +35,14 @@ export function CollectionShelf({
               key={concern.Concern_ID}
               className={found ? 'shelf__card is-found' : 'shelf__card'}
               // A card nobody has opened says so, rather than showing a name it has not earned.
-              aria-label={found ? concern.Concern_Name : translate('collection.locked', locale)}
+              aria-label={
+                found
+                  ? concernName(concern.Concern_ID, locale, concern.Concern_Name)
+                  : translate('collection.locked', locale)
+              }
             >
               <span className="shelf__name">
-                {found ? concern.Concern_Name : '?'}
+                {found ? concernName(concern.Concern_ID, locale, concern.Concern_Name) : '?'}
               </span>
             </li>
           );
