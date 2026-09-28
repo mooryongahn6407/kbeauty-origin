@@ -1029,6 +1029,40 @@ shop line". The gift card is still the last thing on the record page (rule 6).
 
 596 tests pass (7 new in `tests/partner.test.ts`); typecheck and build clean.
 
+### A lesson opens on the lesson, not on its audit trail (2026-09-28)
+
+Found in real Korean screenshots before the owner filmed the lesson rooms for partners: each
+room opened on a card of `KN-…` node IDs, strand codes, `SK…` skills, claim class, review status
+and a `QST-…` blocker table (`UNVERIFIED_RECORD`, `UNRESOLVED_EVIDENCE`), under an English
+sentence from `learning-availability.ts` that the Korean UI rendered untranslated.
+
+Nothing was removed. `src/ui/components/LessonSources.tsx` is one native `<details>`, closed by
+default, labelled "See what this lesson is based on" / "이 레슨의 근거 자료 보기", placed after
+the lesson's start button. Everything that used to sit on top — the node/strand/skill/quest/claim
+class/status/evidence/version/source strip, the quest blocker tables, the ingredient and routine
+catalogs, the D04 and D11 evidence panels — is rendered inside it unchanged, in Ingredient
+Garden, Label Detective, Routine Studio and Sun Protection. What a customer sees first is the
+lesson title, the open/closed tag, the gate's verdict in their language, and the start button
+(`LessonDoor`). "How far I have got" shows the learner's own record per skill in words; the
+skill IDs, M01–M04 thresholds, 19_MASTERY_RULES, the quest map and the proposed ladder moved
+behind "이 기록의 근거 자료 보기". Inside a lesson, `LessonRunner` opens on "오늘의 레슨" and the
+node title; its provenance strip and activity/atom/claim-class line moved to a disclosure at the
+end. Label Detective's practice keeps its own "이 연습의 근거 자료 보기". The honesty notices
+(pending verification, not medical advice) stay visible — they are for the learner.
+
+`evaluateLessonAvailability` no longer returns English prose: `summary` became `summaryKey`
+(one of `AVAILABILITY_SUMMARY_KEYS`) plus `summaryParams`, translated in all five catalogs
+(fr/lo/th as drafts; `CATALOG_REVIEW` unchanged — the new Korean lines also await the owner's
+read). The toggle is a 44px row in `--tap`, in the `:focus-visible` ring list (`summary` added),
+tokens only. No source ID, review status, data file or governance decision changed.
+
+620 tests pass (24 new in `tests/lesson-sources.test.ts`, which renders the five screens and
+`LessonRunner` in Korean with `react-dom/server` and fails if a governance ID appears outside
+the disclosure, if an English verdict appears, or if the disclosure is open or precedes the
+start button — checked against the old screens, where 19 of the 24 fail; `design-system.test.ts`
+now also requires the toggle's 44px target and `summary` in the focus ring); typecheck and build
+clean.
+
 ## 10. How to run the project
 
 ```bash
@@ -1036,7 +1070,7 @@ git clone <repo> && cd kbeauty-origin
 npm install
 
 npm run dev       # http://127.0.0.1:5173  — My Skin slice + Content Governance screen
-npm test          # 596 tests
+npm test          # 620 tests
 npm run build     # typecheck + production build into dist/
 ```
 

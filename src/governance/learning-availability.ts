@@ -19,6 +19,7 @@
  */
 import type { Disclosure } from '@/domain/governance';
 import type { ClaimClass } from '@/content/types';
+import type { MessageKey } from '@/localization/messages';
 import {
   DISCLOSURE_NOT_MEDICAL,
   DISCLOSURE_PENDING_VERIFICATION,
@@ -44,8 +45,27 @@ export interface LessonAvailability {
   readonly claimClass: ClaimClass;
   readonly blockers: readonly LessonBlocker[];
   readonly disclosures: readonly Disclosure[];
-  readonly summary: string;
+  /**
+   * One-line verdict, as a UI catalog key rather than prose.
+   *
+   * It is read by customers on every lesson screen, in whatever language they chose, so it
+   * goes through the catalogs like every other sentence on screen. English prose here was
+   * rendered untranslated into the Korean UI.
+   */
+  readonly summaryKey: AvailabilitySummaryKey;
+  readonly summaryParams: Readonly<Record<string, string>>;
 }
+
+/** The only sentences the availability gate can say about a lesson. */
+export const AVAILABILITY_SUMMARY_KEYS = [
+  'availability.verified',
+  'availability.pedagogical',
+  'availability.blockedOne',
+  'availability.blockedMany',
+  'availability.questNotFound',
+] as const satisfies readonly MessageKey[];
+
+export type AvailabilitySummaryKey = (typeof AVAILABILITY_SUMMARY_KEYS)[number];
 
 export interface LessonRequirements {
   readonly claimClass: ClaimClass;
@@ -143,11 +163,14 @@ export function evaluateLessonAvailability(requirements: LessonRequirements): Le
     claimClass: requirements.claimClass,
     blockers,
     disclosures,
-    summary: available
+    summaryKey: available
       ? needsEvidence
-        ? 'Every record this lesson stands on is approved and evidence-verified.'
-        : 'This lesson teaches reasoning, so it may open on records that are still in review.'
-      : `Blocked by ${blockers.length} record${blockers.length === 1 ? '' : 's'}.`,
+        ? 'availability.verified'
+        : 'availability.pedagogical'
+      : blockers.length === 1
+        ? 'availability.blockedOne'
+        : 'availability.blockedMany',
+    summaryParams: available ? {} : { count: String(blockers.length) },
   };
 }
 
@@ -194,7 +217,8 @@ export function evaluateQuestAvailability(
         },
       ],
       disclosures: [DISCLOSURE_NOT_MEDICAL],
-      summary: 'Quest record not found.',
+      summaryKey: 'availability.questNotFound',
+      summaryParams: {},
     };
   }
 

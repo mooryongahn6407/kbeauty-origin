@@ -29,7 +29,8 @@ import { masteryLedger } from '@/mastery/mastery-ledger';
 import { BASE_LOCALE } from '@/localization/locales';
 import { translate, type MessageKey } from '@/localization/messages';
 import { SafetyNotice } from './SafetyNotice';
-import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
+import { Disclosures } from '../components/Disclosures';
+import { LessonGrounding, LessonSources } from './LessonSources';
 import { ReadAloud } from '../components/ReadAloud';
 import { MasteryPanel } from '../components/MasteryPanel';
 
@@ -128,10 +129,8 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
   return (
     <div className="stack">
       <section className="card">
-        <p className="eyebrow">
-          {grounding.questName ? `${grounding.questName} · ` : ''}
-          {grounding.domainId} {grounding.strandCode} {grounding.strandName} · {grounding.skillName}
-        </p>
+        {/* Quest, strand and skill codes live in LessonSources at the end of the lesson. */}
+        <p className="eyebrow">{translate('lesson.eyebrow', locale)}</p>
         <h1>{grounding.nodeTitle}</h1>
         <p className="muted">{grounding.learningObjective}</p>
         <Disclosures
@@ -152,16 +151,6 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
             <span>{translate('common.fallbackLocale', locale, { locale: 'English' })}</span>
           </p>
         ) : null}
-        <ProvenanceStrip
-          entries={[
-            { label: translate('common.node', locale), value: state.nodeId },
-            { label: translate('common.skill', locale), value: `${state.skillId} ${grounding.skillName}` },
-            { label: translate('common.status', locale), value: grounding.nodeStatus },
-            { label: translate('common.evidence', locale), value: grounding.nodeEvidenceStatus },
-            { label: translate('common.version', locale), value: grounding.nodeVersion },
-            { label: translate('common.source', locale), value: grounding.nodeSourceId },
-          ]}
-        />
       </section>
 
       <PhaseRail phase={state.phase} locale={locale} />
@@ -390,9 +379,12 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
           </section>
         </>
       ) : null}
-      <p className="muted fine">
-        {activity.activityId} · {atom?.atomId} · claim class {activity.claimClass}
-      </p>
+      <LessonSources locale={locale}>
+        <LessonGrounding grounding={grounding} locale={locale} />
+        <p className="muted fine">
+          {activity.activityId} · {atom?.atomId} · claim class {activity.claimClass}
+        </p>
+      </LessonSources>
     </div>
   );
 }

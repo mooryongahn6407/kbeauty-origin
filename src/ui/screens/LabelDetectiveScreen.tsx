@@ -30,10 +30,10 @@ import { eventSink } from '@/analytics/events';
 import { useTransitionDrain } from '../hooks/use-transition-drain';
 import { evaluateQuestAvailability } from '@/governance/learning-availability';
 import { evidenceSpecificityReport, resolveEvidenceByUrl } from '@/governance/evidence-resolution';
-import { findNode } from '@/knowledge/repository';
 import { translate, type MessageKey } from '@/localization/messages';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { LessonRunner } from '../components/LessonRunner';
+import { LessonDoor, LessonGrounding, LessonSources } from '../components/LessonSources';
 
 const now = () => new Date().toISOString();
 
@@ -285,13 +285,15 @@ function LabelSorter({ locale, specimenId }: { locale: string; specimenId: strin
         </>
       ) : null}
 
-      <ProvenanceStrip
-        entries={[
-          { label: 'Quest', value: 'QST-013 Label Detective' },
-          { label: 'Specimen', value: `${specimen.specimenId} · fictional` },
-          { label: 'Specimens available', value: String(labelSpecimens.length) },
-        ]}
-      />
+      <LessonSources locale={locale} label="sources.showPractice">
+        <ProvenanceStrip
+          entries={[
+            { label: 'Quest', value: 'QST-013 Label Detective' },
+            { label: 'Specimen', value: `${specimen.specimenId} · fictional` },
+            { label: 'Specimens available', value: String(labelSpecimens.length) },
+          ]}
+        />
+      </LessonSources>
     </section>
   );
 }
@@ -320,7 +322,9 @@ function QuestPanel({ locale }: { locale: string }) {
         <span className="provenance__key">{translate('ingredient.coreNode', locale)}</span>{' '}
         {asPedagogical.coreNodeId}
       </p>
-      <p className="muted">{asPedagogical.summary}</p>
+      <p className="muted">
+        {translate(asPedagogical.summaryKey, locale, asPedagogical.summaryParams)}
+      </p>
       <table className="table">
         <tbody>
           <tr>
@@ -392,7 +396,6 @@ function EvidencePanel({ locale }: { locale: string }) {
 export function LabelDetectiveScreen({ locale }: { locale: string }) {
   const [inLesson, setInLesson] = useState(false);
   const grounding = loadSliceGrounding(LABEL_READING_PLAN);
-  const node = findNode(LABEL_READING_PLAN.nodeId);
 
   if (inLesson) {
     return (
@@ -411,50 +414,21 @@ export function LabelDetectiveScreen({ locale }: { locale: string }) {
         <p className="eyebrow">{translate('nav.labelDetective', locale)}</p>
         <h1>{translate('label.title', locale)}</h1>
         <p className="muted">{translate('label.intro', locale)}</p>
-
-        <div className="card card--sunk" style={{ marginTop: '0.9rem' }}>
-          <div className="masthead__row">
-            <h3 style={{ margin: 0 }}>{node?.Node_Title ?? LABEL_READING_PLAN.nodeId}</h3>
-            <span className={`tag tag--${grounding.availability.available ? 'open' : 'blocker'}`}>
-              {grounding.availability.available
-                ? translate('ingredient.openLesson', locale)
-                : translate('ingredient.closedLesson', locale)}
-            </span>
-          </div>
-          <p className="muted" style={{ marginTop: '0.35rem' }}>
-            {grounding.availability.summary}
-          </p>
-          <ProvenanceStrip
-            entries={[
-              { label: translate('common.node', locale), value: LABEL_READING_PLAN.nodeId },
-              {
-                label: 'Strand',
-                value: `${grounding.domainId} ${grounding.strandCode} ${grounding.strandName}`,
-              },
-              {
-                label: translate('common.skill', locale),
-                value: `${LABEL_READING_PLAN.skillId} ${grounding.skillName}`,
-              },
-              { label: 'Quest', value: grounding.questName ?? '—' },
-              { label: translate('common.evidence', locale), value: grounding.nodeEvidenceStatus },
-            ]}
-          />
-          <div className="btn--row">
-            <button
-              className="btn"
-              type="button"
-              disabled={!grounding.availability.available}
-              onClick={() => setInLesson(true)}
-            >
-              {translate('label.startLesson', locale)}
-            </button>
-          </div>
-        </div>
+        <LessonDoor
+          grounding={grounding}
+          locale={locale}
+          startLabel={translate('label.startLesson', locale)}
+          onStart={() => setInLesson(true)}
+        />
       </section>
 
+      <LessonSources locale={locale}>
+        <LessonGrounding grounding={grounding} locale={locale} />
+        <QuestPanel locale={locale} />
+        <EvidencePanel locale={locale} />
+      </LessonSources>
+
       <LabelSorterSwitcher locale={locale} />
-      <QuestPanel locale={locale} />
-      <EvidencePanel locale={locale} />
     </div>
   );
 }

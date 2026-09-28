@@ -241,6 +241,7 @@ describe('everything you can press is big enough to press', () => {
       '.speak',
       '.voiceswitch__btn',
       '.btn--small',
+      '.sources__toggle',
     ]) {
       // Anchored to the start of a line: a per-language override such as
       // `:root[lang='lo'] .option` is a different rule and must not be mistaken for this one.
@@ -253,6 +254,8 @@ describe('everything you can press is big enough to press', () => {
 
   it('shows a focus ring rather than removing the outline', () => {
     expect(CSS).toMatch(/:focus-visible\s*\{[^}]*outline:\s*3px solid var\(--focus\)/);
+    // A <details> toggle is focusable too, and is not a button: it must be in the ring's list.
+    expect(CSS).toMatch(/:where\([^)]*\bsummary\b[^)]*\):focus-visible/);
     expect(CSS).not.toMatch(/outline:\s*(none|0)\s*;/);
   });
 
@@ -400,6 +403,7 @@ describe('components name no colour of their own', () => {
       'src/ui/components/MasteryPanel.tsx',
       'src/ui/components/DisplaySettings.tsx',
       'src/ui/components/ReadAloud.tsx',
+      'src/ui/components/LessonSources.tsx',
     ];
     for (const file of files) {
       const source = readFileSync(new URL(`../${file}`, import.meta.url), 'utf8');

@@ -236,7 +236,7 @@ h3 { font-size: var(--fs-md); font-weight: 700; margin: 0 0 var(--space-1); line
 
 /* One visible focus ring for everything, in a colour that clears 3:1 against the page. An
    invisible focus ring is the fastest way to make a keyboard unusable. */
-:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 2px;
   border-radius: 6px;
@@ -401,6 +401,43 @@ h3 { font-size: var(--fs-md); font-weight: 700; margin: 0 0 var(--space-1); line
   overflow-wrap: anywhere;
 }
 .provenance__key { color: var(--accent); font-weight: 700; letter-spacing: 0.04em; }
+
+/* "See what this lesson is based on". The audit trail of a lesson — node, strand, skill, claim
+   class, review state, blockers — sits behind this native <details>, closed by default and
+   placed after the lesson's call to action, so a customer meets the lesson first. The toggle
+   is a full-width 44px row with a visible focus ring, like every other control. */
+.sources {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-3);
+}
+.sources__toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap);
+  padding: var(--space-2) var(--space-4);
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--text);
+  cursor: pointer;
+  list-style: none;
+  border-radius: var(--radius);
+}
+.sources__toggle::-webkit-details-marker { display: none; }
+.sources__toggle::before {
+  content: '▸';
+  color: var(--accent);
+  transition: transform 120ms ease;
+}
+.sources[open] > .sources__toggle::before { transform: rotate(90deg); }
+.sources__toggle:hover { background: var(--surface-sunk); }
+.sources__body { padding: 0 var(--space-3) var(--space-3); }
+.sources__body > .card { box-shadow: none; }
+/* Inside a card (a practice's own sources) it is a quiet row, not a second card. */
+.card .sources { background: transparent; margin: var(--space-3) 0 0; }
 
 /* ------------------------------------------------------------------ *
  * Controls
