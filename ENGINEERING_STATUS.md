@@ -1012,6 +1012,23 @@ synthesized utterance's language tag (`th-TH`) and Thai-script text, not Lao scr
 verify:sources clean. Mutation-tested: reverting each CSS fix individually was confirmed to make
 its new test fail, then the real fix was restored and reverified.
 
+### Partner shop code on the gift card (2026-09-28)
+
+A partner shop (salon, nail shop, cosmetics shop) hands its customers a link — normally a QR
+code on the counter — carrying its own code: `?p=VTE-01`. `src/app/partner.ts` reads it once
+when the app opens, remembers it on the device (`korea-glow:partner:v1`), and `GiftCard` prints
+it on its own line beside the gift code ("안내해 준 매장 VTE-01"), so the shop can see the visit
+came through it. Owner decision 2026-09-28: partner code only; ordering stays outside the app.
+
+What it deliberately is not: part of the gift code (`issueGift` still takes a date and nothing
+else, and its test is unchanged); mastery, loyalty or status (rule 9 — the ledger never sees it);
+commerce inside the app (no price, commission, cart, order or partner list — the code is checked
+for shape only, never looked up); personal data (it names a shop, never the reader). A malformed
+link is ignored without forgetting the shop already known; storage that throws degrades to "no
+shop line". The gift card is still the last thing on the record page (rule 6).
+
+596 tests pass (7 new in `tests/partner.test.ts`); typecheck and build clean.
+
 ## 10. How to run the project
 
 ```bash
@@ -1019,7 +1036,7 @@ git clone <repo> && cd kbeauty-origin
 npm install
 
 npm run dev       # http://127.0.0.1:5173  — My Skin slice + Content Governance screen
-npm test          # 486 tests
+npm test          # 596 tests
 npm run build     # typecheck + production build into dist/
 ```
 

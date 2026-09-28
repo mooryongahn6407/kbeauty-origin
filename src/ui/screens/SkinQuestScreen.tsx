@@ -71,9 +71,12 @@ const welcomeFallback = (locale: string) => spokenFallback(locale, welcomeSpoken
 export function SkinQuestScreen({
   locale,
   onExplore,
+  partner = null,
 }: {
   locale: string;
   onExplore: () => void;
+  /** The partner shop that sent the reader, if their link carried one. Shown on the gift card only. */
+  partner?: string | null;
 }) {
   const [state, dispatch] = useReducer(skinQuestReducer, initialQuestState);
   // The shelf and the streak live in this browser only, and the app renders fine when the
@@ -142,6 +145,7 @@ export function SkinQuestScreen({
         collection={collection}
         onExplore={onExplore}
         dispatch={dispatch}
+        partner={partner}
       />
     );
   }
@@ -323,12 +327,14 @@ function QuestRecord({
   collection,
   onExplore,
   dispatch,
+  partner,
 }: {
   state: SkinQuestState;
   locale: string;
   collection: CollectionState;
   onExplore: () => void;
   dispatch: (action: Parameters<typeof skinQuestReducer>[1]) => void;
+  partner: string | null;
 }) {
   const now = useMemo(() => new Date(), []);
   const gift = useMemo(() => issueGift(now), [now]);
@@ -435,7 +441,7 @@ function QuestRecord({
 
       {/* Last, and after the safety notice above: education outranks commerce (rule 6), and
           the order things appear in is where that is honoured or quietly reversed. */}
-      <GiftCard gift={gift} locale={locale} />
+      <GiftCard gift={gift} locale={locale} partner={partner} />
 
       <div className="quest__foot">
         <button

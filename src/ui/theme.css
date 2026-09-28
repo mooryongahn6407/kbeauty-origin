@@ -1104,6 +1104,7 @@ select.field, .locale-switch select, .settings__select {
   margin: 0;
 }
 .gift__note { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.6; margin: var(--space-3) 0 0; }
+.gift__partner { font-size: var(--fs-sm); font-weight: 600; color: var(--text); margin: var(--space-2) 0 0; letter-spacing: 0.02em; }
 
 /* ---- Ingredient hunt ------------------------------------------------------
  * The list is set the way a bottle sets one, so the thing being learned on screen is the thing

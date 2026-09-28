@@ -465,6 +465,7 @@ const MESSAGES_EN = {
   'collection.streak': '{days} days in a row',
   'gift.eyebrow': 'A gift, from us',
   'gift.headline': 'Show this at a KOREA GLOW partner shop.',
+  'gift.partner': 'Sent here by shop {code}',
   'gift.note':
     'Made when you finished — not for answering well. There are no right answers here.',
 } as const;
@@ -891,6 +892,7 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'collection.streak': '{days}일 연속',
   'gift.eyebrow': '작은 선물',
   'gift.headline': 'KOREA GLOW 파트너 매장에서 보여주세요.',
+  'gift.partner': '안내해 준 매장 {code}',
   'gift.note': '끝까지 하셔서 드리는 것입니다. 잘 맞혀서가 아닙니다 — 여기엔 정답이 없습니다.',
 };
 
@@ -1331,6 +1333,7 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'collection.streak': '{days} jours d’affilée',
   'gift.eyebrow': 'Un cadeau, de notre part',
   'gift.headline': 'Présentez ceci dans une boutique partenaire KOREA GLOW.',
+  'gift.partner': 'Boutique qui vous a envoyée ici : {code}',
   'gift.note':
     'Créé parce que vous êtes allé au bout, pas parce que vous avez bien répondu. Il n’y a pas de bonne réponse ici.',
 };
@@ -1762,6 +1765,7 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'collection.streak': 'ຕິດຕໍ່ກັນ {days} ມື້',
   'gift.eyebrow': 'ຂອງຂວັນນ້ອຍໆ',
   'gift.headline': 'ສະແດງສິ່ງນີ້ຢູ່ຮ້ານຄູ່ຮ່ວມຂອງ KOREA GLOW.',
+  'gift.partner': 'ຮ້ານທີ່ແນະນຳ {code}',
   'gift.note':
     'ໄດ້ມາເພາະທ່ານເຮັດຈົນຈົບ ບໍ່ແມ່ນເພາະຕອບຖືກ — ທີ່ນີ້ບໍ່ມີຄຳຕອບທີ່ຖືກຕ້ອງ.',
 };
@@ -2197,6 +2201,7 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'collection.streak': 'ติดต่อกัน {days} วัน',
   'gift.eyebrow': 'ของขวัญเล็ก ๆ',
   'gift.headline': 'แสดงสิ่งนี้ที่ร้านพันธมิตรของ KOREA GLOW',
+  'gift.partner': 'ร้านที่แนะนำ {code}',
   'gift.note':
     'ได้มาเพราะคุณทำจนจบ ไม่ใช่เพราะตอบถูก ที่นี่ไม่มีคำตอบที่ถูกต้อง',
 
