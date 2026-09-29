@@ -93,6 +93,9 @@ const TEXT_PAIRS: readonly { fg: string; bg: string; where: string }[] = [
   { fg: 'caution', bg: 'caution-wash', where: '.disclosure--caution, .tag--critical' },
   { fg: 'caution', bg: 'surface', where: "the voice switch's language-substitution notice" },
   { fg: 'blocker', bg: 'blocker-wash', where: '.tag--blocker' },
+  { fg: 'violet', bg: 'surface', where: '.hunt__progress on a card' },
+  { fg: 'violet', bg: 'bg', where: '.hunt__progress on the page' },
+  { fg: 'violet', bg: 'violet-wash', where: '.inci__item.is-picked' },
   { fg: 'btn-fg', bg: 'btn-bg', where: 'primary button label' },
 ];
 

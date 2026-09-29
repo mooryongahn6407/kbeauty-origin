@@ -39,6 +39,10 @@
   --caution-wash: #fdf0e2;
   --blocker: #9b2233;
   --blocker-wash: #fbe7e9;
+  /* A second identity colour, distinct from --accent (brand/primary actions), so ingredient and
+     comparison learning does not read in the same pink as everything else on the page. */
+  --violet: #5b3a8e;
+  --violet-wash: #efe7f8;
   --line: #ecdfd7;
   --line-strong: #d2bcb2;
   --btn-bg: #241c1a;
@@ -170,6 +174,8 @@
     --caution-wash: #3a2a18;
     --blocker: #f5a3a3;
     --blocker-wash: #3d1d1f;
+    --violet: #c9a9f0;
+    --violet-wash: #2a2038;
     --line: #3a2e29;
     --line-strong: #584740;
     --btn-bg: #f3e7df;
@@ -195,6 +201,8 @@
   --caution-wash: #3a2a18;
   --blocker: #f5a3a3;
   --blocker-wash: #3d1d1f;
+  --violet: #c9a9f0;
+  --violet-wash: #2a2038;
   --line: #3a2e29;
   --line-strong: #584740;
   --btn-bg: #f3e7df;
@@ -1167,7 +1175,7 @@ select.field, .locale-switch select, .settings__select {
   transition: border-color 120ms ease, background 120ms ease;
 }
 .inci__item:hover:not(:disabled) { border-color: var(--line-strong); }
-.inci__item.is-picked { border-color: var(--accent); background: var(--accent-wash); font-weight: 600; }
+.inci__item.is-picked { border-color: var(--violet); background: var(--violet-wash); font-weight: 600; }
 .inci__item.is-correct { border-color: var(--botanical); background: var(--botanical-wash); font-weight: 700; }
 .inci__item.is-missed { border-color: var(--botanical); border-style: dashed; background: var(--surface); }
 .inci__item.is-wrong { border-color: var(--line-strong); background: var(--surface-sunk); opacity: 0.7; }
@@ -1178,7 +1186,7 @@ select.field, .locale-switch select, .settings__select {
 .hunt__reveal { display: flex; flex-direction: column; gap: var(--space-3); }
 .hunt__score { font-size: var(--fs-lg); font-weight: 600; margin: 0; }
 .hunt__label { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin: var(--space-2) 0 0; }
-.hunt__progress { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 600; color: var(--accent); margin: 0; }
+.hunt__progress { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 600; color: var(--violet); margin: 0; }
 
 /* One record, opened. Showing the review status is the point, not the apology. */
 .inci-record { border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-3); background: var(--surface); }
