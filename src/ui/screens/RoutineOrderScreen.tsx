@@ -28,6 +28,24 @@ import { spokenFallback } from '../spoken-fallback';
 
 const randomPick = (bound: number) => Math.floor(Math.random() * bound);
 
+// Display-only translation of the routine steps' closed, small vocabulary (see order.note): the
+// step's own word stays the identity used for placement/marking, only what's shown is localized.
+const STEP_LABEL_KEYS: Readonly<Record<string, Parameters<typeof translate>[0]>> = {
+  '정돈': 'order.step.prep',
+  '선택적 트리트먼트': 'order.step.optionalTreatment',
+  '보습': 'order.step.moisturize',
+  '자외선 보호': 'order.step.sunProtection',
+  '클렌징': 'order.step.cleanse',
+  '세정': 'order.step.cleanse',
+  '샴푸': 'order.step.shampoo',
+  '컨디셔닝': 'order.step.conditioning',
+  '필요 시 트리트먼트': 'order.step.treatmentIfNeeded',
+};
+const stepLabel = (step: string, locale: string): string => {
+  const key = STEP_LABEL_KEYS[step];
+  return key ? translate(key, locale) : step;
+};
+
 const nextRoutine = (previousId: string | null) => {
   const all = orderableRoutines();
   if (all.length === 0) return null;
@@ -91,7 +109,7 @@ export function RoutineOrderScreen({ locale }: { locale: string }) {
                   disabled={state.revealed}
                   onClick={() => dispatch({ type: 'unplace', step })}
                 >
-                  {step}
+                  {stepLabel(step, locale)}
                 </button>
               ) : (
                 <span className="order__empty">—</span>
@@ -111,7 +129,7 @@ export function RoutineOrderScreen({ locale }: { locale: string }) {
                 disabled={state.revealed}
                 onClick={() => dispatch({ type: 'place', step })}
               >
-                {step}
+                {stepLabel(step, locale)}
               </button>
             </li>
           ))}
@@ -126,7 +144,7 @@ export function RoutineOrderScreen({ locale }: { locale: string }) {
           {!solved ? (
             <ol className="order__answer" role="list">
               {round.answer.map((step) => (
-                <li key={step}>{step}</li>
+                <li key={step}>{stepLabel(step, locale)}</li>
               ))}
             </ol>
           ) : null}

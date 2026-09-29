@@ -53,13 +53,44 @@ const nextFamily = (previous: string | null): string => {
   return families[(at + 1) % families.length] ?? families[0]!;
 };
 
+// Display-only translation of the function column's closed, small vocabulary (22 known values;
+// see the matching catalog keys in messages.ts). The family name itself (already English/Latin,
+// e.g. "Humectant") is never translated — only the Korean function word beside it.
+const FUNCTION_LABEL_KEYS: Readonly<Record<string, Parameters<typeof translate>[0]>> = {
+  '각질 literacy': 'ingredient.function.각질 literacy',
+  '각질/피부 컨디셔닝': 'ingredient.function.각질/피부 컨디셔닝',
+  '보습': 'ingredient.function.보습',
+  '보존': 'ingredient.function.보존',
+  '브라이트닝 literacy': 'ingredient.function.브라이트닝 literacy',
+  '사용감/피부 컨디셔닝': 'ingredient.function.사용감/피부 컨디셔닝',
+  '세정': 'ingredient.function.세정',
+  '수분 손실 억제': 'ingredient.function.수분 손실 억제',
+  '스킨 컨디셔닝': 'ingredient.function.스킨 컨디셔닝',
+  '자외선 차단': 'ingredient.function.자외선 차단',
+  '장벽 지원': 'ingredient.function.장벽 지원',
+  '제품 스토리 literacy': 'ingredient.function.제품 스토리 literacy',
+  '제형': 'ingredient.function.제형',
+  '제형/연화': 'ingredient.function.제형/연화',
+  '제형/용매': 'ingredient.function.제형/용매',
+  '컨디셔닝': 'ingredient.function.컨디셔닝',
+  '피부 유연': 'ingredient.function.피부 유연',
+  '피부 컨디셔닝': 'ingredient.function.피부 컨디셔닝',
+  '항산화 literacy': 'ingredient.function.항산화 literacy',
+  '항산화/브라이트닝 literacy': 'ingredient.function.항산화/브라이트닝 literacy',
+  '항산화/피부 컨디셔닝': 'ingredient.function.항산화/피부 컨디셔닝',
+  '향': 'ingredient.function.향',
+};
+
 /**
- * "보습 · Humectant" where the records agree on a function, "Humectant" where they do not.
- * Both halves are the records' own fields; nothing is translated here.
+ * "Moisturizing · Humectant" where the records agree on a function, "Humectant" where they do
+ * not. The family half is the record's own field, never translated; the function half is a
+ * display-only localization of a closed, small vocabulary (see FUNCTION_LABEL_KEYS above).
  */
-const familyLabel = (family: string): string => {
+const familyLabel = (family: string, locale: string): string => {
   const fn = familyFunction(family);
-  return fn ? `${fn} · ${family}` : family;
+  if (!fn) return family;
+  const key = FUNCTION_LABEL_KEYS[fn];
+  return `${key ? translate(key, locale) : fn} · ${family}`;
 };
 
 const storage = () => (typeof localStorage === 'undefined' ? undefined : localStorage);
@@ -94,7 +125,7 @@ export function IngredientHuntScreen({ locale }: { locale: string }) {
 
   const round = state.round;
   if (!round) return null;
-  const prompt = translate('hunt.prompt', locale, { family: familyLabel(round.family) });
+  const prompt = translate('hunt.prompt', locale, { family: familyLabel(round.family, locale) });
 
   return (
     <section className="hunt" aria-labelledby="hunt-prompt">
@@ -107,7 +138,7 @@ export function IngredientHuntScreen({ locale }: { locale: string }) {
           text={prompt}
           locale={locale}
           fallback={spokenFallback(locale, (spoken) =>
-            translate('hunt.prompt', spoken, { family: familyLabel(round.family) }),
+            translate('hunt.prompt', spoken, { family: familyLabel(round.family, spoken) }),
           )}
           autoplay
         />
