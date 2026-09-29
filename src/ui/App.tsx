@@ -31,6 +31,7 @@ import { DisplaySettings } from './components/DisplaySettings';
 import { VoiceSwitch } from './components/VoiceSwitch';
 import { VoiceProvider } from './voice';
 import { SkinQuestScreen } from './screens/SkinQuestScreen';
+import { capturePartner } from '@/app/partner';
 import { IngredientHuntScreen } from './screens/IngredientHuntScreen';
 import { CompareLabScreen } from './screens/CompareLabScreen';
 import { RoutineOrderScreen } from './screens/RoutineOrderScreen';
@@ -96,6 +97,14 @@ export function App() {
   // cost a phone screen's whole top third before the first question is even visible. Folded
   // away they are one tap, and the question is the first thing on the screen.
   const [settingsOpen, setSettingsOpen] = useState(false);
+  // A partner shop's link (its QR code) carries the shop's code. Read once, remembered on this
+  // device, and printed only on the gift card — see src/app/partner.ts for what it is not.
+  const [partner] = useState(() =>
+    capturePartner(
+      typeof window === 'undefined' ? '' : window.location.search,
+      typeof localStorage === 'undefined' ? undefined : localStorage,
+    ),
+  );
 
   useEffect(() => {
     applyPreferences(preferences, document.documentElement);
@@ -170,7 +179,7 @@ export function App() {
         ) : null}
 
         {onQuest ? (
-          <SkinQuestScreen key={locale} locale={locale} onExplore={() => setScreen('mySkin')} />
+          <SkinQuestScreen key={locale} locale={locale} partner={partner} onExplore={() => setScreen('mySkin')} />
         ) : (
           <>
             <nav className="rooms" aria-label="Lessons">

@@ -11,6 +11,9 @@
  * amount for any reward label (OQ-X01). And no learner is assigned a level, because the
  * seven-level ladder is marked "DECISION DRAFT — NOT CANONICAL". What is shown instead is
  * mastery evidence per governed skill, which is the measure the curriculum actually defines.
+ *
+ * The learner's own record comes first, in words. The quest map, skill IDs, thresholds and the
+ * proposed ladder are all still here, behind LessonSources, closed by default.
  */
 import { useState } from 'react';
 import type { MasteryDimension } from '@/domain/learning';
@@ -20,6 +23,7 @@ import { masteryLedger, skillProgress } from '@/mastery/mastery-ledger';
 import { findUnresolvedQuestSkills } from '@/governance/integrity';
 import { translate, type MessageKey } from '@/localization/messages';
 import { ProvenanceStrip } from '../components/Disclosures';
+import { LessonSources } from '../components/LessonSources';
 
 const DIMENSIONS: readonly { dimension: MasteryDimension; key: MessageKey }[] = [
   { dimension: 'accuracy', key: 'mastery.accuracy' },
@@ -171,6 +175,8 @@ function MasteryPanel({ locale, version }: { locale: string; version: number }) 
   const snapshot = masteryLedger.snapshot();
   const rows = skillProgress(masteryLedger);
 
+  // What the learner has actually shown, per skill, in words. The skill IDs, thresholds and
+  // the rules they come from are in MasteryRecordDetail, inside LessonSources.
   return (
     <section className="card" key={version}>
       <p className="eyebrow">{translate('quest.masteryTitle', locale)}</p>
@@ -184,6 +190,66 @@ function MasteryPanel({ locale, version }: { locale: string; version: number }) 
       </p>
       <p className="muted">{translate('mastery.explainer', locale)}</p>
 
+      <table className="table">
+        <thead>
+          <tr>
+            <th>{translate('common.skill', locale)}</th>
+            {DIMENSIONS.map((item) => (
+              <th key={item.dimension}>{translate(item.key, locale)}</th>
+            ))}
+            <th>{translate('mastery.state', locale)}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={row.skillId}>
+              <td>
+                <strong>{row.skillName}</strong>
+                <br />
+                <span className="muted">{row.definition}</span>
+              </td>
+              {DIMENSIONS.map((item) => {
+                const dimension = row.state.dimensions[item.dimension];
+                return (
+                  <td key={item.dimension} className="muted">
+                    {dimension.attempts === 0 ? (
+                      '—'
+                    ) : (
+                      <>
+                        {dimension.successes}/{dimension.attempts}
+                        <br />
+                        <span className="tag">
+                          {dimension.satisfied
+                            ? translate('mastery.satisfied', locale)
+                            : translate('mastery.notYet', locale)}
+                        </span>
+                      </>
+                    )}
+                  </td>
+                );
+              })}
+              <td>
+                {row.hasEvidence ? (
+                  <strong>{row.state.state}</strong>
+                ) : (
+                  <span className="muted">{translate('quest.noEvidence', locale)}</span>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  );
+}
+
+/** The same ledger with its governed IDs, thresholds and 19_MASTERY_RULES. Inside LessonSources. */
+function MasteryRecordDetail({ locale, version }: { locale: string; version: number }) {
+  const rows = skillProgress(masteryLedger);
+
+  return (
+    <section className="card" key={version}>
+      <p className="eyebrow">{translate('quest.masteryTitle', locale)}</p>
       <table className="table">
         <thead>
           <tr>
@@ -330,8 +396,11 @@ export function QuestMasteryScreen({ locale }: { locale: string }) {
       </section>
 
       <MasteryPanel locale={locale} version={version} />
-      <QuestMapPanel locale={locale} />
-      <LadderPanel locale={locale} />
+      <LessonSources locale={locale} label="sources.showProgress">
+        <MasteryRecordDetail locale={locale} version={version} />
+        <QuestMapPanel locale={locale} />
+        <LadderPanel locale={locale} />
+      </LessonSources>
     </div>
   );
 }

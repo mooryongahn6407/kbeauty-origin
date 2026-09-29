@@ -10,6 +10,10 @@
  *      records block it — no mock progress, no placeholder lesson;
  *   3. the one lesson that *is* open today, because it teaches a reasoning skill rather than
  *      a claim about what an ingredient does.
+ *
+ * The lesson comes first. The catalog and the quest blockers sit behind "See what this lesson
+ * is based on" (LessonSources), closed by default: a customer meets the lesson, and anyone who
+ * wants the audit trail opens it.
  */
 import { useState } from 'react';
 import { INGREDIENT_HALO_PLAN, loadSliceGrounding } from '@/app/learning-session';
@@ -19,10 +23,10 @@ import {
   ingredientFamilies,
 } from '@/knowledge/ingredients';
 import { evaluatePublication } from '@/governance/publication-gate';
-import { findNode } from '@/knowledge/repository';
 import { translate } from '@/localization/messages';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { LessonRunner } from '../components/LessonRunner';
+import { LessonDoor, LessonGrounding, LessonSources } from '../components/LessonSources';
 
 function QuestPanel({ locale }: { locale: string }) {
   const quests = ingredientGardenQuestAvailability();
@@ -184,7 +188,6 @@ function CatalogPanel({ locale }: { locale: string }) {
 export function IngredientGardenScreen({ locale }: { locale: string }) {
   const [inLesson, setInLesson] = useState(false);
   const grounding = loadSliceGrounding(INGREDIENT_HALO_PLAN);
-  const node = findNode(INGREDIENT_HALO_PLAN.nodeId);
 
   if (inLesson) {
     return (
@@ -203,50 +206,21 @@ export function IngredientGardenScreen({ locale }: { locale: string }) {
         <p className="eyebrow">{translate('nav.ingredientGarden', locale)}</p>
         <h1>{translate('ingredient.lessonTitle', locale)}</h1>
         <p className="muted">{translate('ingredient.lessonIntro', locale)}</p>
-
-        <div className="card card--sunk" style={{ marginTop: '0.9rem' }}>
-          <div className="masthead__row">
-            <h3 style={{ margin: 0 }}>{node?.Node_Title ?? INGREDIENT_HALO_PLAN.nodeId}</h3>
-            <span className={`tag tag--${grounding.availability.available ? 'open' : 'blocker'}`}>
-              {grounding.availability.available
-                ? translate('ingredient.openLesson', locale)
-                : translate('ingredient.closedLesson', locale)}
-            </span>
-          </div>
-          <p className="muted" style={{ marginTop: '0.35rem' }}>
-            {grounding.availability.summary}
-          </p>
-          <ProvenanceStrip
-            entries={[
-              { label: translate('common.node', locale), value: INGREDIENT_HALO_PLAN.nodeId },
-              {
-                label: 'Strand',
-                value: `${grounding.domainId} ${grounding.strandCode} ${grounding.strandName}`,
-              },
-              {
-                label: translate('common.skill', locale),
-                value: `${INGREDIENT_HALO_PLAN.skillId} ${grounding.skillName}`,
-              },
-              { label: 'Claim class', value: INGREDIENT_HALO_PLAN.claimClass },
-              { label: translate('common.status', locale), value: grounding.nodeStatus },
-              { label: translate('common.evidence', locale), value: grounding.nodeEvidenceStatus },
-            ]}
-          />
-          <div className="btn--row">
-            <button
-              className="btn"
-              type="button"
-              disabled={!grounding.availability.available}
-              onClick={() => setInLesson(true)}
-            >
-              {translate('ingredient.startLesson', locale)}
-            </button>
-          </div>
-        </div>
+        <LessonDoor
+          grounding={grounding}
+          locale={locale}
+          startLabel={translate('ingredient.startLesson', locale)}
+          onStart={() => setInLesson(true)}
+        />
       </section>
 
-      <QuestPanel locale={locale} />
-      <CatalogPanel locale={locale} />
+      {/* The quests this world cannot open yet, and the governed catalog they wait on: all of
+          it still shown, after the lesson rather than before it. */}
+      <LessonSources locale={locale}>
+        <LessonGrounding grounding={grounding} locale={locale} />
+        <QuestPanel locale={locale} />
+        <CatalogPanel locale={locale} />
+      </LessonSources>
     </div>
   );
 }

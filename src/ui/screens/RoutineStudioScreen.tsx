@@ -26,11 +26,11 @@ import { useTransitionDrain } from '../hooks/use-transition-drain';
 import { evaluateQuestAvailability } from '@/governance/learning-availability';
 import { findQuestNumericMismatches } from '@/governance/integrity';
 import { routineCorpusReport, routineViews } from '@/knowledge/routines';
-import { findNode } from '@/knowledge/repository';
 import { translate, type MessageKey } from '@/localization/messages';
 import { SafetyNotice } from '../components/SafetyNotice';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { LessonRunner } from '../components/LessonRunner';
+import { LessonDoor, LessonGrounding, LessonSources } from '../components/LessonSources';
 
 const now = () => new Date().toISOString();
 
@@ -354,7 +354,6 @@ function RoutineCatalog({ locale }: { locale: string }) {
 export function RoutineStudioScreen({ locale }: { locale: string }) {
   const [inLesson, setInLesson] = useState(false);
   const grounding = loadSliceGrounding(ROUTINE_PURPOSE_PLAN);
-  const node = findNode(ROUTINE_PURPOSE_PLAN.nodeId);
 
   if (inLesson) {
     return (
@@ -373,51 +372,21 @@ export function RoutineStudioScreen({ locale }: { locale: string }) {
         <p className="eyebrow">{translate('nav.routineStudio', locale)}</p>
         <h1>{translate('routine.lessonTitle', locale)}</h1>
         <p className="muted">{translate('routine.lessonIntro', locale)}</p>
-
-        <div className="card card--sunk" style={{ marginTop: '0.9rem' }}>
-          <div className="masthead__row">
-            <h3 style={{ margin: 0 }}>{node?.Node_Title ?? ROUTINE_PURPOSE_PLAN.nodeId}</h3>
-            <span className={`tag tag--${grounding.availability.available ? 'open' : 'blocker'}`}>
-              {grounding.availability.available
-                ? translate('ingredient.openLesson', locale)
-                : translate('ingredient.closedLesson', locale)}
-            </span>
-          </div>
-          <p className="muted" style={{ marginTop: '0.35rem' }}>
-            {grounding.availability.summary}
-          </p>
-          <ProvenanceStrip
-            entries={[
-              { label: translate('common.node', locale), value: ROUTINE_PURPOSE_PLAN.nodeId },
-              {
-                label: 'Strand',
-                value: `${grounding.domainId} ${grounding.strandCode} ${grounding.strandName}`,
-              },
-              {
-                label: translate('common.skill', locale),
-                value: `${ROUTINE_PURPOSE_PLAN.skillId} ${grounding.skillName}`,
-              },
-              { label: 'Claim class', value: ROUTINE_PURPOSE_PLAN.claimClass },
-              { label: translate('common.status', locale), value: grounding.nodeStatus },
-              { label: translate('common.evidence', locale), value: grounding.nodeEvidenceStatus },
-            ]}
-          />
-          <div className="btn--row">
-            <button
-              className="btn"
-              type="button"
-              disabled={!grounding.availability.available}
-              onClick={() => setInLesson(true)}
-            >
-              {translate('routine.startLesson', locale)}
-            </button>
-          </div>
-        </div>
+        <LessonDoor
+          grounding={grounding}
+          locale={locale}
+          startLabel={translate('routine.startLesson', locale)}
+          onStart={() => setInLesson(true)}
+        />
       </section>
 
+      <LessonSources locale={locale}>
+        <LessonGrounding grounding={grounding} locale={locale} />
+        <QuestPanel locale={locale} />
+        <RoutineCatalog locale={locale} />
+      </LessonSources>
+
       <ReflectionStudio locale={locale} />
-      <QuestPanel locale={locale} />
-      <RoutineCatalog locale={locale} />
     </div>
   );
 }

@@ -35,6 +35,7 @@ import { translate, type MessageKey } from '@/localization/messages';
 import { SafetyNotice } from '../components/SafetyNotice';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { LessonRunner } from '../components/LessonRunner';
+import { LessonDoor, LessonGrounding, LessonSources } from '../components/LessonSources';
 
 const now = () => new Date().toISOString();
 const SUN_QUESTS = ['QST-004', 'QST-005'] as const;
@@ -286,6 +287,40 @@ function EvidencePanel({ locale }: { locale: string }) {
   );
 }
 
+/** Every D04 node as the Master Database holds it. Shown inside LessonSources only. */
+function D04NodeTable() {
+  return (
+    <section className="card card--sunk">
+      <p className="eyebrow">D04 knowledge nodes</p>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Node</th>
+            <th>Strand</th>
+            <th>Title</th>
+            <th>Evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          {nodesForDomain('D04').map((item) => (
+            <tr key={item.Node_ID}>
+              <td>{item.Node_ID}</td>
+              <td className="muted">
+                {item.Strand_Code} {item.Strand_Name}
+              </td>
+              <td>{item.Node_Title}</td>
+              <td className="muted">
+                <span className="tag">{item.Status}</span> {item.Evidence_Status} ·{' '}
+                {item.Source_ID}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </section>
+  );
+}
+
 function QuestPanel({ locale }: { locale: string }) {
   return (
     <section className="card">
@@ -332,7 +367,6 @@ function QuestPanel({ locale }: { locale: string }) {
 export function SunProtectionScreen({ locale }: { locale: string }) {
   const [inLesson, setInLesson] = useState(false);
   const grounding = loadSliceGrounding(SUN_EXPOSURE_PLAN);
-  const node = findNode(SUN_EXPOSURE_PLAN.nodeId);
 
   if (inLesson) {
     return (
@@ -351,79 +385,22 @@ export function SunProtectionScreen({ locale }: { locale: string }) {
         <p className="eyebrow">{translate('nav.sunProtection', locale)}</p>
         <h1>{translate('sun.lessonTitle', locale)}</h1>
         <p className="muted">{translate('sun.lessonIntro', locale)}</p>
-
-        <div className="card card--sunk" style={{ marginTop: '0.9rem' }}>
-          <div className="masthead__row">
-            <h3 style={{ margin: 0 }}>{node?.Node_Title ?? SUN_EXPOSURE_PLAN.nodeId}</h3>
-            <span className={`tag tag--${grounding.availability.available ? 'open' : 'blocker'}`}>
-              {grounding.availability.available
-                ? translate('ingredient.openLesson', locale)
-                : translate('ingredient.closedLesson', locale)}
-            </span>
-          </div>
-          <p className="muted" style={{ marginTop: '0.35rem' }}>
-            {grounding.availability.summary}
-          </p>
-          <ProvenanceStrip
-            entries={[
-              { label: translate('common.node', locale), value: SUN_EXPOSURE_PLAN.nodeId },
-              {
-                label: 'Strand',
-                value: `${grounding.domainId} ${grounding.strandCode} ${grounding.strandName}`,
-              },
-              {
-                label: translate('common.skill', locale),
-                value: `${SUN_EXPOSURE_PLAN.skillId} ${grounding.skillName}`,
-              },
-              { label: 'Claim class', value: SUN_EXPOSURE_PLAN.claimClass },
-              { label: translate('common.evidence', locale), value: grounding.nodeEvidenceStatus },
-            ]}
-          />
-          <div className="btn--row">
-            <button
-              className="btn"
-              type="button"
-              disabled={!grounding.availability.available}
-              onClick={() => setInLesson(true)}
-            >
-              {translate('sun.startLesson', locale)}
-            </button>
-          </div>
-        </div>
+        <LessonDoor
+          grounding={grounding}
+          locale={locale}
+          startLabel={translate('sun.startLesson', locale)}
+          onStart={() => setInLesson(true)}
+        />
       </section>
+
+      <LessonSources locale={locale}>
+        <LessonGrounding grounding={grounding} locale={locale} />
+        <EvidencePanel locale={locale} />
+        <QuestPanel locale={locale} />
+        <D04NodeTable />
+      </LessonSources>
 
       <ExposureLog locale={locale} />
-      <EvidencePanel locale={locale} />
-      <QuestPanel locale={locale} />
-
-      <section className="card card--sunk">
-        <p className="eyebrow">D04 knowledge nodes</p>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Node</th>
-              <th>Strand</th>
-              <th>Title</th>
-              <th>Evidence</th>
-            </tr>
-          </thead>
-          <tbody>
-            {nodesForDomain('D04').map((item) => (
-              <tr key={item.Node_ID}>
-                <td>{item.Node_ID}</td>
-                <td className="muted">
-                  {item.Strand_Code} {item.Strand_Name}
-                </td>
-                <td>{item.Node_Title}</td>
-                <td className="muted">
-                  <span className="tag">{item.Status}</span> {item.Evidence_Status} ·{' '}
-                  {item.Source_ID}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
     </div>
   );
 }

@@ -115,6 +115,26 @@ const MESSAGES_EN = {
   'ingredient.backToGarden': 'Back to the garden',
   'ingredient.openLesson': 'Open',
   'ingredient.closedLesson': 'Closed',
+  'availability.verified':
+    'Every record this lesson stands on is approved and evidence-verified.',
+  'availability.pedagogical':
+    'This lesson teaches reasoning, so it may open on records that are still in review.',
+  'availability.blockedOne':
+    'Blocked by {count} record.',
+  'availability.blockedMany':
+    'Blocked by {count} records.',
+  'availability.questNotFound':
+    'Quest record not found.',
+  'sources.show':
+    'See what this lesson is based on',
+  'sources.showPractice':
+    'See what this practice is based on',
+  'sources.showProgress':
+    'See what this record is based on',
+  'sources.intro':
+    'For anyone who wants to check: the source records behind this, and how far each one has been reviewed. You do not need any of it to learn.',
+  'lesson.eyebrow':
+    'Today’s lesson',
   'routine.lessonTitle': 'Before you reorder anything',
   'routine.lessonIntro':
     'This world does not tell you what your routine should be. It teaches the question that makes your own routine answerable, so the lesson is open while the routine records are still in review.',
@@ -465,6 +485,7 @@ const MESSAGES_EN = {
   'collection.streak': '{days} days in a row',
   'gift.eyebrow': 'A gift, from us',
   'gift.headline': 'Show this at a KOREA GLOW partner shop.',
+  'gift.partner': 'Sent here by shop {code}',
   'gift.note':
     'Made when you finished — not for answering well. There are no right answers here.',
 } as const;
@@ -572,6 +593,26 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'ingredient.backToGarden': '가든으로 돌아가기',
   'ingredient.openLesson': '열림',
   'ingredient.closedLesson': '닫힘',
+  'availability.verified':
+    '이 레슨이 기대는 자료는 모두 승인되었고 근거 확인도 마쳤습니다.',
+  'availability.pedagogical':
+    '이 레슨은 생각하는 방법을 연습하는 수업이라, 아직 검토 중인 자료가 있어도 열어 두었습니다.',
+  'availability.blockedOne':
+    '자료 {count}개에 막혀 아직 열 수 없습니다.',
+  'availability.blockedMany':
+    '자료 {count}개에 막혀 아직 열 수 없습니다.',
+  'availability.questNotFound':
+    '퀘스트 기록을 찾을 수 없습니다.',
+  'sources.show':
+    '이 레슨의 근거 자료 보기',
+  'sources.showPractice':
+    '이 연습의 근거 자료 보기',
+  'sources.showProgress':
+    '이 기록의 근거 자료 보기',
+  'sources.intro':
+    '확인하고 싶은 분을 위한 자료입니다. 이 내용이 어떤 원본 기록에서 왔고, 각각 어디까지 검토되었는지 보여 드립니다. 배우는 데에는 읽지 않으셔도 됩니다.',
+  'lesson.eyebrow':
+    '오늘의 레슨',
   'routine.lessonTitle': '순서를 바꾸기 전에',
   'routine.lessonIntro':
     '이 세계는 당신의 루틴이 어때야 하는지 말하지 않습니다. 내 루틴에 대해 답할 수 있게 만드는 질문을 가르치므로, 루틴 레코드가 검토 중이어도 이 수업은 열려 있습니다.',
@@ -891,6 +932,7 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'collection.streak': '{days}일 연속',
   'gift.eyebrow': '작은 선물',
   'gift.headline': 'KOREA GLOW 파트너 매장에서 보여주세요.',
+  'gift.partner': '안내해 준 매장 {code}',
   'gift.note': '끝까지 하셔서 드리는 것입니다. 잘 맞혀서가 아닙니다 — 여기엔 정답이 없습니다.',
 };
 
@@ -1008,6 +1050,26 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'ingredient.backToGarden': 'Retour au jardin',
   'ingredient.openLesson': 'Ouverte',
   'ingredient.closedLesson': 'Fermée',
+  'availability.verified':
+    'Chaque fiche sur laquelle repose cette leçon est approuvée, et ses preuves sont vérifiées.',
+  'availability.pedagogical':
+    'Cette leçon enseigne une façon de raisonner ; elle peut donc s’ouvrir sur des fiches encore en cours de relecture.',
+  'availability.blockedOne':
+    'Bloquée par {count} fiche.',
+  'availability.blockedMany':
+    'Bloquée par {count} fiches.',
+  'availability.questNotFound':
+    'Fiche de quête introuvable.',
+  'sources.show':
+    'Voir sur quoi repose cette leçon',
+  'sources.showPractice':
+    'Voir sur quoi repose cet exercice',
+  'sources.showProgress':
+    'Voir sur quoi repose ce relevé',
+  'sources.intro':
+    'Pour qui veut vérifier : les fiches sources derrière ce contenu, et où en est la relecture de chacune. Rien de cela n’est nécessaire pour apprendre.',
+  'lesson.eyebrow':
+    'Leçon du jour',
 
   'routine.lessonTitle': 'Avant de réorganiser quoi que ce soit',
   'routine.lessonIntro':
@@ -1331,6 +1393,7 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'collection.streak': '{days} jours d’affilée',
   'gift.eyebrow': 'Un cadeau, de notre part',
   'gift.headline': 'Présentez ceci dans une boutique partenaire KOREA GLOW.',
+  'gift.partner': 'Boutique qui vous a envoyée ici : {code}',
   'gift.note':
     'Créé parce que vous êtes allé au bout, pas parce que vous avez bien répondu. Il n’y a pas de bonne réponse ici.',
 };
@@ -1448,6 +1511,26 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'ingredient.backToGarden': 'ກັບໄປສວນ',
   'ingredient.openLesson': 'ເປີດ',
   'ingredient.closedLesson': 'ປິດ',
+  'availability.verified':
+    'ຂໍ້ມູນທຸກລາຍການທີ່ບົດຮຽນນີ້ອີງໃສ່ ໄດ້ຮັບການອະນຸມັດ ແລະ ກວດສອບຫຼັກຖານແລ້ວ.',
+  'availability.pedagogical':
+    'ບົດຮຽນນີ້ສອນວິທີຄິດ ຈຶ່ງເປີດໄດ້ ເຖິງວ່າຂໍ້ມູນບາງລາຍການຍັງຢູ່ໃນການກວດສອບ.',
+  'availability.blockedOne':
+    'ຍັງເປີດບໍ່ໄດ້ ເພາະມີຂໍ້ມູນ {count} ລາຍການທີ່ຍັງບໍ່ຜ່ານ.',
+  'availability.blockedMany':
+    'ຍັງເປີດບໍ່ໄດ້ ເພາະມີຂໍ້ມູນ {count} ລາຍການທີ່ຍັງບໍ່ຜ່ານ.',
+  'availability.questNotFound':
+    'ບໍ່ພົບຂໍ້ມູນພາລະກິດ.',
+  'sources.show':
+    'ເບິ່ງວ່າບົດຮຽນນີ້ອີງໃສ່ຫຍັງ',
+  'sources.showPractice':
+    'ເບິ່ງວ່າການຝຶກນີ້ອີງໃສ່ຫຍັງ',
+  'sources.showProgress':
+    'ເບິ່ງວ່າບັນທຶກນີ້ອີງໃສ່ຫຍັງ',
+  'sources.intro':
+    'ສຳລັບຜູ້ທີ່ຢາກກວດສອບ: ຂໍ້ມູນຕົ້ນສະບັບທີ່ຢູ່ເບື້ອງຫຼັງ ແລະ ແຕ່ລະລາຍການຖືກກວດສອບໄປເຖິງໃສແລ້ວ. ບໍ່ຈຳເປັນຕ້ອງອ່ານເພື່ອຮຽນ.',
+  'lesson.eyebrow':
+    'ບົດຮຽນມື້ນີ້',
 
   'routine.lessonTitle': 'ກ່ອນທີ່ທ່ານຈະຈັດລຳດັບໃໝ່',
   'routine.lessonIntro':
@@ -1762,6 +1845,7 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'collection.streak': 'ຕິດຕໍ່ກັນ {days} ມື້',
   'gift.eyebrow': 'ຂອງຂວັນນ້ອຍໆ',
   'gift.headline': 'ສະແດງສິ່ງນີ້ຢູ່ຮ້ານຄູ່ຮ່ວມຂອງ KOREA GLOW.',
+  'gift.partner': 'ຮ້ານທີ່ແນະນຳ {code}',
   'gift.note':
     'ໄດ້ມາເພາະທ່ານເຮັດຈົນຈົບ ບໍ່ແມ່ນເພາະຕອບຖືກ — ທີ່ນີ້ບໍ່ມີຄຳຕອບທີ່ຖືກຕ້ອງ.',
 };
@@ -1882,6 +1966,26 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'ingredient.backToGarden': 'กลับไปที่สวน',
   'ingredient.openLesson': 'เปิด',
   'ingredient.closedLesson': 'ปิด',
+  'availability.verified':
+    'ข้อมูลทุกรายการที่บทเรียนนี้อ้างอิงได้รับการอนุมัติและตรวจสอบหลักฐานแล้ว',
+  'availability.pedagogical':
+    'บทเรียนนี้สอนวิธีคิด จึงเปิดได้แม้ข้อมูลบางรายการยังอยู่ระหว่างการตรวจสอบ',
+  'availability.blockedOne':
+    'ยังเปิดไม่ได้ เพราะมีข้อมูล {count} รายการที่ยังไม่ผ่าน',
+  'availability.blockedMany':
+    'ยังเปิดไม่ได้ เพราะมีข้อมูล {count} รายการที่ยังไม่ผ่าน',
+  'availability.questNotFound':
+    'ไม่พบข้อมูลเควสต์',
+  'sources.show':
+    'ดูว่าบทเรียนนี้อ้างอิงจากอะไร',
+  'sources.showPractice':
+    'ดูว่าแบบฝึกนี้อ้างอิงจากอะไร',
+  'sources.showProgress':
+    'ดูว่าบันทึกนี้อ้างอิงจากอะไร',
+  'sources.intro':
+    'สำหรับผู้ที่อยากตรวจสอบ: ข้อมูลต้นฉบับเบื้องหลัง และแต่ละรายการตรวจสอบไปถึงไหนแล้ว ไม่จำเป็นต้องอ่านเพื่อเรียน',
+  'lesson.eyebrow':
+    'บทเรียนวันนี้',
 
   'routine.lessonTitle': 'ก่อนที่คุณจะจัดลำดับใหม่',
   'routine.lessonIntro':
@@ -2197,6 +2301,7 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'collection.streak': 'ติดต่อกัน {days} วัน',
   'gift.eyebrow': 'ของขวัญเล็ก ๆ',
   'gift.headline': 'แสดงสิ่งนี้ที่ร้านพันธมิตรของ KOREA GLOW',
+  'gift.partner': 'ร้านที่แนะนำ {code}',
   'gift.note':
     'ได้มาเพราะคุณทำจนจบ ไม่ใช่เพราะตอบถูก ที่นี่ไม่มีคำตอบที่ถูกต้อง',
 

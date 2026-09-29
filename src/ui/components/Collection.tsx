@@ -116,12 +116,22 @@ export function VisitCalendar({
  * education outranks commerce (rule 6) and the order on the page is where that ranking is
  * either honoured or quietly reversed.
  */
-export function GiftCard({ gift, locale }: { gift: StoreGift; locale: string }) {
+export function GiftCard({
+  gift,
+  locale,
+  partner = null,
+}: {
+  gift: StoreGift;
+  locale: string;
+  /** The shop whose link brought the reader here (see `@/app/partner`), printed beside the code, never in it. */
+  partner?: string | null;
+}) {
   return (
     <section className="gift">
       <p className="gift__eyebrow">{translate('gift.eyebrow', locale)}</p>
       <p className="gift__headline">{translate('gift.headline', locale)}</p>
       <p className="gift__code">{gift.code}</p>
+      {partner ? <p className="gift__partner">{translate('gift.partner', locale, { code: partner })}</p> : null}
       <p className="gift__note">{translate('gift.note', locale)}</p>
     </section>
   );
