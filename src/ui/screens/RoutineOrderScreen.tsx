@@ -46,6 +46,25 @@ const stepLabel = (step: string, locale: string): string => {
   return key ? translate(key, locale) : step;
 };
 
+// Same treatment for the routine's own Description field (10 records, closed vocabulary),
+// which appears inline in the prompt sentence alongside the routine's (already-English) name.
+const DESC_LABEL_KEYS: Readonly<Record<string, Parameters<typeof translate>[0]>> = {
+  '일상 아침 3–4단계': 'order.desc.일상 아침 3–4단계',
+  '일상 저녁 기본': 'order.desc.일상 저녁 기본',
+  '제품을 줄인 기본 루틴': 'order.desc.제품을 줄인 기본 루틴',
+  '고온·고습 환경': 'order.desc.고온·고습 환경',
+  '건조한 실내환경': 'order.desc.건조한 실내환경',
+  '새 제품 도입': 'order.desc.새 제품 도입',
+  '자극이 의심되는 상황': 'order.desc.자극이 의심되는 상황',
+  'active를 포함한 저녁': 'order.desc.active를 포함한 저녁',
+  '샤워 후 바디 케어': 'order.desc.샤워 후 바디 케어',
+  '기본 헤어 루틴': 'order.desc.기본 헤어 루틴',
+};
+const descLabel = (description: string, locale: string): string => {
+  const key = DESC_LABEL_KEYS[description];
+  return key ? translate(key, locale) : description;
+};
+
 const nextRoutine = (previousId: string | null) => {
   const all = orderableRoutines();
   if (all.length === 0) return null;
@@ -70,7 +89,7 @@ export function RoutineOrderScreen({ locale }: { locale: string }) {
   const solved = isSolved(state);
   const prompt = translate('order.prompt', locale, {
     name: routine?.Routine_Name ?? '',
-    description: routine?.Description ?? '',
+    description: routine ? descLabel(routine.Description, locale) : '',
   });
 
   return (
@@ -86,7 +105,7 @@ export function RoutineOrderScreen({ locale }: { locale: string }) {
           fallback={spokenFallback(locale, (spoken) =>
             translate('order.prompt', spoken, {
               name: routine?.Routine_Name ?? '',
-              description: routine?.Description ?? '',
+              description: routine ? descLabel(routine.Description, spoken) : '',
             }),
           )}
           autoplay
