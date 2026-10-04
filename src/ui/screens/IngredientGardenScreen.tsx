@@ -18,6 +18,7 @@
 import { useState } from 'react';
 import { INGREDIENT_HALO_PLAN, loadSliceGrounding } from '@/app/learning-session';
 import { ingredientGardenQuestAvailability } from '@/governance/learning-availability';
+import { labelPhotosForIngredient } from '@/content/label-photos';
 import {
   ingredientCorpusReport,
   ingredientFamilies,
@@ -107,6 +108,7 @@ function CatalogPanel({ locale }: { locale: string }) {
         {report.total} records · {report.familyCount} families · {report.mayStateAsFact} may be
         stated as fact · {report.withReferenceUrl} carry a reference URL
       </p>
+      <p className="muted fine">{translate('ingredient.labelPhotoIntro', locale)}</p>
 
       <div style={{ marginTop: '0.9rem' }}>
         {ingredientFamilies.map((family) => {
@@ -134,11 +136,13 @@ function CatalogPanel({ locale }: { locale: string }) {
                       <th>{translate('ingredient.learningGoal', locale)}</th>
                       <th>{translate('common.status', locale)}</th>
                       <th>{translate('ingredient.reference', locale)}</th>
+                      <th>{translate('ingredient.seenOnLabel', locale)}</th>
                     </tr>
                   </thead>
                   <tbody>
                     {family.ingredients.map((ingredient) => {
                       const decision = evaluatePublication(ingredient);
+                      const photos = labelPhotosForIngredient(ingredient.Ingredient_ID);
                       return (
                         <tr key={ingredient.Ingredient_ID}>
                           <td>{ingredient.Ingredient_ID}</td>
@@ -161,6 +165,36 @@ function CatalogPanel({ locale }: { locale: string }) {
                               </a>
                             ) : (
                               translate('ingredient.noReference', locale)
+                            )}
+                          </td>
+                          <td>
+                            {photos.length > 0 ? (
+                              <div className="label-photo-row">
+                                {photos.map((photo) => (
+                                  <a
+                                    key={photo.id}
+                                    href={photo.src}
+                                    rel="noreferrer noopener"
+                                    target="_blank"
+                                    title={translate('ingredient.viewLabelPhoto', locale, {
+                                      product: photo.productName,
+                                    })}
+                                  >
+                                    <img
+                                      className="label-photo-thumb"
+                                      src={photo.thumbSrc}
+                                      alt={translate('ingredient.viewLabelPhoto', locale, {
+                                        product: photo.productName,
+                                      })}
+                                      width={40}
+                                      height={71}
+                                      loading="lazy"
+                                    />
+                                  </a>
+                                ))}
+                              </div>
+                            ) : (
+                              <span className="muted fine">—</span>
                             )}
                           </td>
                         </tr>
