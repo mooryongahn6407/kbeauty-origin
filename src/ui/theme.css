@@ -392,6 +392,30 @@ h3 { font-size: var(--fs-md); font-weight: 700; margin: 0 0 var(--space-1); line
 }
 .disclosure__mark { font-weight: 800; }
 
+/* A per-row flag on exactly the claim it describes — the "citation needed" pattern: never
+   just a hidden status field, always something the reader sees next to the thing itself. */
+.claim-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin: 0.3rem 0 0;
+  font-family: var(--font-ui);
+  font-size: var(--fs-2xs);
+  font-weight: 700;
+  color: var(--caution);
+}
+.claim-flag--verified { color: var(--botanical); }
+.claim-flag__mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.1em;
+  height: 1.1em;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  line-height: 1;
+}
+
 .provenance {
   display: flex;
   flex-wrap: wrap;

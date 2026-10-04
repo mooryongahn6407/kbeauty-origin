@@ -153,10 +153,20 @@ function CatalogPanel({ locale }: { locale: string }) {
                             <span className="tag">
                               {ingredient.Status} · {ingredient.Evidence_Status}
                             </span>
-                            <br />
-                            <span className="muted fine">
-                              {decision.mode}
-                            </span>
+                            <p
+                              className={`claim-flag${decision.mayStateAsFact ? ' claim-flag--verified' : ''}`}
+                              title={decision.reason}
+                            >
+                              <span className="claim-flag__mark" aria-hidden="true">
+                                {decision.mayStateAsFact ? '✓' : '!'}
+                              </span>
+                              {translate(
+                                decision.mayStateAsFact
+                                  ? 'ingredient.verifiedFlag'
+                                  : 'ingredient.unverifiedFlag',
+                                locale,
+                              )}
+                            </p>
                           </td>
                           <td className="muted">
                             {ingredient.Reference_URL ? (

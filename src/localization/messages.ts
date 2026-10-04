@@ -119,6 +119,8 @@ const MESSAGES_EN = {
   'ingredient.labelPhotoIntro':
     'Photographed by hand from products the owner sources for sale, not stock photography. Each one shows this ingredient printed in the declared-ingredients list — nothing here says what it does.',
   'ingredient.viewLabelPhoto': 'View label photo — {product}',
+  'ingredient.unverifiedFlag': 'Not yet verified — not stated as fact',
+  'ingredient.verifiedFlag': 'Verified — may be stated as fact',
   'availability.verified':
     'Every record this lesson stands on is approved and evidence-verified.',
   'availability.pedagogical':
@@ -648,6 +650,8 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'ingredient.labelPhotoIntro':
     '대표님이 라오스 판매용으로 소싱 중인 실제 제품을 직접 촬영한 사진입니다. 스톡 사진이 아닙니다. 각 사진은 이 성분이 표시성분 목록에 인쇄되어 있다는 사실만 보여 주며, 효능을 말하지 않습니다.',
   'ingredient.viewLabelPhoto': '라벨 사진 보기 — {product}',
+  'ingredient.unverifiedFlag': '아직 검증되지 않음 — 사실로 단정하지 않음',
+  'ingredient.verifiedFlag': '검증됨 — 사실로 말할 수 있음',
   'availability.verified':
     '이 레슨이 기대는 자료는 모두 승인되었고 근거 확인도 마쳤습니다.',
   'availability.pedagogical':
@@ -1149,6 +1153,8 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'ingredient.labelPhotoIntro':
     "Photographié à la main sur des produits réels que le fondateur fait venir pour la vente, pas des photos de stock. Chaque photo montre seulement que cet ingrédient est imprimé dans la liste des ingrédients déclarés — rien ici ne dit ce qu'il fait.",
   'ingredient.viewLabelPhoto': "Voir la photo de l'étiquette — {product}",
+  'ingredient.unverifiedFlag': "Pas encore vérifié — non présenté comme un fait",
+  'ingredient.verifiedFlag': 'Vérifié — peut être présenté comme un fait',
   'availability.verified':
     'Chaque fiche sur laquelle repose cette leçon est approuvée, et ses preuves sont vérifiées.',
   'availability.pedagogical':
@@ -1654,6 +1660,8 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'ingredient.labelPhotoIntro':
     'ຖ່າຍຮູບດ້ວຍມືຈາກຜະລິດຕະພັນຕົວຈິງທີ່ເຈົ້າຂອງກຳລັງຈັດຫາເພື່ອຂາຍ, ບໍ່ແມ່ນຮູບສະຕັອກ. ແຕ່ລະຮູບສະແດງພຽງວ່າສ່ວນປະກອບນີ້ຖືກພິມຢູ່ໃນລາຍການສ່ວນປະກອບທີ່ແຈ້ງໄວ້ເທົ່ານັ້ນ — ບໍ່ມີຫຍັງຢູ່ບ່ອນນີ້ບອກວ່າມັນເຮັດຫຍັງ.',
   'ingredient.viewLabelPhoto': 'ເບິ່ງຮູບສະຫຼາກ — {product}',
+  'ingredient.unverifiedFlag': 'ຍັງບໍ່ໄດ້ຖືກກວດສອບ — ບໍ່ໄດ້ລະບຸວ່າເປັນຄວາມຈິງ',
+  'ingredient.verifiedFlag': 'ກວດສອບແລ້ວ — ສາມາດລະບຸວ່າເປັນຄວາມຈິງໄດ້',
   'availability.verified':
     'ຂໍ້ມູນທຸກລາຍການທີ່ບົດຮຽນນີ້ອີງໃສ່ ໄດ້ຮັບການອະນຸມັດ ແລະ ກວດສອບຫຼັກຖານແລ້ວ.',
   'availability.pedagogical':
@@ -2153,6 +2161,8 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'ingredient.labelPhotoIntro':
     'ถ่ายภาพด้วยมือจากผลิตภัณฑ์จริงที่เจ้าของกำลังจัดหาเพื่อจำหน่าย ไม่ใช่ภาพสต็อก แต่ละภาพแสดงเพียงว่าส่วนผสมนี้ถูกพิมพ์อยู่ในรายการส่วนผสมที่แจ้งไว้เท่านั้น ไม่ได้บอกว่ามันทำอะไร',
   'ingredient.viewLabelPhoto': 'ดูภาพฉลาก — {product}',
+  'ingredient.unverifiedFlag': 'ยังไม่ได้รับการตรวจสอบ — ไม่ได้ระบุว่าเป็นข้อเท็จจริง',
+  'ingredient.verifiedFlag': 'ตรวจสอบแล้ว — สามารถระบุว่าเป็นข้อเท็จจริงได้',
   'availability.verified':
     'ข้อมูลทุกรายการที่บทเรียนนี้อ้างอิงได้รับการอนุมัติและตรวจสอบหลักฐานแล้ว',
   'availability.pedagogical':
