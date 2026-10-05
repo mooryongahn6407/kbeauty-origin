@@ -32,6 +32,7 @@ import {
 } from '@/governance/evidence-resolution';
 import { findNode, nodesForDomain } from '@/knowledge/repository';
 import { translate, type MessageKey } from '@/localization/messages';
+import { labelPhotos } from '@/content/label-photos';
 import { SafetyNotice } from '../components/SafetyNotice';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { LessonRunner } from '../components/LessonRunner';
@@ -287,6 +288,43 @@ function EvidencePanel({ locale }: { locale: string }) {
   );
 }
 
+const SUNSCREEN_LABEL_IDS = ['label-sun-essence', 'label-tone-filter-sun-cream'] as const;
+
+/**
+ * Two real SPF-label photos, shown strictly as "what a real label looks like" — never as a
+ * recommendation. D04 has zero verified sources (OQ-E02), so this is the one panel in the app
+ * where that line matters most: the caption says only what is printed, never what it does.
+ */
+function RealLabelPanel({ locale }: { locale: string }) {
+  const photos = labelPhotos.filter((photo) => SUNSCREEN_LABEL_IDS.includes(photo.id as (typeof SUNSCREEN_LABEL_IDS)[number]));
+  if (photos.length === 0) return null;
+
+  return (
+    <section className="card">
+      <p className="eyebrow">{translate('sun.realLabelTitle', locale)}</p>
+      <p className="disclosure disclosure--caution">
+        <span className="disclosure__mark" aria-hidden="true">
+          !
+        </span>
+        <span>{translate('sun.realLabelIntro', locale)}</span>
+      </p>
+      <div className="label-photo-row" style={{ marginTop: '0.8rem' }}>
+        {photos.map((photo) => (
+          <a key={photo.id} href={photo.src} rel="noreferrer noopener" target="_blank" title={photo.productName}>
+            <img
+              className="label-photo-thumb"
+              src={photo.thumbSrc}
+              alt={translate('ingredient.viewLabelPhoto', locale, { product: photo.productName })}
+              loading="lazy"
+              style={{ width: '72px', height: 'auto' }}
+            />
+          </a>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 /** Every D04 node as the Master Database holds it. Shown inside LessonSources only. */
 function D04NodeTable() {
   return (
@@ -396,6 +434,7 @@ export function SunProtectionScreen({ locale }: { locale: string }) {
       <LessonSources locale={locale}>
         <LessonGrounding grounding={grounding} locale={locale} />
         <EvidencePanel locale={locale} />
+        <RealLabelPanel locale={locale} />
         <QuestPanel locale={locale} />
         <D04NodeTable />
       </LessonSources>

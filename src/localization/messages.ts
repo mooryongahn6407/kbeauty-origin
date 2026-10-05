@@ -193,6 +193,9 @@ const MESSAGES_EN = {
   'sun.notRecorded': 'Not recorded',
   'sun.startOver': 'Start over',
   'sun.evidenceTitle': 'Evidence position for this domain',
+  'sun.realLabelTitle': 'Real sunscreen labels',
+  'sun.realLabelIntro':
+    "Photographed by hand from two sun-care products the owner sources for sale — not a recommendation. This domain has zero verified sources (OQ-E02), so this app names no product and suggests none. These photos show only what is printed on the box, as evidence of what a real label looks like.",
   'sun.questTitle': 'Sun Observatory quests',
   'sun.band.early-morning': 'Early morning',
   'sun.band.midday': 'Midday',
@@ -724,6 +727,9 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'sun.notRecorded': '기록 없음',
   'sun.startOver': '다시 시작',
   'sun.evidenceTitle': '이 영역의 근거 상태',
+  'sun.realLabelTitle': '실제 선크림 라벨 사진',
+  'sun.realLabelIntro':
+    '대표님이 판매용으로 소싱 중인 자외선 차단 제품 2종을 직접 촬영한 사진입니다 — 추천이 아닙니다. 이 영역은 검증된 출처가 하나도 없으므로(OQ-E02), 이 앱은 어떤 제품도 지목하거나 권하지 않습니다. 사진은 박스에 실제로 인쇄된 내용만 보여 줍니다.',
   'sun.questTitle': '선 옵저버토리 퀘스트',
   'sun.band.early-morning': '이른 아침',
   'sun.band.midday': '한낮',
@@ -1230,6 +1236,9 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'sun.notRecorded': 'Non noté',
   'sun.startOver': 'Tout recommencer',
   'sun.evidenceTitle': 'État des preuves pour ce domaine',
+  'sun.realLabelTitle': 'Vraies étiquettes de crème solaire',
+  'sun.realLabelIntro':
+    "Photographié à la main sur deux produits de protection solaire que le fondateur fait venir pour la vente — ce n'est pas une recommandation. Ce domaine n'a aucune source vérifiée (OQ-E02), donc cette appli ne nomme ni ne suggère aucun produit. Ces photos montrent seulement ce qui est imprimé sur la boîte.",
   'sun.questTitle': 'Quêtes de l’Observatoire solaire',
   'sun.band.early-morning': 'Tôt le matin',
   'sun.band.midday': 'Milieu de journée',
@@ -1736,6 +1745,9 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'sun.notRecorded': 'ບໍ່ໄດ້ບັນທຶກ',
   'sun.startOver': 'ເລີ່ມໃໝ່ທັງໝົດ',
   'sun.evidenceTitle': 'ສະຖານະຫຼັກຖານຂອງຂົງເຂດນີ້',
+  'sun.realLabelTitle': 'ຮູບສະຫຼາກຄີມກັນແດດຕົວຈິງ',
+  'sun.realLabelIntro':
+    'ຖ່າຍຮູບດ້ວຍມືຈາກຜະລິດຕະພັນກັນແດດ 2 ຊະນິດທີ່ເຈົ້າຂອງກຳລັງຈັດຫາເພື່ອຂາຍ — ບໍ່ແມ່ນການແນະນຳ. ຂົງເຂດນີ້ບໍ່ມີແຫຼ່ງຂໍ້ມູນທີ່ກວດສອບແລ້ວເລີຍ (OQ-E02) ສະນັ້ນແອັບນີ້ບໍ່ລະບຸ ຫຼື ແນະນຳຜະລິດຕະພັນໃດໆ. ຮູບພາບສະແດງພຽງສິ່ງທີ່ພິມຢູ່ເທິງສະຫຼາກ.',
   'sun.questTitle': 'ພາລະກິດຂອງຫໍສັງເກດການແສງແດດ',
   'sun.band.early-morning': 'ເຊົ້າຕຼູ່',
   'sun.band.midday': 'ທ່ຽງ',
@@ -2237,6 +2249,9 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'sun.notRecorded': 'ไม่ได้บันทึก',
   'sun.startOver': 'เริ่มใหม่ทั้งหมด',
   'sun.evidenceTitle': 'สถานะหลักฐานของขอบเขตนี้',
+  'sun.realLabelTitle': 'ภาพฉลากครีมกันแดดจริง',
+  'sun.realLabelIntro':
+    'ถ่ายภาพด้วยมือจากครีมกันแดด 2 ชนิดที่เจ้าของกำลังจัดหาเพื่อจำหน่าย — ไม่ใช่คำแนะนำ โดเมนนี้ไม่มีแหล่งข้อมูลที่ตรวจสอบแล้วเลย (OQ-E02) แอปนี้จึงไม่ระบุหรือแนะนำผลิตภัณฑ์ใด ภาพแสดงเพียงสิ่งที่พิมพ์บนฉลากจริง',
   'sun.questTitle': 'เควสต์ของหอสังเกตการณ์แสงแดด',
   'sun.band.early-morning': 'เช้าตรู่',
   'sun.band.midday': 'กลางวัน',
