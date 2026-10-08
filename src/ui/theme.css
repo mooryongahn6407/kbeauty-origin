@@ -1257,7 +1257,9 @@ select.field, .locale-switch select, .settings__select {
 /* ---- Compare Lab (QST-011) ------------------------------------------------ */
 .compare { max-width: var(--max-width); margin: 0 auto; display: flex; flex-direction: column; gap: var(--space-4); }
 .compare__pickers { display: flex; gap: var(--space-3); flex-wrap: wrap; }
-.compare__picker { display: flex; flex-direction: column; gap: var(--space-1); flex: 1 1 12rem; }
+.compare__picker { display: flex; flex-direction: column; gap: var(--space-1); flex: 1 1 12rem; min-width: 0; }
+/* A long family name in the list must not widen the select past a 320px screen. */
+.compare__picker .settings__select { width: 100%; max-width: 100%; }
 .compare__columns { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-3); align-items: start; }
 .compare__col { border: 2px solid var(--line); border-radius: var(--radius); padding: var(--space-3); background: var(--surface); }
 .compare__family { font-size: var(--fs-md); margin: 0 0 var(--space-2); overflow-wrap: anywhere; }
@@ -1269,6 +1271,26 @@ select.field, .locale-switch select, .settings__select {
 .compare__members li { display: flex; flex-direction: column; gap: 2px; }
 .compare__name { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; overflow-wrap: anywhere; }
 .compare__goal { font-size: var(--fs-xs); color: var(--text-muted); line-height: 1.5; }
+
+/* The family as it turns up on the printed lists of products the shop sells. */
+.store-labels { margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--line); }
+.store-labels__title { margin: 0 0 0.25rem; font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; }
+.store-labels__intro { margin: 0 0 var(--space-2); font-size: var(--fs-xs); color: var(--text-muted); line-height: 1.5; }
+.store-labels__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.store-label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.3rem;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface-sunk);
+}
+.store-label__name { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 700; overflow-wrap: anywhere; }
+.store-label__match { font-size: var(--fs-xs); line-height: 1.5; overflow-wrap: anywhere; }
+/* A pill that wraps onto three lines becomes a blob in a narrow column: square it off. */
+.store-label .tag { border-radius: var(--radius-sm); line-height: 1.4; overflow-wrap: anywhere; }
 
 /* ---- Routine Order (QST-006 / QST-007) ------------------------------------
  * Slots are numbered before anything is placed, so what is being asked for is visible rather

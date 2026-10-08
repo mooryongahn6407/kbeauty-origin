@@ -482,6 +482,14 @@ const MESSAGES_EN = {
   'compare.right': 'On the right',
   'compare.count': 'Records',
   'compare.cited': 'With a reference',
+  'compare.storeTitle': 'On the labels of products we sell',
+  'compare.storeIntro':
+    'Printed ingredient lists from products in our shop. This shows only where the name appears on each list, not what it does.',
+  'compare.storePosition': 'No. {n} of {total} listed',
+  'compare.storePositionUnknown': 'On the list (place not recorded)',
+  'compare.storeChecked': 'Checked against the real label',
+  'compare.storeUnchecked': 'From supplier text — real label not checked yet',
+  'compare.storeNone': 'None of the products we sell lists one of these on its label.',
   'compare.note':
     'Both columns are the database read back, field for field. Nothing here says which is better or what either does — those records are still in review.',
   'calendar.title': 'Days you came',
@@ -981,6 +989,14 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'compare.right': '오른쪽',
   'compare.count': '기록 수',
   'compare.cited': '출처가 있는 것',
+  'compare.storeTitle': '우리 매장 제품 라벨에서',
+  'compare.storeIntro':
+    '우리 매장에서 파는 제품의 전성분표입니다. 이 성분이 목록 어디에 적혀 있는지만 보여 주며, 무엇을 하는지는 말하지 않습니다.',
+  'compare.storePosition': '{total}개 중 {n}번째',
+  'compare.storePositionUnknown': '목록에 있음 (순서 기록 없음)',
+  'compare.storeChecked': '실물 라벨 확인',
+  'compare.storeUnchecked': '공급사 자료 — 실물 라벨 확인 전',
+  'compare.storeNone': '우리 매장 제품 중 라벨에 이 계열이 적힌 제품은 없습니다.',
   'compare.note':
     '양쪽 모두 데이터베이스를 항목 그대로 옮긴 것입니다. 어느 쪽이 더 좋다거나 무슨 효과가 있다는 이야기는 없습니다 — 그 기록들은 아직 검수 중입니다.',
   'calendar.title': '오신 날',
@@ -1491,6 +1507,14 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'compare.right': 'À droite',
   'compare.count': 'Fiches',
   'compare.cited': 'Avec référence',
+  'compare.storeTitle': 'Sur les étiquettes de nos produits',
+  'compare.storeIntro':
+    "Listes d'ingrédients imprimées sur les produits de notre boutique. On voit seulement où le nom apparaît dans chaque liste, pas ce qu'il fait.",
+  'compare.storePosition': '{n}e sur {total}',
+  'compare.storePositionUnknown': 'Dans la liste (rang non noté)',
+  'compare.storeChecked': "Vérifié sur l'étiquette réelle",
+  'compare.storeUnchecked': "Texte du fournisseur — étiquette réelle pas encore vérifiée",
+  'compare.storeNone': "Aucun de nos produits ne l'indique sur son étiquette.",
   'compare.note':
     'Les deux colonnes sont la base de connaissances relue champ par champ. Rien ici ne dit laquelle est meilleure ni ce que fait l’une ou l’autre : ces fiches sont encore en révision.',
   'calendar.title': 'Jours où vous êtes venue',
@@ -1992,6 +2016,14 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'compare.right': 'ເບື້ອງຂວາ',
   'compare.count': 'ຈຳນວນບັນທຶກ',
   'compare.cited': 'ທີ່ມີແຫຼ່ງອ້າງອີງ',
+  'compare.storeTitle': 'ຢູ່ສະຫຼາກຂອງສິນຄ້າທີ່ພວກເຮົາຂາຍ',
+  'compare.storeIntro':
+    'ລາຍການສ່ວນປະກອບທີ່ພິມຢູ່ສິນຄ້າໃນຮ້ານຂອງພວກເຮົາ. ສະແດງພຽງວ່າຊື່ນີ້ຢູ່ບ່ອນໃດໃນລາຍການ, ບໍ່ໄດ້ບອກວ່າມັນເຮັດຫຍັງ.',
+  'compare.storePosition': 'ອັນທີ {n} ຈາກ {total}',
+  'compare.storePositionUnknown': 'ຢູ່ໃນລາຍການ (ບໍ່ໄດ້ບັນທຶກລຳດັບ)',
+  'compare.storeChecked': 'ກວດກັບສະຫຼາກຕົວຈິງແລ້ວ',
+  'compare.storeUnchecked': 'ຈາກຂໍ້ມູນຜູ້ສະໜອງ — ຍັງບໍ່ໄດ້ກວດສະຫຼາກຕົວຈິງ',
+  'compare.storeNone': 'ບໍ່ມີສິນຄ້າໃດຂອງພວກເຮົາທີ່ລະບຸສິ່ງນີ້ໃນສະຫຼາກ.',
   'compare.note':
     'ທັງສອງຖັນແມ່ນຂໍ້ມູນຈາກຖານຂໍ້ມູນຕາມຊ່ອງຂໍ້ມູນຈິງ. ບໍ່ມີບ່ອນໃດບອກວ່າອັນໃດດີກວ່າ ຫຼື ມີຜົນແນວໃດ — ບັນທຶກເຫຼົ່ານັ້ນຍັງຢູ່ໃນຂັ້ນກວດສອບ.',
   'calendar.title': 'ມື້ທີ່ທ່ານມາ',
@@ -2497,6 +2529,14 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'compare.right': 'ด้านขวา',
   'compare.count': 'จำนวนบันทึก',
   'compare.cited': 'ที่มีแหล่งอ้างอิง',
+  'compare.storeTitle': 'บนฉลากสินค้าที่เราขาย',
+  'compare.storeIntro':
+    'รายการส่วนผสมที่พิมพ์บนสินค้าในร้านของเรา แสดงเพียงว่าชื่อนี้อยู่ตรงไหนในรายการ ไม่ได้บอกว่ามันทำอะไร',
+  'compare.storePosition': 'ลำดับที่ {n} จาก {total}',
+  'compare.storePositionUnknown': 'อยู่ในรายการ (ไม่ได้บันทึกลำดับ)',
+  'compare.storeChecked': 'ตรวจกับฉลากจริงแล้ว',
+  'compare.storeUnchecked': 'จากข้อมูลผู้จัดหา — ยังไม่ได้ตรวจกับฉลากจริง',
+  'compare.storeNone': 'ไม่มีสินค้าของเราที่ระบุสิ่งนี้บนฉลาก',
   'compare.note':
     'ทั้งสองคอลัมน์คือข้อมูลจากฐานข้อมูลตามช่องข้อมูลจริง ไม่มีตรงไหนบอกว่าอันไหนดีกว่าหรือมีผลอย่างไร บันทึกเหล่านั้นยังอยู่ระหว่างตรวจสอบ',
   'calendar.title': 'วันที่คุณมา',

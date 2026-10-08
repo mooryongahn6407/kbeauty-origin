@@ -16,6 +16,7 @@ import { translate } from '@/localization/messages';
 import { ingredients } from '@/knowledge/repository';
 import type { Ingredient } from '@/domain/entities';
 import { familyFunction, huntableFamilies } from '@/app/ingredient-hunt';
+import { storeProductsListing } from '@/content/store-product-labels';
 import { CompanionSays } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
 import { spokenFallback } from '../spoken-fallback';
@@ -153,6 +154,65 @@ function FamilyColumn({ family, locale }: { family: string; locale: string }) {
           </li>
         ))}
       </ul>
+
+      <StoreLabels ingredientIds={members.map((member) => member.Ingredient_ID)} locale={locale} />
     </section>
+  );
+}
+
+/**
+ * Where a family turns up on the printed ingredient lists of products the shop sells. Position on
+ * the list is a printed fact; nothing here says what the ingredient does.
+ */
+function StoreLabels({
+  ingredientIds,
+  locale,
+}: {
+  ingredientIds: readonly string[];
+  locale: string;
+}) {
+  const products = storeProductsListing(ingredientIds);
+
+  return (
+    <div className="store-labels">
+      <h3 className="store-labels__title">{translate('compare.storeTitle', locale)}</h3>
+      <p className="store-labels__intro">{translate('compare.storeIntro', locale)}</p>
+      {products.length === 0 ? (
+        <p className="store-labels__intro">{translate('compare.storeNone', locale)}</p>
+      ) : (
+        <ul className="store-labels__list" role="list">
+          {products.map((product) => (
+            <li key={product.sku} className="store-label">
+              <span className="store-label__name">
+                {product.brand} · {product.name}
+              </span>
+              {product.matches
+                .filter((match) => ingredientIds.includes(match.ingredientId))
+                .map((match) => (
+                  <span key={match.printedName} className="store-label__match">
+                    <strong>{match.printedName}</strong>{' '}
+                    {match.position === null
+                      ? translate('compare.storePositionUnknown', locale)
+                      : translate('compare.storePosition', locale, {
+                          n: String(match.position),
+                          total: String(product.inciCount),
+                        })}
+                  </span>
+                ))}
+              <span
+                className={`tag ${product.source === 'LABEL_CHECKED' ? 'tag--open' : 'tag--critical'}`}
+              >
+                {translate(
+                  product.source === 'LABEL_CHECKED'
+                    ? 'compare.storeChecked'
+                    : 'compare.storeUnchecked',
+                  locale,
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
