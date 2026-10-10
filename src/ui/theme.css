@@ -43,6 +43,9 @@
      comparison learning does not read in the same pink as everything else on the page. */
   --violet: #5b3a8e;
   --violet-wash: #efe7f8;
+  /* QR codes stay black on white in every theme: a scanner needs the contrast, not the mood. */
+  --qr-ink: #000000;
+  --qr-paper: #ffffff;
   --line: #ecdfd7;
   --line-strong: #d2bcb2;
   --btn-bg: #241c1a;
@@ -176,6 +179,10 @@
     --blocker-wash: #3d1d1f;
     --violet: #c9a9f0;
     --violet-wash: #2a2038;
+  --qr-ink: #000000;
+  --qr-paper: #ffffff;
+    --qr-ink: #000000;
+    --qr-paper: #ffffff;
     --line: #3a2e29;
     --line-strong: #584740;
     --btn-bg: #f3e7df;
@@ -203,6 +210,8 @@
   --blocker-wash: #3d1d1f;
   --violet: #c9a9f0;
   --violet-wash: #2a2038;
+  --qr-ink: #000000;
+  --qr-paper: #ffffff;
   --line: #3a2e29;
   --line-strong: #584740;
   --btn-bg: #f3e7df;
@@ -1538,3 +1547,10 @@ select.field, .locale-switch select, .settings__select {
 .store-share { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin: var(--space-4) 0 var(--space-2); }
 .store-share__done { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; color: var(--botanical); }
 .store-share__link { flex-basis: 100%; font-size: var(--fs-sm); overflow-wrap: anywhere; user-select: all; margin: 0; }
+
+/* Partner QR code — a white card with a quiet zone, the same in light and dark. */
+.store-qr { flex-basis: 100%; margin: var(--space-2) 0 0; display: flex; flex-direction: column; align-items: center; gap: var(--space-2); }
+.store-qr__code { width: min(100%, 260px); height: auto; border-radius: var(--radius-sm); border: 1px solid var(--line); }
+.store-qr__paper { fill: var(--qr-paper); }
+.store-qr__ink { fill: var(--qr-ink); }
+.store-qr__caption { font-size: var(--fs-sm); color: var(--text-muted); text-align: center; overflow-wrap: anywhere; }

@@ -30,6 +30,7 @@ import {
   type LabelEntry,
 } from '@/app/store-catalog';
 import { PARTNER_PARAM } from '@/app/partner';
+import { QUIET_ZONE, qrMatrix, qrPath, qrPngDataUrl } from '@/app/qr';
 import { CompanionSays } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
 import { spokenFallback } from '../spoken-fallback';
@@ -482,6 +483,7 @@ function ShareLink({
   locale: string;
 }) {
   const [state, setState] = useState<'idle' | 'copied' | 'manual'>('idle');
+  const [showQr, setShowQr] = useState(false);
   const link =
     typeof window === 'undefined'
       ? productLink('/', sku, partner)
@@ -506,7 +508,78 @@ function ShareLink({
           ✓ {translate('store.copied', locale)}
         </span>
       ) : null}
+      <button
+        type="button"
+        className="btn btn--quiet"
+        aria-expanded={showQr}
+        onClick={() => setShowQr((open) => !open)}
+      >
+        ▦ {translate(showQr ? 'store.qrHide' : 'store.qrShow', locale)}
+      </button>
       {state === 'manual' ? <p className="store-share__link">{link}</p> : null}
+      {showQr ? <ProductQr link={link} sku={sku} partner={partner} locale={locale} /> : null}
     </div>
+  );
+}
+
+/**
+ * The product link as a QR code, for a shop's counter card or a customer's phone. Black on
+ * white in both themes (scanners need the contrast), drawn from the link alone on this device.
+ */
+function ProductQr({
+  link,
+  sku,
+  partner,
+  locale,
+}: {
+  link: string;
+  sku: string;
+  partner: string | null;
+  locale: string;
+}) {
+  const matrix = useMemo(() => qrMatrix(link), [link]);
+  const side = matrix.length + QUIET_ZONE * 2;
+
+  const save = () => {
+    const tokens = getComputedStyle(document.documentElement);
+    const url = qrPngDataUrl(
+      matrix,
+      tokens.getPropertyValue('--qr-ink').trim(),
+      tokens.getPropertyValue('--qr-paper').trim(),
+    );
+    if (!url) return;
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = `KOREA-GLOW-${sku}${partner ? `-${partner}` : ''}.png`;
+    anchor.click();
+  };
+
+  return (
+    <figure className="store-qr">
+      <svg
+        className="store-qr__code"
+        viewBox={`${-QUIET_ZONE} ${-QUIET_ZONE} ${side} ${side}`}
+        role="img"
+        aria-label={translate('store.qrAlt', locale)}
+        shapeRendering="crispEdges"
+      >
+        <rect
+          className="store-qr__paper"
+          x={-QUIET_ZONE}
+          y={-QUIET_ZONE}
+          width={side}
+          height={side}
+        />
+        <path className="store-qr__ink" d={qrPath(matrix)} />
+      </svg>
+      <figcaption className="store-qr__caption">
+        {partner
+          ? translate('store.qrPartner', locale, { code: partner })
+          : translate('store.qrNoPartner', locale)}
+      </figcaption>
+      <button type="button" className="btn btn--quiet btn--small" onClick={save}>
+        ⬇ {translate('store.qrSave', locale)}
+      </button>
+    </figure>
   );
 }
