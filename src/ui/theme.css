@@ -1434,3 +1434,107 @@ select.field, .locale-switch select, .settings__select {
      lets it scroll on its own axis instead of dragging the whole page sideways. */
   .table { display: block; overflow-x: auto; scrollbar-width: thin; }
 }
+
+/* ------------------------------------------------------------------ *
+ * Our products' labels (StoreProductsScreen)
+ *
+ * A list a reader scans with a thumb: one product per row, brand small above the name, tags
+ * under it. The printed ingredient list is a numbered column, names our dictionary holds are
+ * picked out in violet, and a name the reader chose to avoid is the one thing in caution colour.
+ * ------------------------------------------------------------------ */
+.store-entry { display: flex; width: 100%; justify-content: center; margin: var(--space-4) 0; }
+.store .field { margin-bottom: var(--space-3); }
+.store__cats {
+  list-style: none;
+  margin: 0 0 var(--space-3);
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.store__cat {
+  appearance: none;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+  min-height: var(--tap);
+  padding: var(--space-1) var(--space-3);
+  border-radius: 999px;
+  border: 2px solid var(--line-strong);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+}
+.store__cat[aria-pressed='true'] { background: var(--accent-wash); color: var(--accent); border-color: var(--accent); }
+.store__cat--avoid[aria-pressed='true'] { background: var(--caution-wash); color: var(--caution); border-color: var(--caution); }
+.store-avoid {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+  margin-bottom: var(--space-3);
+  background: var(--surface);
+}
+.store-avoid__summary {
+  font-family: var(--font-ui);
+  font-size: var(--fs-sm);
+  font-weight: 700;
+  min-height: var(--tap);
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--text);
+}
+.store-avoid__intro { font-size: var(--fs-sm); color: var(--text-muted); margin: var(--space-2) 0 var(--space-3); }
+.store-avoid__hits { margin: var(--space-2) 0 0; padding-left: 1.2em; }
+.store__count { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; color: var(--text-muted); margin: var(--space-2) 0; }
+.store__list { list-style: none; margin: 0 0 var(--space-4); padding: 0; display: grid; gap: var(--space-2); }
+.store-item {
+  appearance: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.2rem;
+  width: 100%;
+  min-height: var(--tap);
+  text-align: left;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+.store-item:hover { border-color: var(--line-strong); }
+.store-item__brand { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 700; color: var(--botanical); }
+.store-item__name { font-size: var(--fs-base); font-weight: 700; line-height: 1.4; overflow-wrap: anywhere; }
+.store-item__alt { font-size: var(--fs-xs); color: var(--text-muted); overflow-wrap: anywhere; }
+.store-item__tags { display: flex; flex-wrap: wrap; gap: var(--space-1); margin: var(--space-1) 0 0; }
+.store-item__tags .tag { border-radius: var(--radius-sm); line-height: 1.4; overflow-wrap: anywhere; }
+.store-product { margin: var(--space-3) 0; }
+.store-product__name { margin: var(--space-1) 0; overflow-wrap: anywhere; }
+.store-product__alt { color: var(--text-muted); font-size: var(--fs-sm); margin: 0 0 var(--space-2); overflow-wrap: anywhere; }
+.store-groups { margin: var(--space-3) 0; display: grid; gap: var(--space-3); }
+.store-group { margin: 0; }
+.store-group__fn { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; margin-bottom: var(--space-1); }
+.store-group__members { margin: 0; display: flex; flex-wrap: wrap; gap: var(--space-1); }
+.store-group__members .chip { font-size: var(--fs-xs); background: var(--violet-wash); color: var(--violet); }
+.store-inci { list-style: none; margin: var(--space-3) 0 0; padding: 0; }
+.store-inci__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: baseline;
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid var(--line);
+}
+.store-inci__gap { flex-basis: 100%; font-size: var(--fs-sm); color: var(--caution); font-weight: 700; }
+.store-inci__n { min-width: 2.2em; text-align: right; font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--text-muted); }
+.store-inci__name { flex: 1; min-width: 0; font-size: var(--fs-sm); overflow-wrap: anywhere; }
+.store-inci__name--known { font-weight: 700; color: var(--violet); }
+.store-inci__name--avoid { color: var(--caution); }
+.store-inci__en { font-family: var(--font-ui); font-size: var(--fs-xs); font-weight: 600; color: var(--text-muted); }
+.store-share { display: flex; flex-wrap: wrap; gap: var(--space-2); align-items: center; margin: var(--space-4) 0 var(--space-2); }
+.store-share__done { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; color: var(--botanical); }
+.store-share__link { flex-basis: 100%; font-size: var(--fs-sm); overflow-wrap: anywhere; user-select: all; margin: 0; }

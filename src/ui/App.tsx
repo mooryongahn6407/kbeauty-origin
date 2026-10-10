@@ -44,9 +44,12 @@ import { LabelDetectiveScreen } from './screens/LabelDetectiveScreen';
 import { AITutorScreen } from './screens/AITutorScreen';
 import { QuestMasteryScreen } from './screens/QuestMasteryScreen';
 import { GovernanceScreen } from './screens/GovernanceScreen';
+import { StoreProductsScreen } from './screens/StoreProductsScreen';
+import { productFromSearch } from '@/app/store-catalog';
 
 type ScreenId =
   | 'quest'
+  | 'store'
   | 'hunt'
   | 'compare'
   | 'order'
@@ -62,6 +65,7 @@ type ScreenId =
 
 /** The study rooms, reached from the quest's record or the "go deeper" row. */
 const STUDY_ROOMS: readonly { id: ScreenId; key: MessageKey }[] = [
+  { id: 'store', key: 'nav.store' },
   { id: 'hunt', key: 'hunt.title' },
   { id: 'compare', key: 'compare.title' },
   { id: 'order', key: 'order.title' },
@@ -90,7 +94,11 @@ const OFFERED_LOCALES: readonly { tag: string; label: string }[] = [
 ];
 
 export function App() {
-  const [screen, setScreen] = useState<ScreenId>('quest');
+  // A partner's product link (`?product=KG-CRM-00003`) opens straight onto that product's label.
+  const [linkedProduct] = useState(() =>
+    productFromSearch(typeof window === 'undefined' ? '' : window.location.search),
+  );
+  const [screen, setScreen] = useState<ScreenId>(linkedProduct ? 'store' : 'quest');
   const [locale, setLocale] = useState('en');
   const [preferences, setPreferences] = useState(loadPreferences);
   // Theme and text size matter to whoever needs them and to nobody else, and expanded they
@@ -179,7 +187,12 @@ export function App() {
         ) : null}
 
         {onQuest ? (
-          <SkinQuestScreen key={locale} locale={locale} partner={partner} onExplore={() => setScreen('mySkin')} />
+          <>
+            <SkinQuestScreen key={locale} locale={locale} partner={partner} onExplore={() => setScreen('mySkin')} />
+            <button type="button" className="btn btn--quiet store-entry" onClick={() => setScreen('store')}>
+              🔎 {translate('store.entry', locale)}
+            </button>
+          </>
         ) : (
           <>
             <nav className="rooms" aria-label="Lessons">
@@ -207,6 +220,14 @@ export function App() {
               </button>
             </nav>
 
+            {screen === 'store' ? (
+              <StoreProductsScreen
+                key={locale}
+                locale={locale}
+                partner={partner}
+                initialSku={linkedProduct}
+              />
+            ) : null}
             {screen === 'hunt' ? <IngredientHuntScreen key={locale} locale={locale} /> : null}
             {screen === 'compare' ? <CompareLabScreen key={locale} locale={locale} /> : null}
             {screen === 'order' ? <RoutineOrderScreen key={locale} locale={locale} /> : null}
