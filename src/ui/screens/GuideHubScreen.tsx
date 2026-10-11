@@ -16,6 +16,7 @@ export type GuideTarget =
   | 'kbeauty'
   | 'sunguide'
   | 'about'
+  | 'wording'
   | 'more';
 
 const withPhoto = storeCatalog.filter((product) => product.photo);
@@ -46,6 +47,7 @@ const CARDS: readonly Card[] = [
   { target: 'kbeauty', key: 'kbeauty', photos: [photoIn('크림', 3)] },
   { target: 'sunguide', key: 'suncare', photos: [photoIn('선케어', 1)] },
   { target: 'about', key: 'about', photos: [], icon: 'ℹ️' },
+  { target: 'wording', key: 'partner', photos: [], icon: '✍️' },
   { target: 'more', key: 'more', photos: [], icon: '🎮' },
 ];
 
