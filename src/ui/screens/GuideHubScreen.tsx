@@ -29,6 +29,10 @@ interface Card {
   readonly photos: readonly (StoreProduct | undefined)[];
   readonly count?: number;
   readonly icon?: string;
+  /** One of the owner's lifestyle photos (public/scenes), for a card that shows no product. */
+  readonly scene?: string;
+  /** Which part of the scene photo to keep when the card crops it (CSS object-position). */
+  readonly focus?: string;
 }
 
 const CARDS: readonly Card[] = [
@@ -46,9 +50,16 @@ const CARDS: readonly Card[] = [
   { target: 'categories', key: 'categories', photos: [photoIn('기프트세트')] },
   { target: 'kbeauty', key: 'kbeauty', photos: [photoIn('크림', 3)] },
   { target: 'sunguide', key: 'suncare', photos: [photoIn('선케어', 1)] },
-  { target: 'about', key: 'about', photos: [], icon: 'ℹ️' },
-  { target: 'wording', key: 'partner', photos: [], icon: '✍️' },
-  { target: 'more', key: 'more', photos: [], icon: '🎮' },
+  { target: 'about', key: 'about', photos: [], icon: 'ℹ️', scene: '/scenes/scene-04.jpg' },
+  {
+    target: 'wording',
+    key: 'partner',
+    photos: [],
+    icon: '✍️',
+    scene: '/scenes/scene-08.jpg',
+    focus: '50% 64%',
+  },
+  { target: 'more', key: 'more', photos: [], icon: '🎮', scene: '/scenes/scene-02.jpg' },
 ];
 
 export function GuideHubScreen({
@@ -76,7 +87,7 @@ export function GuideHubScreen({
           <li key={card.key}>
             <button
               type="button"
-              className={`guide-card${card.photos.length > 1 ? ' guide-card--collage' : ''}${card.photos.length === 0 ? ' guide-card--plain' : ''}`}
+              className={`guide-card${card.photos.length > 1 ? ' guide-card--collage' : ''}${card.photos.length === 0 && !card.scene ? ' guide-card--plain' : ''}`}
               onClick={() => onGo(card.target)}
             >
               {card.photos.length > 0 ? (
@@ -86,6 +97,15 @@ export function GuideHubScreen({
                       <img key={product.sku + index} src={product.photo} alt="" loading="lazy" />
                     ) : null,
                   )}
+                </span>
+              ) : card.scene ? (
+                <span className="guide-card__media guide-card__media--scene" aria-hidden="true">
+                  <img
+                    src={card.scene}
+                    alt=""
+                    loading="lazy"
+                    style={card.focus ? { objectPosition: card.focus } : undefined}
+                  />
                 </span>
               ) : (
                 <span className="guide-card__icon" aria-hidden="true">

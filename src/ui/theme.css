@@ -1572,6 +1572,8 @@ select.field, .locale-switch select, .settings__select {
 .guide-card:hover { border-color: var(--line-strong); }
 .guide-card__media { display: block; aspect-ratio: 16 / 10; background: var(--surface-sunk); }
 .guide-card__media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.guide-card__media--scene { position: relative; overflow: hidden; }
+.guide-card__media--scene img { position: absolute; inset: 0; object-position: 50% 28%; }
 .guide-card--collage .guide-card__media { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2px; }
 .guide-card--collage .guide-card__media img { min-height: 0; }
 .guide-card__icon { display: flex; align-items: center; justify-content: center; aspect-ratio: 16 / 6; font-size: var(--fs-2xl); background: var(--violet-wash); }

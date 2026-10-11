@@ -326,3 +326,17 @@ describe('the "how this app works" page', () => {
     }
   });
 });
+
+describe("the owner's scene photos", () => {
+  it('ship every scene the guide hub points at', async () => {
+    const source = (await import('node:fs')).readFileSync(
+      new URL('../src/ui/screens/GuideHubScreen.tsx', import.meta.url),
+      'utf8',
+    );
+    const scenes = [...source.matchAll(/'(\/scenes\/scene-\d+\.jpg)'/g)].map((m) => m[1]!);
+    expect(scenes.length).toBeGreaterThanOrEqual(3);
+    for (const scene of scenes) {
+      expect(existsSync(new URL(`../public${scene}`, import.meta.url)), scene).toBe(true);
+    }
+  });
+});
