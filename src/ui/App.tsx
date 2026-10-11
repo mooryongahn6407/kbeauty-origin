@@ -21,11 +21,7 @@
  *   they enforce is unchanged: nothing unverified is ever stated as fact anywhere.
  */
 import { useEffect, useState } from 'react';
-import {
-  isUnreviewedCatalog,
-  translate,
-  type MessageKey,
-} from '@/localization/messages';
+import { isUnreviewedCatalog, translate, type MessageKey } from '@/localization/messages';
 import { applyPreferences, loadPreferences, savePreferences } from './preferences';
 import { DisplaySettings } from './components/DisplaySettings';
 import { VoiceSwitch } from './components/VoiceSwitch';
@@ -45,11 +41,25 @@ import { AITutorScreen } from './screens/AITutorScreen';
 import { QuestMasteryScreen } from './screens/QuestMasteryScreen';
 import { GovernanceScreen } from './screens/GovernanceScreen';
 import { StoreProductsScreen } from './screens/StoreProductsScreen';
+import { GuideHubScreen, type GuideTarget } from './screens/GuideHubScreen';
+import { IngredientDictionaryScreen } from './screens/IngredientDictionaryScreen';
+import {
+  CategoriesGuideScreen,
+  KBeautyGuideScreen,
+  SunCareGuideScreen,
+} from './screens/GuideTopicScreens';
+import { storeCatalog } from '@/content/store-catalog';
 import { productFromSearch } from '@/app/store-catalog';
 
 type ScreenId =
   | 'quest'
+  | 'guide'
   | 'store'
+  | 'dictionary'
+  | 'categories'
+  | 'kbeauty'
+  | 'sunguide'
+  | 'more'
   | 'hunt'
   | 'compare'
   | 'order'
@@ -65,7 +75,6 @@ type ScreenId =
 
 /** The study rooms, reached from the quest's record or the "go deeper" row. */
 const STUDY_ROOMS: readonly { id: ScreenId; key: MessageKey }[] = [
-  { id: 'store', key: 'nav.store' },
   { id: 'hunt', key: 'hunt.title' },
   { id: 'compare', key: 'compare.title' },
   { id: 'order', key: 'order.title' },
@@ -99,6 +108,26 @@ export function App() {
     productFromSearch(typeof window === 'undefined' ? '' : window.location.search),
   );
   const [screen, setScreen] = useState<ScreenId>(linkedProduct ? 'store' : 'quest');
+  // Which product or dictionary entry a cross-link asked for. Bumping `focusKey` remounts the
+  // screen on that item even when the same screen is already open.
+  const [focusSku, setFocusSku] = useState<string | null>(linkedProduct);
+  const [focusIngredient, setFocusIngredient] = useState<string | null>(null);
+  const [focusKey, setFocusKey] = useState(0);
+  const go = (next: ScreenId) => {
+    setScreen(next);
+    if (next !== 'store') setFocusSku(null);
+    if (next !== 'dictionary') setFocusIngredient(null);
+    setFocusKey((key) => key + 1);
+    if (typeof window !== 'undefined') window.scrollTo?.(0, 0);
+  };
+  const openProduct = (sku: string) => {
+    go('store');
+    setFocusSku(sku);
+  };
+  const openIngredient = (id: string) => {
+    go('dictionary');
+    setFocusIngredient(id);
+  };
   const [locale, setLocale] = useState('en');
   const [preferences, setPreferences] = useState(loadPreferences);
   // Theme and text size matter to whoever needs them and to nobody else, and expanded they
@@ -124,134 +153,189 @@ export function App() {
   }, [locale]);
 
   const onQuest = screen === 'quest';
+  const inStudyRooms =
+    screen === 'more' || STUDY_ROOMS.some((room) => room.id === screen) || screen === 'governance';
 
   return (
     <VoiceProvider>
-    <div className="app">
-      <a className="skip-link" href="#main">
-        {translate('display.skipToContent', locale)}
-      </a>
+      <div className="app">
+        <a className="skip-link" href="#main">
+          {translate('display.skipToContent', locale)}
+        </a>
 
-      <header className="topbar">
-        <div className="topbar__inner">
-          <ul className="langchips" role="list" aria-label={translate('common.locale', locale)}>
-            {OFFERED_LOCALES.map((option) => (
-              <li key={option.tag}>
-                <button
-                  type="button"
-                  className="langchip"
-                  aria-pressed={locale === option.tag}
-                  lang={option.tag}
-                  onClick={() => setLocale(option.tag)}
-                >
-                  {option.label}
-                </button>
-              </li>
-            ))}
-          </ul>
-          <VoiceSwitch locale={locale} />
-          <div className="topbar__right">
-            <button
-              type="button"
-              className="brandmark"
-              onClick={() => setScreen('quest')}
-              aria-current={onQuest ? 'page' : undefined}
-            >
-              {translate('app.brand', locale)}
-            </button>
-            <button
-              type="button"
-              className="settings-toggle"
-              aria-expanded={settingsOpen}
-              aria-controls="display-settings"
-              onClick={() => setSettingsOpen((open) => !open)}
-            >
-              {translate('display.theme', locale)} · {translate('display.textSize', locale)}
-            </button>
-          </div>
-        </div>
-        <div className="topbar__settings" id="display-settings" hidden={!settingsOpen}>
-          <DisplaySettings preferences={preferences} onChange={setPreferences} locale={locale} />
-        </div>
-      </header>
-
-      <main className="main" id="main" tabIndex={-1}>
-        {isUnreviewedCatalog(locale) ? (
-          // Said once, at the top of every screen, for as long as the reader stays in an
-          // unchecked language. A translation nobody has read is a draft, and the app does not
-          // present drafts as finished anywhere else either.
-          <p className="disclosure disclosure--caution">
-            <span className="disclosure__mark">!</span>
-            <span>{translate('catalog.unreviewed', locale)}</span>
-          </p>
-        ) : null}
-
-        {onQuest ? (
-          <>
-            <SkinQuestScreen key={locale} locale={locale} partner={partner} onExplore={() => setScreen('mySkin')} />
-            <button type="button" className="btn btn--quiet store-entry" onClick={() => setScreen('store')}>
-              🔎 {translate('store.entry', locale)}
-            </button>
-          </>
-        ) : (
-          <>
-            <nav className="rooms" aria-label="Lessons">
-              <button type="button" className="rooms__back" onClick={() => setScreen('quest')}>
-                ‹ {translate('skinquest.title', locale)}
-              </button>
-              {STUDY_ROOMS.map((room) => (
-                <button
-                  key={room.id}
-                  type="button"
-                  className="rooms__item"
-                  aria-current={screen === room.id ? 'page' : undefined}
-                  onClick={() => setScreen(room.id)}
-                >
-                  {translate(room.key, locale)}
-                </button>
+        <header className="topbar">
+          <div className="topbar__inner">
+            <ul className="langchips" role="list" aria-label={translate('common.locale', locale)}>
+              {OFFERED_LOCALES.map((option) => (
+                <li key={option.tag}>
+                  <button
+                    type="button"
+                    className="langchip"
+                    aria-pressed={locale === option.tag}
+                    lang={option.tag}
+                    onClick={() => setLocale(option.tag)}
+                  >
+                    {option.label}
+                  </button>
+                </li>
               ))}
+            </ul>
+            <VoiceSwitch locale={locale} />
+            <div className="topbar__right">
               <button
                 type="button"
-                className="rooms__item rooms__item--owner"
-                aria-current={screen === 'governance' ? 'page' : undefined}
-                onClick={() => setScreen('governance')}
+                className="brandmark"
+                onClick={() => go('quest')}
+                aria-current={onQuest ? 'page' : undefined}
               >
-                {translate('nav.governance', locale)}
+                {translate('app.brand', locale)}
               </button>
-            </nav>
+              <button
+                type="button"
+                className="settings-toggle"
+                aria-expanded={settingsOpen}
+                aria-controls="display-settings"
+                onClick={() => setSettingsOpen((open) => !open)}
+              >
+                {translate('display.theme', locale)} · {translate('display.textSize', locale)}
+              </button>
+            </div>
+          </div>
+          <div className="topbar__settings" id="display-settings" hidden={!settingsOpen}>
+            <DisplaySettings preferences={preferences} onChange={setPreferences} locale={locale} />
+          </div>
+        </header>
 
-            {screen === 'store' ? (
-              <StoreProductsScreen
+        <main className="main" id="main" tabIndex={-1}>
+          {isUnreviewedCatalog(locale) ? (
+            // Said once, at the top of every screen, for as long as the reader stays in an
+            // unchecked language. A translation nobody has read is a draft, and the app does not
+            // present drafts as finished anywhere else either.
+            <p className="disclosure disclosure--caution">
+              <span className="disclosure__mark">!</span>
+              <span>{translate('catalog.unreviewed', locale)}</span>
+            </p>
+          ) : null}
+
+          {onQuest ? (
+            <>
+              <SkinQuestScreen
                 key={locale}
                 locale={locale}
                 partner={partner}
-                initialSku={linkedProduct}
+                onExplore={() => go('guide')}
               />
-            ) : null}
-            {screen === 'hunt' ? <IngredientHuntScreen key={locale} locale={locale} /> : null}
-            {screen === 'compare' ? <CompareLabScreen key={locale} locale={locale} /> : null}
-            {screen === 'order' ? <RoutineOrderScreen key={locale} locale={locale} /> : null}
-            {screen === 'claimSort' ? <ClaimSorterScreen key={locale} locale={locale} /> : null}
-            {screen === 'mySkin' ? <MySkinScreen key={locale} locale={locale} /> : null}
-            {screen === 'ingredientGarden' ? (
-              <IngredientGardenScreen key={locale} locale={locale} />
-            ) : null}
-            {screen === 'routineStudio' ? (
-              <RoutineStudioScreen key={locale} locale={locale} />
-            ) : null}
-            {screen === 'sunProtection' ? (
-              <SunProtectionScreen key={locale} locale={locale} />
-            ) : null}
-            {screen === 'labelDetective' ? (
-              <LabelDetectiveScreen key={locale} locale={locale} />
-            ) : null}
-            {screen === 'aiTutor' ? <AITutorScreen key={locale} locale={locale} /> : null}
-            {screen === 'quests' ? <QuestMasteryScreen key={locale} locale={locale} /> : null}
-            {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
-          </>
-        )}
-      </main>
-    </div>
+              <button type="button" className="guide-entry" onClick={() => go('guide')}>
+                <span className="guide-entry__photos" aria-hidden="true">
+                  {storeCatalog
+                    .filter((product) => product.photo)
+                    .slice(4, 8)
+                    .map((product) => (
+                      <img key={product.sku} src={product.photo!} alt="" loading="lazy" />
+                    ))}
+                </span>
+                <span className="guide-entry__text">{translate('guide.entry', locale)} ›</span>
+              </button>
+            </>
+          ) : (
+            <>
+              <nav className="rooms" aria-label="Lessons">
+                <button type="button" className="rooms__back" onClick={() => go('quest')}>
+                  ‹ {translate('skinquest.title', locale)}
+                </button>
+                <button
+                  type="button"
+                  className="rooms__item"
+                  aria-current={screen === 'guide' ? 'page' : undefined}
+                  onClick={() => go('guide')}
+                >
+                  {translate('nav.guide', locale)}
+                </button>
+                {inStudyRooms ? (
+                  <>
+                    {STUDY_ROOMS.map((room) => (
+                      <button
+                        key={room.id}
+                        type="button"
+                        className="rooms__item"
+                        aria-current={screen === room.id ? 'page' : undefined}
+                        onClick={() => go(room.id)}
+                      >
+                        {translate(room.key, locale)}
+                      </button>
+                    ))}
+                    <button
+                      type="button"
+                      className="rooms__item rooms__item--owner"
+                      aria-current={screen === 'governance' ? 'page' : undefined}
+                      onClick={() => go('governance')}
+                    >
+                      {translate('nav.governance', locale)}
+                    </button>
+                  </>
+                ) : null}
+              </nav>
+
+              {screen === 'guide' ? (
+                <GuideHubScreen locale={locale} onGo={(target: GuideTarget) => go(target)} />
+              ) : null}
+              {screen === 'more' ? (
+                <section className="guide" aria-labelledby="more-title">
+                  <h1 className="guide-title" id="more-title">
+                    {translate('guide.card.more.title', locale)}
+                  </h1>
+                  <p className="lead">{translate('guide.card.more.body', locale)}</p>
+                </section>
+              ) : null}
+              {screen === 'dictionary' ? (
+                <IngredientDictionaryScreen
+                  key={`${locale}-${focusKey}`}
+                  locale={locale}
+                  initialId={focusIngredient}
+                  onOpenProduct={openProduct}
+                />
+              ) : null}
+              {screen === 'categories' ? (
+                <CategoriesGuideScreen key={locale} locale={locale} onOpenProduct={openProduct} />
+              ) : null}
+              {screen === 'kbeauty' ? <KBeautyGuideScreen key={locale} locale={locale} /> : null}
+              {screen === 'sunguide' ? (
+                <SunCareGuideScreen key={locale} locale={locale} onOpenProduct={openProduct} />
+              ) : null}
+
+              {screen === 'store' ? (
+                <StoreProductsScreen
+                  key={`${locale}-${focusKey}`}
+                  locale={locale}
+                  partner={partner}
+                  initialSku={focusSku}
+                  onOpenIngredient={openIngredient}
+                />
+              ) : null}
+              {screen === 'hunt' ? <IngredientHuntScreen key={locale} locale={locale} /> : null}
+              {screen === 'compare' ? <CompareLabScreen key={locale} locale={locale} /> : null}
+              {screen === 'order' ? <RoutineOrderScreen key={locale} locale={locale} /> : null}
+              {screen === 'claimSort' ? <ClaimSorterScreen key={locale} locale={locale} /> : null}
+              {screen === 'mySkin' ? <MySkinScreen key={locale} locale={locale} /> : null}
+              {screen === 'ingredientGarden' ? (
+                <IngredientGardenScreen key={locale} locale={locale} />
+              ) : null}
+              {screen === 'routineStudio' ? (
+                <RoutineStudioScreen key={locale} locale={locale} />
+              ) : null}
+              {screen === 'sunProtection' ? (
+                <SunProtectionScreen key={locale} locale={locale} />
+              ) : null}
+              {screen === 'labelDetective' ? (
+                <LabelDetectiveScreen key={locale} locale={locale} />
+              ) : null}
+              {screen === 'aiTutor' ? <AITutorScreen key={locale} locale={locale} /> : null}
+              {screen === 'quests' ? <QuestMasteryScreen key={locale} locale={locale} /> : null}
+              {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
+            </>
+          )}
+        </main>
+      </div>
     </VoiceProvider>
   );
 }

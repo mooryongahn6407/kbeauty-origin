@@ -29,6 +29,61 @@ export interface StoreProduct {
   readonly inciGapAfter: number | null;
   /** True when the master holds only part of the printed list. */
   readonly inciTruncated: boolean;
+  /** The product's name in Lao, Thai and French, from the company site; null where it has none. */
+  readonly names: {
+    readonly lo: string | null;
+    readonly th: string | null;
+    readonly fr: string | null;
+  };
+  /** Product photo served from public/, or null when the company site has none yet. */
+  readonly photo: string | null;
+  /** Who the master's analysis says it suits. AI-assisted, not expert-reviewed: label it so. */
+  readonly fit: ProductFit | null;
+  /** When and how to use it, including Laos' three seasons. Korean text from the master. */
+  readonly usage: ProductUsage | null;
+  /** What to use it with and what to keep apart. Korean text from the master. */
+  readonly pairing: ProductPairing | null;
+}
+
+export type SkinKey = 'dry' | 'oily' | 'combination' | 'sensitive';
+export type AgeKey = '20s' | '30s' | '40plus';
+export type ConcernKey =
+  | 'tone'
+  | 'soothing'
+  | 'hydration'
+  | 'barrier'
+  | 'firmness'
+  | 'pores'
+  | 'uv'
+  | 'scalp'
+  | 'nourish'
+  | 'cleansing';
+
+export interface ProductFit {
+  readonly skin: readonly string[];
+  readonly age: readonly string[];
+  readonly concerns: readonly string[];
+  /** The master's own note on what the judgement was based on. */
+  readonly basis: string | null;
+}
+
+export interface ProductUsage {
+  readonly am: string | null;
+  readonly day: string | null;
+  readonly pm: string | null;
+  readonly drySeason: string | null;
+  readonly hotSeason: string | null;
+  readonly rainySeason: string | null;
+  /** Usage as printed on the label or given by the source. */
+  readonly howTo: string | null;
+  /** Caution as printed on the label. */
+  readonly caution: string | null;
+}
+
+export interface ProductPairing {
+  readonly good: string | null;
+  readonly avoid: string | null;
+  readonly basis: string | null;
 }
 
 /** The Korean name without a leading repeat of the brand ("모다모다 블루비오틴…" → "블루비오틴…"). */

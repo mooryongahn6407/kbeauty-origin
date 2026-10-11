@@ -30,11 +30,15 @@ import {
   type LabelEntry,
 } from '@/app/store-catalog';
 import { PARTNER_PARAM, normalizePartnerCode, shopLink } from '@/app/partner';
-import { CompanionSays } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
 import { spokenFallback } from '../spoken-fallback';
-import { functionLabel } from '../function-labels';
 import { QrCard } from '../components/QrCard';
+import { ProductPhoto, productName } from '../components/ProductCard';
+import { companyDictionary } from '@/content/company/ingredient-dictionary';
+import { dictionaryIdsOn } from '@/content/company/ingredient-links';
+import { pick } from '../pick';
+import { translateSentence } from '@/content/company/usage-translations';
+import { ProductStrip } from '../components/ProductCard';
 
 const storage = (): Storage | undefined =>
   typeof localStorage === 'undefined' ? undefined : localStorage;
@@ -42,11 +46,9 @@ const storage = (): Storage | undefined =>
 const categoryLabel = (category: string, locale: string): string =>
   translate(`store.category.${category}` as MessageKey, locale);
 
-/** The name a reader in this language is most likely to recognise first. */
-const primaryName = (product: StoreProduct, locale: string): string =>
-  locale === 'ko' || !product.nameEn ? nameWithoutBrand(product) : product.nameEn;
+const primaryName = productName;
 const secondaryName = (product: StoreProduct, locale: string): string | null =>
-  locale === 'ko' ? product.nameEn : product.nameEn ? nameWithoutBrand(product) : null;
+  locale === 'ko' ? product.nameEn : nameWithoutBrand(product);
 
 const positionText = (entry: LabelEntry, total: number, locale: string): string =>
   entry.position === null
@@ -72,10 +74,12 @@ export function StoreProductsScreen({
   locale,
   partner,
   initialSku,
+  onOpenIngredient,
 }: {
   locale: string;
   partner: string | null;
   initialSku: string | null;
+  onOpenIngredient: (id: string) => void;
 }) {
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('');
@@ -112,6 +116,8 @@ export function StoreProductsScreen({
           partner={partner}
           avoid={avoid}
           onBack={() => open(null)}
+          onOpenIngredient={onOpenIngredient}
+          onOpenProduct={open}
         />
       ) : (
         <ProductList
@@ -161,19 +167,18 @@ function ProductList({
 
   return (
     <section className="store" aria-labelledby="store-prompt">
-      <CompanionSays mood="calm">
-        <p className="bubble__prompt" id="store-prompt">
-          {prompt}
-        </p>
-        <p className="bubble__help">{translate('store.help', locale)}</p>
-        <ReadAloud
-          text={prompt}
-          locale={locale}
-          fallback={spokenFallback(locale, (spoken) =>
-            translate('store.prompt', spoken, { count: String(storeCatalog.length) }),
-          )}
-        />
-      </CompanionSays>
+      <h1 className="guide-title" id="store-prompt">
+        {translate('guide.card.store.title', locale)}
+      </h1>
+      <p className="lead">{prompt}</p>
+      <p className="fine">{translate('store.help', locale)}</p>
+      <ReadAloud
+        text={prompt}
+        locale={locale}
+        fallback={spokenFallback(locale, (spoken) =>
+          translate('store.prompt', spoken, { count: String(storeCatalog.length) }),
+        )}
+      />
 
       <label className="settings__label" htmlFor="store-search">
         {translate('store.searchLabel', locale)}
@@ -227,6 +232,7 @@ function ProductList({
             return (
               <li key={item.sku}>
                 <button type="button" className="store-item" onClick={() => onOpen(item.sku)}>
+                  <ProductPhoto product={item} locale={locale} className="store-item__photo" />
                   <span className="store-item__brand">{item.brand}</span>
                   <span className="store-item__name">{primaryName(item, locale)}</span>
                   {secondary ? <span className="store-item__alt">{secondary}</span> : null}
@@ -315,28 +321,23 @@ function ProductLabel({
   partner,
   avoid,
   onBack,
+  onOpenIngredient,
+  onOpenProduct,
 }: {
   product: StoreProduct;
   locale: string;
   partner: string | null;
   avoid: readonly string[];
   onBack: () => void;
+  onOpenIngredient: (id: string) => void;
+  onOpenProduct: (sku: string) => void;
 }) {
+  const dictIds = dictionaryIdsOn(product);
   const entries = readLabel(product);
   const total = entries.length;
   const readable = hasReadableList(product);
   const hits = avoidHits(product, avoid);
   const secondary = secondaryName(product, locale);
-
-  // Recognised names grouped by the dictionary's function label, in order of first appearance.
-  const groups = new Map<string, { id: string; entry: LabelEntry }[]>();
-  for (const entry of entries) {
-    const record = entry.ingredientId ? findIngredient(entry.ingredientId) : undefined;
-    if (!record) continue;
-    const list = groups.get(record.Primary_Function) ?? [];
-    list.push({ id: record.Ingredient_ID, entry });
-    groups.set(record.Primary_Function, list);
-  }
 
   return (
     <section className="store" aria-labelledby="store-product-name">
@@ -361,6 +362,35 @@ function ProductLabel({
           <SourceTag product={product} locale={locale} />
         </p>
       </header>
+
+      <ProductPhoto product={product} locale={locale} className="store-product__photo" />
+
+      {dictIds.length > 0 ? (
+        <section className="card">
+          <h3 className="store-labels__title">{translate('dict.onLabel', locale)}</h3>
+          <div className="chips">
+            {dictIds.map((id) => {
+              const entry = companyDictionary.ingredients.find((item) => item.id === id);
+              return entry ? (
+                <button
+                  key={id}
+                  type="button"
+                  className="store__cat"
+                  onClick={() => onOpenIngredient(id)}
+                >
+                  {companyDictionary.groups[entry.group]?.icon} {pick(entry.name, locale)}
+                </button>
+              ) : null;
+            })}
+          </div>
+        </section>
+      ) : null}
+
+      <ProductFit product={product} locale={locale} />
+      <ProductUsage product={product} locale={locale} />
+      <ProductPairing product={product} locale={locale} onOpenProduct={onOpenProduct} />
+
+      <h2 className="guide-subtitle">{translate('store.labelSection', locale)}</h2>
 
       {avoid.length > 0 && readable ? (
         hits.length > 0 ? (
@@ -396,38 +426,6 @@ function ProductLabel({
         </p>
       ) : (
         <>
-          <div className="card">
-            <h3 className="store-labels__title">{translate('store.groupsTitle', locale)}</h3>
-            <p className="store-labels__intro">{translate('store.groupsIntro', locale)}</p>
-            {groups.size === 0 ? (
-              <p className="muted">{translate('store.groupsNone', locale)}</p>
-            ) : (
-              <dl className="store-groups">
-                {[...groups.entries()].map(([fn, members]) => (
-                  <div key={fn} className="store-group">
-                    <dt className="store-group__fn">
-                      {functionLabel(fn, locale)} <span className="muted">· {members.length}</span>
-                    </dt>
-                    <dd className="store-group__members">
-                      {members.map(({ id, entry }) => (
-                        <span key={`${id}-${entry.printed}`} className="chip chip--soft">
-                          {findIngredient(id)?.Ingredient_Name}
-                          {entry.position !== null ? ` · ${entry.position}` : ''}
-                        </span>
-                      ))}
-                    </dd>
-                  </div>
-                ))}
-              </dl>
-            )}
-            <p className="claim-flag">
-              <span className="claim-flag__mark" aria-hidden="true">
-                !
-              </span>
-              {translate('ingredient.unverifiedFlag', locale)}
-            </p>
-          </div>
-
           <div className="card">
             <h3 className="store-labels__title">
               {translate('store.listTitle', locale, { count: String(total) })}
@@ -582,5 +580,190 @@ function ShopQr({ locale, partner }: { locale: string; partner: string | null })
         </p>
       ) : null}
     </details>
+  );
+}
+
+/** A sentence from the master in the reader's language, or the Korean original, marked. */
+function Sentence({ text, locale }: { text: string; locale: string }) {
+  const { text: shown, korean } = translateSentence(text, locale);
+  return (
+    <p className="store-ko" lang={korean ? 'ko' : locale}>
+      {shown}
+      {korean ? <span className="fine"> ({translate('store.koreanOnly', locale)})</span> : null}
+    </p>
+  );
+}
+
+/** Label text (directions, cautions) is printed in Korean; it stays Korean and says so. */
+function LabelText({ text, locale }: { text: string; locale: string }) {
+  return (
+    <>
+      {locale === 'ko' ? null : <p className="fine">{translate('store.koreanOnly', locale)}</p>}
+      <p className="store-ko" lang="ko">
+        {text}
+      </p>
+    </>
+  );
+}
+
+const SKU_IN_TEXT = /KG-[A-Z]{3}-\d{5}/g;
+
+/** "• reason\n   → product(SKU)、product(SKU)" blocks, as reasons with the products they name. */
+function parsePairing(text: string): { reason: string; skus: string[] }[] {
+  const blocks: { reason: string; skus: string[] }[] = [];
+  for (const raw of text.split('\n')) {
+    const line = raw.trim();
+    if (line.startsWith('•')) blocks.push({ reason: line.replace(/^•\s*/, ''), skus: [] });
+    else if (line.startsWith('→') && blocks.length > 0)
+      blocks[blocks.length - 1]!.skus.push(...(line.match(SKU_IN_TEXT) ?? []));
+    else if (line) blocks.push({ reason: line, skus: [] });
+  }
+  return blocks;
+}
+
+function ProductFit({ product, locale }: { product: StoreProduct; locale: string }) {
+  const fit = product.fit;
+  if (!fit || fit.skin.length + fit.age.length + fit.concerns.length === 0) return null;
+  const rows: readonly [MessageKey, string, readonly string[]][] = [
+    ['store.fit.skin', 'skin', fit.skin],
+    ['store.fit.age', 'age', fit.age],
+    ['store.fit.concerns', 'concern', fit.concerns],
+  ];
+  return (
+    <section className="card store-fit">
+      <h3 className="store-labels__title">{translate('store.fitTitle', locale)}</h3>
+      <dl className="store-fit__rows">
+        {rows
+          .filter(([, , keys]) => keys.length > 0)
+          .map(([title, prefix, keys]) => (
+            <div key={title} className="store-fit__row">
+              <dt>{translate(title, locale)}</dt>
+              <dd className="chips">
+                {keys.map((key) => (
+                  <span key={key} className="chip chip--soft">
+                    {translate(`${prefix}.${key}` as MessageKey, locale)}
+                  </span>
+                ))}
+              </dd>
+            </div>
+          ))}
+      </dl>
+      <p className="claim-flag">
+        <span className="claim-flag__mark" aria-hidden="true">
+          !
+        </span>
+        {translate('store.fitNote', locale, {
+          basis: fit.basis ? translateSentence(fit.basis, locale).text : '—',
+        })}
+      </p>
+    </section>
+  );
+}
+
+function ProductUsage({ product, locale }: { product: StoreProduct; locale: string }) {
+  const usage = product.usage;
+  if (!usage) return null;
+  const times: readonly [MessageKey, string, string | null][] = [
+    ['store.usage.am', '☀️', usage.am],
+    ['store.usage.day', '🌤️', usage.day],
+    ['store.usage.pm', '🌙', usage.pm],
+  ];
+  const seasons: readonly [MessageKey, string, string | null][] = [
+    ['store.season.dry', '🍃', usage.drySeason],
+    ['store.season.hot', '🔥', usage.hotSeason],
+    ['store.season.rainy', '🌧️', usage.rainySeason],
+  ];
+  const anyTime = times.some(([, , text]) => text);
+  const anySeason = seasons.some(([, , text]) => text);
+  if (!anyTime && !anySeason && !usage.howTo) return null;
+  return (
+    <section className="card store-usage">
+      <h3 className="store-labels__title">{translate('store.usageTitle', locale)}</h3>
+      {anyTime ? (
+        <ul className="store-usage__list" role="list">
+          {times
+            .filter(([, , text]) => text)
+            .map(([key, icon, text]) => (
+              <li key={key} className="store-usage__item">
+                <span className="store-usage__when">
+                  {icon} {translate(key, locale)}
+                </span>
+                <Sentence text={text!} locale={locale} />
+              </li>
+            ))}
+        </ul>
+      ) : null}
+      {anySeason ? (
+        <>
+          <h4 className="store-usage__sub">{translate('store.seasonsTitle', locale)}</h4>
+          <ul className="store-usage__list" role="list">
+            {seasons
+              .filter(([, , text]) => text)
+              .map(([key, icon, text]) => (
+                <li key={key} className="store-usage__item">
+                  <span className="store-usage__when">
+                    {icon} {translate(key, locale)}
+                  </span>
+                  <Sentence text={text!} locale={locale} />
+                </li>
+              ))}
+          </ul>
+        </>
+      ) : null}
+      {usage.howTo ? (
+        <details className="store-usage__more">
+          <summary>{translate('store.howTo', locale)}</summary>
+          <LabelText text={usage.howTo} locale={locale} />
+        </details>
+      ) : null}
+      {usage.caution ? (
+        <details className="store-usage__more">
+          <summary>{translate('store.cautionLabel', locale)}</summary>
+          <LabelText text={usage.caution} locale={locale} />
+        </details>
+      ) : null}
+    </section>
+  );
+}
+
+function ProductPairing({
+  product,
+  locale,
+  onOpenProduct,
+}: {
+  product: StoreProduct;
+  locale: string;
+  onOpenProduct: (sku: string) => void;
+}) {
+  const pairing = product.pairing;
+  if (!pairing || (!pairing.good && !pairing.avoid)) return null;
+  const section = (title: MessageKey, text: string) => (
+    <>
+      <h3 className="store-labels__title">{translate(title, locale)}</h3>
+      {parsePairing(text).map((block, index) => {
+        const products = block.skus
+          .map((sku) => findProduct(sku))
+          .filter((item): item is StoreProduct => !!item && item.sku !== product.sku);
+        return (
+          <div key={index} className="store-pair">
+            <Sentence text={block.reason} locale={locale} />
+            {products.length > 0 ? (
+              <ProductStrip products={products} locale={locale} onOpen={onOpenProduct} />
+            ) : null}
+          </div>
+        );
+      })}
+    </>
+  );
+  return (
+    <section className="card store-usage">
+      {pairing.good ? section('store.pairGood', pairing.good) : null}
+      {pairing.avoid ? section('store.pairAvoid', pairing.avoid) : null}
+      {pairing.basis ? (
+        <div className="fine">
+          <Sentence text={pairing.basis} locale={locale} />
+        </div>
+      ) : null}
+    </section>
   );
 }

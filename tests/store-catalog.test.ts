@@ -5,6 +5,7 @@
  * reader's promises: positions are printed places, an avoid hit is a printed name, and nothing
  * claims a product is free of anything.
  */
+import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { storeCatalog } from '@/content/store-catalog';
 import { PRINTED_NAME_TO_INGREDIENT, ingredientIdForPrinted } from '@/content/inci-names';
@@ -34,6 +35,11 @@ const ALLOWED_FIELDS = [
   'inci',
   'inciGapAfter',
   'inciTruncated',
+  'names',
+  'photo',
+  'fit',
+  'usage',
+  'pairing',
 ].sort();
 
 describe('store catalog', () => {
@@ -49,7 +55,18 @@ describe('store catalog', () => {
       expect(Object.keys(product).sort(), product.sku).toEqual(ALLOWED_FIELDS);
     }
     const text = JSON.stringify(storeCatalog);
-    for (const word of ['₭', '원가', '공급가', '판매가', '수수료', '마진', '거래처']) {
+    for (const word of [
+      '₭',
+      '원가',
+      '공급가',
+      '판매가',
+      '수수료',
+      '마진',
+      '거래처',
+      'price',
+      'LAK',
+      'KRW',
+    ]) {
       expect(text.includes(word), word).toBe(false);
     }
   });
@@ -71,6 +88,46 @@ describe('store catalog', () => {
         expect(translate(key, locale), `${locale} ${category}`).not.toBe(key);
       }
       expect(translate(`store.category.${category}` as MessageKey, 'ko')).toBe(category);
+    }
+  });
+});
+
+describe('photos and profiles', () => {
+  it('points every photo at a file that ships', () => {
+    for (const product of storeCatalog) {
+      if (!product.photo) continue;
+      expect(existsSync(new URL(`../public${product.photo}`, import.meta.url)), product.sku).toBe(
+        true,
+      );
+    }
+    expect(storeCatalog.filter((p) => p.photo).length).toBeGreaterThanOrEqual(80);
+  });
+
+  it('uses only the known skin, age and concern keys', () => {
+    for (const product of storeCatalog) {
+      if (!product.fit) continue;
+      for (const k of product.fit.skin)
+        expect(['dry', 'oily', 'combination', 'sensitive']).toContain(k);
+      for (const k of product.fit.age) expect(['20s', '30s', '40plus']).toContain(k);
+      for (const k of product.fit.concerns)
+        expect([
+          'tone',
+          'soothing',
+          'hydration',
+          'barrier',
+          'firmness',
+          'pores',
+          'uv',
+          'scalp',
+          'nourish',
+          'cleansing',
+        ]).toContain(k);
+    }
+  });
+
+  it('keeps Lao names in Lao script', () => {
+    for (const product of storeCatalog) {
+      if (product.names.lo) expect(product.names.lo, product.sku).toMatch(/[\u0E80-\u0EFF]/);
     }
   });
 });

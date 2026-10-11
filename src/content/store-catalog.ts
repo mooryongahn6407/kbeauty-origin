@@ -14,6 +14,10 @@
  * `inci` is the list exactly as the master transcribes it, including its occasional noise. When
  * the printed text was elided ("...") `inciGapAfter` is how many names came before the gap, and
  * the positions of the names after it are unknown.
+ *
+ * `fit`, `usage` and `pairing` come from the master's sheets 피부·고민·연령, 사용법·계절 and 궁합.
+ * They are the master's AI-assisted analysis, not reviewed by an expert yet, and the screen
+ * labels them that way. `names` (Lao, Thai, French) and `photo` come from the company site.
  */
 import type { StoreProduct } from './store-catalog-types';
 
@@ -101,6 +105,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: true,
+    names: {
+      lo: 'ຄຣີມ AHC H Mela Root',
+      th: 'H Mela ราก ครีม',
+      fr: 'H Mela racine crème',
+    },
+    photo: '/products/sku/KG-CRM-00001.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '스킨케어 마지막 단계에서 얼굴과 목에 고르게 펴 바르고 손바닥으로 가볍게 눌러 흡수시킵니다. 건조가 심한 부위는 덧발라 주세요.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 본셉 비타씨 선에센스 35 ml(KG-SUN-00044)、멀티 선크림 SPF50+/PA+++(KG-SUN-00086)\n• 수분 세럼·앰플 — 촉촉함을 더하는 데 도움이 될 수 있어요\n   → 어성초 80 수분 진정 앰플(KG-SER-00004)、코에벨 비건 퓌르떼 엑소좀 세럼 30ml(KG-SER-00010)',
+      avoid: '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-CRM-00003',
@@ -163,6 +195,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Vegan ຂາວ ປັບໂທນຜິວ Cream',
+      th: 'วีแกน สีขาว ปรับโทนผิว ครีม',
+      fr: 'vegan blanc unifiant teint crème',
+    },
+    photo: '/products/sku/KG-CRM-00003.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'hydration', 'uv'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '기초 제품 사용 후 적당량을 얼굴과 목에 골고루 펴 발라줍니다. 필요에 따라 덧발라도 좋습니다. (용법용량: 본품 적당량을 취해 피부에 골고루 펴 바른다.)\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 싸이닉 엔조이 아쿠아 세이프티 무기자차 선쿠션 15 g(KG-SUN-00018)、과일나라 데일리 앤 마이 패밀리 선크림 120 g(KG-SUN-00030)\n• 수분 세럼·앰플 — 촉촉함을 더하는 데 도움이 될 수 있어요\n   → 포더스킨 리얼 시카 판테놀 세럼 50ml(KG-SER-00035)、어성초 에센스 카밍 펌프(KG-SER-00003)',
+      avoid: '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-CRM-00004',
@@ -217,6 +278,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄຣີມ Round Lab ຖົ່ວເຫຼືອງ Panthenol',
+      th: 'ถั่วเหลือง แพนธีนอล ครีม',
+      fr: 'soja panthénol crème',
+    },
+    photo: '/products/sku/KG-CRM-00004.jpg',
+    fit: {
+      skin: ['dry', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration', 'barrier', 'firmness'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo: '본 품 적당량을 취해 피부에 골고루 펴 바른다. (용법·용량)\n— 출처: 제품 라벨',
+      caution:
+        '가. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 나. 상처가 있는 부위 등에는 사용을 자제할 것 다. 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것 *화장품이 눈에 들어갔을 때에는 물로 씻어내고, 이상이 있는 경우에는 전문의와 상담할 것',
+    },
+    pairing: {
+      good: '• 세럼·앰플 — 토너 다음 단계\n   → 멜라 캡쳐 앰플 맥스(KG-SER-00008)、퍼스트 스프레이 세럼(KG-SER-00009)\n• 아침에는 선크림으로 마무리\n   → 멀티 선크림 SPF50+/PA+++(KG-SUN-00086)、에브리 선데이 워터프루프 선 밀크(KG-SUN-00001)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-CRM-00006',
@@ -229,6 +318,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Red ຮອຍດ່າງ ໃສສະອາດ Cream',
+      th: 'สีแดง รอยด่างดำ ใสสะอาด ครีม',
+      fr: 'rouge imperfections clarifiant crème',
+    },
+    photo: '/products/sku/KG-CRM-00006.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '스킨케어 마지막 단계에서 얼굴과 목에 고르게 펴 바르고 손바닥으로 가볍게 눌러 흡수시킵니다. 건조가 심한 부위는 덧발라 주세요.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 세럼·앰플 — 토너 다음 단계\n   → 퍼스트 스프레이 세럼(KG-SER-00009)、코에벨 비건 퓌르떼 엑소좀 세럼 30ml(KG-SER-00010)\n• 아침에는 선크림으로 마무리\n   → [4호 누디비비]에딧비 베어버니 톤 필터 선크림 30 ml(KG-SUN-00014)、[화잘먹 선]VT PDRN 광채 선 에센스 50 ml(KG-SUN-00015)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CRM-00007',
@@ -241,6 +358,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: null,
+      th: null,
+      fr: null,
+    },
+    photo: null,
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '스킨케어 마지막 단계에서 얼굴과 목에 고르게 펴 바르고 손바닥으로 가볍게 눌러 흡수시킵니다. 건조가 심한 부위는 덧발라 주세요.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 세럼·앰플 — 토너 다음 단계\n   → 어성초 에센스 카밍 펌프(KG-SER-00003)、어성초 80 수분 진정 앰플(KG-SER-00004)\n• 아침에는 선크림으로 마무리\n   → 과일나라 데일리 앤 마이 패밀리 선크림 120 g(KG-SUN-00030)、본셉 비타씨 선에센스 35 ml(KG-SUN-00044)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CRM-00008',
@@ -317,6 +462,36 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄຣີມ Dr.G Barrier D ເຂັ້ມຂຸ້ນ',
+      th: 'เกราะปกป้องผิว D เข้มข้น ครีม',
+      fr: 'barrière D intense crème',
+    },
+    photo: '/products/sku/KG-CRM-00008.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'hydration', 'barrier'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '적당량을 덜어 골고루 펴 바른 후 두드리 듯이 흡수시켜 줍니다. *건조하고 민감한 얼굴과 몸에 모두 사용 가능한 제품으로 건조함이 느껴지는 부위에 덧발라 사용해주세요. (용법 용량: 본 품 적당량을 취해 피부에 골고루 펴 바른다.)\n— 출처: 제품 라벨',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 본셉 비타씨 선에센스 35 ml(KG-SUN-00044)、멀티 선크림 SPF50+/PA+++(KG-SUN-00086)\n• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)、코에벨 비건 퓌르떼 엑소좀 에멀젼(KG-TOL-00018)',
+      avoid:
+        '• 각질 케어 산(AHA·BHA) 제품과 동시에 — 따가울 수 있어요. 시간대를 나누세요\n   → 제로 포어 타이트닝 스피큘 세럼(KG-SER-00032)、푸드어홀릭 아하바하파하(AHA·BHA·PHA) 리플레싱 카밍 세럼(KG-TON-00008)\n• 레티놀 제품과 같은 시간대 — 아침에는 비타민C, 밤에는 레티놀로 나누세요\n   → [기미잡티리셋]비타씨 동결건조 더블샷 앰플 키트(KG-SER-00024)、멜라논엑스 기미앰플(KG-SER-00027)',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-CRM-00018',
@@ -358,6 +533,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Aqua Squalane ຄວາມຊຸ່ມຊື່ນ Cream',
+      th: 'อควา สควาเลน ความชุ่มชื้น ครีม',
+      fr: 'aqua squalane hydratation crème',
+    },
+    photo: '/products/sku/KG-CRM-00018.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration', 'firmness'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '세안 후 부드럽게 펴 발라 흡수시켜 줍니다. 피부 상태, 계절에 따라 사용량을 조절하면 4계절 내내 사용하기 좋습니다. (용법용량: 본 품 적당량을 취해 피부에 골고루 펴 바릅니다.)\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시 주의사항 가. 어린이의 손이 닿지 않는 곳에 보관할 것 나. 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 세럼·앰플 — 토너 다음 단계\n   → 더마엘 안티 멜라즈마 화이트닝 세럼(KG-SER-00012)、노스카나인 퍼스트스텝 흔적앰플(KG-SER-00026)\n• 아침에는 선크림으로 마무리\n   → [4호 누디비비]에딧비 베어버니 톤 필터 선크림 30 ml(KG-SUN-00014)、[화잘먹 선]VT PDRN 광채 선 에센스 50 ml(KG-SUN-00015)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-CRM-00019',
@@ -370,6 +574,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄຣີມ Koebel ວີແກນ Fierte Exosome 50g',
+      th: 'Koebel วีแกน Fierte Exosome ครีม 50g',
+      fr: 'Koebel vegan Fierte Exosome crème 50g',
+    },
+    photo: '/products/sku/KG-CRM-00019.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '스킨케어 마지막 단계에서 얼굴과 목에 고르게 펴 바르고 손바닥으로 가볍게 눌러 흡수시킵니다. 건조가 심한 부위는 덧발라 주세요.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 세럼·앰플 — 토너 다음 단계\n   → 퍼스트 스프레이 세럼(KG-SER-00009)、코에벨 비건 퓌르떼 엑소좀 세럼 30ml(KG-SER-00010)\n• 아침에는 선크림으로 마무리\n   → 에브리 선데이 워터프루프 선 밀크(KG-SUN-00001)、맑은쌀 선크림(KG-SUN-00002)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CRM-00021',
@@ -382,6 +614,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄຣີມ EGF Peptide Bio Clinic',
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-CRM-00021.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '아침: 가볍게 한 겹 (선크림 전) / 낮: 건조하면 얇게 덧바르기 / 저녁: 에센스 다음 마지막 단계에서 넉넉히\n— 출처: 제품군 기준 안내(라벨 문구 아님)',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 세럼·앰플 — 토너 다음 단계\n   → 코에벨 비건 퓌르떼 엑소좀 세럼 30ml(KG-SER-00010)、더마엘 안티 멜라즈마 화이트닝 세럼(KG-SER-00012)\n• 아침에는 선크림으로 마무리\n   → 어드밴스드 클리어 선스크린 100(KG-SUN-00005)、[4호 누디비비]에딧비 베어버니 톤 필터 선크림 30 ml(KG-SUN-00014)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CRM-00027',
@@ -470,6 +730,36 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄີມແກ້ຝ້າ Melanon-X',
+      th: 'ครีมลดจุดด่างดำ Melanon-X',
+      fr: 'Crème anti-taches Melanon-X',
+    },
+    photo: '/products/sku/KG-CRM-00027.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'firmness'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '이 제품의 핵심 성분은 저녁 사용이 권장돼요 — 아침에는 건너뛰고 선크림을 쓰세요',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '용법용량: 본품 적당량을 취해 피부에 골고루 펴 바른다. 사용법: 앰플 사용 후 적당량을 덜어 피부 결 안쪽에서 바깥쪽으로 얼굴 전체에 부드럽게 펴 바릅니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n밤에 사용하고, 낮에는 선크림을 꼭 함께 쓰세요. 처음에는 주 2~3회로 시작하세요.\n비타민C는 빛·공기에 약해요. 색이 갈색으로 변하면 쓰지 마세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 아쿠아 스쿠알란 수분크림(KG-CRM-00018)、포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)\n• 낮에는 선크림 — 이 성분을 쓰는 동안에는 자외선 차단이 특히 중요해요\n   → [4호 누디비비]에딧비 베어버니 톤 필터 선크림 30 ml(KG-SUN-00014)、[화잘먹 선]VT PDRN 광채 선 에센스 50 ml(KG-SUN-00015)',
+      avoid:
+        '• 각질 케어 산(AHA·BHA) 제품과 같은 날 밤에 겹쳐 쓰기 — 자극이 커질 수 있어요. 요일을 나눠 쓰세요\n   → 푸드어홀릭 아하바하파하(AHA·BHA·PHA) 리플레싱 카밍 세럼(KG-TON-00008)、제로 포어 타이트닝 스피큘 세럼(KG-SER-00032)',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-CRM-00028',
@@ -534,6 +824,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: null,
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-CRM-00028.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'barrier', 'firmness'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '아침: 가볍게 한 겹 (선크림 전) / 낮: 건조하면 얇게 덧바르기 / 저녁: 에센스 다음 마지막 단계에서 넉넉히\n— 출처: 제품군 기준 안내(라벨 문구 아님)',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 에브리 선데이 워터프루프 선 밀크(KG-SUN-00001)、맑은쌀 선크림(KG-SUN-00002)\n• 수분 세럼·앰플 — 촉촉함을 더하는 데 도움이 될 수 있어요\n   → 어성초 에센스 카밍 펌프(KG-SER-00003)、어성초 80 수분 진정 앰플(KG-SER-00004)',
+      avoid: '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-CRM-00029',
@@ -546,6 +865,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: null,
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-CRM-00029.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '아침: 가볍게 한 겹 (선크림 전) / 낮: 건조하면 얇게 덧바르기 / 저녁: 에센스 다음 마지막 단계에서 넉넉히\n— 출처: 제품군 기준 안내(라벨 문구 아님)',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 세럼·앰플 — 토너 다음 단계\n   → 코에벨 비건 퓌르떼 엑소좀 세럼 30ml(KG-SER-00010)、더마엘 안티 멜라즈마 화이트닝 세럼(KG-SER-00012)\n• 아침에는 선크림으로 마무리\n   → 에브리 선데이 워터프루프 선 밀크(KG-SUN-00001)、맑은쌀 선크림(KG-SUN-00002)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CRM-00030',
@@ -599,6 +946,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: null,
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-CRM-00030.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'hydration', 'firmness'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '아침: 가볍게 한 겹 (선크림 전) / 낮: 건조하면 얇게 덧바르기 / 저녁: 에센스 다음 마지막 단계에서 넉넉히\n— 출처: 제품군 기준 안내(라벨 문구 아님)',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 맑은쌀 선크림(KG-SUN-00002)、어드밴스드 클리어 선스크린 100(KG-SUN-00005)\n• 수분 세럼·앰플 — 촉촉함을 더하는 데 도움이 될 수 있어요\n   → 어성초 80 수분 진정 앰플(KG-SER-00004)、코에벨 비건 퓌르떼 엑소좀 세럼 30ml(KG-SER-00010)',
+      avoid: '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-TOL-00018',
@@ -656,6 +1032,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Koebel ວີແກນ Fierte Exosome Emulsion',
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-TOL-00018.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'soothing', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '가볍게 한 겹 (선크림 전)',
+      day: '건조하면 얇게 덧바르기',
+      pm: '에센스 다음 마지막 단계에서 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo: '적당량을 덜어 얼굴 전체에 발라줍니다.\n— 출처: 제품 라벨',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 싸이닉 엔조이 아쿠아 세이프티 무기자차 선쿠션 15 g(KG-SUN-00018)、과일나라 데일리 앤 마이 패밀리 선크림 120 g(KG-SUN-00030)\n• 수분 세럼·앰플 — 촉촉함을 더하는 데 도움이 될 수 있어요\n   → 코에벨 비건 퓌르떼 엑소좀 세럼 30ml(KG-SER-00010)、더마엘 안티 멜라즈마 화이트닝 세럼(KG-SER-00012)',
+      avoid: '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-SER-00003',
@@ -691,6 +1095,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Heartleaf Essence ຜ່ອນຄາຍ Pump',
+      th: 'Heartleaf เอสเซนส์ สงบผิว ปั๊ม',
+      fr: 'Heartleaf essence apaisant pompe',
+    },
+    photo: '/products/sku/KG-SER-00003.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '세안 후 2~3회 펌핑하여 적당량을 취한 후 피부 결을 따라 고르게 펴 발라 주세요\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시 주의사항 가. 어린이의 손이 닿지 않는 곳에 보관할 것 나. 직사광선을 피해서 보관할 것 4. 3세 이하 영유아에게는 사용하지 말 것',
+    },
+    pairing: {
+      good: '• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 아쿠아 스쿠알란 수분크림(KG-CRM-00018)、코에벨 비건 퓌르떼 엑소좀 크림 50g(KG-CRM-00019)\n• 아침에는 선크림으로 마무리\n   → 싸이닉 엔조이 아쿠아 세이프티 무기자차 선쿠션 15 g(KG-SUN-00018)、과일나라 데일리 앤 마이 패밀리 선크림 120 g(KG-SUN-00030)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-SER-00004',
@@ -722,6 +1155,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Heartleaf 80 ຄວາມຊຸ່ມຊື່ນ ຜ່ອນຄາຍ Ampoule',
+      th: 'Heartleaf 80 ความชุ่มชื้น ผ่อนคลายผิว แอมพูล',
+      fr: 'Heartleaf 80 hydratation apaisant ampoule',
+    },
+    photo: '/products/sku/KG-SER-00004.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo: '적당량을 덜어 피부에 골고루 펴 발라줍니다.\n— 출처: 제품 라벨',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것 4) 화장품이 눈에 들어갔을 때에는 물로 씻어내고, 이상이 있는 경우에는 전문의와 상담할 것',
+    },
+    pairing: {
+      good: '• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 로얄 블랙 스네일 크림 스페샬 기획(KG-CRM-00007)、아쿠아 스쿠알란 수분크림(KG-CRM-00018)\n• 아침에는 선크림으로 마무리\n   → [화잘먹 선]VT PDRN 광채 선 에센스 50 ml(KG-SUN-00015)、싸이닉 엔조이 아쿠아 세이프티 무기자차 선쿠션 15 g(KG-SUN-00018)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-SER-00007',
@@ -734,6 +1195,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: null,
+      th: null,
+      fr: null,
+    },
+    photo: null,
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '세안·토너 후 적당량을 얼굴 전체에 펴 바르고 가볍게 두드려 흡수시킵니다. 고민이 있는 부위는 한 번 더 덧발라도 좋습니다. 아침·저녁 하루 2회 사용을 권장합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 레드 블레미쉬 클리어 크림(KG-CRM-00006)、로얄 블랙 스네일 크림 스페샬 기획(KG-CRM-00007)\n• 아침에는 선크림으로 마무리\n   → [4호 누디비비]에딧비 베어버니 톤 필터 선크림 30 ml(KG-SUN-00014)、[화잘먹 선]VT PDRN 광채 선 에센스 50 ml(KG-SUN-00015)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SER-00008',
@@ -746,6 +1235,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: null,
+      th: null,
+      fr: null,
+    },
+    photo: null,
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '세안·토너 후 적당량을 얼굴 전체에 펴 바르고 가볍게 두드려 흡수시킵니다. 고민이 있는 부위는 한 번 더 덧발라도 좋습니다. 아침·저녁 하루 2회 사용을 권장합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 코에벨 비건 퓌르떼 엑소좀 크림 50g(KG-CRM-00019)、EGF 펩타이드 바이오클리닉 크림(KG-CRM-00021)\n• 아침에는 선크림으로 마무리\n   → 과일나라 데일리 앤 마이 패밀리 선크림 120 g(KG-SUN-00030)、본셉 비타씨 선에센스 35 ml(KG-SUN-00044)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SER-00009',
@@ -758,6 +1275,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: null,
+      th: null,
+      fr: null,
+    },
+    photo: null,
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '세안·토너 후 적당량을 얼굴 전체에 펴 바르고 가볍게 두드려 흡수시킵니다. 고민이 있는 부위는 한 번 더 덧발라도 좋습니다. 아침·저녁 하루 2회 사용을 권장합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 아쿠아 스쿠알란 수분크림(KG-CRM-00018)、코에벨 비건 퓌르떼 엑소좀 크림 50g(KG-CRM-00019)\n• 아침에는 선크림으로 마무리\n   → 멀티 선크림 SPF50+/PA+++(KG-SUN-00086)、에브리 선데이 워터프루프 선 밀크(KG-SUN-00001)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SER-00010',
@@ -809,6 +1354,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ເຊຣັ່ມ Koebel ວີແກນ Fierte Exosome 30ml',
+      th: 'Koebel วีแกน Fierte Exosome เซรั่ม 30ml',
+      fr: 'Koebel vegan Fierte Exosome sérum 30ml',
+    },
+    photo: '/products/sku/KG-SER-00010.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'soothing', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo: '적당량을 덜어 얼굴 전체에 발라줍니다.\n— 출처: 제품 라벨',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 맑은쌀 선크림(KG-SUN-00002)、어드밴스드 클리어 선스크린 100(KG-SUN-00005)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)、바세린 딥 모이스처 마스크팩(KG-CRM-00029)',
+      avoid: '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-SER-00011',
@@ -844,6 +1417,36 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ເຊຣັ່ມ Ephemere Etoile Stem Cell 30ml',
+      th: 'Ephemere Etoile สเต็มเซลล์ เซรั่ม 30ml',
+      fr: 'Ephemere Etoile cellules souches sérum 30ml',
+    },
+    photo: '/products/sku/KG-SER-00011.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '세안·토너 후 적당량을 얼굴 전체에 펴 바르고 가볍게 두드려 흡수시킵니다. 고민이 있는 부위는 한 번 더 덧발라도 좋습니다. 아침·저녁 하루 2회 사용을 권장합니다.\n— 출처: 제품 라벨',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 본셉 비타씨 선에센스 35 ml(KG-SUN-00044)、멀티 선크림 SPF50+/PA+++(KG-SUN-00086)\n• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 비건 화이트 톤업 크림(KG-CRM-00003)、약콩 판테놀 크림(KG-CRM-00004)',
+      avoid:
+        '• 각질 케어 산(AHA·BHA) 제품과 동시에 — 따가울 수 있어요. 시간대를 나누세요\n   → 푸드어홀릭 아하바하파하(AHA·BHA·PHA) 리플레싱 카밍 세럼(KG-TON-00008)、제로 포어 타이트닝 스피큘 세럼(KG-SER-00032)\n• 레티놀 제품과 같은 시간대 — 아침에는 비타민C, 밤에는 레티놀로 나누세요\n   → [기미잡티리셋]비타씨 동결건조 더블샷 앰플 키트(KG-SER-00024)、멜라논엑스 기미앰플(KG-SER-00027)',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-SER-00012',
@@ -892,6 +1495,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Dermael ຕ້ານຝ້າ ຂາວໃສ Serum',
+      th: 'Dermael Anti-Melasma ผิวขาวกระจ่างใส เซรั่ม',
+      fr: 'Dermael Anti-Melasma éclaircissant sérum',
+    },
+    photo: '/products/sku/KG-SER-00012.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '스킨케어 세럼 단계에서 본품 소량을 덜어 피부에 부드럽게 흡수시켜 줍니다. 용법·용량: 본품 적당량을 취해 피부에 골고루 펴 바른다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 에브리 선데이 워터프루프 선 밀크(KG-SUN-00001)、맑은쌀 선크림(KG-SUN-00002)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)、바세린 딥 모이스처 마스크팩(KG-CRM-00029)',
+      avoid: '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-SER-00024',
@@ -909,6 +1541,36 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: null,
+      th: null,
+      fr: null,
+    },
+    photo: null,
+    fit: {
+      skin: ['dry', 'oily', 'combination'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'firmness'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '이 제품의 핵심 성분은 저녁 사용이 권장돼요 — 아침에는 건너뛰고 선크림을 쓰세요',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '[사용법] 1. 화살표 방향으로 음료수 캔 따듯이 캡을 열고, 은색 실링을 아래 끝까지 뜯어 제거해 줍니다. 2. 1제 동결건조 캡슐을 개봉하여, 2제 앰플에 넣어 줍니다. 3. 내장된 스포이드를 끼운 후, 캡슐과 앰플이 잘 섞이도록 흔들어 줍니다. 4. 내용물을 적당량 덜어 피부 결을 따라 부드럽게 펴 발라준 후 가볍게 두드려 흡수시켜 줍니다. [용법용량] 본품 중 1제를 2제에 투입 후 흔들어 잘 섞어준다. 적당량을 취하여 피부에 골고루 펴 바른다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것. 2. 상처가 있는 부위 등에는 사용을 자제할 것. 3. 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것. 나) 직사광선을 피해서 보관할 것. 다) 서늘하고 습도가 낮은 곳에 보관할 것. 4. 1제 동결건조 캡슐은 개봉 후 즉시 사용할 것. 5. 캡 제거 시 손이 베이지 않도록 조심할 것.',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)、코에벨 비건 퓌르떼 엑소좀 에멀젼(KG-TOL-00018)\n• 낮에는 선크림 — 이 성분을 쓰는 동안에는 자외선 차단이 특히 중요해요\n   → [화잘먹 선]VT PDRN 광채 선 에센스 50 ml(KG-SUN-00015)、싸이닉 엔조이 아쿠아 세이프티 무기자차 선쿠션 15 g(KG-SUN-00018)',
+      avoid:
+        '• 각질 케어 산(AHA·BHA) 제품과 같은 날 밤에 겹쳐 쓰기 — 자극이 커질 수 있어요. 요일을 나눠 쓰세요\n   → 제로 포어 타이트닝 스피큘 세럼(KG-SER-00032)、푸드어홀릭 아하바하파하(AHA·BHA·PHA) 리플레싱 카밍 세럼(KG-TON-00008)',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-SER-00025',
@@ -961,6 +1623,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: '[ບຳລຸງໜ້າຜິວ] Reedle Shot 300 ແອມພູນ 2ml×6',
+      th: '[피부결케어]리들샷 300 페이셜 부스팅 퍼스트 앰플 2ml×6',
+      fr: '[피부결케어]리들샷 300 페이셜 부스팅 퍼스트 앰플 2ml×6',
+    },
+    photo: '/products/sku/KG-SER-00025.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'soothing', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '용법·용량: 본품 적당량을 취해 피부에 골고루 펴 바른다. 사용방법: 1. 저녁 스킨케어 시에 깨끗하게 세안이 완료된 맨 얼굴에 적당량을 덜어 마사지하듯 러빙하여 펴 발라줍니다. 2. 리들샷 300 페이셜 부스팅 퍼스트 앰플이 흡수된 후 보습감이 있는 스킨케어를 덧발라 마무리해 줍니다.\n— 출처: 제품 라벨',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것 4) 알레르기성 피부이거나 기타 트러블, 민감성 피부의 경우 국소 부위 사전 테스트를 시행한 후 본 제품을 사용할 것 5) 본 제품 사용 후 자외선에 노출될 경우 자외선 차단제를 사용할 것 6) 눈 주위를 피하여 사용할 것 * 일회용 제품이므로 개봉 후 즉시 사용할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 싸이닉 엔조이 아쿠아 세이프티 무기자차 선쿠션 15 g(KG-SUN-00018)、과일나라 데일리 앤 마이 패밀리 선크림 120 g(KG-SUN-00030)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 비건 화이트 톤업 크림(KG-CRM-00003)、약콩 판테놀 크림(KG-CRM-00004)',
+      avoid: '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-SER-00026',
@@ -1013,6 +1704,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ແອມພູນຮອຍແປ້ວ Noscanine First Step',
+      th: 'แอมพูลรอยแผลเป็น สเต็ปแรก Noscanine',
+      fr: 'Ampoule cicatrices First Step Noscanine',
+    },
+    photo: '/products/sku/KG-SER-00026.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'soothing', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo: '용법용량: 본품 적당량을 취해 피부에 골고루 펴 바른다.\n— 출처: 제품 라벨',
+      caution:
+        '가. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 나. 상처가 있는 부위 등에는 사용을 자제할 것 다. 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 어드밴스드 클리어 선스크린 100(KG-SUN-00005)、[4호 누디비비]에딧비 베어버니 톤 필터 선크림 30 ml(KG-SUN-00014)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 바세린 딥 모이스처 마스크팩(KG-CRM-00029)、코에벨 비건 퓌르떼 엑소좀 에멀젼(KG-TOL-00018)',
+      avoid: '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-SER-00027',
@@ -1094,6 +1813,36 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ແອມພູນແກ້ຝ້າ Melanon-X',
+      th: 'แอมพูลลดจุดด่างดำ Melanon-X',
+      fr: 'Ampoule anti-taches Melanon-X',
+    },
+    photo: '/products/sku/KG-SER-00027.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'firmness'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '이 제품의 핵심 성분은 저녁 사용이 권장돼요 — 아침에는 건너뛰고 선크림을 쓰세요',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '용법용량: 본품 적당량을 취해 피부에 골고루 펴 바른다. 사용법: 적당량을 덜어 피부 결 안쪽에서 바깥쪽으로 얼굴 전체에 부드럽게 펴 바릅니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n밤에 사용하고, 낮에는 선크림을 꼭 함께 쓰세요. 처음에는 주 2~3회로 시작하세요.\n비타민C는 빛·공기에 약해요. 색이 갈색으로 변하면 쓰지 마세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 멜라루트 기미 광채 크림(KG-CRM-00001)、비건 화이트 톤업 크림(KG-CRM-00003)\n• 낮에는 선크림 — 이 성분을 쓰는 동안에는 자외선 차단이 특히 중요해요\n   → [4호 누디비비]에딧비 베어버니 톤 필터 선크림 30 ml(KG-SUN-00014)、[화잘먹 선]VT PDRN 광채 선 에센스 50 ml(KG-SUN-00015)',
+      avoid:
+        '• 각질 케어 산(AHA·BHA) 제품과 같은 날 밤에 겹쳐 쓰기 — 자극이 커질 수 있어요. 요일을 나눠 쓰세요\n   → 제로 포어 타이트닝 스피큘 세럼(KG-SER-00032)、푸드어홀릭 아하바하파하(AHA·BHA·PHA) 리플레싱 카밍 세럼(KG-TON-00008)',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-SER-00032',
@@ -1151,6 +1900,36 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ເຊຣັ່ມ Spicule ກະຊັບຮູຂຸມຂົນ Zero Pore',
+      th: 'เซรั่มสปิคูล กระชับรูขุมขน Zero Pore',
+      fr: 'Sérum spicule resserrant les pores Zero Pore',
+    },
+    photo: '/products/sku/KG-SER-00032.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'soothing', 'pores'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '이 제품의 핵심 성분은 저녁 사용이 권장돼요 — 아침에는 건너뛰고 선크림을 쓰세요',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '스킨케어 세럼 단계에서 본품 소량을 덜어 피부에 부드럽게 흡수시켜 줍니다. 용법·용량: 본품 적당량을 취해 피부에 골고루 펴 바른다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것 4. 만 3세 이하 영유아에게는 사용하지 말 것',
+    },
+    pairing: {
+      good: '• 진정·보습 제품 — 각질 케어 뒤 피부를 편안하게 하는 데 도움이 될 수 있어요\n   → 3D Mask pack 석류(10매)(KG-MSK-00038)、네이처 스킨 pack 진주펄(10매)(KG-MSK-00039)\n• 낮에는 선크림 — 이 성분을 쓰는 동안에는 자외선 차단이 특히 중요해요\n   → 과일나라 데일리 앤 마이 패밀리 선크림 120 g(KG-SUN-00030)、본셉 비타씨 선에센스 35 ml(KG-SUN-00044)',
+      avoid:
+        '• 레티놀 제품과 같은 날 밤에 겹쳐 쓰기 — 자극이 커질 수 있어요. 요일을 나눠 쓰세요\n   → 멜라논엑스 기미크림(KG-CRM-00027)、[기미잡티리셋]비타씨 동결건조 더블샷 앰플 키트(KG-SER-00024)\n• 스크럽·필링 등 다른 각질 제거 제품과 겹쳐 쓰기',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-SER-00035',
@@ -1238,6 +2017,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ເຊຣັ່ມ For The Skin Real Cica Panthenol 50ml',
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-SER-00035.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'soothing', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '아침: 토너 다음, 크림 전에 2~3방울 / 저녁: 토너 다음, 크림 전에 · 밤에 집중\n— 출처: 제품군 기준 안내(라벨 문구 아님)',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 싸이닉 엔조이 아쿠아 세이프티 무기자차 선쿠션 15 g(KG-SUN-00018)、과일나라 데일리 앤 마이 패밀리 선크림 120 g(KG-SUN-00030)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)、바세린 딥 모이스처 마스크팩(KG-CRM-00029)',
+      avoid: '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-TOL-00017',
@@ -1250,6 +2058,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ເອດຊັງ Koebel ວີແກນ Fierte Exosome',
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-TOL-00017.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '토너 다음, 크림 전에 2~3방울',
+      day: null,
+      pm: '토너 다음, 크림 전에 · 밤에 집중',
+      drySeason: '건조한 계절에는 보습 성분 위주로',
+      hotSeason: '더운 때엔 가볍게 한두 방울',
+      rainySeason: '습한 날엔 흡수 빠른 타입이 산뜻해요',
+      howTo:
+        '아침: 토너 다음, 크림 전에 2~3방울 / 저녁: 토너 다음, 크림 전에 · 밤에 집중\n— 출처: 제품군 기준 안내(라벨 문구 아님)',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 아쿠아 스쿠알란 수분크림(KG-CRM-00018)、코에벨 비건 퓌르떼 엑소좀 크림 50g(KG-CRM-00019)\n• 아침에는 선크림으로 마무리\n   → 맑은쌀 선크림(KG-SUN-00002)、어드밴스드 클리어 선스크린 100(KG-SUN-00005)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SKN-00002',
@@ -1300,6 +2136,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Madeca21 Teca Solution ມິດສະເຕີຜ່ອນຄາຍ Toner 200ml',
+      th: 'Madeca21 Teca โซลูชั่น ผ่อนคลายผิว มิสต์ โทนเนอร์ 200ml',
+      fr: 'Madeca21 Teca solution apaisant brume tonique 200ml',
+    },
+    photo: '/products/sku/KG-SKN-00002.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['soothing'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '세안 직후 첫 단계, 화장솜이나 손으로 넉넉히',
+      day: '건조하면 다시 한 번 톡톡',
+      pm: '세안 직후 첫 단계',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '얼굴에서 20~30cm 떨어뜨려 골고루 뿌린 뒤 가볍게 두드려 흡수시킵니다. 화장솜에 적셔 닦아내듯 사용해도 됩니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 세럼·앰플 — 토너 다음 단계\n   → 더마엘 안티 멜라즈마 화이트닝 세럼(KG-SER-00012)、노스카나인 퍼스트스텝 흔적앰플(KG-SER-00026)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 코에벨 비건 퓌르떼 엑소좀 에멀젼(KG-TOL-00018)、멜라루트 기미 광채 크림(KG-CRM-00001)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-TON-00007',
@@ -1331,6 +2196,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ມິດສະເຕີຜ່ອນຄາຍ Foodaholic 200ml (ກ່ອງ) - B',
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-TON-00007.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '세안 직후 첫 단계, 화장솜이나 손으로 넉넉히',
+      day: '건조하면 다시 한 번 톡톡',
+      pm: '세안 직후 첫 단계',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '아침: 세안 직후 첫 단계, 화장솜이나 손으로 넉넉히 / 낮: 건조하면 다시 한 번 톡톡 / 저녁: 세안 직후 첫 단계\n— 출처: 제품군 기준 안내(라벨 문구 아님)',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담하여 주십시오. 2. 상처가 있는 부위 등에는 사용을 자제하여 주십시오. 3. 보관 및 취급 시의 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관하여 주십시오. 나) 직사광선을 피해서 보관하여 주십시오.',
+    },
+    pairing: {
+      good: '• 세럼·앰플 — 토너 다음 단계\n   → 퍼스트 스프레이 세럼(KG-SER-00009)、코에벨 비건 퓌르떼 엑소좀 세럼 30ml(KG-SER-00010)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 코에벨 비건 퓌르떼 엑소좀 크림 50g(KG-CRM-00019)、EGF 펩타이드 바이오클리닉 크림(KG-CRM-00021)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-TON-00008',
@@ -1382,6 +2276,36 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: null,
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-TON-00008.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'soothing', 'pores'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '이 제품의 핵심 성분은 저녁 사용이 권장돼요 — 아침에는 건너뛰고 선크림을 쓰세요',
+      day: '건조하면 다시 한 번 톡톡',
+      pm: '세안 직후 첫 단계',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '아침: 이 제품의 핵심 성분은 저녁 사용이 권장돼요 — 아침에는 건너뛰고 선크림을 쓰세요 / 낮: 건조하면 다시 한 번 톡톡 / 저녁: 세안 직후 첫 단계\n— 출처: 제품군 기준 안내(라벨 문구 아님)',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n밤에 사용하고, 낮에는 선크림을 꼭 함께 쓰세요. 처음에는 주 2~3회로 시작하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 진정·보습 제품 — 각질 케어 뒤 피부를 편안하게 하는 데 도움이 될 수 있어요\n   → 네이처 스킨 pack 진주펄(10매)(KG-MSK-00039)、어성초 에센스 카밍 펌프(KG-SER-00003)\n• 낮에는 선크림 — 이 성분을 쓰는 동안에는 자외선 차단이 특히 중요해요\n   → 본셉 비타씨 선에센스 35 ml(KG-SUN-00044)、멀티 선크림 SPF50+/PA+++(KG-SUN-00086)',
+      avoid:
+        '• 레티놀 제품과 같은 날 밤에 겹쳐 쓰기 — 자극이 커질 수 있어요. 요일을 나눠 쓰세요\n   → [기미잡티리셋]비타씨 동결건조 더블샷 앰플 키트(KG-SER-00024)、멜라논엑스 기미앰플(KG-SER-00027)\n• 스크럽·필링 등 다른 각질 제거 제품과 겹쳐 쓰기',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-EYE-00003',
@@ -1456,6 +2380,36 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ແທ່ງເຊຣັ່ມ Bewants Phyto Collagen',
+      th: 'Phyto คอลลาเจน เซรั่ม สติ๊ก',
+      fr: 'Phyto collagène sérum stick',
+    },
+    photo: '/products/sku/KG-EYE-00003.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'soothing', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '눈가 뼈를 따라 소량을 톡톡',
+      day: null,
+      pm: '크림 전, 눈가 뼈를 따라 톡톡',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '눈가에 소량을 톡톡 두드리듯 발라 흡수시킵니다. 눈 점막에 직접 닿지 않게 주의합니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 에브리 선데이 워터프루프 선 밀크(KG-SUN-00001)、맑은쌀 선크림(KG-SUN-00002)\n• 수분 세럼·앰플 — 촉촉함을 더하는 데 도움이 될 수 있어요\n   → 어성초 에센스 카밍 펌프(KG-SER-00003)、어성초 80 수분 진정 앰플(KG-SER-00004)',
+      avoid:
+        '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요\n• 눈가에 각질 케어 산·레티놀 제품을 겹쳐 바르기 — 눈가 피부는 얇아요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-MSK-00005',
@@ -1509,6 +2463,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Dermael PDRN ຟອງ Mask',
+      th: 'Dermael PDRN ฟอง มาส์ก',
+      fr: 'Dermael PDRN bulle masque',
+    },
+    photo: '/products/sku/KG-MSK-00005.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'soothing', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '특별한 날 전 아침에 한 장 (10분)',
+      day: '건조하거나 피곤한 낮에는 사무실에서 10분',
+      pm: '세안 후 토너 다음, 10~20분 · 주 2~3회',
+      drySeason: '건조한 바람엔 주 3회까지',
+      hotSeason: '햇볕에 지친 날 차갑게 두었다 사용하면 상쾌해요',
+      rainySeason: '습한 날엔 주 2회로 충분',
+      howTo:
+        '메이크업 전에 2-3번 펌핑하여 얼굴 전체에 부드럽게 펴 바른 후 가볍게 문지르거나 두드려 흡수시켜 줍니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용 부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 선크림 — 기미·잡티 관리는 매일의 자외선 차단과 함께할 때 의미가 있어요\n   → 멀티 선크림 SPF50+/PA+++(KG-SUN-00086)、에브리 선데이 워터프루프 선 밀크(KG-SUN-00001)\n• 수분 세럼·앰플 — 촉촉함을 더하는 데 도움이 될 수 있어요\n   → 코에벨 비건 퓌르떼 엑소좀 세럼 30ml(KG-SER-00010)、더마엘 안티 멜라즈마 화이트닝 세럼(KG-SER-00012)',
+      avoid: '• 고농도 비타민C와 함께 써서 따가우면 아침·저녁으로 나눠 쓰세요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-MSK-00006',
@@ -1537,6 +2520,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ມາສກ໌ໜ້າ Harvest Visible Difference ໄຂ່ມຸກ',
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-MSK-00006.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '특별한 날 전 아침에 한 장 (10분)',
+      day: '건조하거나 피곤한 낮에는 사무실에서 10분',
+      pm: '세안 후 토너 다음, 10~20분 · 주 2~3회',
+      drySeason: '건조한 바람엔 주 3회까지',
+      hotSeason: '햇볕에 지친 날 차갑게 두었다 사용하면 상쾌해요',
+      rainySeason: '습한 날엔 주 2회로 충분',
+      howTo:
+        '아침: 특별한 날 전 아침에 한 장 (10분) / 낮: 건조하거나 피곤한 낮에는 사무실에서 10분 / 저녁: 세안 후 토너 다음, 10~20분 · 주 2~3회\n— 출처: 제품군 기준 안내(라벨 문구 아님)',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)、마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)、바세린 딥 모이스처 마스크팩(KG-CRM-00029)',
+      avoid: '• 각질 제거 직후 바로 사용 — 따가울 수 있어요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-MSK-00009',
@@ -1584,6 +2596,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ມາສກ໌ໜ້າ Nature Skin Hyaluronic Acid',
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-MSK-00009.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '특별한 날 전 아침에 한 장 (10분)',
+      day: '건조하거나 피곤한 낮에는 사무실에서 10분',
+      pm: '세안 후 토너 다음, 10~20분 · 주 2~3회',
+      drySeason: '건조한 바람엔 주 3회까지',
+      hotSeason: '햇볕에 지친 날 차갑게 두었다 사용하면 상쾌해요',
+      rainySeason: '습한 날엔 주 2회로 충분',
+      howTo:
+        '아침: 특별한 날 전 아침에 한 장 (10분) / 낮: 건조하거나 피곤한 낮에는 사무실에서 10분 / 저녁: 세안 후 토너 다음, 10~20분 · 주 2~3회\n— 출처: 제품군 기준 안내(라벨 문구 아님)',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)、푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 아쿠아 스쿠알란 수분크림(KG-CRM-00018)、코에벨 비건 퓌르떼 엑소좀 크림 50g(KG-CRM-00019)',
+      avoid: '• 각질 제거 직후 바로 사용 — 따가울 수 있어요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-MSK-00037',
@@ -1622,6 +2663,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ມາສກ໌ໜ້າ 3D Collagen (10 ແຜ່ນ)',
+      th: '3D มาส์กหน้า 콜라겐(10매)',
+      fr: '3D masque 콜라겐(10매)',
+    },
+    photo: '/products/sku/KG-MSK-00037.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration', 'firmness'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '특별한 날 전 아침에 한 장 (10분)',
+      day: '건조하거나 피곤한 낮에는 사무실에서 10분',
+      pm: '세안 후 토너 다음, 10~20분 · 주 2~3회',
+      drySeason: '건조한 바람엔 주 3회까지',
+      hotSeason: '햇볕에 지친 날 차갑게 두었다 사용하면 상쾌해요',
+      rainySeason: '습한 날엔 주 2회로 충분',
+      howTo:
+        '세안 후 팩을 펼쳐 얼굴에 밀착시키고 10~20분 후 제거합니다. 남은 에센스는 닦아내지 말고 가볍게 두드려 흡수시킵니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)、푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 멜라루트 기미 광채 크림(KG-CRM-00001)、비건 화이트 톤업 크림(KG-CRM-00003)',
+      avoid: '• 각질 제거 직후 바로 사용 — 따가울 수 있어요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-MSK-00038',
@@ -1656,6 +2726,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ມາສກ໌ໜ້າ 3D Pomegranate (10 ແຜ່ນ)',
+      th: '3D มาส์กหน้า 석류(10매)',
+      fr: '3D masque 석류(10매)',
+    },
+    photo: '/products/sku/KG-MSK-00038.jpg',
+    fit: {
+      skin: ['dry', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '특별한 날 전 아침에 한 장 (10분)',
+      day: '건조하거나 피곤한 낮에는 사무실에서 10분',
+      pm: '세안 후 토너 다음, 10~20분 · 주 2~3회',
+      drySeason: '건조한 바람엔 주 3회까지',
+      hotSeason: '햇볕에 지친 날 차갑게 두었다 사용하면 상쾌해요',
+      rainySeason: '습한 날엔 주 2회로 충분',
+      howTo:
+        '세안 후 팩을 펼쳐 얼굴에 밀착시키고 10~20분 후 제거합니다. 남은 에센스는 닦아내지 말고 가볍게 두드려 흡수시킵니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)、마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 멜라루트 기미 광채 크림(KG-CRM-00001)、비건 화이트 톤업 크림(KG-CRM-00003)',
+      avoid: '• 각질 제거 직후 바로 사용 — 따가울 수 있어요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-MSK-00039',
@@ -1702,6 +2801,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ມາສກ໌ໜ້າ Nature Skin ໄຂ່ມຸກ (10 ແຜ່ນ)',
+      th: '네이처 스킨 แพ็ค 진주펄(10매)',
+      fr: '네이처 스킨 pack 진주펄(10매)',
+    },
+    photo: '/products/sku/KG-MSK-00039.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '특별한 날 전 아침에 한 장 (10분)',
+      day: '건조하거나 피곤한 낮에는 사무실에서 10분',
+      pm: '세안 후 토너 다음, 10~20분 · 주 2~3회',
+      drySeason: '건조한 바람엔 주 3회까지',
+      hotSeason: '햇볕에 지친 날 차갑게 두었다 사용하면 상쾌해요',
+      rainySeason: '습한 날엔 주 2회로 충분',
+      howTo:
+        '세안 후 팩을 펼쳐 얼굴에 밀착시키고 10~20분 후 제거합니다. 남은 에센스는 닦아내지 말고 가볍게 두드려 흡수시킵니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)、마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)\n• 크림 — 앞 단계의 수분을 덮어 주는 마무리\n   → 포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)、바세린 딥 모이스처 마스크팩(KG-CRM-00029)',
+      avoid: '• 각질 제거 직후 바로 사용 — 따가울 수 있어요',
+      basis: '성분 기준 일반 안내예요 — 피부 상태에 따라 다를 수 있어요',
+    },
   },
   {
     sku: 'KG-CLN-00001',
@@ -1771,6 +2899,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: 19,
     inciTruncated: true,
+    names: {
+      lo: 'ສີຂຽວ Tomato ເລິກ ຮູຂຸມຂົນ ໂຟມລ້າງໜ້າ',
+      th: 'สีเขียว มะเขือเทศ รูขุมขนเชิงลึก โฟมล้างหน้า',
+      fr: 'vert tomate pores en profondeur mousse nettoyante',
+    },
+    photo: '/products/sku/KG-CLN-00001.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'hydration', 'cleansing'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '미온수로 가볍게 (또는 폼 소량)',
+      day: '땀·피지가 많은 날엔 한 번 더',
+      pm: '선크림·메이크업을 지운 뒤 거품을 내 30초 세안',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '세안시 손에 적당량을 덜어 물과 함께 풍성한 거품을 내어 세안한 뒤 미온수로 깨끗이 헹구어 냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부[...] 있는 경우에는 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시 주의사항 가. 어린이의 손이 닿지 않는 곳에[...] 것 나. 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)、마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)\n• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 아쿠아 스쿠알란 수분크림(KG-CRM-00018)、포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)',
+      avoid: '• 같은 날 스크럽·각질 제거 제품을 여러 개 겹쳐 쓰기 — 피부가 당길 수 있어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CLN-00002',
@@ -1809,6 +2966,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຮູຂຸມຂົນ Remedy Renewing Foam ນ້ຳລ້າງໜ້າ',
+      th: 'รูขุมขน เยียวยา ฟื้นฟู คลีนเซอร์เนื้อโฟม',
+      fr: 'pores remède renouvelant nettoyant moussant',
+    },
+    photo: '/products/sku/KG-CLN-00002.jpg',
+    fit: {
+      skin: ['dry', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration', 'cleansing'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '미온수로 가볍게 (또는 폼 소량)',
+      day: '땀·피지가 많은 날엔 한 번 더',
+      pm: '선크림·메이크업을 지운 뒤 거품을 내 30초 세안',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '젖은 손·얼굴에 적당량을 덜어 거품을 낸 뒤 T존부터 부드럽게 마사지하고 미온수로 헹궈냅니다. 하루 1~2회(저녁 필수)가 기본입니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)、푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)\n• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 약콩 판테놀 크림(KG-CRM-00004)、아쿠아 스쿠알란 수분크림(KG-CRM-00018)',
+      avoid: '• 같은 날 스크럽·각질 제거 제품을 여러 개 겹쳐 쓰기 — 피부가 당길 수 있어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CLN-00005',
@@ -1821,6 +3006,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Acne Foam Heartleaf ນ້ຳລ້າງໜ້າ',
+      th: 'สิว โฟม Heartleaf คลีนเซอร์',
+      fr: 'acné mousse Heartleaf nettoyant',
+    },
+    photo: '/products/sku/KG-CLN-00005.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['cleansing'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '미온수로 가볍게 (또는 폼 소량)',
+      day: '땀·피지가 많은 날엔 한 번 더',
+      pm: '선크림·메이크업을 지운 뒤 거품을 내 30초 세안',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '젖은 손·얼굴에 적당량을 덜어 거품을 낸 뒤 T존부터 부드럽게 마사지하고 미온수로 헹궈냅니다. 하루 1~2회(저녁 필수)가 기본입니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)、마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)\n• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 아쿠아 스쿠알란 수분크림(KG-CRM-00018)、포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)',
+      avoid: '• 같은 날 스크럽·각질 제거 제품을 여러 개 겹쳐 쓰기 — 피부가 당길 수 있어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CLN-00006',
@@ -1860,6 +3073,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຮູຂຸມຂົນ Sun ໂຟມລ້າງໜ້າ',
+      th: 'รูขุมขน Sun โฟมล้างหน้า',
+      fr: 'pores Sun mousse nettoyante',
+    },
+    photo: '/products/sku/KG-CLN-00006.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration', 'pores', 'cleansing'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '미온수로 가볍게 (또는 폼 소량)',
+      day: '땀·피지가 많은 날엔 한 번 더',
+      pm: '선크림·메이크업을 지운 뒤 거품을 내 30초 세안',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '본품 적당량을 취하여 충분히 거품을 낸 후 얼굴 전체에 부드럽게 문지르고 물로 깨끗이 씻어냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시 주의 사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)、마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)\n• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 아쿠아 스쿠알란 수분크림(KG-CRM-00018)、포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)',
+      avoid: '• 같은 날 스크럽·각질 제거 제품을 여러 개 겹쳐 쓰기 — 피부가 당길 수 있어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CLN-00020',
@@ -1888,6 +3130,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ອ່ອນໂຍນ pH ອ່ອນ ໂຟມລ້າງໜ້າ',
+      th: '약산성 pH 클렌징폼',
+      fr: '약산성 pH 클렌징폼',
+    },
+    photo: '/products/sku/KG-CLN-00020.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration', 'cleansing'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '미온수로 가볍게 (또는 폼 소량)',
+      day: '땀·피지가 많은 날엔 한 번 더',
+      pm: '선크림·메이크업을 지운 뒤 거품을 내 30초 세안',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '얼굴을 물로 가볍게 적시고 적당량을 손바닥에 덜어 충분히 거품을 낸 뒤, 부드럽게 문지른 다음 미온수로 깨끗이 씻어줍니다.\n— 출처: 제품 라벨',
+      caution:
+        '가. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 나. 상처가 있는 부위 등에는 사용을 자제할 것 다. 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)、푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)\n• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 약콩 판테놀 크림(KG-CRM-00004)、아쿠아 스쿠알란 수분크림(KG-CRM-00018)',
+      avoid: '• 같은 날 스크럽·각질 제거 제품을 여러 개 겹쳐 쓰기 — 피부가 당길 수 있어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CLN-00022',
@@ -1924,6 +3195,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ໂຟມລ້າງໜ້າທຳຄວາມສະອາດເລິກ ສົດຊື່ນ',
+      th: 'โฟมล้างหน้าทำความสะอาดล้ำลึก รีเฟรช',
+      fr: 'Mousse nettoyante profonde Refresh',
+    },
+    photo: '/products/sku/KG-CLN-00022.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['soothing', 'cleansing'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '미온수로 가볍게 (또는 폼 소량)',
+      day: '땀·피지가 많은 날엔 한 번 더',
+      pm: '선크림·메이크업을 지운 뒤 거품을 내 30초 세안',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '젖은 손·얼굴에 적당량을 덜어 거품을 낸 뒤 T존부터 부드럽게 마사지하고 미온수로 헹궈냅니다. 하루 1~2회(저녁 필수)가 기본입니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)、푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)\n• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 멜라루트 기미 광채 크림(KG-CRM-00001)、비건 화이트 톤업 크림(KG-CRM-00003)',
+      avoid: '• 같은 날 스크럽·각질 제거 제품을 여러 개 겹쳐 쓰기 — 피부가 당길 수 있어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CLN-00023',
@@ -1957,6 +3257,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ໂຟມລ້າງໜ້າ Facial Care ສານສະກັດ Eosungcho',
+      th: 'โฟมล้างหน้าดูแลผิวหน้า พลูคาว',
+      fr: 'Mousse nettoyante soin du visage Houttuynia',
+    },
+    photo: '/products/sku/KG-CLN-00023.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration', 'cleansing'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '미온수로 가볍게 (또는 폼 소량)',
+      day: '땀·피지가 많은 날엔 한 번 더',
+      pm: '선크림·메이크업을 지운 뒤 거품을 내 30초 세안',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '적당량을 덜어 손으로 충분히 거품내어 마사지하듯 부드럽게 세안한 후 미온수로 씻어 냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '가. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 나. 상처가 있는 부위 등에는 사용을 자제할 것 다. 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)、푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)\n• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)、코에벨 비건 퓌르떼 엑소좀 에멀젼(KG-TOL-00018)',
+      avoid: '• 같은 날 스크럽·각질 제거 제품을 여러 개 겹쳐 쓰기 — 피부가 당길 수 있어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-CLN-00024',
@@ -1995,6 +3324,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຜ້າເຊັດທຳຄວາມສະອາດເລິກ Collagen ບຳລຸງຄວາມຊຸ່ມຊື່ນ',
+      th: 'ทิชชู่เช็ดทำความสะอาด ดีพคลีน คอลลาเจน มอยส์เจอร์',
+      fr: 'Lingettes démaquillantes Deep Clean Collagène Hydratation',
+    },
+    photo: '/products/sku/KG-CLN-00024.jpg',
+    fit: {
+      skin: ['dry'],
+      age: ['30s', '40plus'],
+      concerns: ['firmness', 'cleansing'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '미온수로 가볍게 (또는 폼 소량)',
+      day: '땀·피지가 많은 날엔 한 번 더',
+      pm: '선크림·메이크업을 지운 뒤 거품을 내 30초 세안',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '시트를 한장씩 뽑아 메이크업과 노폐물을 부드럽게 닦아줍니다. 사용 후 티슈가 마르지 않도록[...]\n— 출처: 제품 라벨',
+      caution:
+        '[사용할 때의 주의사항] 가. 화장품 사용 시 또는 사용 후 직사광선에 의하여 [...] 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 나. 상처가 있는 부위 등에는 사용을 자제할 것 [다.] 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 토너 — 세안 뒤 피부결을 정돈하는 첫 단계\n   → 마데카21 테카 솔루션 수딩 미스트 토너 200 ml(KG-SKN-00002)、푸드어홀릭 수딩 미스트 (히알루론산)(KG-TON-00007)\n• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 멜라루트 기미 광채 크림(KG-CRM-00001)、비건 화이트 톤업 크림(KG-CRM-00003)',
+      avoid: '• 같은 날 스크럽·각질 제거 제품을 여러 개 겹쳐 쓰기 — 피부가 당길 수 있어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SUN-00001',
@@ -2050,6 +3408,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Every Sunday ກັນນ້ຳ Sun Milk',
+      th: 'ทุก วันอาทิตย์ กันน้ำ มิลค์กันแดด',
+      fr: "chaque dimanche résistant à l'eau lait solaire",
+    },
+    photo: '/products/sku/KG-SUN-00001.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'uv'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어 마지막 단계에서 외출 30분 전, 얼굴 전체에 충분히',
+      day: '2~3시간마다, 땀·물 뒤에는 바로 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기 (선크림은 남기지 않기)',
+      drySeason: '11~2월 서늘한 건기: 흐려도 자외선은 있어요 — 아침 습관 유지',
+      hotSeason: '3~5월 가장 더운 때: 자외선 최고 — 덧바르기 간격을 줄이세요',
+      rainySeason: '6~10월 우기: 워터프루프·땀에 강한 타입이 편해요',
+      howTo:
+        '용법·용량: 본 품 적당량을 취해 피부에 골고루 펴 바른다. (자외선에 노출되기 전 충분한 양을 고르게 펴 바릅니다.) EN: Apply an appropriate amount onto skin prior to sun exposure.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것. 2. 상처가 있는 부위 등에는 사용을 자제할 것. 3. 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것. 나) 직사광선을 피해서 보관할 것.',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 코에벨 비건 퓌르떼 엑소좀 에멀젼(KG-TOL-00018)、멜라루트 기미 광채 크림(KG-CRM-00001)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 포어레미디 리뉴잉 폼 클렌저(KG-CLN-00002)、아크네 폼 클렌저 어성초 폼(KG-CLN-00005)',
+      avoid: '• 다른 제품과 섞어서 바르기 — 차단 효과가 떨어질 수 있어요. 마지막에 따로 바르세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SUN-00002',
@@ -2062,6 +3449,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: ['(현지 실물 확인 — 라벨 일부 각도로 인해 전체 판독은 영문표기 기준)'],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄຣີມກັນແດດ Relief Sun: ເຂົ້າ + ໂປຣໄບໂອຕິກ',
+      th: 'บรรเทา Sun: ข้าว + โปรไบโอติก',
+      fr: 'apaisant Sun: riz + probiotiques',
+    },
+    photo: '/products/sku/KG-SUN-00002.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['uv'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어 마지막 단계에서 외출 30분 전, 얼굴 전체에 충분히',
+      day: '2~3시간마다, 땀·물 뒤에는 바로 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기 (선크림은 남기지 않기)',
+      drySeason: '11~2월 서늘한 건기: 흐려도 자외선은 있어요 — 아침 습관 유지',
+      hotSeason: '3~5월 가장 더운 때: 자외선 최고 — 덧바르기 간격을 줄이세요',
+      rainySeason: '6~10월 우기: 워터프루프·땀에 강한 타입이 편해요',
+      howTo:
+        'KO fragment: [...]적당량을 취해 피부에 골고루 펴 바른다 | EN fragment: [...]evenly over face and neck at the last step in your morning and daytime skincare routine.\n— 출처: 제품 라벨',
+      caution:
+        'EN fragment only: [...]external use only 2.When using this product, avoid contact with the eyes 3.Keep out of reach of children 4.If discomfort or sensitivity to product occurs, please discontinue[...]',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 아쿠아 스쿠알란 수분크림(KG-CRM-00018)、포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 딥클린 콜라겐 모이스처 클렌징 티슈(KG-CLN-00024)、그린토마토 딥 포어 클렌징폼(KG-CLN-00001)',
+      avoid: '• 다른 제품과 섞어서 바르기 — 차단 효과가 떨어질 수 있어요. 마지막에 따로 바르세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SUN-00005',
@@ -2074,6 +3490,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Advanced ໃສສະອາດ ຄຣີມກັນແດດ 100',
+      th: 'ขั้นสูง ใสสะอาด ครีมกันแดด 100',
+      fr: 'avancé clarifiant écran solaire 100',
+    },
+    photo: '/products/sku/KG-SUN-00005.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['uv'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어 마지막 단계에서 외출 30분 전, 얼굴 전체에 충분히',
+      day: '2~3시간마다, 땀·물 뒤에는 바로 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기 (선크림은 남기지 않기)',
+      drySeason: '11~2월 서늘한 건기: 흐려도 자외선은 있어요 — 아침 습관 유지',
+      hotSeason: '3~5월 가장 더운 때: 자외선 최고 — 덧바르기 간격을 줄이세요',
+      rainySeason: '6~10월 우기: 워터프루프·땀에 강한 타입이 편해요',
+      howTo:
+        '외출 30분 전, 얼굴과 노출 부위에 충분한 양을 고르게 펴 바릅니다. 땀을 많이 흘리거나 장시간 야외 활동 시 2~3시간마다 덧발라 주세요.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 아쿠아 스쿠알란 수분크림(KG-CRM-00018)、포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 포어 썬 클렌징 폼(KG-CLN-00006)、약산성 pH 클렌징폼(KG-CLN-00020)',
+      avoid: '• 다른 제품과 섞어서 바르기 — 차단 효과가 떨어질 수 있어요. 마지막에 따로 바르세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SUN-00013',
@@ -2113,6 +3557,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Dermablock ອ່ອນໂຍນ ແທ່ງກັນແດດ 16g (by Cellfusion C)',
+      th: 'Dermablock อ่อนโยน แท่งกันแดด 16g (โดย Cellfusion C)',
+      fr: 'Dermablock doux stick solaire 16g (par Cellfusion C)',
+    },
+    photo: '/products/sku/KG-SUN-00013.jpg',
+    fit: {
+      skin: ['oily', 'combination'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'pores', 'uv'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어 마지막 단계에서 외출 30분 전, 얼굴 전체에 충분히',
+      day: '2~3시간마다, 땀·물 뒤에는 바로 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기 (선크림은 남기지 않기)',
+      drySeason: '11~2월 서늘한 건기: 흐려도 자외선은 있어요 — 아침 습관 유지',
+      hotSeason: '3~5월 가장 더운 때: 자외선 최고 — 덧바르기 간격을 줄이세요',
+      rainySeason: '6~10월 우기: 워터프루프·땀에 강한 타입이 편해요',
+      howTo:
+        '외출 30분 전, 얼굴과 노출 부위에 충분한 양을 고르게 펴 바릅니다. 땀을 많이 흘리거나 장시간 야외 활동 시 2~3시간마다 덧발라 주세요.\n— 출처: 제품 라벨',
+      caution:
+        '밤에 사용하고, 낮에는 선크림을 꼭 함께 쓰세요. 처음에는 주 2~3회로 시작하세요.\n비타민C는 빛·공기에 약해요. 색이 갈색으로 변하면 쓰지 마세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 멜라루트 기미 광채 크림(KG-CRM-00001)、비건 화이트 톤업 크림(KG-CRM-00003)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 약산성 pH 클렌징폼(KG-CLN-00020)、리프레시 딥 클렌징폼(KG-CLN-00022)',
+      avoid: '• 다른 제품과 섞어서 바르기 — 차단 효과가 떨어질 수 있어요. 마지막에 따로 바르세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SUN-00014',
@@ -2175,6 +3648,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: '[No.4 Nude BB] Editvy Bare Bunny Tone Filter ຄຣີມກັນແດດ 30ml',
+      th: '[No.4 Nude บีบี] Editvy เปลือย Bunny Tone ฟิลเตอร์ ครีมกันแดด 30ml',
+      fr: '[No.4 Nude BB] Editvy nu Bunny Tone filtre crème solaire 30ml',
+    },
+    photo: '/products/sku/KG-SUN-00014.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'uv'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어 마지막 단계에서 외출 30분 전, 얼굴 전체에 충분히',
+      day: '2~3시간마다, 땀·물 뒤에는 바로 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기 (선크림은 남기지 않기)',
+      drySeason: '11~2월 서늘한 건기: 흐려도 자외선은 있어요 — 아침 습관 유지',
+      hotSeason: '3~5월 가장 더운 때: 자외선 최고 — 덧바르기 간격을 줄이세요',
+      rainySeason: '6~10월 우기: 워터프루프·땀에 강한 타입이 편해요',
+      howTo:
+        '사용법: 스킨케어 후 적당량을 취해 피부 결을 따라 얼굴 전체에 고르게 펴 바릅니다. (사용 전 충분히 흔든 후 사용해주세요) 용법용량: 본 품 적당량을 취해 피부에 골고루 펴 바른다.\n— 출처: 제품 라벨',
+      caution:
+        '가. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 나. 상처가 있는 부위 등에는 사용을 자제할 것 다. 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)、코에벨 비건 퓌르떼 엑소좀 에멀젼(KG-TOL-00018)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 그린토마토 딥 포어 클렌징폼(KG-CLN-00001)、포어레미디 리뉴잉 폼 클렌저(KG-CLN-00002)',
+      avoid: '• 다른 제품과 섞어서 바르기 — 차단 효과가 떨어질 수 있어요. 마지막에 따로 바르세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SUN-00015',
@@ -2237,6 +3739,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: '[ຊືມເຂົ້າຜິວໄວ Sun] VT PDRN ເປັ່ງປະກາຍ ເອດຊັງກັນແດດ 50ml',
+      th: '[ซึมเร็ว Sun] VT PDRN เปล่งปลั่ง เอสเซนส์กันแดด 50ml',
+      fr: '[absorption rapide Sun] VT PDRN éclat essence solaire 50ml',
+    },
+    photo: '/products/sku/KG-SUN-00015.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'hydration', 'uv'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어 마지막 단계에서 외출 30분 전, 얼굴 전체에 충분히',
+      day: '2~3시간마다, 땀·물 뒤에는 바로 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기 (선크림은 남기지 않기)',
+      drySeason: '11~2월 서늘한 건기: 흐려도 자외선은 있어요 — 아침 습관 유지',
+      hotSeason: '3~5월 가장 더운 때: 자외선 최고 — 덧바르기 간격을 줄이세요',
+      rainySeason: '6~10월 우기: 워터프루프·땀에 강한 타입이 편해요',
+      howTo:
+        '용법·용량: 본품 적당량을 취해 피부에 골고루 펴 바른다. 사용방법: 스킨케어 마지막 단계에서 소량씩 취해 얼굴 전체에 부드럽게 펴 바른 후 가볍게 두드려 줍니다.\n— 출처: 제품 라벨',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것 4) 옷에 이염이 생길 수 있으니 주의할 것 ※ 보관조건 10~30도 상온 보관',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 코에벨 비건 퓌르떼 엑소좀 에멀젼(KG-TOL-00018)、멜라루트 기미 광채 크림(KG-CRM-00001)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 포어 썬 클렌징 폼(KG-CLN-00006)、약산성 pH 클렌징폼(KG-CLN-00020)',
+      avoid: '• 다른 제품과 섞어서 바르기 — 차단 효과가 떨어질 수 있어요. 마지막에 따로 바르세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SUN-00018',
@@ -2252,6 +3783,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Cynic Enjoy Aqua ປອດໄພ Mineral ຄຸຊັນກັນແດດ 15g',
+      th: 'Cynic Enjoy อควา ปลอดภัย มิเนอรัล คุชชั่นกันแดด 15g',
+      fr: 'Cynic Enjoy aqua sécurité minéral cushion solaire 15g',
+    },
+    photo: '/products/sku/KG-SUN-00018.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['uv'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어 마지막 단계에서 외출 30분 전, 얼굴 전체에 충분히',
+      day: '2~3시간마다, 땀·물 뒤에는 바로 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기 (선크림은 남기지 않기)',
+      drySeason: '11~2월 서늘한 건기: 흐려도 자외선은 있어요 — 아침 습관 유지',
+      hotSeason: '3~5월 가장 더운 때: 자외선 최고 — 덧바르기 간격을 줄이세요',
+      rainySeason: '6~10월 우기: 워터프루프·땀에 강한 타입이 편해요',
+      howTo:
+        '외출 30분 전, 얼굴과 노출 부위에 충분한 양을 고르게 펴 바릅니다. 땀을 많이 흘리거나 장시간 야외 활동 시 2~3시간마다 덧발라 주세요.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 포더스킨 바이오 세라마이드 프로 바이옴 크림 앰플 50ml(KG-CRM-00028)、코에벨 비건 퓌르떼 엑소좀 에멀젼(KG-TOL-00018)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 약산성 pH 클렌징폼(KG-CLN-00020)、리프레시 딥 클렌징폼(KG-CLN-00022)',
+      avoid: '• 다른 제품과 섞어서 바르기 — 차단 효과가 떨어질 수 있어요. 마지막에 따로 바르세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SUN-00030',
@@ -2302,6 +3861,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Fruits Nara ປະຈຳວັນສຳລັບຄອບຄົວ ຄຣີມກັນແດດ 120g',
+      th: 'ผลไม้ Nara ประจำวัน และ ของฉัน ครอบครัว ครีมกันแดด 120g',
+      fr: 'fruits Nara quotidien et mon famille crème solaire 120g',
+    },
+    photo: '/products/sku/KG-SUN-00030.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'soothing', 'uv'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어 마지막 단계에서 외출 30분 전, 얼굴 전체에 충분히',
+      day: '2~3시간마다, 땀·물 뒤에는 바로 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기 (선크림은 남기지 않기)',
+      drySeason: '11~2월 서늘한 건기: 흐려도 자외선은 있어요 — 아침 습관 유지',
+      hotSeason: '3~5월 가장 더운 때: 자외선 최고 — 덧바르기 간격을 줄이세요',
+      rainySeason: '6~10월 우기: 워터프루프·땀에 강한 타입이 편해요',
+      howTo:
+        '사용법: 본 품을 적당량 덜어 피부결에 따라 부드럽게 펴 바른 후 가볍게 두드려 흡수시켜 줍니다. 용법·용량: 본 품 적당량을 취해 피부에 고르게 펴 바른다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시 주의사항 가. 어린이의 손이 닿지 않는 곳에 보관할 것 나. 직사광선을 피해서 보관할 것 4. 화장품이 눈에 들어갔을 때에는 물로 씻어내고, 이상이 있는 경우에는 전문의와 상담할 것',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 코에벨 비건 퓌르떼 엑소좀 에멀젼(KG-TOL-00018)、멜라루트 기미 광채 크림(KG-CRM-00001)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 리프레시 딥 클렌징폼(KG-CLN-00022)、페이셜 케어 클렌징폼 어성초(KG-CLN-00023)',
+      avoid: '• 다른 제품과 섞어서 바르기 — 차단 효과가 떨어질 수 있어요. 마지막에 따로 바르세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SUN-00044',
@@ -2328,6 +3916,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Bonsep Vita-C ເອດຊັງກັນແດດ 35ml',
+      th: 'Bonsep Vita-C เอสเซนส์กันแดด 35ml',
+      fr: 'Bonsep Vita-C essence solaire 35ml',
+    },
+    photo: '/products/sku/KG-SUN-00044.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'uv'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어 마지막 단계에서 외출 30분 전, 얼굴 전체에 충분히',
+      day: '2~3시간마다, 땀·물 뒤에는 바로 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기 (선크림은 남기지 않기)',
+      drySeason: '11~2월 서늘한 건기: 흐려도 자외선은 있어요 — 아침 습관 유지',
+      hotSeason: '3~5월 가장 더운 때: 자외선 최고 — 덧바르기 간격을 줄이세요',
+      rainySeason: '6~10월 우기: 워터프루프·땀에 강한 타입이 편해요',
+      howTo:
+        '사용법: 스킨케어 마지막 단계에서 내용물을 적당량 덜어 피부 결을 따라 부드럽게 펴 발라준 후 가볍게 두드려 흡수시켜 줍니다. 용법용량: 본품 적당량을 취해 피부에 골고루 펴 바른다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것. 2. 상처가 있는 부위 등에는 사용을 자제할 것. 3. 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것. 나) 직사광선을 피해서 보관할 것.',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 약콩 판테놀 크림(KG-CRM-00004)、아쿠아 스쿠알란 수분크림(KG-CRM-00018)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 페이셜 케어 클렌징폼 어성초(KG-CLN-00023)、딥클린 콜라겐 모이스처 클렌징 티슈(KG-CLN-00024)',
+      avoid: '• 다른 제품과 섞어서 바르기 — 차단 효과가 떨어질 수 있어요. 마지막에 따로 바르세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-SUN-00086',
@@ -2371,6 +3988,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄຣີມກັນແດດ Multi SPF50+/PA+++',
+      th: '멀티 선크림 SPF50+/PA+++',
+      fr: '멀티 선크림 SPF50+/PA+++',
+    },
+    photo: '/products/sku/KG-SUN-00086.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'uv'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어 마지막 단계에서 외출 30분 전, 얼굴 전체에 충분히',
+      day: '2~3시간마다, 땀·물 뒤에는 바로 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기 (선크림은 남기지 않기)',
+      drySeason: '11~2월 서늘한 건기: 흐려도 자외선은 있어요 — 아침 습관 유지',
+      hotSeason: '3~5월 가장 더운 때: 자외선 최고 — 덧바르기 간격을 줄이세요',
+      rainySeason: '6~10월 우기: 워터프루프·땀에 강한 타입이 편해요',
+      howTo:
+        '스킨케어 후 적당량을 덜어 얼굴, 목, 팔, 다리등에 적당량을 덜어 부드럽게 펴 바른 후 가볍게 두드려줍니다. / 용법용량: 본품 적당량을 취해 피부에 골고루 펴 바릅니다.\n— 출처: 제품 라벨',
+      caution:
+        '가. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 나. 상처가 있는 부위 등에는 사용을 자제할 것 다. 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 보습 크림 — 건조함과 당김을 줄이는 데 도움이 될 수 있어요\n   → 멜라루트 기미 광채 크림(KG-CRM-00001)、비건 화이트 톤업 크림(KG-CRM-00003)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 페이셜 케어 클렌징폼 어성초(KG-CLN-00023)、딥클린 콜라겐 모이스처 클렌징 티슈(KG-CLN-00024)',
+      avoid: '• 다른 제품과 섞어서 바르기 — 차단 효과가 떨어질 수 있어요. 마지막에 따로 바르세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-BDY-00008',
@@ -2400,6 +4046,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Showermate ສົດຊື່ນປະຈຳວັນ ຄຣີມອາບນ້ຳ',
+      th: 'Showermate ประจำวัน สดชื่น ครีมอาบน้ำ',
+      fr: 'Showermate quotidien rafraîchissant gel douche',
+    },
+    photo: '/products/sku/KG-BDY-00008.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '샤워 후 물기가 남았을 때 바로',
+      day: '건조한 부위(팔꿈치·무릎)는 덧바르기',
+      pm: '샤워 후 전신에',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '적당량을 목욕용 스펀지나 타올에 묻혀 거품을 낸 후 전신을 마사지하듯이 문지른 후 물로 깨끗이 씻어내십시오.\n— 출처: 제품 라벨',
+      caution:
+        '1. 용도 이외에는 사용하지 말 것 2. 눈에 들어갔을 때에는 즉시 씻어낼 것 3. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 4. 상처가 있는 부위 등에는 사용을 자제할 것 5. 내용물이 바닥에 묻었을 경우 미끄러우니 주의하시고 즉시 닦아낼 것 6. 보관 및 취급시의 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것 3) 고온 또는 저온의 장소에 보관하지 말 것 ※ 본 제품은 식품이 아니므로 절대로 섭취하지 마세요.',
+    },
+    pairing: {
+      good: '• 바디 제품 — 샤워 후 물기가 남았을 때 함께\n   → 바디로션 올리브(KG-BDY-00029)、쿨링 퍼퓸 데오 티슈 15매 비누향(KG-BDY-00012)\n• 핸드크림 — 손을 씻은 뒤 함께\n   → 보타닉 페어스 핸드크림-로즈캐모마일(KG-HND-00006)、팩미인 핸드 케어 팩(KG-HND-00005)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-BDY-00012',
@@ -2439,6 +4114,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ເຢັນສະບາຍ ນ້ຳຫອມ ຜ້າເຊັດລະງັບກິ່ນ 15ອັນ (ກິ່ນສະບູ)',
+      th: 'เย็นสบาย น้ำหอม ผ้าเช็ดระงับกลิ่นกาย 15pcs (สบู่ กลิ่นหอม)',
+      fr: 'rafraîchissant parfum lingette déodorante 15pcs (savon senteur)',
+    },
+    photo: '/products/sku/KG-BDY-00012.jpg',
+    fit: {
+      skin: ['dry', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration', 'scalp'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '샤워 후 물기가 남았을 때 바로',
+      day: '건조한 부위(팔꿈치·무릎)는 덧바르기',
+      pm: '샤워 후 전신에',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '한 장을 꺼내 겨드랑이·목·팔 등 땀이 나는 부위를 가볍게 닦아냅니다. 사용 후에는 입구를 꼭 닫아 마르지 않게 보관합니다. 얼굴·눈가·상처 부위에는 사용하지 않습니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 바디 제품 — 샤워 후 물기가 남았을 때 함께\n   → 우레아 10 풋크림(KG-BDY-00026)、엘레강스 리프레시 남성용 로션(KG-BDY-00027)\n• 핸드크림 — 손을 씻은 뒤 함께\n   → 보타닉 페어스 핸드크림-로즈캐모마일(KG-HND-00006)、팩미인 핸드 케어 팩(KG-HND-00005)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-BDY-00024',
@@ -2489,6 +4193,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄີມກຳຈັດຂົນ ໃນອ່າງອາບນ້ຳ',
+      th: 'ครีมกำจัดขนตัวใช้ในห้องอาบน้ำ',
+      fr: 'Crème dépilatoire corps pour la douche',
+    },
+    photo: '/products/sku/KG-BDY-00024.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['soothing', 'hydration', 'pores'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '샤워 후 물기가 남았을 때 바로',
+      day: '건조한 부위(팔꿈치·무릎)는 덧바르기',
+      pm: '샤워 후 전신에',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '제모할 부위를 물로 적신 뒤 털이 덮일 만큼 크림을 고르게 바르고, 포장에 적힌 시간만큼 두었다가 동봉된 도구로 털을 밀어낸 뒤 깨끗이 헹궈냅니다. 처음 쓸 때는 팔 안쪽에 소량 시험해 보고, 얼굴·민감한 부위·상처에는 사용하지 않습니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n밤에 사용하고, 낮에는 선크림을 꼭 함께 쓰세요. 처음에는 주 2~3회로 시작하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 바디 제품 — 샤워 후 물기가 남았을 때 함께\n   → 엘레강스 리프레시 남성용 로션(KG-BDY-00027)、수퍼보타닉 레몬앤민트향 바디워시(KG-BDY-00028)\n• 핸드크림 — 손을 씻은 뒤 함께\n   → 보타닉 페어스 핸드크림-로즈캐모마일(KG-HND-00006)、팩미인 핸드 케어 팩(KG-HND-00005)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-BDY-00026',
@@ -2526,6 +4259,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄີມທາຕີນ Urea 10%',
+      th: 'ครีมทาเท้ายูเรีย 10',
+      fr: "Crème pieds à l'urée 10",
+    },
+    photo: '/products/sku/KG-BDY-00026.jpg',
+    fit: {
+      skin: ['dry', 'oily'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['soothing', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '샤워 후 물기가 남았을 때 바로',
+      day: '건조한 부위(팔꿈치·무릎)는 덧바르기',
+      pm: '샤워 후 전신에',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '발을 씻고 물기를 닦은 뒤 뒤꿈치·발바닥 등 거칠고 건조한 부위에 적당량을 펴 바르고 흡수시킵니다. 자기 전에 바르면 좋습니다.\n— 출처: 제품 라벨',
+      caution:
+        '가. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 나. 상처가 있는 부위 등에는 사용을 자제할 것 다. 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것 라. 눈, 코 또는 입 등에 닿지 않도록 주의하여 사용할 것',
+    },
+    pairing: {
+      good: '• 바디 제품 — 샤워 후 물기가 남았을 때 함께\n   → 수퍼보타닉 레몬앤민트향 바디워시(KG-BDY-00028)、바디로션 올리브(KG-BDY-00029)\n• 핸드크림 — 손을 씻은 뒤 함께\n   → 팩미인 핸드 케어 팩(KG-HND-00005)、보타닉 페어스 핸드크림-로즈캐모마일(KG-HND-00006)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-BDY-00027',
@@ -2562,6 +4324,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ໂລຊັ່ນສຳລັບຜູ້ຊາຍ Elegance Refresh',
+      th: 'โลชั่นสำหรับผู้ชาย เอลิแกนซ์ รีเฟรช',
+      fr: 'Lotion homme Elegance Refresh',
+    },
+    photo: '/products/sku/KG-BDY-00027.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '샤워 후 물기가 남았을 때 바로',
+      day: '건조한 부위(팔꿈치·무릎)는 덧바르기',
+      pm: '샤워 후 전신에',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '스킨을 바른 후 적당량을 취하여 얼굴·목 등에 부드럽게 펴 발라주세요.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시의 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 바디 제품 — 샤워 후 물기가 남았을 때 함께\n   → 샤워메이트 데일리 리프레시 바디워시(KG-BDY-00008)、쿨링 퍼퓸 데오 티슈 15매 비누향(KG-BDY-00012)\n• 핸드크림 — 손을 씻은 뒤 함께\n   → 팩미인 핸드 케어 팩(KG-HND-00005)、보타닉 페어스 핸드크림-로즈캐모마일(KG-HND-00006)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-BDY-00028',
@@ -2614,6 +4405,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄຣີມອາບນ້ຳ Super Botanic ກິ່ນໝາກນາວ ແລະ ມິນ',
+      th: 'สบู่เหลวอาบน้ำ ซูเปอร์โบทานิก กลิ่นเลมอนและมินต์',
+      fr: 'Gel douche Super Botanic Citron & Menthe',
+    },
+    photo: '/products/sku/KG-BDY-00028.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'soothing', 'hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '샤워 후 물기가 남았을 때 바로',
+      day: '건조한 부위(팔꿈치·무릎)는 덧바르기',
+      pm: '샤워 후 전신에',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '적당량을 샤워용 스폰지나 타올에 묻혀 거품을 낸 다음 전신에 마사지하듯 문지른 후 깨끗이 씻어 냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시의 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 바디 제품 — 샤워 후 물기가 남았을 때 함께\n   → 엘레강스 리프레시 남성용 로션(KG-BDY-00027)、바디로션 올리브(KG-BDY-00029)\n• 핸드크림 — 손을 씻은 뒤 함께\n   → 보타닉 페어스 핸드크림-로즈캐모마일(KG-HND-00006)、팩미인 핸드 케어 팩(KG-HND-00005)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-BDY-00029',
@@ -2626,6 +4446,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ໂລຊັ່ນທາຜິວກາຍ Olive',
+      th: 'โลชั่นบำรุงผิวกาย มะกอก',
+      fr: "Lait corps à l'olive",
+    },
+    photo: '/products/sku/KG-BDY-00029.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '샤워 후 물기가 남았을 때 바로',
+      day: '건조한 부위(팔꿈치·무릎)는 덧바르기',
+      pm: '샤워 후 전신에',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '[How to use] Dry yourself after taking a bath or a shower. Take the lotion in moderate and apply it on your body like massaging softly.\n— 출처: 제품 라벨',
+      caution:
+        '[사용할 때의 주의사항] 가. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우에는 전문의 등과 상담할 것 나. 상처가 있는 부위 등에는 사용을 자제할 것 다. 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 바디 제품 — 샤워 후 물기가 남았을 때 함께\n   → 엘레강스 리프레시 남성용 로션(KG-BDY-00027)、수퍼보타닉 레몬앤민트향 바디워시(KG-BDY-00028)\n• 핸드크림 — 손을 씻은 뒤 함께\n   → 팩미인 핸드 케어 팩(KG-HND-00005)、보타닉 페어스 핸드크림-로즈캐모마일(KG-HND-00006)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HND-00005',
@@ -2670,6 +4519,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຖົງມືບຳລຸງມື Pack Mi In',
+      th: 'มาส์กบำรุงมือ',
+      fr: 'Masque soin des mains',
+    },
+    photo: '/products/sku/KG-HND-00005.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration', 'firmness'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '외출 전 손등 위주로',
+      day: '손 씻은 뒤마다 소량',
+      pm: '잠자기 전 넉넉히 바르고 손톱 주변까지',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '손을 씻고 물기를 닦은 뒤 장갑 모양의 팩을 끼우고 약 20분 뒤에 벗겨, 남은 에센스를 손에 두드려 흡수시킵니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 바디 제품 — 샤워 후 물기가 남았을 때 함께\n   → 엘레강스 리프레시 남성용 로션(KG-BDY-00027)、바디로션 올리브(KG-BDY-00029)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HND-00006',
@@ -2710,6 +4588,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄຣີມທາມື Botanic Pairs ກິ່ນກຸຫຼາບ ຄາໂມມາຍ',
+      th: 'แฮนด์ครีมกลิ่นน้ำหอมโบทานิก กุหลาบและคาโมมายล์',
+      fr: 'Crème mains parfumée Botanic Rose & Camomille',
+    },
+    photo: '/products/sku/KG-HND-00006.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '외출 전 손등 위주로',
+      day: '손 씻은 뒤마다 소량',
+      pm: '잠자기 전 넉넉히 바르고 손톱 주변까지',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo:
+        '손이 건조하다고 느껴질 때 적당량을 덜어 손 전체에 마사지하듯 부드럽게 흡수시켜 줍니다\n— 출처: 제품 라벨',
+      caution:
+        '가. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상 이나 부작용이 있는 경우에는 전문의 등과 상담할 것 나. 상처가 있는 부위 등에는 사용을 자제할 것 다. 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 바디 제품 — 샤워 후 물기가 남았을 때 함께\n   → 엘레강스 리프레시 남성용 로션(KG-BDY-00027)、바디로션 올리브(KG-BDY-00029)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HAR-00001',
@@ -2747,6 +4654,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ປ້ອງກັນຜົມຫຼົ່ນ ຢາສະຜົມ _ Space Ocean 300g',
+      th: 'ป้องกันผมร่วง แชมพู _ สเปซ Ocean 300g',
+      fr: 'anti-chute shampoing _ espace Ocean 300g',
+    },
+    photo: '/products/sku/KG-HAR-00001.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'pores', 'scalp'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '머리를 적신 뒤 두피부터 마사지하듯 거품내기, 충분히 헹구기',
+      day: null,
+      pm: '저녁 샴푸를 권장 — 하루 먼지·피지를 씻어내요',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '1일 1회 온수로 모발 및 두피를 충분히 적신 후, 적당량(3~5ml)을 모발과 두피에 골고루 도포하여 마사지한 다음 깨끗이 헹궈냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시의 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것 4. 눈에 들어갔을 때 즉시 씻어낼 것 5. 사용 후 물로 씻어내지 않으면 탈모 또는 탈색의 원인이 될 수 있으므로 주의할 것',
+    },
+    pairing: {
+      good: '• 샴푸와 트리트먼트·컨디셔너를 같은 날 순서대로\n   → 케라시스 두피 클리닉 컨디셔너(KG-HAR-00017)、케라시스 린스(리필)(KG-HAR-00021)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HAR-00004',
@@ -2759,6 +4695,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: ['시트릭애씨드', "소듐벤조에이트 [라벨은 '성분명 |' 항목에 이 2개만 표기 — 전성분 아님]"],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ປະຈຳວັນ ຢາສະຜົມ',
+      th: 'ประจำวัน แชมพู',
+      fr: 'quotidien shampoing',
+    },
+    photo: '/products/sku/KG-HAR-00004.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['scalp'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '머리를 적신 뒤 두피부터 마사지하듯 거품내기, 충분히 헹구기',
+      day: null,
+      pm: '저녁 샴푸를 권장 — 하루 먼지·피지를 씻어내요',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '적당량의 샴푸를 손에 덜어 젖은 모발과 두피에 거품을 내며 충분히 마사지 한 후 적당한 온도의 물로 깨끗하게 헹구어 줍니다.\n— 출처: 제품 라벨',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 눈에 들어갔을 때에는 즉시 씻어낼 것 4) 사용 후 충분히 물로 씻어내지 않으면 탈모 또는 탈색의 원인이 될 수 있으므로 사용 후 충분히 물로 씻어낼 것 5) 보관 및 취급 시의 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 샴푸와 트리트먼트·컨디셔너를 같은 날 순서대로\n   → 케라시스 린스(리필)(KG-HAR-00021)、케라시스 두피 클리닉 컨디셔너(KG-HAR-00017)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HAR-00008',
@@ -2805,6 +4770,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Modamoda ໄບໂອຕິນສີຟ້າ ຢາສະຜົມບຳລຸງໜັງຫົວ 300ml',
+      th: 'Modamoda สีฟ้า Biotin หนังศีรษะ แชมพู 300ml',
+      fr: 'Modamoda bleu Biotin cuir chevelu shampoing 300ml',
+    },
+    photo: '/products/sku/KG-HAR-00008.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'pores', 'scalp'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '머리를 적신 뒤 두피부터 마사지하듯 거품내기, 충분히 헹구기',
+      day: null,
+      pm: '저녁 샴푸를 권장 — 하루 먼지·피지를 씻어내요',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '모발과 두피를 미온수로 충분히 적신 뒤 적당량을 덜어 거품을 내고, 손끝으로 두피를 부드럽게 마사지하며 1~2분 정도 두었다가 깨끗이 헹궈냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시의 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것 4. 눈에 들어갔을 때에는 즉시 씻어낼 것 5. 사용 후 물로 씻어내지 않으면 탈모 또는 탈색의 원인이 될 수 있으므로 주의할 것',
+    },
+    pairing: {
+      good: '• 샴푸와 트리트먼트·컨디셔너를 같은 날 순서대로\n   → 케라시스 린스(리필)(KG-HAR-00021)、케라시스 두피 클리닉 컨디셔너(KG-HAR-00017)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HAR-00009',
@@ -2861,6 +4855,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'RGIII ໂສມແດງ ຢາສະຜົມບຳລຸງໜັງຫົວ 300ml',
+      th: 'RGIII สีแดง โสม หนังศีรษะ แชมพู 300ml',
+      fr: 'RGIII rouge ginseng cuir chevelu shampoing 300ml',
+    },
+    photo: '/products/sku/KG-HAR-00009.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['tone', 'pores', 'scalp'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '머리를 적신 뒤 두피부터 마사지하듯 거품내기, 충분히 헹구기',
+      day: null,
+      pm: '저녁 샴푸를 권장 — 하루 먼지·피지를 씻어내요',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '미온수로 모발 및 두피를 충분히 적시고, 적당량을 손에 덜어 모발과 두피에 골고루 펴 발라줍니다. 미온수로 깨끗이 씻어 냅니다. / 용법용량: 1일 1회 온수로 모발 및 두피를 충분히 적신 후, 적당량(3~5ml)을 모발과 두피에 골고루 도포하여 마사지 한 다음 깨끗이 헹궈냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2. 상처가 있는 부위 등에는 사용을 자제할 것 3. 보관 및 취급 시 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것 4. 눈에 들어갔을 때에는 즉시 씻어낼 것 5. 사용 후 물로 씻어내지 않으면 탈모 또는 탈색의 원인이 될 수 있으므로 주의할 것',
+    },
+    pairing: {
+      good: '• 샴푸와 트리트먼트·컨디셔너를 같은 날 순서대로\n   → 케라시스 린스(리필)(KG-HAR-00021)、케라시스 두피 클리닉 컨디셔너(KG-HAR-00017)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HAR-00016',
@@ -2924,6 +4947,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຢາສະຜົມ Kerasys ບຳລຸງໜັງຫົວ Scalp Clinic',
+      th: 'แชมพู เคราซิส สแคลป์ คลินิก',
+      fr: 'Shampooing Kerasys Scalp Clinic',
+    },
+    photo: '/products/sku/KG-HAR-00016.jpg',
+    fit: {
+      skin: ['sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['uv', 'scalp'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '머리를 적신 뒤 두피부터 마사지하듯 거품내기, 충분히 헹구기',
+      day: null,
+      pm: '저녁 샴푸를 권장 — 하루 먼지·피지를 씻어내요',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '적당량을 손에 덜어 젖은 두피와 모발에 마사지하듯 거품을 낸 후 흐르는 물에 [...] 헹구어 냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 용도 이외에는 사용하지 말 것 2. 눈에 들어갔을 때에는 즉시 씻어낼 것 3. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 4. 상처가 있는 부위 등에는 사용을 자제할 것 5. 사용 후 물로 씻어내지 않으면 탈모 또는 탈색의 원인이 될 수 있으므로 주의할 것 6. 제품 내용물과 접촉 시 미끄러질 우려가 있으니 주의할 것 7. 보관 및 취급 시의 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것 3) 고온 또는 저온의 장소에 보관하지 말 것 ※ 만일 펌프캡 상단이 올라오지 않을 경우, 펌프캡 하단을 용기와 꽉 잠근 후 펌프캡 상단을 돌려주세요.',
+    },
+    pairing: {
+      good: '• 샴푸와 트리트먼트·컨디셔너를 같은 날 순서대로\n   → 케라시스 두피 클리닉 컨디셔너(KG-HAR-00017)、케라시스 린스(리필)(KG-HAR-00021)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HAR-00017',
@@ -2981,6 +5033,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄຣີມນວດຜົມ Kerasys ບຳລຸງໜັງຫົວ Scalp Clinic',
+      th: 'ครีมนวดผม เคราซิส สแคลป์ คลินิก',
+      fr: 'Après-shampooing Kerasys Scalp Clinic',
+    },
+    photo: '/products/sku/KG-HAR-00017.jpg',
+    fit: {
+      skin: ['oily', 'combination'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['pores', 'scalp'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '머리를 적신 뒤 두피부터 마사지하듯 거품내기, 충분히 헹구기',
+      day: null,
+      pm: '저녁 샴푸를 권장 — 하루 먼지·피지를 씻어내요',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo: '샴푸 후 젖은 모발에 도포하여 마사지한 후 충분히 헹구어 냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 용도 이외에는 사용하지 말 것 2. 눈에 들어갔을 때에는 즉시 씻어낼 것 3. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 4. 상처가 있는 부위 등에는 사용을 자제할 것 5. 사용 후 물로 씻어내지 않으면 탈모 또는 탈색의 원인이 될 수 있으므로 주의할 것 6. 제품 내용물과 접촉 시 미끄러질 우려가 있으니 주의할 것 7. 보관 및 취급 시의 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것 3) 고온 또는 저온의 장소에 보관하지 말 것 ※ 만일 펌프캡 상단이 올라오지 않을 경우, 펌프캡 하단을 용기와 꽉 잠근 후 펌프캡 상단을 돌려주세요.',
+    },
+    pairing: {
+      good: '• 샴푸와 트리트먼트·컨디셔너를 같은 날 순서대로\n   → 탈모샴푸 _ 스페이스 오션 300g(KG-HAR-00001)、데일리 샴푸(KG-HAR-00004)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HAR-00018',
@@ -3013,6 +5093,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຢາສະຜົມ Bubble Therapy Argan',
+      th: 'แชมพูบับเบิ้ลเทอราปี อาร์แกน',
+      fr: 'Shampooing Bubble Therapy Argan',
+    },
+    photo: '/products/sku/KG-HAR-00018.jpg',
+    fit: {
+      skin: ['dry'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration', 'scalp'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '머리를 적신 뒤 두피부터 마사지하듯 거품내기, 충분히 헹구기',
+      day: null,
+      pm: '저녁 샴푸를 권장 — 하루 먼지·피지를 씻어내요',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '모발과 두피를 미온수로 충분히 적신 뒤 적당량을 덜어 거품을 내고, 손끝으로 두피를 부드럽게 마사지한 다음 깨끗이 헹궈냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담하여 주십시오. 2. 상처가 있는 부위 등에는 사용을 자제하여 주십시오. 3. 보관 및 취급 시의 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관하여 주십시오. 나) 직사광선을 피해서 보관하여 주십시오.',
+    },
+    pairing: {
+      good: '• 샴푸와 트리트먼트·컨디셔너를 같은 날 순서대로\n   → 케라시스 린스(리필)(KG-HAR-00021)、케라시스 두피 클리닉 컨디셔너(KG-HAR-00017)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HAR-00019',
@@ -3047,6 +5156,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຢາສະຜົມ Kerasys ບຳລຸງຜົມເສຍພິເສດ',
+      th: 'แชมพู เคราซิส เอ็กซ์ตร้า ดาเมจ แคร์',
+      fr: 'Shampooing Kerasys Extra Damage Care',
+    },
+    photo: '/products/sku/KG-HAR-00019.jpg',
+    fit: {
+      skin: ['sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['uv', 'scalp'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '머리를 적신 뒤 두피부터 마사지하듯 거품내기, 충분히 헹구기',
+      day: null,
+      pm: '저녁 샴푸를 권장 — 하루 먼지·피지를 씻어내요',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '손에 덜어 두피와 모발을 마사지하여 거품을 낸 후 충분히 헹구어 냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 용도 이외에는 사용하지 말 것 2. 눈에 들어갔을 때에는 즉시 씻어낼 것 3. 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 4. 상처가 있는 부위 등에는 사용을 자제할 것 5. 사용 후 물로 씻어내지 않으면 탈모 또는 탈색의 원인이 될 수 있으므로 주의할 것 6. 제품 내용물과 접촉 시 미끄러질 우려가 있으니 주의할 것 7. 보관 및 취급 시의 주의사항 1) 어린이의 손이 닿지 않는 곳에 보관할 것 2) 직사광선을 피해서 보관할 것 3) 고온 또는 저온의 장소에 보관하지 말 것 ※ 해당제품은 자연 유래 성분을 함유하고 있어 내용물이 변색될 수 있으나 제품의 품질에는 이상이 없습니다.',
+    },
+    pairing: {
+      good: '• 샴푸와 트리트먼트·컨디셔너를 같은 날 순서대로\n   → 케라시스 두피 클리닉 컨디셔너(KG-HAR-00017)、케라시스 린스(리필)(KG-HAR-00021)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HAR-00020',
@@ -3081,6 +5219,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຢາສະຜົມ Kerasys (ຖົງເຕີມ)',
+      th: 'แชมพู เคราซิส (รีฟิล)',
+      fr: 'Shampooing Kerasys (recharge)',
+    },
+    photo: '/products/sku/KG-HAR-00020.jpg',
+    fit: {
+      skin: ['sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['uv', 'scalp'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '머리를 적신 뒤 두피부터 마사지하듯 거품내기, 충분히 헹구기',
+      day: null,
+      pm: '저녁 샴푸를 권장 — 하루 먼지·피지를 씻어내요',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '모발과 두피를 미온수로 충분히 적신 뒤 적당량을 덜어 거품을 내고, 손끝으로 두피를 부드럽게 마사지한 다음 깨끗이 헹궈냅니다.\n— 출처: 제품 라벨',
+      caution:
+        '1. 화장품을 사용하여 다음과 같은 이상이 있을 경우에는 사용을 중지할 것이며, 계속 사용하면 증상을 악화시키므로 피부과 전문의 등에게 상담하여 주십시오. 1) 사용 중 붉은 반점, 부어오름, 가려움증, 자극 등의 이상이 있을 경우 2) 적용부위가 직사광선에 의해 위와 같은 이상이 있을 경우 2. 상처가 있는 곳 또는 습진 및 피부염 등의 이상이 있는 부위에는 사용을 금하여 주십시오. 3. 보관 및 취급시의 주의사항 1) 사용 후에는 반드시 마개를 닫아두십시오. 2) 유·소아의 손에 닿지 않는 곳에 보관하여 주십시오. 3) 고온 내지 저온의 장소 및 일광이 닿는 곳에는 보관하지 마십시오.',
+    },
+    pairing: {
+      good: '• 샴푸와 트리트먼트·컨디셔너를 같은 날 순서대로\n   → 케라시스 린스(리필)(KG-HAR-00021)、케라시스 두피 클리닉 컨디셔너(KG-HAR-00017)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-HAR-00021',
@@ -3113,6 +5280,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຄຣີມນວດຜົມ Kerasys (ຖົງເຕີມ)',
+      th: 'ครีมนวดผม เคราซิส (รีฟิล)',
+      fr: 'Après-shampooing Kerasys (recharge)',
+    },
+    photo: '/products/sku/KG-HAR-00021.jpg',
+    fit: {
+      skin: ['oily', 'combination'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['pores', 'scalp'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '머리를 적신 뒤 두피부터 마사지하듯 거품내기, 충분히 헹구기',
+      day: null,
+      pm: '저녁 샴푸를 권장 — 하루 먼지·피지를 씻어내요',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '샴푸 후 물기를 가볍게 짠 모발의 중간부터 끝까지 적당량을 바르고, 잠시 뒤 미온수로 깨끗이 헹궈냅니다. 두피에는 되도록 닿지 않게 합니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n밤에 사용하고, 낮에는 선크림을 꼭 함께 쓰세요. 처음에는 주 2~3회로 시작하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 샴푸와 트리트먼트·컨디셔너를 같은 날 순서대로\n   → 모다모다 블루비오틴 스칼프샴푸 300 ml(KG-HAR-00008)、RGIII 레드진생 스칼프 샴푸 300 ml(KG-HAR-00009)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-LIP-00003',
@@ -3151,6 +5347,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ລິບບາມ Nature Essence Hyaluronic ກິ່ນສະຕໍເບີຣີ',
+      th: 'ลิปบาล์มเนเจอร์เอสเซนส์ ไฮยาลูรอน (กลิ่นสตรอว์เบอร์รี)',
+      fr: 'Baume à lèvres Nature Essence Hyaluron (Fraise)',
+    },
+    photo: '/products/sku/KG-LIP-00003.jpg',
+    fit: {
+      skin: ['dry', 'oily', 'combination', 'sensitive'],
+      age: ['20s', '30s', '40plus'],
+      concerns: ['hydration'],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '외출 전 얇게',
+      day: '건조할 때마다 덧바르기',
+      pm: '잠들기 전 넉넉히',
+      drySeason: '건기(11~2월): 풍부하게, 밤에는 한 겹 더',
+      hotSeason: '가장 더운 때: 얇게, 번들거리는 T존은 생략해도 돼요',
+      rainySeason: '우기: 젤·가벼운 타입과 번갈아 써도 좋아요',
+      howTo: '입술에 적당량을 바르고 필요시 하루 여러 번 덧바릅니다.\n— 출처: 제품 라벨',
+      caution:
+        '향료가 들어 있어요 — 향에 민감하면 소량 먼저 시험하세요.\n이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 다른 스킨케어·메이크업과 자유롭게 함께 쓸 수 있어요',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-MKP-00006',
@@ -3167,6 +5391,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ດິນສອຂຽນຄິ້ວ ເບີ2 ສີນ້ຳຕານອ່ອນ',
+      th: 'ดินสอเขียนคิ้วเส้นเล็ก เบอร์ 2 สีน้ำตาลแอช',
+      fr: 'Crayon à sourcils fin n°2 Brun cendré',
+    },
+    photo: '/products/sku/KG-MKP-00006.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어·선크림 후 얇게 밀착',
+      day: '번들거리면 오일 페이퍼로 정리 후 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '눈썹 결을 따라 짧게 끊어 그리듯 빈 곳을 채우고, 반대쪽 브러시로 자연스럽게 빗어 정돈합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 스킨케어와 선크림을 먼저 바른 뒤 사용\n   → 어드밴스드 클리어 선스크린 100(KG-SUN-00005)、[4호 누디비비]에딧비 베어버니 톤 필터 선크림 30 ml(KG-SUN-00014)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 딥클린 콜라겐 모이스처 클렌징 티슈(KG-CLN-00024)、그린토마토 딥 포어 클렌징폼(KG-CLN-00001)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-MKP-00007',
@@ -3179,6 +5431,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ໄພຣເມີ ບັມປິດຮູຂຸມຂົນ Balancing',
+      th: 'ไพรเมอร์บาล์มปรับสมดุลรูขุมขน',
+      fr: 'Base de teint baume équilibrant pour les pores',
+    },
+    photo: '/products/sku/KG-MKP-00007.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어·선크림 후 얇게 밀착',
+      day: '번들거리면 오일 페이퍼로 정리 후 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '스킨케어 후 메이크업 전에, 모공이 신경 쓰이는 부위에 소량을 얇게 펴 바릅니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 스킨케어와 선크림을 먼저 바른 뒤 사용\n   → 에브리 선데이 워터프루프 선 밀크(KG-SUN-00001)、맑은쌀 선크림(KG-SUN-00002)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 약산성 pH 클렌징폼(KG-CLN-00020)、리프레시 딥 클렌징폼(KG-CLN-00022)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-MKP-00008',
@@ -3191,6 +5471,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: ['해당사항없음 식품의약안전청 심사 필 유무'],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: '[ຂຽວ] ແປ້ງແຕ່ງໜ້າ ປັບໂທນຜິວ Personal Tone',
+      th: '[เขียว] แป้งตลับเบลอปรับโทนสีผิว',
+      fr: '[Vert] Poudre compacte correctrice de teint effet flou',
+    },
+    photo: '/products/sku/KG-MKP-00008.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '스킨케어·선크림 후 얇게 밀착',
+      day: '번들거리면 오일 페이퍼로 정리 후 덧바르기',
+      pm: '클렌징으로 꼼꼼히 지우기',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '퍼프에 소량을 묻혀 번들거리거나 붉은 기가 신경 쓰이는 부위에 가볍게 두드려 줍니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 스킨케어와 선크림을 먼저 바른 뒤 사용\n   → 에브리 선데이 워터프루프 선 밀크(KG-SUN-00001)、맑은쌀 선크림(KG-SUN-00002)\n• 저녁에는 클렌징으로 깨끗이 지우기\n   → 딥클린 콜라겐 모이스처 클렌징 티슈(KG-CLN-00024)、그린토마토 딥 포어 클렌징폼(KG-CLN-00001)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-PRF-00001',
@@ -3221,6 +5529,35 @@ export const storeCatalog: readonly StoreProduct[] = [
     ],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ນ້ຳຫອມ [Tender Paris] Most Eau de Parfum',
+      th: '[Tender Paris] Most โอ เดอ ปาร์เฟิม',
+      fr: '[Tender Paris] Most Eau de Parfum',
+    },
+    photo: '/products/sku/KG-PRF-00001.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '맥박이 뛰는 손목·목 뒤에 1~2번',
+      day: null,
+      pm: '저녁 약속에는 한 번 더 가볍게',
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '20~30cm 떨어져 적당한 거리를 두고 얼굴을 제외한 원하는 부위에 분사해줍니다.\n— 출처: 제품 라벨',
+      caution:
+        '1) 화장품 사용 시 또는 사용 후 직사광선에 의하여 사용부위가 붉은 반점, 부어오름 또는 가려움증 등의 이상 증상이나 부작용이 있는 경우 전문의 등과 상담할 것 2) 상처가 있는 부위 등에는 사용을 자제할 것 3) 보관 및 취급 시 주의사항 가) 어린이의 손이 닿지 않는 곳에 보관할 것 나) 직사광선을 피해서 보관할 것',
+    },
+    pairing: {
+      good: '• 바디로션을 먼저 바르고 그 위에 향수 — 향이 더 오래 머무는 데 도움이 될 수 있어요\n   → 우레아 10 풋크림(KG-BDY-00026)、엘레강스 리프레시 남성용 로션(KG-BDY-00027)',
+      avoid: '• 향이 강한 제품을 여러 개 겹쳐 쓰기 — 향이 섞여요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-GFT-00002',
@@ -3233,6 +5570,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ສົມບູນແບບ 9 Intensive Set',
+      th: 'สมบูรณ์แบบ 9 เข้มข้น เซ็ต',
+      fr: 'parfait 9 intensif coffret',
+    },
+    photo: '/products/sku/KG-GFT-00002.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고',
+      day: null,
+      pm: null,
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '구성품 각각의 사용법을 따르되, 보통 클렌징 → 토너 → 에센스/세럼 → 크림 순서로 사용합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 세트 구성품끼리 안내된 순서대로 사용\n• 아침에는 선크림으로 마무리\n   → 맑은쌀 선크림(KG-SUN-00002)、어드밴스드 클리어 선스크린 100(KG-SUN-00005)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-GFT-00003',
@@ -3245,6 +5610,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຊຸດ TonyMoly Bio Excell Peptide 3 ຊິ້ນ',
+      th: 'Bio Excell เปปไทด์ 3-Piece เซ็ต',
+      fr: 'Bio Excell peptide 3-Piece coffret',
+    },
+    photo: '/products/sku/KG-GFT-00003.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고',
+      day: null,
+      pm: null,
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '구성품 각각의 사용법을 따르되, 보통 클렌징 → 토너 → 에센스/세럼 → 크림 순서로 사용합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 세트 구성품끼리 안내된 순서대로 사용\n• 아침에는 선크림으로 마무리\n   → 맑은쌀 선크림(KG-SUN-00002)、어드밴스드 클리어 선스크린 100(KG-SUN-00005)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-GFT-00004',
@@ -3257,6 +5650,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຊຸດຂອງຂວັນ Jaminkyung Crema Cracol Premier ຫອຍທາກ',
+      th: 'Crema Cracol Premier Snail ของขวัญ เซ็ต',
+      fr: 'Crema Cracol Premier Snail cadeau coffret',
+    },
+    photo: '/products/sku/KG-GFT-00004.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고',
+      day: null,
+      pm: null,
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '구성품 각각의 사용법을 따르되, 보통 클렌징 → 토너 → 에센스/세럼 → 크림 순서로 사용합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 세트 구성품끼리 안내된 순서대로 사용\n• 아침에는 선크림으로 마무리\n   → 싸이닉 엔조이 아쿠아 세이프티 무기자차 선쿠션 15 g(KG-SUN-00018)、과일나라 데일리 앤 마이 패밀리 선크림 120 g(KG-SUN-00030)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-GFT-00005',
@@ -3269,6 +5690,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຊຸດ Centellian24 MADECA PRIME RITUAL WHITE PEARL (ອຸປະກອນບຳລຸງຜິວເກົາຫຼີ)',
+      th: 'MADECA PRIME RITUAL สีขาว PEARL (Korean Premium Skincare Device)',
+      fr: 'MADECA PRIME RITUAL blanc PEARL (Korean Premium Skincare Device)',
+    },
+    photo: '/products/sku/KG-GFT-00005.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고',
+      day: null,
+      pm: null,
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '구성품 각각의 사용법을 따르되, 보통 클렌징 → 토너 → 에센스/세럼 → 크림 순서로 사용합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 세트 구성품끼리 안내된 순서대로 사용\n• 아침에는 선크림으로 마무리\n   → 맑은쌀 선크림(KG-SUN-00002)、어드밴스드 클리어 선스크린 100(KG-SUN-00005)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-GFT-00011',
@@ -3281,6 +5730,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຊຸດບຳລຸງພື້ນຖານ For Men Premium Collagen (2+1)',
+      th: null,
+      fr: null,
+    },
+    photo: '/products/sku/KG-GFT-00011.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고',
+      day: null,
+      pm: null,
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '아침: 구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고\n— 출처: 제품군 기준 안내(라벨 문구 아님)',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 세트 구성품끼리 안내된 순서대로 사용\n• 아침에는 선크림으로 마무리\n   → 과일나라 데일리 앤 마이 패밀리 선크림 120 g(KG-SUN-00030)、본셉 비타씨 선에센스 35 ml(KG-SUN-00044)',
+      avoid: '• 특별히 피해야 할 조합은 알려진 것이 없어요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-TOL-00001',
@@ -3293,6 +5770,33 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'Dermaqueen ເຢັນສະບາຍ Stick',
+      th: 'Dermaqueen เย็นสบาย สติ๊ก',
+      fr: 'Dermaqueen rafraîchissant stick',
+    },
+    photo: '/products/sku/KG-TOL-00001.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고',
+      day: null,
+      pm: null,
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo: '포장에 적힌 사용법을 따라 사용해 주세요.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 어떤 제품과도 함께 쓸 수 있어요 — 사용 후에는 깨끗이 관리해 주세요',
+      avoid: '• 다른 사람과 함께 쓰기 — 위생을 위해 개인용으로 쓰세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-TOL-00008',
@@ -3305,6 +5809,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ມີດແຖໂກນຜົມແມ່ຍິງ 6 ໃບມີດ (3 ອັນ)',
+      th: 'มีดโกนสำหรับผู้หญิง 6 ใบมีด (3 ชิ้น)',
+      fr: 'Rasoir femme 6 lames (3 pièces)',
+    },
+    photo: '/products/sku/KG-TOL-00008.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고',
+      day: null,
+      pm: null,
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '면도할 부위를 물이나 거품으로 충분히 적신 뒤, 피부를 팽팽하게 잡고 털이 난 방향으로 힘을 주지 말고 부드럽게 밀어줍니다. 사용 후 물로 헹궈 말려서 보관합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 어떤 제품과도 함께 쓸 수 있어요 — 사용 후에는 깨끗이 관리해 주세요',
+      avoid: '• 다른 사람과 함께 쓰기 — 위생을 위해 개인용으로 쓰세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-TOL-00011',
@@ -3317,6 +5849,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ມີດແຖ່ຂົນຄິ້ວແບບພັບໄດ້ (2 ອັນ)',
+      th: 'มีดโกนคิ้วแบบพับได้ (2 ชิ้น)',
+      fr: 'Rasoir à sourcils pliable (2 pièces)',
+    },
+    photo: '/products/sku/KG-TOL-00011.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고',
+      day: null,
+      pm: null,
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '눈썹 모양을 먼저 정한 뒤, 날을 펴서 피부에 눕히듯 대고 털이 난 방향으로 조금씩 정리합니다. 눈 가까이에서는 특히 조심하고, 사용 후에는 날을 접어 보관합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 어떤 제품과도 함께 쓸 수 있어요 — 사용 후에는 깨끗이 관리해 주세요',
+      avoid: '• 다른 사람과 함께 쓰기 — 위생을 위해 개인용으로 쓰세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-TOL-00013',
@@ -3329,6 +5889,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ແຜ່ນສຳລີສີ່ຫຼ່ຽມ 100 ແຜ່ນ',
+      th: 'สำลีแผ่นสี่เหลี่ยมเยื่อกระดาษ (100 แผ่น)',
+      fr: 'Cotons carrés en pulpe (100 pièces)',
+    },
+    photo: '/products/sku/KG-TOL-00013.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고',
+      day: null,
+      pm: null,
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '토너나 클렌징워터를 충분히 적셔 피부결을 따라 부드럽게 닦아내거나, 적신 채로 얼굴에 잠시 올려 두어 팩처럼 사용합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 어떤 제품과도 함께 쓸 수 있어요 — 사용 후에는 깨끗이 관리해 주세요',
+      avoid: '• 다른 사람과 함께 쓰기 — 위생을 위해 개인용으로 쓰세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-TOL-00014',
@@ -3341,6 +5929,34 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຟອງລົງແປ້ງແບບຄຸຊັນ (2 ອັນ)',
+      th: 'พัฟคุชชั่น แอร์พัฟ (2 ชิ้น)',
+      fr: 'Éponges cushion Air Puff (2 pièces)',
+    },
+    photo: '/products/sku/KG-TOL-00014.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고',
+      day: null,
+      pm: null,
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '쿠션·파운데이션·파우더를 퍼프에 소량 묻혀 얼굴에 톡톡 두드리듯 펴 바릅니다. 오염되면 중성세제로 조물조물 빨아 그늘에서 말린 뒤 사용합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 어떤 제품과도 함께 쓸 수 있어요 — 사용 후에는 깨끗이 관리해 주세요',
+      avoid: '• 다른 사람과 함께 쓰기 — 위생을 위해 개인용으로 쓰세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
   {
     sku: 'KG-TOL-00015',
@@ -3353,5 +5969,33 @@ export const storeCatalog: readonly StoreProduct[] = [
     inci: [],
     inciGapAfter: null,
     inciTruncated: false,
+    names: {
+      lo: 'ຟອງລົງແປ້ງຂະໜາດນ້ອຍ (2 ອັນ)',
+      th: 'พัฟแป้งขนาดเล็ก (2 ชิ้น)',
+      fr: 'Mini houppettes à poudre (2 pièces)',
+    },
+    photo: '/products/sku/KG-TOL-00015.jpg',
+    fit: {
+      skin: [],
+      age: ['20s', '30s', '40plus'],
+      concerns: [],
+      basis: '성분 기준',
+    },
+    usage: {
+      am: '구성품마다 아침·저녁 순서가 다름 — 상자 안내 참고',
+      day: null,
+      pm: null,
+      drySeason: '건조한 계절엔 세안 후 바로 보습 (당김 방지)',
+      hotSeason: '땀·피지 많은 때: 아침·저녁 두 번',
+      rainySeason: '습한 우기: 세안 뒤 산뜻한 토너로 마무리',
+      howTo:
+        '쿠션·파운데이션·파우더를 퍼프에 소량 묻혀 얼굴에 톡톡 두드리듯 펴 바릅니다. 오염되면 중성세제로 조물조물 빨아 그늘에서 말린 뒤 사용합니다.\n— 출처: 제품 라벨',
+      caution: '이상 증상(붉어짐·가려움·따가움)이 있으면 사용을 중단하고 전문의와 상담하세요.',
+    },
+    pairing: {
+      good: '• 어떤 제품과도 함께 쓸 수 있어요 — 사용 후에는 깨끗이 관리해 주세요',
+      avoid: '• 다른 사람과 함께 쓰기 — 위생을 위해 개인용으로 쓰세요',
+      basis: '제품 종류 기준 일반 안내예요 — 성분표가 확인되면 더 정확해져요',
+    },
   },
 ];

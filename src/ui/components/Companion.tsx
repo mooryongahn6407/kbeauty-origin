@@ -12,6 +12,7 @@
  */
 import type { ReactNode } from 'react';
 import { Lumina, type LuminaMood } from './Lumina';
+import { LUMINA_PHOTO } from '@/content/brand';
 
 export type CompanionMood = 'calm' | 'speaking' | 'pleased';
 
@@ -23,6 +24,11 @@ const AS_LUMINA: Readonly<Record<CompanionMood, LuminaMood>> = {
 
 /** The guide, wherever a screen wants one. Every screen asks for her through this. */
 export function Companion({ mood = 'calm', size = 96 }: { mood?: CompanionMood; size?: number }) {
+  if (LUMINA_PHOTO) {
+    return (
+      <img className="lumina-photo" src={LUMINA_PHOTO} width={size} height={size} alt="Lumina Noi" />
+    );
+  }
   return <Lumina mood={AS_LUMINA[mood]} size={size} />;
 }
 
