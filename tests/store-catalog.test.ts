@@ -7,6 +7,7 @@
  */
 import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { LABEL_GALLERY } from '@/content/label-gallery';
 import { storeCatalog } from '@/content/store-catalog';
 import { PRINTED_NAME_TO_INGREDIENT, ingredientIdForPrinted } from '@/content/inci-names';
 import { findIngredient } from '@/knowledge/ingredients';
@@ -100,7 +101,20 @@ describe('photos and profiles', () => {
         true,
       );
     }
-    expect(storeCatalog.filter((p) => p.photo).length).toBeGreaterThanOrEqual(80);
+    expect(storeCatalog.filter((p) => p.photo).length).toBe(storeCatalog.length);
+  });
+
+  it('points every back-label photo at a catalog SKU and a file that ships', () => {
+    const skus = new Set(storeCatalog.map((p) => p.sku));
+    for (const [sku, photos] of Object.entries(LABEL_GALLERY)) {
+      expect(skus.has(sku), sku).toBe(true);
+      expect(photos.length, sku).toBeGreaterThan(0);
+      for (const photo of photos) {
+        expect(photo, sku).toMatch(/^\/products\/labels\/.+\.jpg$/);
+        expect(existsSync(new URL(`../public${photo}`, import.meta.url)), photo).toBe(true);
+      }
+    }
+    expect(Object.keys(LABEL_GALLERY).length).toBeGreaterThanOrEqual(60);
   });
 
   it('uses only the known skin, age and concern keys', () => {

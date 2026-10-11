@@ -363,7 +363,7 @@ export const storeCatalog: readonly StoreProduct[] = [
       th: null,
       fr: null,
     },
-    photo: null,
+    photo: '/products/sku/KG-CRM-00007.jpg',
     fit: {
       skin: ['dry', 'oily', 'combination', 'sensitive'],
       age: ['20s', '30s', '40plus'],
@@ -1200,7 +1200,7 @@ export const storeCatalog: readonly StoreProduct[] = [
       th: null,
       fr: null,
     },
-    photo: null,
+    photo: '/products/sku/KG-SER-00007.jpg',
     fit: {
       skin: ['dry', 'oily', 'combination', 'sensitive'],
       age: ['20s', '30s', '40plus'],
@@ -1240,7 +1240,7 @@ export const storeCatalog: readonly StoreProduct[] = [
       th: null,
       fr: null,
     },
-    photo: null,
+    photo: '/products/sku/KG-SER-00008.jpg',
     fit: {
       skin: ['dry', 'oily', 'combination', 'sensitive'],
       age: ['20s', '30s', '40plus'],
@@ -1280,7 +1280,7 @@ export const storeCatalog: readonly StoreProduct[] = [
       th: null,
       fr: null,
     },
-    photo: null,
+    photo: '/products/sku/KG-SER-00009.jpg',
     fit: {
       skin: ['dry', 'oily', 'combination', 'sensitive'],
       age: ['20s', '30s', '40plus'],
@@ -1546,7 +1546,7 @@ export const storeCatalog: readonly StoreProduct[] = [
       th: null,
       fr: null,
     },
-    photo: null,
+    photo: '/products/sku/KG-SER-00024.jpg',
     fit: {
       skin: ['dry', 'oily', 'combination'],
       age: ['20s', '30s', '40plus'],
