@@ -1672,3 +1672,6 @@ select.field, .locale-switch select, .settings__select {
 .guide-hero { display: grid; grid-template-columns: minmax(96px, 34%) 1fr; gap: var(--space-3); align-items: end; margin-top: var(--space-2); }
 .guide-hero__photo { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: top; border-radius: var(--radius); background: var(--surface-sunk); }
 .guide-hero__text .lead { margin-bottom: 0; }
+.label-gallery { list-style: none; margin: var(--space-2) 0 0; padding: 0; display: grid; gap: var(--space-2); grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+.label-gallery__item { display: block; min-height: var(--tap); border-radius: var(--radius-sm); overflow: hidden; border: 1px solid var(--line); background: var(--surface-sunk); }
+.label-gallery__item img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }

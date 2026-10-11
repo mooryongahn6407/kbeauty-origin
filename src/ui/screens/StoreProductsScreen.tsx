@@ -38,6 +38,7 @@ import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import { dictionaryIdsOn } from '@/content/company/ingredient-links';
 import { pick } from '../pick';
 import { translateSentence } from '@/content/company/usage-translations';
+import { LABEL_GALLERY } from '@/content/label-gallery';
 import { ProductStrip } from '../components/ProductCard';
 
 const storage = (): Storage | undefined =>
@@ -391,6 +392,7 @@ function ProductLabel({
       <ProductPairing product={product} locale={locale} onOpenProduct={onOpenProduct} />
 
       <h2 className="guide-subtitle">{translate('store.labelSection', locale)}</h2>
+      <LabelPhotos product={product} locale={locale} />
 
       {avoid.length > 0 && readable ? (
         hits.length > 0 ? (
@@ -764,6 +766,33 @@ function ProductPairing({
           <Sentence text={pairing.basis} locale={locale} />
         </div>
       ) : null}
+    </section>
+  );
+}
+
+/** The real back label, photographed — what the printed list below was read from. */
+function LabelPhotos({ product, locale }: { product: StoreProduct; locale: string }) {
+  const photos = LABEL_GALLERY[product.sku] ?? [];
+  if (photos.length === 0) return null;
+  const name = productName(product, locale);
+  return (
+    <section className="card">
+      <h3 className="store-labels__title">{translate('store.labelPhotos', locale)}</h3>
+      <p className="store-labels__intro">{translate('store.labelPhotosIntro', locale)}</p>
+      <ul className="label-gallery" role="list">
+        {photos.map((src, index) => (
+          <li key={src}>
+            <a className="label-gallery__item" href={src} target="_blank" rel="noreferrer">
+              <img
+                src={src}
+                alt={translate('store.labelPhotoAlt', locale, { name, n: String(index + 1) })}
+                loading="lazy"
+                decoding="async"
+              />
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
