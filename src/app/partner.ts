@@ -67,3 +67,9 @@ export function capturePartner(
   }
   return loadPartner(storage);
 }
+
+/** A shop's own link — the app's front door carrying its code — or null for a malformed code. */
+export function shopLink(base: string, raw: string): string | null {
+  const code = normalizePartnerCode(raw);
+  return code ? `${base}?${PARTNER_PARAM}=${encodeURIComponent(code)}` : null;
+}

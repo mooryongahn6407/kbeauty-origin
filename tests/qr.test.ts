@@ -6,6 +6,7 @@
 import { describe, expect, it } from 'vitest';
 import { qrMatrix, qrPath } from '@/app/qr';
 import { productLink } from '@/app/store-catalog';
+import { capturePartner, partnerFromSearch, shopLink } from '@/app/partner';
 
 const LINK = productLink('https://cozy-treacle-80f53c.netlify.app/', 'KG-CRM-00003', 'VTE-01');
 
@@ -46,5 +47,30 @@ describe('partner QR codes', () => {
     const m = qrMatrix(LINK);
     const dark = m.flat().filter(Boolean).length;
     expect(qrPath(m).match(/M/g)).toHaveLength(dark);
+  });
+});
+
+describe('shop QR codes', () => {
+  it('link to the front door with the shop code, which the app then reads back', () => {
+    const link = shopLink('https://x.test/', ' vte-01 ');
+    expect(link).toBe('https://x.test/?p=VTE-01');
+    expect(partnerFromSearch(new URL(link!).search)).toBe('VTE-01');
+    expect(isFinder(qrMatrix(link!), 0, 0)).toBe(true);
+  });
+
+  it('refuse a malformed code rather than drawing a QR that credits nobody', () => {
+    for (const bad of ['', 'ab', '-VTE', 'VTE--01', 'X'.repeat(17), '<script>']) {
+      expect(shopLink('https://x.test/', bad), bad).toBeNull();
+    }
+  });
+
+  it('making one does not change the remembered shop', () => {
+    const stored = new Map<string, string>([['korea-glow:partner:v1', 'LPQ-02']]);
+    shopLink('https://x.test/', 'VTE-01');
+    const storage = {
+      getItem: (k: string) => stored.get(k) ?? null,
+      setItem: (k: string, v: string) => void stored.set(k, v),
+    };
+    expect(capturePartner('', storage)).toBe('LPQ-02');
   });
 });

@@ -29,12 +29,12 @@ import {
   storeCategories,
   type LabelEntry,
 } from '@/app/store-catalog';
-import { PARTNER_PARAM } from '@/app/partner';
-import { QUIET_ZONE, qrMatrix, qrPath, qrPngDataUrl } from '@/app/qr';
+import { PARTNER_PARAM, normalizePartnerCode, shopLink } from '@/app/partner';
 import { CompanionSays } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
 import { spokenFallback } from '../spoken-fallback';
 import { functionLabel } from '../function-labels';
+import { QrCard } from '../components/QrCard';
 
 const storage = (): Storage | undefined =>
   typeof localStorage === 'undefined' ? undefined : localStorage;
@@ -116,6 +116,7 @@ export function StoreProductsScreen({
       ) : (
         <ProductList
           locale={locale}
+          partner={partner}
           query={query}
           onQuery={setQuery}
           category={category}
@@ -131,6 +132,7 @@ export function StoreProductsScreen({
 
 function ProductList({
   locale,
+  partner,
   query,
   onQuery,
   category,
@@ -140,6 +142,7 @@ function ProductList({
   onOpen,
 }: {
   locale: string;
+  partner: string | null;
   query: string;
   onQuery: (query: string) => void;
   category: string;
@@ -242,6 +245,7 @@ function ProductList({
           })}
         </ul>
       )}
+      <ShopQr locale={locale} partner={partner} />
       <p className="record-block__note">{translate('store.noCommerce', locale)}</p>
     </section>
   );
@@ -517,69 +521,66 @@ function ShareLink({
         ▦ {translate(showQr ? 'store.qrHide' : 'store.qrShow', locale)}
       </button>
       {state === 'manual' ? <p className="store-share__link">{link}</p> : null}
-      {showQr ? <ProductQr link={link} sku={sku} partner={partner} locale={locale} /> : null}
+      {showQr ? (
+        <QrCard
+          link={link}
+          fileName={`KOREA-GLOW-${sku}${partner ? `-${partner}` : ''}`}
+          label={translate('store.qrAlt', locale)}
+          caption={
+            partner
+              ? translate('store.qrPartner', locale, { code: partner })
+              : translate('store.qrNoPartner', locale)
+          }
+          locale={locale}
+        />
+      ) : null}
     </div>
   );
 }
 
+/** The address the app is served from, so a QR made here opens this same app. */
+const appBase = (): string =>
+  typeof window === 'undefined' ? '/' : `${window.location.origin}${window.location.pathname}`;
+
 /**
- * The product link as a QR code, for a shop's counter card or a customer's phone. Black on
- * white in both themes (scanners need the contrast), drawn from the link alone on this device.
+ * A partner shop's own QR code, for the counter: it opens the app's front door with the shop's
+ * code attached (`?p=CODE`). Making one changes nothing on this device — the remembered shop
+ * code is still only ever set by opening a shop's link.
  */
-function ProductQr({
-  link,
-  sku,
-  partner,
-  locale,
-}: {
-  link: string;
-  sku: string;
-  partner: string | null;
-  locale: string;
-}) {
-  const matrix = useMemo(() => qrMatrix(link), [link]);
-  const side = matrix.length + QUIET_ZONE * 2;
-
-  const save = () => {
-    const tokens = getComputedStyle(document.documentElement);
-    const url = qrPngDataUrl(
-      matrix,
-      tokens.getPropertyValue('--qr-ink').trim(),
-      tokens.getPropertyValue('--qr-paper').trim(),
-    );
-    if (!url) return;
-    const anchor = document.createElement('a');
-    anchor.href = url;
-    anchor.download = `KOREA-GLOW-${sku}${partner ? `-${partner}` : ''}.png`;
-    anchor.click();
-  };
-
+function ShopQr({ locale, partner }: { locale: string; partner: string | null }) {
+  const [raw, setRaw] = useState(partner ?? '');
+  const code = normalizePartnerCode(raw);
   return (
-    <figure className="store-qr">
-      <svg
-        className="store-qr__code"
-        viewBox={`${-QUIET_ZONE} ${-QUIET_ZONE} ${side} ${side}`}
-        role="img"
-        aria-label={translate('store.qrAlt', locale)}
-        shapeRendering="crispEdges"
-      >
-        <rect
-          className="store-qr__paper"
-          x={-QUIET_ZONE}
-          y={-QUIET_ZONE}
-          width={side}
-          height={side}
+    <details className="store-avoid store-shopqr">
+      <summary className="store-avoid__summary">▦ {translate('store.shopQrTitle', locale)}</summary>
+      <p className="store-avoid__intro">{translate('store.shopQrIntro', locale)}</p>
+      <label className="settings__label" htmlFor="shop-qr-code">
+        {translate('store.shopQrLabel', locale)}
+      </label>
+      <input
+        id="shop-qr-code"
+        className="field"
+        type="text"
+        autoCapitalize="characters"
+        autoComplete="off"
+        spellCheck={false}
+        value={raw}
+        placeholder="VTE-01"
+        onChange={(event) => setRaw(event.target.value)}
+      />
+      {code ? (
+        <QrCard
+          link={shopLink(appBase(), code)!}
+          fileName={`KOREA-GLOW-SHOP-${code}`}
+          label={translate('store.shopQrAlt', locale, { code })}
+          caption={translate('store.qrPartner', locale, { code })}
+          locale={locale}
         />
-        <path className="store-qr__ink" d={qrPath(matrix)} />
-      </svg>
-      <figcaption className="store-qr__caption">
-        {partner
-          ? translate('store.qrPartner', locale, { code: partner })
-          : translate('store.qrNoPartner', locale)}
-      </figcaption>
-      <button type="button" className="btn btn--quiet btn--small" onClick={save}>
-        ⬇ {translate('store.qrSave', locale)}
-      </button>
-    </figure>
+      ) : raw.trim() !== '' ? (
+        <p className="store-avoid__intro" role="status">
+          {translate('store.shopQrInvalid', locale)}
+        </p>
+      ) : null}
+    </details>
   );
 }
