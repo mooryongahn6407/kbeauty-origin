@@ -7,6 +7,7 @@ import { translate, type MessageKey } from '@/localization/messages';
 import { storeCatalog } from '@/content/store-catalog';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import type { StoreProduct } from '@/content/store-catalog-types';
+import { LUMINA_PORTRAIT } from '@/content/brand';
 
 export type GuideTarget = 'store' | 'dictionary' | 'categories' | 'kbeauty' | 'sunguide' | 'more';
 
@@ -39,10 +40,17 @@ export function GuideHubScreen({
 }) {
   return (
     <section className="guide" aria-labelledby="guide-title">
-      <h1 className="guide-title" id="guide-title">
-        {translate('guide.title', locale)}
-      </h1>
-      <p className="lead">{translate('guide.intro', locale)}</p>
+      <header className="guide-hero">
+        {LUMINA_PORTRAIT ? (
+          <img className="guide-hero__photo" src={LUMINA_PORTRAIT} alt="Lumina Noy" />
+        ) : null}
+        <div className="guide-hero__text">
+          <h1 className="guide-title" id="guide-title">
+            {translate('guide.title', locale)}
+          </h1>
+          <p className="lead">{translate('guide.intro', locale)}</p>
+        </div>
+      </header>
       <ul className="guide__cards" role="list">
         {CARDS.map((card) => (
           <li key={card.key}>

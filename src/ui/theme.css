@@ -1669,3 +1669,6 @@ select.field, .locale-switch select, .settings__select {
 .guide-sources a { color: var(--accent); }
 .lumina-photo { display: block; border-radius: 50%; object-fit: cover; background: var(--surface-sunk); }
 .store-pair { margin-bottom: var(--space-2); }
+.guide-hero { display: grid; grid-template-columns: minmax(96px, 34%) 1fr; gap: var(--space-3); align-items: end; margin-top: var(--space-2); }
+.guide-hero__photo { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: top; border-radius: var(--radius); background: var(--surface-sunk); }
+.guide-hero__text .lead { margin-bottom: 0; }
