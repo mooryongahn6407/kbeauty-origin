@@ -1,0 +1,107 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+@font-face { font-family: 'LaoUI'; src: url('assets/noto-sans-lao-lao-400-normal.woff2') format('woff2'); font-weight: 400; }
+@font-face { font-family: 'LaoUI'; src: url('assets/noto-sans-lao-lao-700-normal.woff2') format('woff2'); font-weight: 700; }
+:root { --rose: #7D2A45; --rose2: #a33753; --cream: #FBF1E3; --ink: #241c1a; --gold: #C9A227; --mint: #2b6b50; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1920px; overflow: hidden; background: #000; }
+body { font-family: 'LaoUI', 'Noto Sans CJK KR', 'Noto Sans KR', sans-serif; }
+#stage { word-break: keep-all; position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--cream); }
+.scene { position: absolute; inset: 0; opacity: 0; overflow: hidden; }
+.bg-photo { position: absolute; inset: -6%; width: 112%; height: 112%; object-fit: cover; transform-origin: 50% 40%; }
+.shade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(20,8,12,.78) 100%); }
+.cap { position: absolute; left: 70px; right: 70px; color: #fff; text-shadow: 0 2px 18px rgba(0,0,0,.35); }
+.cap .main { font-size: 74px; font-weight: 700; line-height: 1.38; }
+.cap .sub { margin-top: 22px; font-size: 40px; font-weight: 400; line-height: 1.5; opacity: .92; }
+.cap.dark { color: var(--ink); text-shadow: none; }
+.cap.dark .sub { color: #5b4a46; }
+.band { position: absolute; left: 0; right: 0; bottom: 0; padding: 70px 70px 120px; background: var(--rose); color: #fff; }
+.band .main { font-size: 66px; font-weight: 700; line-height: 1.38; }
+.band .sub { margin-top: 18px; font-size: 38px; line-height: 1.5; opacity: .9; }
+.brand { position: absolute; top: 64px; left: 70px; display: flex; align-items: center; gap: 22px; font: 700 40px 'Noto Sans CJK KR', sans-serif; letter-spacing: .14em; color: var(--rose); }
+.brand img { width: 84px; height: 84px; border-radius: 22px; }
+.brand.light { color: #fff; }
+.phone { position: absolute; left: 50%; top: 250px; width: 600px; height: 1240px; margin-left: -300px; border-radius: 74px; background: #111; padding: 22px; box-shadow: 0 40px 90px rgba(80,20,40,.35); }
+.phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; border-radius: 54px; display: block; background: #fff; }
+.phone-cap { position: absolute; left: 60px; right: 60px; top: 1530px; text-align: center; color: var(--ink); }
+.phone-cap .main { font-size: 62px; font-weight: 700; line-height: 1.38; }
+.phone-cap .sub { margin-top: 16px; font-size: 36px; color: #5b4a46; line-height: 1.5; }
+.blob { position: absolute; border-radius: 50%; filter: blur(2px); }
+.grid { position: absolute; left: 60px; right: 60px; top: 230px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.grid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 26px; box-shadow: 0 10px 30px rgba(80,20,40,.18); }
+.qrbox { position: absolute; left: 50%; top: 520px; width: 620px; margin-left: -310px; background: #fff; border-radius: 48px; padding: 44px; box-shadow: 0 30px 80px rgba(80,20,40,.25); text-align: center; }
+.qrbox img { width: 100%; display: block; }
+.qrbox .url { margin-top: 18px; font: 600 36px 'Noto Sans CJK KR', sans-serif; color: var(--rose); }
+.card { position: absolute; left: 70px; right: 70px; background: #fff; border-radius: 40px; padding: 46px 52px; box-shadow: 0 18px 50px rgba(80,20,40,.14); color: var(--ink); }
+.card .k { font-size: 112px; font-weight: 700; color: var(--rose); line-height: 1.1; font-family: 'Noto Sans CJK KR', sans-serif; }
+.card .t { font-size: 52px; font-weight: 700; line-height: 1.38; margin-top: 8px; }
+.card .d { font-size: 36px; line-height: 1.5; color: #5b4a46; margin-top: 10px; }
+.title { position: absolute; left: 70px; right: 70px; top: 230px; color: var(--ink); }
+.title .main { font-size: 78px; font-weight: 700; line-height: 1.32; }
+.title .sub { margin-top: 20px; font-size: 40px; color: #5b4a46; line-height: 1.5; }
+.chip { display: inline-block; padding: 12px 30px; border-radius: 999px; background: var(--rose); color: #fff; font-size: 38px; font-weight: 700; }
+.flow { position: absolute; left: 70px; right: 70px; top: 640px; display: flex; flex-direction: column; gap: 26px; }
+.flow .step { display: flex; align-items: center; gap: 30px; background: #fff; border-radius: 34px; padding: 34px 40px; box-shadow: 0 12px 34px rgba(80,20,40,.12); }
+.flow .ic { width: 110px; height: 110px; flex: none; border-radius: 30px; background: #fceef2; display: flex; align-items: center; justify-content: center; font-size: 64px; }
+.flow .tx .t { font-size: 48px; font-weight: 700; color: var(--ink); line-height: 1.32; }
+.flow .tx .d { font-size: 34px; color: #5b4a46; line-height: 1.45; margin-top: 4px; }
+.bar { position: absolute; left: 0; height: 12px; background: var(--gold); top: 0; }
+.small { font-size: 30px; color: #6b5a56; position: absolute; left: 70px; right: 70px; bottom: 60px; line-height: 1.45; }
+</style>
+</head>
+<body><div id="stage"></div>
+<script>
+// A scene list in, a deterministic frame for any time t out: window.setup(spec) once, then
+// window.frame(t) per frame. Everything that moves is a pure function of t.
+const ease = (x) => x < 0 ? 0 : x > 1 ? 1 : 1 - Math.pow(1 - x, 3);
+let SPEC, NODES = [];
+const el = (html) => { const d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstElementChild; };
+const capHtml = (c, cls = 'cap') => c ? `<div class="${cls}"><div class="main">${c.main || ''}</div>${c.sub ? `<div class="sub">${c.sub}</div>` : ''}</div>` : '';
+const brand = (light) => `<div class="brand${light ? ' light' : ''}"><img src="assets/logo.png">KOREA GLOW</div>`;
+function build(s) {
+  if (s.type === 'photo') return el(`<div class="scene"><img class="bg-photo" src="${s.src}"><div class="shade"></div>${brand(true)}<div style="position:absolute;left:0;right:0;bottom:170px">${capHtml(s.caption).replace('class="cap"', 'class="cap" style="position:relative;left:auto;right:auto;margin:0 70px"')}</div></div>`);
+  if (s.type === 'portrait') return el(`<div class="scene" style="background:var(--cream)"><img class="bg-photo" src="${s.src}" style="object-position:50% 12%"><div class="shade"></div>${brand(true)}<div style="position:absolute;left:0;right:0;bottom:170px">${capHtml(s.caption).replace('class="cap"', 'class="cap" style="position:relative;left:auto;right:auto;margin:0 70px"')}</div></div>`);
+  if (s.type === 'phone') return el(`<div class="scene" style="background:linear-gradient(180deg,#fff5f7,#fbf1e3)"><div class="blob" style="width:700px;height:700px;left:-200px;top:-140px;background:#f6d9e1"></div><div class="blob" style="width:600px;height:600px;right:-220px;top:900px;background:#f3e3c7"></div>${brand(false)}<div class="phone"><img class="pimg" src=""></div><div class="phone-cap"><div class="main">${s.caption.main}</div>${s.caption.sub ? `<div class="sub">${s.caption.sub}</div>` : ''}</div></div>`);
+  if (s.type === 'grid') return el(`<div class="scene" style="background:var(--cream)">${brand(false)}<div class="grid">${s.photos.map((p) => `<img src="${p}">`).join('')}</div><div class="band"><div class="main">${s.caption.main}</div>${s.caption.sub ? `<div class="sub">${s.caption.sub}</div>` : ''}</div></div>`);
+  if (s.type === 'qr') return el(`<div class="scene" style="background:linear-gradient(180deg,#fff5f7,#fbf1e3)">${brand(false)}<div class="title" style="top:230px;text-align:center"><div class="main">${s.caption.main}</div></div><div class="qrbox"><img src="${s.qr}"><div class="url">${s.url}</div></div><div class="title" style="top:1420px;text-align:center"><div class="sub" style="font-size:44px">${s.caption.sub || ''}</div></div>${s.small ? `<div class="small" style="text-align:center">${s.small}</div>` : ''}</div>`);
+  if (s.type === 'cards') return el(`<div class="scene" style="background:var(--cream)">${brand(false)}<div class="title"><div class="main">${s.caption.main}</div>${s.caption.sub ? `<div class="sub">${s.caption.sub}</div>` : ''}</div>${s.cards.map((c, i) => `<div class="card cardi" style="top:${s.top + i * s.gap}px"><div class="k">${c.k}</div><div class="t">${c.t}</div>${c.d ? `<div class="d">${c.d}</div>` : ''}</div>`).join('')}${s.small ? `<div class="small">${s.small}</div>` : ''}</div>`);
+  if (s.type === 'flow') return el(`<div class="scene" style="background:var(--cream)">${brand(false)}<div class="title"><div class="main">${s.caption.main}</div>${s.caption.sub ? `<div class="sub">${s.caption.sub}</div>` : ''}</div><div class="flow" style="top:${s.top || 640}px">${s.steps.map((st) => `<div class="step"><div class="ic">${st.icon}</div><div class="tx"><div class="t">${st.t}</div>${st.d ? `<div class="d">${st.d}</div>` : ''}</div></div>`).join('')}</div>${s.small ? `<div class="small">${s.small}</div>` : ''}</div>`);
+  throw new Error('unknown scene ' + s.type);
+}
+window.setup = (spec) => {
+  SPEC = spec; let t0 = 0;
+  const stage = document.getElementById('stage'); stage.innerHTML = '<div class="bar"></div>';
+  NODES = spec.scenes.map((s) => { const n = build(s); stage.appendChild(n); const r = { s, n, t0, t1: t0 + s.dur }; t0 += s.dur; return r; });
+  return t0;
+};
+window.frame = async (t) => {
+  const F = 0.4; const total = NODES.at(-1).t1;
+  document.querySelector('.bar').style.width = `${(t / total) * 1080}px`;
+  const loads = [];
+  for (const { s, n, t0, t1 } of NODES) {
+    const on = t >= t0 - F && t < t1 + F;
+    if (!on) { n.style.opacity = 0; continue; }
+    const local = t - t0, p = local / s.dur;
+    const fadeIn = s === NODES[0].s ? 1 : ease((t - (t0 - F)) / F), fadeOut = t > t1 ? 1 - ease((t - t1) / F) : 1;
+    n.style.opacity = Math.min(fadeIn, fadeOut);
+    const img = n.querySelector('.bg-photo'); if (img) img.style.transform = `scale(${1 + 0.08 * Math.max(0, Math.min(1, p))}) translateY(${-1.5 * p}%)`;
+    const cap = n.querySelector('.cap, .band, .phone-cap, .title'); if (cap) { const k = ease((local - 0.15) / 0.6); cap.style.transform = `translateY(${(1 - k) * 40}px)`; cap.style.opacity = k; }
+    if (s.type === 'phone') {
+      const fr = Math.max(1, Math.min(s.frames, Math.floor(Math.max(0, local) * 30) + 1 + (s.offset || 0)));
+      const src = `${s.dir}/${String(fr).padStart(5, '0')}.jpg`; const pimg = n.querySelector('.pimg');
+      if (!pimg.src.endsWith(src)) { pimg.src = src; loads.push(pimg.decode().catch(() => {})); }
+      const k = ease(local / 0.7); n.querySelector('.phone').style.transform = `translateY(${(1 - k) * 120}px) scale(${0.96 + 0.04 * k})`;
+    }
+    if (s.type === 'grid') n.querySelectorAll('.grid img').forEach((im, i) => { const k = ease((local - i * 0.12) / 0.5); im.style.opacity = k; im.style.transform = `scale(${0.85 + 0.15 * k})`; });
+    if (s.type === 'cards') n.querySelectorAll('.cardi').forEach((c, i) => { const k = ease((local - 0.5 - i * 0.45) / 0.6); c.style.opacity = k; c.style.transform = `translateX(${(1 - k) * 80}px)`; });
+    if (s.type === 'flow') n.querySelectorAll('.step').forEach((c, i) => { const k = ease((local - 0.5 - i * 0.5) / 0.6); c.style.opacity = k; c.style.transform = `translateY(${(1 - k) * 50}px)`; });
+    if (s.type === 'qr') { const q = n.querySelector('.qrbox'); const k = ease((local - 0.3) / 0.7); q.style.opacity = k; q.style.transform = `scale(${0.9 + 0.1 * k})`; }
+  }
+  await Promise.all(loads);
+};
+</script>
+</body>
+</html>

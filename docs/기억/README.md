@@ -1,5 +1,8 @@
 # 기억 폴더 — 이 방을 /clear 한 뒤 여기부터 읽으십시오
 
+> **2026-10-11 클리어 직후라면 먼저 `docs/재개카드/KOREAGLOW_재개카드_261011.md`를 읽으세요.**
+
+
 이 폴더는 **La Vallée des Merveilles 방**(공식 세션 이름
 `KOREA GLOW BEAUTY LEARNING WORLD — GLOBAL AI BEAUTY INTELLIGENCE PLATFORM`,
 `session_01QXeMxWmEV5WqU3s4KrzUYh`, 2026-09-18 개설)의 기억입니다.
