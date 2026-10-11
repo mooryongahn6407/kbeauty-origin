@@ -198,10 +198,55 @@ export function SunCareGuideScreen({
       <FallbackNote locale={locale} />
       <Points points={SUN_CARE} locale={locale} />
       <h2 className="guide-subtitle">
-        {translate('sunguide.products', locale, { count: String(products.length) })}
+        {translate('sunguide.products', locale, {
+          count: String(products.length),
+        })}
       </h2>
       <ProductStrip products={products} locale={locale} onOpen={onOpenProduct} />
       <PageFoot locale={locale} />
+    </section>
+  );
+}
+
+const ABOUT_POINTS = [
+  { n: 1, icon: '🛍️' },
+  { n: 2, icon: '🇰🇷' },
+  { n: 3, icon: '🏷️' },
+  { n: 4, icon: '📝' },
+  { n: 5, icon: '🩺' },
+  { n: 6, icon: '🔒' },
+  { n: 7, icon: '🌐' },
+] as const;
+
+/**
+ * How this app works: what it never does (sell, rank brands, diagnose), where its content comes
+ * from and how much of it has been checked, and what stays on the reader's phone. Every sentence
+ * is a localization string; nothing here is a claim about a product or an ingredient.
+ */
+export function AboutAppScreen({ locale }: { locale: string }) {
+  return (
+    <section className="guide" aria-labelledby="about-title">
+      <h1 className="guide-title" id="about-title">
+        {translate('guide.card.about.title', locale)}
+      </h1>
+      <p className="lead">{translate('guide.card.about.body', locale)}</p>
+      <ul className="points" role="list">
+        {ABOUT_POINTS.map(({ n, icon }) => (
+          <li key={n} className="point">
+            <span className="point__icon" aria-hidden="true">
+              {icon}
+            </span>
+            <span className="point__text">
+              <strong className="point__title">
+                {translate(`about.p${n}.title` as MessageKey, locale)}
+              </strong>
+              <span className="point__body">
+                {translate(`about.p${n}.body` as MessageKey, locale)}
+              </span>
+            </span>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }

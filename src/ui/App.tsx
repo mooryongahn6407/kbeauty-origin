@@ -45,6 +45,7 @@ import { GuideHubScreen, type GuideTarget } from './screens/GuideHubScreen';
 import { IngredientDictionaryScreen } from './screens/IngredientDictionaryScreen';
 import {
   CategoriesGuideScreen,
+  AboutAppScreen,
   KBeautyGuideScreen,
   SunCareGuideScreen,
 } from './screens/GuideTopicScreens';
@@ -59,6 +60,7 @@ type ScreenId =
   | 'categories'
   | 'kbeauty'
   | 'sunguide'
+  | 'about'
   | 'more'
   | 'hunt'
   | 'compare'
@@ -299,6 +301,7 @@ export function App() {
                 <CategoriesGuideScreen key={locale} locale={locale} onOpenProduct={openProduct} />
               ) : null}
               {screen === 'kbeauty' ? <KBeautyGuideScreen key={locale} locale={locale} /> : null}
+              {screen === 'about' ? <AboutAppScreen key={locale} locale={locale} /> : null}
               {screen === 'sunguide' ? (
                 <SunCareGuideScreen key={locale} locale={locale} onOpenProduct={openProduct} />
               ) : null}

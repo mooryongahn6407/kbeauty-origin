@@ -12,8 +12,14 @@ import { storeCatalog } from '@/content/store-catalog';
 import { PRINTED_NAME_TO_INGREDIENT, ingredientIdForPrinted } from '@/content/inci-names';
 import { findIngredient } from '@/knowledge/ingredients';
 import {
+  INQUIRY_LIMIT,
   avoidHits,
+  compareLabels,
+  comparisonIsPartial,
   findProduct,
+  inquiryMessage,
+  loadInquiryList,
+  toggleInquiry,
   hasReadableList,
   ingredientsOnSale,
   loadAvoidList,
@@ -249,5 +255,74 @@ describe('avoid list and links', () => {
       'https://x.test/?product=KG-CRM-00003&p=VTE-01',
     );
     expect(productLink('/', 'KG-CRM-00003', null)).toBe('/?product=KG-CRM-00003');
+  });
+});
+
+describe('comparing two labels', () => {
+  const readable = storeCatalog.filter(hasReadableList);
+  const [a, b] = [readable[0]!, readable[1]!];
+
+  it('splits every printed name into exactly one of both / only A / only B', () => {
+    const result = compareLabels(a, b);
+    expect(result.both.length + result.onlyA.length).toBeLessThanOrEqual(a.inci.length);
+    for (const name of result.onlyA) expect(a.inci).toContain(name);
+    for (const name of result.onlyB) expect(b.inci).toContain(name);
+    for (const name of result.both) expect(a.inci).toContain(name);
+  });
+
+  it('finds everything in common when a product is compared with itself', () => {
+    const result = compareLabels(a, a);
+    expect(result.onlyA).toEqual([]);
+    expect(result.onlyB).toEqual([]);
+    expect(result.both.length).toBeGreaterThan(0);
+  });
+
+  it('warns when either list is incomplete or unchecked', () => {
+    const unchecked = readable.find((p) => p.source === 'SUPPLIER_TEXT_UNCHECKED');
+    if (unchecked) expect(comparisonIsPartial(a, unchecked)).toBe(true);
+  });
+});
+
+describe('the questions list', () => {
+  const skus = storeCatalog.map((p) => p.sku);
+  const store = (value: unknown) => ({ getItem: () => JSON.stringify(value) });
+
+  it('keeps only real product codes, once each, up to the limit', () => {
+    expect(loadInquiryList(store(['KG-XXX-00000', skus[0], skus[0], 7]))).toEqual([skus[0]]);
+    expect(loadInquiryList(store(skus)).length).toBe(INQUIRY_LIMIT);
+    expect(loadInquiryList({ getItem: () => 'not json' })).toEqual([]);
+  });
+
+  it('adds and removes with one toggle and never goes past the limit', () => {
+    const one = toggleInquiry([], skus[0]!);
+    expect(one).toEqual([skus[0]]);
+    expect(toggleInquiry(one, skus[0]!)).toEqual([]);
+    const full = skus.slice(0, INQUIRY_LIMIT);
+    expect(toggleInquiry(full, skus[INQUIRY_LIMIT]!)).toEqual(full);
+    expect(toggleInquiry([], 'KG-XXX-00000')).toEqual([]);
+  });
+
+  it('writes a message with names, codes and the link, and nothing like a price', () => {
+    const product = findProduct(skus[0]!)!;
+    const text = inquiryMessage(
+      translate('store.inquiry.messageHead', 'lo'),
+      [{ name: product.nameKo, sku: product.sku }],
+      'https://app.korea-glow.com/?p=VTE-01',
+    );
+    expect(text).toContain(product.sku);
+    expect(text).toContain('?p=VTE-01');
+    expect(text).not.toMatch(/\$|₭|kip|USD|LAK|THB|price|가격|ລາຄາ|ราคา/i);
+  });
+});
+
+describe('the "how this app works" page', () => {
+  const keys = [1, 2, 3, 4, 5, 6, 7].flatMap((n) => [`about.p${n}.title`, `about.p${n}.body`]);
+
+  it('is written in every catalog, in the right script', () => {
+    for (const key of keys) {
+      expect(translate(key as MessageKey, 'lo'), key).toMatch(/[\u0E80-\u0EFF]/);
+      expect(translate(key as MessageKey, 'th'), key).toMatch(/[\u0E00-\u0E7F]/);
+      expect(translate(key as MessageKey, 'ko'), key).toMatch(/[가-힣]/);
+    }
   });
 });

@@ -16,9 +16,16 @@ import { translate, type MessageKey } from '@/localization/messages';
 import { storeCatalog } from '@/content/store-catalog';
 import { nameWithoutBrand, type StoreProduct } from '@/content/store-catalog-types';
 import { findIngredient } from '@/knowledge/ingredients';
+import { ingredientIdForPrinted } from '@/content/inci-names';
 import {
   avoidHits,
+  compareLabels,
+  comparisonIsPartial,
   findProduct,
+  inquiryMessage,
+  loadInquiryList,
+  saveInquiryList,
+  toggleInquiry,
   hasReadableList,
   ingredientsOnSale,
   loadAvoidList,
@@ -86,8 +93,10 @@ export function StoreProductsScreen({
   const [category, setCategory] = useState('');
   const [selected, setSelected] = useState<string | null>(initialSku);
   const [avoid, setAvoid] = useState<readonly string[]>(() => loadAvoidList(storage()));
+  const [inquiry, setInquiry] = useState<readonly string[]>(() => loadInquiryList(storage()));
 
   useEffect(() => saveAvoidList(storage(), avoid), [avoid]);
+  useEffect(() => saveInquiryList(storage(), inquiry), [inquiry]);
 
   // Bring the product (or the list, on the way back) to the top of the screen. A customer who
   // scanned a shop's QR code should see the product first, not the row of study rooms above it.
@@ -116,6 +125,8 @@ export function StoreProductsScreen({
           locale={locale}
           partner={partner}
           avoid={avoid}
+          inquiry={inquiry}
+          onInquiry={setInquiry}
           onBack={() => open(null)}
           onOpenIngredient={onOpenIngredient}
           onOpenProduct={open}
@@ -130,6 +141,8 @@ export function StoreProductsScreen({
           onCategory={setCategory}
           avoid={avoid}
           onAvoid={setAvoid}
+          inquiry={inquiry}
+          onInquiry={setInquiry}
           onOpen={open}
         />
       )}
@@ -146,6 +159,8 @@ function ProductList({
   onCategory,
   avoid,
   onAvoid,
+  inquiry,
+  onInquiry,
   onOpen,
 }: {
   locale: string;
@@ -156,6 +171,8 @@ function ProductList({
   onCategory: (category: string) => void;
   avoid: readonly string[];
   onAvoid: (avoid: readonly string[]) => void;
+  inquiry: readonly string[];
+  onInquiry: (skus: readonly string[]) => void;
   onOpen: (sku: string) => void;
 }) {
   const categories = useMemo(storeCategories, []);
@@ -164,7 +181,9 @@ function ProductList({
       searchCatalog(query).filter((product) => category === '' || product.category === category),
     [query, category],
   );
-  const prompt = translate('store.prompt', locale, { count: String(storeCatalog.length) });
+  const prompt = translate('store.prompt', locale, {
+    count: String(storeCatalog.length),
+  });
 
   return (
     <section className="store" aria-labelledby="store-prompt">
@@ -177,7 +196,9 @@ function ProductList({
         text={prompt}
         locale={locale}
         fallback={spokenFallback(locale, (spoken) =>
-          translate('store.prompt', spoken, { count: String(storeCatalog.length) }),
+          translate('store.prompt', spoken, {
+            count: String(storeCatalog.length),
+          }),
         )}
       />
 
@@ -218,10 +239,20 @@ function ProductList({
         ))}
       </ul>
 
+      <InquiryCard
+        locale={locale}
+        partner={partner}
+        inquiry={inquiry}
+        onInquiry={onInquiry}
+        onOpen={onOpen}
+      />
+
       <AvoidPicker locale={locale} avoid={avoid} onAvoid={onAvoid} />
 
       <p className="store__count" aria-live="polite">
-        {translate('store.resultCount', locale, { count: String(results.length) })}
+        {translate('store.resultCount', locale, {
+          count: String(results.length),
+        })}
       </p>
       {results.length === 0 ? (
         <p className="muted">{translate('store.noResults', locale)}</p>
@@ -242,7 +273,10 @@ function ProductList({
                     <SourceTag product={item} locale={locale} />
                     {hits > 0 ? (
                       <span className="tag tag--blocker">
-                        ⚠ {translate('store.avoidHitsBadge', locale, { count: String(hits) })}
+                        ⚠{' '}
+                        {translate('store.avoidHitsBadge', locale, {
+                          count: String(hits),
+                        })}
                       </span>
                     ) : null}
                   </span>
@@ -321,6 +355,8 @@ function ProductLabel({
   locale,
   partner,
   avoid,
+  inquiry,
+  onInquiry,
   onBack,
   onOpenIngredient,
   onOpenProduct,
@@ -329,6 +365,8 @@ function ProductLabel({
   locale: string;
   partner: string | null;
   avoid: readonly string[];
+  inquiry: readonly string[];
+  onInquiry: (skus: readonly string[]) => void;
   onBack: () => void;
   onOpenIngredient: (id: string) => void;
   onOpenProduct: (sku: string) => void;
@@ -471,8 +509,247 @@ function ProductLabel({
         </>
       )}
 
+      {readable ? (
+        <CompareLabels product={product} locale={locale} onOpenProduct={onOpenProduct} />
+      ) : null}
+
+      <button
+        type="button"
+        className={`btn ${inquiry.includes(product.sku) ? 'btn--quiet' : ''} store-inquiry__toggle`}
+        aria-pressed={inquiry.includes(product.sku)}
+        onClick={() => onInquiry(toggleInquiry(inquiry, product.sku))}
+      >
+        {inquiry.includes(product.sku)
+          ? `✓ ${translate('store.inquiry.added', locale)}`
+          : `📝 ${translate('store.inquiry.add', locale)}`}
+      </button>
       <ShareLink sku={product.sku} partner={partner} locale={locale} />
       <p className="record-block__note">{translate('store.noCommerce', locale)}</p>
+    </section>
+  );
+}
+
+/** What two labels print, side by side — no score, no ranking, no "better". */
+function CompareLabels({
+  product,
+  locale,
+  onOpenProduct,
+}: {
+  product: StoreProduct;
+  locale: string;
+  onOpenProduct: (sku: string) => void;
+}) {
+  const [otherSku, setOtherSku] = useState('');
+  const choices = useMemo(
+    () =>
+      storeCatalog
+        .filter((item) => item.sku !== product.sku && hasReadableList(item))
+        .sort(
+          (a, b) =>
+            Number(b.category === product.category) - Number(a.category === product.category),
+        ),
+    [product],
+  );
+  const other = otherSku ? findProduct(otherSku) : undefined;
+  const result = other ? compareLabels(product, other) : null;
+  const otherName = other ? productName(other, locale) : '';
+  const id = `compare-${product.sku}`;
+
+  return (
+    <section className="card store-compare">
+      <h3 className="store-labels__title">⇄ {translate('store.compare.title', locale)}</h3>
+      <label className="settings__label" htmlFor={id}>
+        {translate('store.compare.pick', locale)}
+      </label>
+      <select
+        id={id}
+        className="field"
+        value={otherSku}
+        onChange={(event) => setOtherSku(event.target.value)}
+      >
+        <option value="">{translate('store.compare.none', locale)}</option>
+        {choices.map((item) => (
+          <option key={item.sku} value={item.sku}>
+            {item.brand} · {productName(item, locale)}
+          </option>
+        ))}
+      </select>
+      {other && result ? (
+        <>
+          <p className="fine">{translate('store.compare.note', locale)}</p>
+          {comparisonIsPartial(product, other) ? (
+            <p className="disclosure disclosure--caution">
+              <span className="disclosure__mark">!</span>
+              <span>{translate('store.compare.partial', locale)}</span>
+            </p>
+          ) : null}
+          <div className="store-compare__cols">
+            {(
+              [
+                [
+                  'both',
+                  translate('store.compare.both', locale, {
+                    count: String(result.both.length),
+                  }),
+                  result.both,
+                ],
+                [
+                  'this',
+                  translate('store.compare.onlyThis', locale, {
+                    count: String(result.onlyA.length),
+                  }),
+                  result.onlyA,
+                ],
+                [
+                  'other',
+                  translate('store.compare.onlyOther', locale, {
+                    name: otherName,
+                    count: String(result.onlyB.length),
+                  }),
+                  result.onlyB,
+                ],
+              ] as const
+            ).map(([key, title, names]) => (
+              <details
+                key={key}
+                className={`store-compare__col store-compare__col--${key}`}
+                open={key === 'both'}
+              >
+                <summary className="store-compare__head">{title}</summary>
+                <ul className="store-compare__list">
+                  {names.map((name) => {
+                    const id = ingredientIdForPrinted(name);
+                    const record = id ? findIngredient(id) : undefined;
+                    return (
+                      <li key={name}>
+                        <span lang="ko">{name}</span>
+                        {record ? (
+                          <span className="store-inci__en" lang="en">
+                            {' '}
+                            {record.Ingredient_Name}
+                          </span>
+                        ) : null}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </details>
+            ))}
+          </div>
+          <button type="button" className="btn btn--quiet" onClick={() => onOpenProduct(other.sku)}>
+            {translate('store.compare.open', locale, { name: otherName })}
+          </button>
+        </>
+      ) : null}
+    </section>
+  );
+}
+
+/**
+ * The reader's own "ask the shop" list. It assembles a message — product names and codes and a
+ * link back here with the shop's code — that the reader copies or shares themselves. No price,
+ * no quantity, nothing leaves the phone until the reader sends it.
+ */
+function InquiryCard({
+  locale,
+  partner,
+  inquiry,
+  onInquiry,
+  onOpen,
+}: {
+  locale: string;
+  partner: string | null;
+  inquiry: readonly string[];
+  onInquiry: (skus: readonly string[]) => void;
+  onOpen: (sku: string) => void;
+}) {
+  const [state, setState] = useState<'idle' | 'copied' | 'manual'>('idle');
+  if (inquiry.length === 0) return null;
+  const products = inquiry
+    .map((sku) => findProduct(sku))
+    .filter((item): item is StoreProduct => !!item);
+  const link =
+    partner === null ? appBase() : `${appBase()}?${PARTNER_PARAM}=${encodeURIComponent(partner)}`;
+  const message = inquiryMessage(
+    translate('store.inquiry.messageHead', locale),
+    products.map((item) => ({
+      name: `${item.brand} ${productName(item, locale)}`,
+      sku: item.sku,
+    })),
+    link,
+  );
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(message);
+      setState('copied');
+    } catch {
+      setState('manual');
+    }
+  };
+  const canShare = typeof navigator !== 'undefined' && typeof navigator.share === 'function';
+  const share = async () => {
+    try {
+      await navigator.share({ text: message });
+    } catch {
+      // The reader closed the share sheet; nothing to do.
+    }
+  };
+
+  return (
+    <section className="card store-inquiry" aria-labelledby="store-inquiry-title">
+      <h2 className="store-labels__title" id="store-inquiry-title">
+        📝{' '}
+        {translate('store.inquiry.title', locale, {
+          count: String(products.length),
+        })}
+      </h2>
+      <p className="store-labels__intro">{translate('store.inquiry.intro', locale)}</p>
+      <ul className="store-inquiry__list" role="list">
+        {products.map((item) => (
+          <li key={item.sku} className="store-inquiry__row">
+            <button type="button" className="store-inquiry__name" onClick={() => onOpen(item.sku)}>
+              <ProductPhoto product={item} locale={locale} className="store-inquiry__photo" />
+              <span>
+                {item.brand} · {productName(item, locale)}
+              </span>
+            </button>
+            <button
+              type="button"
+              className="btn btn--quiet btn--small"
+              onClick={() => onInquiry(toggleInquiry(inquiry, item.sku))}
+            >
+              {translate('store.inquiry.remove', locale)}
+            </button>
+          </li>
+        ))}
+      </ul>
+      <div className="store-share">
+        {canShare ? (
+          <button type="button" className="btn" onClick={share}>
+            📤 {translate('store.inquiry.share', locale)}
+          </button>
+        ) : null}
+        <button type="button" className="btn btn--quiet" onClick={copy}>
+          📋 {translate('store.inquiry.copy', locale)}
+        </button>
+        <a
+          className="btn btn--quiet"
+          href={`https://wa.me/?text=${encodeURIComponent(message)}`}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          {translate('store.inquiry.whatsapp', locale)}
+        </a>
+        <button type="button" className="btn btn--quiet btn--small" onClick={() => onInquiry([])}>
+          {translate('store.inquiry.clear', locale)}
+        </button>
+      </div>
+      {state === 'copied' ? (
+        <p className="store-share__done" role="status">
+          ✓ {translate('store.inquiry.copied', locale)}
+        </p>
+      ) : null}
+      {state === 'manual' ? <pre className="store-share__link">{message}</pre> : null}
     </section>
   );
 }
@@ -785,7 +1062,10 @@ function LabelPhotos({ product, locale }: { product: StoreProduct; locale: strin
             <a className="label-gallery__item" href={src} target="_blank" rel="noreferrer">
               <img
                 src={src}
-                alt={translate('store.labelPhotoAlt', locale, { name, n: String(index + 1) })}
+                alt={translate('store.labelPhotoAlt', locale, {
+                  name,
+                  n: String(index + 1),
+                })}
                 loading="lazy"
                 decoding="async"
               />

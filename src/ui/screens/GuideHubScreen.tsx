@@ -9,7 +9,14 @@ import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import type { StoreProduct } from '@/content/store-catalog-types';
 import { LUMINA_PORTRAIT } from '@/content/brand';
 
-export type GuideTarget = 'store' | 'dictionary' | 'categories' | 'kbeauty' | 'sunguide' | 'more';
+export type GuideTarget =
+  | 'store'
+  | 'dictionary'
+  | 'categories'
+  | 'kbeauty'
+  | 'sunguide'
+  | 'about'
+  | 'more';
 
 const withPhoto = storeCatalog.filter((product) => product.photo);
 const photoIn = (category: string, skip = 0): StoreProduct | undefined =>
@@ -20,15 +27,26 @@ interface Card {
   readonly key: string;
   readonly photos: readonly (StoreProduct | undefined)[];
   readonly count?: number;
+  readonly icon?: string;
 }
 
 const CARDS: readonly Card[] = [
-  { target: 'store', key: 'store', photos: withPhoto.slice(0, 4), count: storeCatalog.length },
-  { target: 'dictionary', key: 'dictionary', photos: [photoIn('에센스·세럼·앰플', 2)] },
+  {
+    target: 'store',
+    key: 'store',
+    photos: withPhoto.slice(0, 4),
+    count: storeCatalog.length,
+  },
+  {
+    target: 'dictionary',
+    key: 'dictionary',
+    photos: [photoIn('에센스·세럼·앰플', 2)],
+  },
   { target: 'categories', key: 'categories', photos: [photoIn('기프트세트')] },
   { target: 'kbeauty', key: 'kbeauty', photos: [photoIn('크림', 3)] },
   { target: 'sunguide', key: 'suncare', photos: [photoIn('선케어', 1)] },
-  { target: 'more', key: 'more', photos: [] },
+  { target: 'about', key: 'about', photos: [], icon: 'ℹ️' },
+  { target: 'more', key: 'more', photos: [], icon: '🎮' },
 ];
 
 export function GuideHubScreen({
@@ -69,7 +87,7 @@ export function GuideHubScreen({
                 </span>
               ) : (
                 <span className="guide-card__icon" aria-hidden="true">
-                  🎮
+                  {card.icon}
                 </span>
               )}
               <span className="guide-card__text">

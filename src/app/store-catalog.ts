@@ -126,3 +126,102 @@ export function productLink(base: string, sku: string, partner: string | null): 
   if (partner) params.set(PARTNER_PARAM, partner);
   return `${base}?${params.toString()}`;
 }
+
+/**
+ * Two printed lists side by side: what both labels print, and what only one of them prints.
+ * A printed name counts as the same ingredient when both resolve to one 06_INGREDIENTS record,
+ * otherwise when the printed base names match. Nothing is scored or ranked, and "only on A"
+ * means only that B's list as collected does not print it — a truncated or unchecked list
+ * cannot prove an absence, which the screen says.
+ */
+export interface LabelComparison {
+  readonly both: readonly string[];
+  readonly onlyA: readonly string[];
+  readonly onlyB: readonly string[];
+}
+
+const compareKey = (printed: string): string =>
+  ingredientIdForPrinted(printed) ?? `printed:${fold(printedBase(printed))}`;
+
+export function compareLabels(a: StoreProduct, b: StoreProduct): LabelComparison {
+  const keysB = new Set(b.inci.map(compareKey));
+  const keysA = new Set(a.inci.map(compareKey));
+  const seen = new Set<string>();
+  const both: string[] = [];
+  const onlyA: string[] = [];
+  for (const printed of a.inci) {
+    const key = compareKey(printed);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    (keysB.has(key) ? both : onlyA).push(printed);
+  }
+  const onlyB: string[] = [];
+  const seenB = new Set<string>();
+  for (const printed of b.inci) {
+    const key = compareKey(printed);
+    if (seenB.has(key) || keysA.has(key)) continue;
+    seenB.add(key);
+    onlyB.push(printed);
+  }
+  return { both, onlyA, onlyB };
+}
+
+/** Either list is incomplete or unchecked, so "only on one" is weaker than it looks. */
+export const comparisonIsPartial = (a: StoreProduct, b: StoreProduct): boolean =>
+  [a, b].some(
+    (product) =>
+      product.inciTruncated || product.inciGapAfter !== null || product.source !== 'LABEL_CHECKED',
+  );
+
+const INQUIRY_KEY = 'korea-glow:inquiry:v1';
+export const INQUIRY_LIMIT = 20;
+
+/**
+ * The reader's "ask the shop about these" list: product codes only, kept on this device. It is
+ * not a cart — no quantity, no price, nothing is sent anywhere until the reader shares it.
+ */
+export function loadInquiryList(storage: Pick<Storage, 'getItem'> | undefined): readonly string[] {
+  try {
+    const parsed: unknown = JSON.parse(storage?.getItem(INQUIRY_KEY) ?? '[]');
+    return Array.isArray(parsed)
+      ? [
+          ...new Set(
+            parsed.filter((sku): sku is string => typeof sku === 'string' && !!findProduct(sku)),
+          ),
+        ].slice(0, INQUIRY_LIMIT)
+      : [];
+  } catch {
+    return [];
+  }
+}
+
+export function saveInquiryList(
+  storage: Pick<Storage, 'setItem'> | undefined,
+  skus: readonly string[],
+): void {
+  try {
+    storage?.setItem(INQUIRY_KEY, JSON.stringify(skus.slice(0, INQUIRY_LIMIT)));
+  } catch {
+    // Private windows and full storage: the list lasts for this visit only.
+  }
+}
+
+export const toggleInquiry = (skus: readonly string[], sku: string): readonly string[] =>
+  skus.includes(sku)
+    ? skus.filter((item) => item !== sku)
+    : findProduct(sku) && skus.length < INQUIRY_LIMIT
+      ? [...skus, sku]
+      : skus;
+
+/**
+ * The text a reader sends to the shop: a greeting, one line per product (name and code) and a
+ * link back to the app carrying the shop's code. The wording comes from the caller (it is a
+ * localization string); this only assembles it, and never adds a price or a quantity.
+ */
+export function inquiryMessage(
+  head: string,
+  lines: readonly { name: string; sku: string }[],
+  link: string,
+): string {
+  return [head, ...lines.map((line) => `• ${line.name} (${line.sku})`), '', link].join('\n');
+}
