@@ -1783,3 +1783,13 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .care-product__cat { font-size: var(--fs-2xs); color: var(--text-muted); }
 .care-sources__list { margin: var(--space-2) 0 0; padding-left: 1.2em; font-size: var(--fs-sm); line-height: 1.7; overflow-wrap: anywhere; }
 .care-sources__list a { color: var(--accent); }
+.care-lessons { list-style: none; margin: var(--space-3) 0 0; padding: 0; display: grid; gap: var(--space-2); }
+.care-lesson-card { appearance: none; width: 100%; display: grid; grid-template-columns: 3rem minmax(0, 1fr); gap: var(--space-3); align-items: center; text-align: left; padding: var(--space-3); background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: var(--radius-sm); cursor: pointer; font: inherit; min-height: var(--tap); }
+.care-lesson-card:hover { background: var(--surface-sunk); }
+.care-lesson-card__icon { display: grid; place-items: center; width: 3rem; height: 3rem; border-radius: 999px; background: var(--accent-wash); font-size: var(--fs-lg); }
+.care-lesson-card__text { display: grid; gap: 2px; min-width: 0; }
+.care-lesson-card__title { font-family: var(--font-ui); font-size: var(--fs-md); font-weight: 700; line-height: 1.35; }
+.care-lesson-card__body { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.5; }
+.care-lesson__section { border-top: 1px solid var(--line); padding-top: var(--space-3); margin-top: var(--space-3); }
+.care-lesson__heading { font-size: var(--fs-md); margin: var(--space-3) 0 var(--space-2); }
+.care-lesson__body { line-height: 1.7; margin: 0 0 var(--space-2); }

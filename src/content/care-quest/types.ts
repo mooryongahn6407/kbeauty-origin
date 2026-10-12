@@ -92,6 +92,8 @@ export interface CareConcern {
   readonly what: Localized;
   /** Ids in the company ingredient dictionary commonly used for it. */
   readonly ingredients: readonly string[];
+  /** Commonly used ingredients the dictionary does not cover (anti-dandruff actives, urea…). */
+  readonly otherIngredients?: readonly Localized[];
   /** Product kinds that usually carry those ingredients. */
   readonly products: readonly string[];
   /** Store catalog `fit.concerns` keys that match it, for product suggestions. */
@@ -127,10 +129,19 @@ export interface AdviceBlock {
   readonly points: readonly Localized[];
 }
 
+/** A named list of steps: "Morning routine", "When you wash your hair", "In the shower". */
+export interface RoutineBlock {
+  readonly id: string;
+  readonly icon: string;
+  readonly title: Localized;
+  readonly lines: readonly RoutineLine[];
+}
+
 /** What the result screen shows besides the type and the concerns. */
 export interface CarePlan {
-  readonly am: readonly RoutineLine[];
-  readonly pm: readonly RoutineLine[];
+  /** Shown above everything else when an answer means "see a doctor first". */
+  readonly alert: Localized | null;
+  readonly routines: readonly RoutineBlock[];
   readonly weekly: readonly RoutineLine[];
   readonly advice: readonly AdviceBlock[];
   /** Dictionary ids to hold back for now (pregnancy, teenage skin), with the reason shown. */

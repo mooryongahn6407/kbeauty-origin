@@ -8,12 +8,15 @@
  * retinol back in pregnancy and for teenagers and always ends the morning on sunscreen; and no
  * content line makes a medical claim.
  */
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { CARE_TRACKS } from '@/content/care-quest';
 import { NONE_ID, NOT_SURE_ID, PRODUCT_KINDS } from '@/content/care-quest/common';
 import { FACE_CONCERNS } from '@/content/care-quest/face-concerns';
 import { FACE_TRACK } from '@/content/care-quest/face';
 import type { Localized, QuestAnswers } from '@/content/care-quest/types';
+import { CARE_LESSONS } from '@/content/care-quest/lessons';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import { storeCatalog } from '@/content/store-catalog';
 import { concerns as governedConcerns } from '@/knowledge/repository';
@@ -207,21 +210,21 @@ describe('face routine', () => {
     for (const age of ['teens', '20s', '40s', '60plus']) {
       const answers = { ...base, age: [age] };
       const plan = FACE_TRACK.plan(answers, readType(FACE_TRACK, answers));
-      expect(plan.am.at(-1)!.kind).toBe('sunscreen');
+      expect(plan.routines[0]!.lines.at(-1)!.kind).toBe('sunscreen');
     }
   });
 
   it('suggests retinol in the evening for a woman in her 40s with firmness concerns', () => {
     const answers = { ...base, age: ['40s'] };
     const plan = FACE_TRACK.plan(answers, readType(FACE_TRACK, answers));
-    expect(plan.pm.some((line) => line.note.en.startsWith('Retinol'))).toBe(true);
-    expect(plan.am.some((line) => line.note.en.startsWith('Retinol'))).toBe(false);
+    expect(plan.routines[1]!.lines.some((line) => line.note.en.startsWith('Retinol'))).toBe(true);
+    expect(plan.routines[0]!.lines.some((line) => line.note.en.startsWith('Retinol'))).toBe(false);
   });
 
   it('holds retinol back in pregnancy and says why', () => {
     const answers = { ...base, age: ['30s'], lifestyle: ['pregnant'] };
     const plan = FACE_TRACK.plan(answers, readType(FACE_TRACK, answers));
-    expect(plan.pm.some((line) => line.note.en.startsWith('Retinol'))).toBe(false);
+    expect(plan.routines[1]!.lines.some((line) => line.note.en.startsWith('Retinol'))).toBe(false);
     expect(plan.avoid).toContain('retinol');
     expect(plan.avoidReason).not.toBeNull();
   });
@@ -230,7 +233,9 @@ describe('face routine', () => {
     const answers = { ...base, age: ['teens'], concerns: ['acne'] };
     const plan = FACE_TRACK.plan(answers, readType(FACE_TRACK, answers));
     expect(plan.avoid).toContain('retinol');
-    expect([...plan.am, ...plan.pm].some((line) => line.note.en.startsWith('Retinol'))).toBe(false);
+    expect(
+      plan.routines.flatMap((r) => r.lines).some((line) => line.note.en.startsWith('Retinol')),
+    ).toBe(false);
     expect(plan.advice[0]!.id).toBe('age-teens');
   });
 
@@ -302,6 +307,106 @@ describe('products to look at', () => {
       expect(
         product.fit!.concerns.some((key) => ['tone', 'uv', 'hydration', 'barrier'].includes(key)),
       ).toBe(true);
+    }
+  });
+});
+
+describe('scalp & hair track', () => {
+  const scalp = CARE_TRACKS.find((track) => track.id === 'scalp')!;
+  const body = CARE_TRACKS.find((track) => track.id === 'body')!;
+
+  it('starts with the safety check, and any red flag puts "see a doctor" above the result', () => {
+    expect(scalp.steps[0]!.id).toBe('redFlags');
+    const flagged = scalp.plan({ redFlags: ['patch'] }, readType(scalp, {}));
+    expect(flagged.alert).not.toBeNull();
+    expect(scalp.plan({ redFlags: [NONE_ID] }, readType(scalp, {})).alert).toBeNull();
+  });
+
+  it('reads an oily scalp and a dandruff-prone scalp from their answers', () => {
+    expect(
+      readType(scalp, { nextEvening: ['greasy'], skipWash: ['greasy'], flakes: ['none'] }).typeId,
+    ).toBe('oily');
+    expect(
+      readType(scalp, { flakes: ['greasyYellow'], itch: ['daily'], skipWash: ['flakier'] }).typeId,
+    ).toBe('dandruff');
+  });
+
+  it('switches to an anti-dandruff shampoo when dandruff is picked', () => {
+    const answers = { concerns: ['dandruff'] };
+    const plan = scalp.plan(answers, readType(scalp, answers));
+    expect(plan.routines[0]!.lines[0]!.kind).toBe('dandruffShampoo');
+    expect(plan.advice.some((block) => block.id === 'dye-test')).toBe(true);
+  });
+
+  it('keeps the neck with the face, not the body', () => {
+    expect(body.concerns.some((concern) => concern.id === 'neck')).toBe(false);
+    expect(FACE_TRACK.concerns.some((concern) => concern.id === 'neck')).toBe(true);
+    const learn = body.steps[0]!;
+    expect(learn.kind === 'learn' && learn.cards[0]!.id).toBe('neck');
+  });
+
+  it('adds foot care for a reader with diabetes', () => {
+    const answers = { lifestyle: ['diabetes'] };
+    const plan = body.plan(answers, readType(body, answers));
+    expect(
+      plan.routines.flatMap((block) => block.lines).some((line) => line.kind === 'footCream'),
+    ).toBe(true);
+  });
+});
+
+describe('skin lessons', () => {
+  const lessonText = localizedIn(CARE_LESSONS);
+
+  it('are written in all five languages, with no medical claim', () => {
+    expect(CARE_LESSONS.length).toBeGreaterThanOrEqual(6);
+    for (const text of lessonText) {
+      for (const lang of LANGS) {
+        expect(text[lang].trim(), `${text.en} [${lang}]`).not.toBe('');
+        expect(text[lang], text.en).not.toMatch(/치료|완치|\bcures?\b|\btreats?\b|guérir/i);
+      }
+    }
+  });
+
+  it('link only to ingredients the dictionary has', () => {
+    const ids = new Set(companyDictionary.ingredients.map((entry) => entry.id));
+    for (const lesson of CARE_LESSONS) {
+      for (const id of lesson.ingredients) expect(ids.has(id), `${lesson.id}:${id}`).toBe(true);
+      expect(lesson.sources.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('cover what the owner asked for: sun forms, cleansing & pH, order & vitamin C wait, pairings, eye cream, patch test', () => {
+    expect(CARE_LESSONS.map((lesson) => lesson.id)).toEqual(
+      expect.arrayContaining([
+        'sun-forms',
+        'cleansing',
+        'order',
+        'pairings',
+        'eye-cream',
+        'patch-test',
+      ]),
+    );
+  });
+});
+
+describe('scripts do not cross', () => {
+  // A Thai character in a Lao line (or the reverse) is a typing slip a reader sees at once.
+  const LAO = /[຀-໿]/;
+  const THAI = /[ก-๿]/;
+  const everything = [...allText, ...localizedIn(CARE_LESSONS)];
+
+  it('keeps Lao text in Lao script and Thai text in Thai script', () => {
+    for (const text of everything) {
+      expect(text.th, `th: ${text.th}`).not.toMatch(LAO);
+      expect(text.lo, `lo: ${text.lo}`).not.toMatch(THAI);
+    }
+  });
+});
+
+describe('track covers', () => {
+  it('point at photos that are in public/', () => {
+    for (const track of CARE_TRACKS) {
+      expect(existsSync(join(process.cwd(), 'public', track.cover)), track.cover).toBe(true);
     }
   });
 });

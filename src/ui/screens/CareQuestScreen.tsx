@@ -568,7 +568,7 @@ function CareResult({
   const reading = useMemo(() => readType(track, answers), [track, answers]);
   const concerns = useMemo(() => pickedConcerns(track, answers), [track, answers]);
   const plan = useMemo(() => track.plan(answers, reading), [track, answers, reading]);
-  const kinds = new Set([...plan.am, ...plan.pm].map((line) => line.kind));
+  const kinds = new Set(plan.routines.flatMap((block) => block.lines.map((line) => line.kind)));
   const categories = [
     ...new Set(
       PRODUCT_KINDS.filter((kind) => kinds.has(kind.id)).flatMap((kind) => kind.categories),
@@ -594,6 +594,12 @@ function CareResult({
         {track.icon} {t(QUEST_TEXT.resultEyebrow)} · {t(track.title)}
       </p>
       <StreakBadge days={streak} locale={locale} />
+
+      {plan.alert ? (
+        <p className="boundary boundary--strong care-alert" role="alert">
+          🩺 {t(plan.alert)}
+        </p>
+      ) : null}
 
       <p className="disclosure disclosure--caution">
         <span className="disclosure__mark">!</span>
@@ -657,26 +663,35 @@ function CareResult({
                   <span aria-hidden="true">{concern.icon}</span> {t(concern.name)}
                 </h3>
                 <p className="care-concern__what">{t(concern.what)}</p>
-                <p className="care-concern__label">{t(QUEST_TEXT.commonlyUsed)}</p>
-                <ul className="chips" role="list">
-                  {concern.ingredients.map((id) => {
-                    const name = ingredientName(id, locale);
-                    if (!name) return null;
-                    const held = avoid.has(id);
-                    return (
-                      <li key={id}>
-                        <button
-                          type="button"
-                          className={`chip care-chip${held ? ' care-chip--held' : ''}`}
-                          onClick={() => onOpenIngredient(id)}
-                        >
-                          {name}
-                          {held ? ` · ${t(QUEST_TEXT.avoidNow)}` : ''}
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
+                {concern.ingredients.length + (concern.otherIngredients?.length ?? 0) > 0 ? (
+                  <>
+                    <p className="care-concern__label">{t(QUEST_TEXT.commonlyUsed)}</p>
+                    <ul className="chips" role="list">
+                      {concern.ingredients.map((id) => {
+                        const name = ingredientName(id, locale);
+                        if (!name) return null;
+                        const held = avoid.has(id);
+                        return (
+                          <li key={id}>
+                            <button
+                              type="button"
+                              className={`chip care-chip${held ? ' care-chip--held' : ''}`}
+                              onClick={() => onOpenIngredient(id)}
+                            >
+                              {name}
+                              {held ? ` · ${t(QUEST_TEXT.avoidNow)}` : ''}
+                            </button>
+                          </li>
+                        );
+                      })}
+                      {(concern.otherIngredients ?? []).map((name) => (
+                        <li key={name.en}>
+                          <span className="chip chip--soft">{t(name)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : null}
                 <p className="care-concern__label">{t(QUEST_TEXT.productTypes)}</p>
                 <p className="care-concern__kinds">
                   {concern.products
@@ -699,11 +714,18 @@ function CareResult({
 
       <section className="record-block">
         <h2 className="record-block__title">
-          {t(QUEST_TEXT.morning)} · {t(QUEST_TEXT.evening)}
+          {plan.routines.map((block) => t(block.title)).join(' · ')}
         </h2>
         <div className="care-routines">
-          <RoutineList title={t(QUEST_TEXT.morning)} icon="🌅" lines={plan.am} locale={locale} />
-          <RoutineList title={t(QUEST_TEXT.evening)} icon="🌙" lines={plan.pm} locale={locale} />
+          {plan.routines.map((block) => (
+            <RoutineList
+              key={block.id}
+              title={t(block.title)}
+              icon={block.icon}
+              lines={block.lines}
+              locale={locale}
+            />
+          ))}
         </div>
         {plan.weekly.map((line) => (
           <p key={line.kind} className="record-block__note">

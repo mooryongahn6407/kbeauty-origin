@@ -4,7 +4,7 @@
  * types explained → which is yours, plus seven helper questions → up to twenty concerns →
  * tendencies, family and habits → goals → result.
  */
-import { COMMON_SOURCES, L, NONE, NOT_SURE, PATCH_TEST, SUN_HABIT } from './common';
+import { COMMON_SOURCES, L, NONE, NOT_SURE, PATCH_TEST, QUEST_TEXT, SUN_HABIT } from './common';
 import { FACE_CONCERN_GROUPS, FACE_CONCERNS, FACE_SOURCES } from './face-concerns';
 import {
   BASE_TYPE_IDS,
@@ -1215,7 +1215,17 @@ export function facePlan(answers: QuestAnswers, reading: TypeReading): CarePlan 
         )
       : null;
 
-  return { am, pm, weekly, advice, avoid, avoidReason };
+  return {
+    alert: null,
+    routines: [
+      { id: 'am', icon: '🌅', title: QUEST_TEXT.morning, lines: am },
+      { id: 'pm', icon: '🌙', title: QUEST_TEXT.evening, lines: pm },
+    ],
+    weekly,
+    advice,
+    avoid,
+    avoidReason,
+  };
 }
 
 export const FACE_TRACK: CareTrack = {

@@ -27,6 +27,7 @@ import { DisplaySettings } from './components/DisplaySettings';
 import { VoiceSwitch } from './components/VoiceSwitch';
 import { VoiceProvider } from './voice';
 import { CareQuestScreen } from './screens/CareQuestScreen';
+import { CareLessonsScreen } from './screens/CareLessonsScreen';
 import { capturePartner } from '@/app/partner';
 import { IngredientHuntScreen } from './screens/IngredientHuntScreen';
 import { CompareLabScreen } from './screens/CompareLabScreen';
@@ -64,6 +65,7 @@ type ScreenId =
   | 'sunguide'
   | 'about'
   | 'academy'
+  | 'lessons'
   | 'wording'
   | 'more'
   | 'hunt'
@@ -229,7 +231,7 @@ export function App() {
                 key={focusKey}
                 locale={locale}
                 partner={partner}
-                onExplore={() => go('guide')}
+                onExplore={() => go('lessons')}
                 onOpenIngredient={openIngredient}
                 onOpenProduct={openProduct}
               />
@@ -311,6 +313,9 @@ export function App() {
               {screen === 'wording' ? <WordingCheckScreen key={locale} locale={locale} /> : null}
               {screen === 'academy' ? (
                 <AcademyScreen key={locale} locale={locale} onOpenChecker={() => go('wording')} />
+              ) : null}
+              {screen === 'lessons' ? (
+                <CareLessonsScreen key={locale} locale={locale} onOpenIngredient={openIngredient} />
               ) : null}
               {screen === 'sunguide' ? (
                 <SunCareGuideScreen key={locale} locale={locale} onOpenProduct={openProduct} />
