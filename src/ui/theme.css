@@ -1793,3 +1793,6 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .care-lesson__section { border-top: 1px solid var(--line); padding-top: var(--space-3); margin-top: var(--space-3); }
 .care-lesson__heading { font-size: var(--fs-md); margin: var(--space-3) 0 var(--space-2); }
 .care-lesson__body { line-height: 1.7; margin: 0 0 var(--space-2); }
+.care-learn__media { position: relative; margin: calc(var(--space-3) * -1) calc(var(--space-4) * -1) var(--space-3); aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius-sm) var(--radius-sm) 0 0; background: var(--surface-sunk); }
+.care-learn__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }
+.quest--welcome .scene-hero { align-self: stretch; width: 100%; margin-bottom: 0; }

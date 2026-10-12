@@ -8,7 +8,7 @@
  * retinol back in pregnancy and for teenagers and always ends the morning on sunscreen; and no
  * content line makes a medical claim.
  */
-import { existsSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { CARE_TRACKS } from '@/content/care-quest';
@@ -408,5 +408,24 @@ describe('track covers', () => {
     for (const track of CARE_TRACKS) {
       expect(existsSync(join(process.cwd(), 'public', track.cover)), track.cover).toBe(true);
     }
+  });
+});
+
+describe('owner pictures (public/gemini)', () => {
+  it('every /gemini/ picture the code points at is in public/', () => {
+    const files: string[] = [];
+    const walk = (dir: string) => {
+      for (const name of readdirSync(dir, { withFileTypes: true })) {
+        const path = join(dir, name.name);
+        if (name.isDirectory()) walk(path);
+        else if (/\.(ts|tsx)$/.test(name.name)) files.push(path);
+      }
+    };
+    walk(join(process.cwd(), 'src'));
+    const refs = new Set(
+      files.flatMap((file) => readFileSync(file, 'utf8').match(/\/gemini\/[A-Z]-\d\d\.jpg/g) ?? []),
+    );
+    expect(refs.size).toBeGreaterThan(5);
+    for (const ref of refs) expect(existsSync(join(process.cwd(), 'public', ref)), ref).toBe(true);
   });
 });

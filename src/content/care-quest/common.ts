@@ -549,7 +549,13 @@ export const QUEST_TEXT = {
     'ใกล้เคียง: {name}',
     'Proche aussi : {name}',
   ),
-  sensitiveToo: L('민감 경향', 'a sensitive tendency', 'ແນວໂນ້ມແພ້ງ່າຍ', 'แนวโน้มแพ้ง่าย', 'tendance sensible'),
+  sensitiveToo: L(
+    '민감 경향',
+    'a sensitive tendency',
+    'ແນວໂນ້ມແພ້ງ່າຍ',
+    'แนวโน้มแพ้ง่าย',
+    'tendance sensible',
+  ),
   notEnough: L(
     '답이 적어서 타입을 말하기 어려워요. «잘 모르겠어요»가 많으면 그래요. 아래 루틴은 모든 피부에 순한 기본이에요.',
     'Too few answers to suggest a type — that happens when most answers are "not sure". The routine below is a gentle basic for any skin.',

@@ -107,6 +107,7 @@ function Lesson({
       <h1 className="guide-title" id="lesson-title">
         {t(lesson.title)}
       </h1>
+      {lesson.cover ? <SceneHero src={lesson.cover} focus="50% 35%" /> : null}
       <p className="lead">{t(lesson.intro)}</p>
       {lesson.sections.map((section) => (
         <section key={section.title.en} className="care-lesson__section">

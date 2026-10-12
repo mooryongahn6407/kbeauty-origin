@@ -25,6 +25,8 @@ export interface CareLesson {
   /** Company-dictionary ids the lesson talks about, offered as links. */
   readonly ingredients: readonly string[];
   readonly sources: readonly Source[];
+  /** A picture for the top of the lesson (public/gemini), when there is one. */
+  readonly cover?: string;
 }
 
 const AAD_SUN = {
@@ -40,6 +42,7 @@ export const CARE_LESSONS: readonly CareLesson[] = [
   {
     id: 'sun-forms',
     icon: '☀️',
+    cover: '/gemini/B-08.jpg',
     title: L(
       '선케어 더 알기 — 필터와 제형',
       'Sun care, further — filters and forms',
@@ -208,6 +211,7 @@ export const CARE_LESSONS: readonly CareLesson[] = [
   {
     id: 'order',
     icon: '🪜',
+    cover: '/gemini/B-09.jpg',
     title: L(
       '바르는 순서와 기다리는 시간',
       'What goes on first, and how long to wait',
@@ -288,6 +292,7 @@ export const CARE_LESSONS: readonly CareLesson[] = [
   {
     id: 'pairings',
     icon: '🤝',
+    cover: '/gemini/A-04.jpg',
     title: L(
       '같이 쓰면 좋은 성분, 떨어뜨릴 성분',
       'Ingredients that get on, and ones to keep apart',

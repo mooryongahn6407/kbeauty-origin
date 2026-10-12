@@ -60,6 +60,7 @@ import {
 import { GiftCard, StreakBadge } from '../components/Collection';
 import { Companion, CompanionSays, SpeechBubble } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
+import { SceneHero } from '../components/SceneHero';
 import { spokenFallback } from '../spoken-fallback';
 import { pick } from '../pick';
 
@@ -153,6 +154,7 @@ export function CareQuestScreen({
     ].join(' ');
     return (
       <section className="quest quest--welcome" aria-labelledby="quest-hello">
+        <SceneHero src="/gemini/A-01.jpg" focus="50% 30%" />
         <Companion mood="calm" size={116} />
         <SpeechBubble>
           <h1 id="quest-hello" className="bubble__hello">
@@ -469,6 +471,11 @@ function LearnCards({ step, locale }: { step: LearnStep; locale: string }) {
     <ul className="care-learn" role="list">
       {step.cards.map((card) => (
         <li key={card.id} className="care-learn__card">
+          {card.image ? (
+            <figure className="care-learn__media" aria-hidden="true">
+              <img src={card.image} alt="" loading="lazy" />
+            </figure>
+          ) : null}
           <h2 className="care-learn__title">
             <span aria-hidden="true">{card.icon}</span> {t(card.title)}
           </h2>

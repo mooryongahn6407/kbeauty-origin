@@ -70,6 +70,8 @@ export interface LearnCard {
   readonly title: Localized;
   readonly body: Localized;
   readonly signs: readonly Localized[];
+  /** An illustration for the card (public/gemini), when the owner has made one. */
+  readonly image?: string;
 }
 
 export type QuestStep = SingleStep | MultiStep | LearnStep;

@@ -1391,7 +1391,7 @@ export const BODY_SOURCES: readonly Source[] = [
 export const BODY_TRACK: CareTrack = {
   id: 'body',
   icon: '🧴',
-  cover: '/products/sku/KG-BDY-00008.jpg',
+  cover: '/gemini/B-06.jpg',
   title: L(
     '바디·손·발',
     'Body, hands & feet',

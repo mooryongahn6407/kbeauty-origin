@@ -195,6 +195,7 @@ export function SunCareGuideScreen({
   const products = productsIn('선케어');
   return (
     <section className="guide" aria-labelledby="sun-guide-title">
+      <SceneHero src="/gemini/A-07.jpg" focus="50% 40%" />
       <h1 className="guide-title" id="sun-guide-title">
         {translate('sunguide.title', locale)}
       </h1>
