@@ -1,0 +1,307 @@
+/**
+ * Care Quest — the rebuilt Skin Quest (face first; scalp & hair and body follow).
+ *
+ * What these pin down: every word exists in all five languages; every "not sure" and "none of
+ * these" the owner asked for is there; every ingredient, product kind and governed concern id a
+ * concern cites actually exists; the likely-type read-out picks the type whose signature
+ * answers were given and names nothing when the answers are mostly "not sure"; the routine holds
+ * retinol back in pregnancy and for teenagers and always ends the morning on sunscreen; and no
+ * content line makes a medical claim.
+ */
+import { describe, expect, it } from 'vitest';
+import { CARE_TRACKS } from '@/content/care-quest';
+import { NONE_ID, NOT_SURE_ID, PRODUCT_KINDS } from '@/content/care-quest/common';
+import { FACE_CONCERNS } from '@/content/care-quest/face-concerns';
+import { FACE_TRACK } from '@/content/care-quest/face';
+import type { Localized, QuestAnswers } from '@/content/care-quest/types';
+import { companyDictionary } from '@/content/company/ingredient-dictionary';
+import { storeCatalog } from '@/content/store-catalog';
+import { concerns as governedConcerns } from '@/knowledge/repository';
+import {
+  careQuestReducer,
+  initialCareQuest,
+  matchProducts,
+  pickedConcerns,
+  readType,
+  toggleChoice,
+} from '@/app/care-quest';
+
+const LANGS = ['ko', 'en', 'lo', 'th', 'fr'] as const;
+
+/** Every Localized object reachable from a value, functions excluded. */
+function localizedIn(
+  value: unknown,
+  out: Localized[] = [],
+  seen = new Set<unknown>(),
+): Localized[] {
+  if (!value || typeof value !== 'object' || seen.has(value)) return out;
+  seen.add(value);
+  const record = value as Record<string, unknown>;
+  if (LANGS.every((lang) => typeof record[lang] === 'string')) {
+    out.push(record as unknown as Localized);
+    return out;
+  }
+  for (const child of Object.values(record)) localizedIn(child, out, seen);
+  return out;
+}
+
+const allText = CARE_TRACKS.flatMap((track) => localizedIn(track));
+
+describe('Care Quest content', () => {
+  it('writes every line in all five languages', () => {
+    expect(allText.length).toBeGreaterThan(200);
+    for (const text of allText) {
+      for (const lang of LANGS) expect(text[lang].trim(), `${text.en} [${lang}]`).not.toBe('');
+    }
+  });
+
+  it('makes no medical claim in any language', () => {
+    const claim =
+      /치료|완치|\bcures?\b|\btreats?\b|\btreatment\b|guarante|traiter|guérir|ຮັກສາໂລກ|รักษาโรค/i;
+    for (const text of allText) {
+      for (const lang of LANGS) expect(text[lang], text.en).not.toMatch(claim);
+    }
+  });
+
+  it('offers twenty face concerns in four groups, plus "none of these"', () => {
+    expect(FACE_CONCERNS).toHaveLength(20);
+    const step = FACE_TRACK.steps.find((s) => s.id === 'concerns');
+    expect(step?.kind).toBe('multi');
+    if (step?.kind !== 'multi') return;
+    const grouped = step.groups!.flatMap((group) => group.ids);
+    expect([...grouped].sort()).toEqual(FACE_CONCERNS.map((c) => c.id).sort());
+    expect(step.choices.some((choice) => choice.id === NONE_ID)).toBe(true);
+  });
+
+  it('asks the age first, then explains the five skin types before asking which', () => {
+    expect(FACE_TRACK.steps[0]!.id).toBe('age');
+    expect(FACE_TRACK.steps[1]!.kind).toBe('learn');
+    const learn = FACE_TRACK.steps[1]!;
+    if (learn.kind === 'learn') {
+      expect(learn.cards.map((card) => card.id)).toEqual([
+        'dry',
+        'oily',
+        'combination',
+        'normal',
+        'sensitive',
+      ]);
+    }
+  });
+
+  it('lets the reader say "not sure" on every type question, and "none" on every multi-pick', () => {
+    for (const track of CARE_TRACKS) {
+      for (const step of track.steps) {
+        if (step.kind === 'multi') {
+          expect(
+            step.choices.some((c) => c.id === NONE_ID),
+            step.id,
+          ).toBe(true);
+        }
+        if (step.kind === 'single' && step.choices.some((c) => c.scores)) {
+          expect(
+            step.choices.some((c) => c.id === NOT_SURE_ID),
+            step.id,
+          ).toBe(true);
+        }
+      }
+    }
+  });
+
+  it('cites only ingredients, product kinds and governed concerns that exist', () => {
+    const ingredientIds = new Set(companyDictionary.ingredients.map((entry) => entry.id));
+    const kindIds = new Set(PRODUCT_KINDS.map((kind) => kind.id));
+    const governedIds = new Set(governedConcerns.map((concern) => concern.Concern_ID));
+    const storeKeys = new Set(storeCatalog.flatMap((product) => product.fit?.concerns ?? []));
+    for (const track of CARE_TRACKS) {
+      for (const concern of track.concerns) {
+        for (const id of concern.ingredients)
+          expect(ingredientIds.has(id), `${concern.id}:${id}`).toBe(true);
+        for (const id of concern.products)
+          expect(kindIds.has(id), `${concern.id}:${id}`).toBe(true);
+        for (const key of concern.storeKeys)
+          expect(storeKeys.has(key), `${concern.id}:${key}`).toBe(true);
+        if (concern.governedId) expect(governedIds.has(concern.governedId), concern.id).toBe(true);
+      }
+    }
+  });
+
+  it('lists its sources as https links', () => {
+    for (const track of CARE_TRACKS) {
+      expect(track.sources.length).toBeGreaterThan(3);
+      for (const source of track.sources) expect(source.url).toMatch(/^https:\/\//);
+    }
+  });
+});
+
+/** The signature answer of one type on every helper question. */
+const signature: Record<string, QuestAnswers> = {
+  dry: {
+    afterWash: ['tightAll'],
+    blotting: ['nothing'],
+    pores: ['barely'],
+    flakes: ['often'],
+    makeupWear: ['cakey'],
+  },
+  oily: {
+    afterWash: ['shinyAll'],
+    blotting: ['everywhere'],
+    pores: ['large'],
+    flakes: ['rarely'],
+    makeupWear: ['slides'],
+  },
+  combination: {
+    afterWash: ['mixed'],
+    blotting: ['tzone'],
+    pores: ['nose'],
+    flakes: ['cheeks'],
+    makeupWear: ['tzone'],
+  },
+  normal: {
+    afterWash: ['comfortable'],
+    blotting: ['tzone'],
+    pores: ['barely'],
+    flakes: ['rarely'],
+    makeupWear: ['stays'],
+  },
+};
+
+describe('likely skin type', () => {
+  for (const [type, answers] of Object.entries(signature)) {
+    it(`reads ${type} from ${type} answers`, () => {
+      expect(readType(FACE_TRACK, answers).typeId).toBe(type);
+    });
+  }
+
+  it('names no type when the answers are mostly "not sure"', () => {
+    const unsure: QuestAnswers = {
+      typeSelf: ['unsure'],
+      afterWash: ['unsure'],
+      blotting: ['unsure'],
+      pores: ['unsure'],
+      flakes: ['unsure'],
+      makeupWear: ['unsure'],
+    };
+    expect(readType(FACE_TRACK, unsure).typeId).toBeNull();
+  });
+
+  it('adds the sensitive tendency on top of a base type', () => {
+    const reading = readType(FACE_TRACK, {
+      ...signature.oily,
+      newProducts: ['often'],
+      flushing: ['sometimes'],
+    });
+    expect(reading).toMatchObject({ typeId: 'oily', modifier: true });
+  });
+
+  it('names the runner-up when it is within a point', () => {
+    const reading = readType(FACE_TRACK, { afterWash: ['mixed'], blotting: ['everywhere'] });
+    expect(reading.typeId).toBe('combination');
+    expect(reading.closeTypeId).toBe('oily');
+  });
+});
+
+describe('face routine', () => {
+  const base: QuestAnswers = { ...signature.combination, concerns: ['sagging', 'melasma'] };
+
+  it('always ends the morning on sunscreen', () => {
+    for (const age of ['teens', '20s', '40s', '60plus']) {
+      const answers = { ...base, age: [age] };
+      const plan = FACE_TRACK.plan(answers, readType(FACE_TRACK, answers));
+      expect(plan.am.at(-1)!.kind).toBe('sunscreen');
+    }
+  });
+
+  it('suggests retinol in the evening for a woman in her 40s with firmness concerns', () => {
+    const answers = { ...base, age: ['40s'] };
+    const plan = FACE_TRACK.plan(answers, readType(FACE_TRACK, answers));
+    expect(plan.pm.some((line) => line.note.en.startsWith('Retinol'))).toBe(true);
+    expect(plan.am.some((line) => line.note.en.startsWith('Retinol'))).toBe(false);
+  });
+
+  it('holds retinol back in pregnancy and says why', () => {
+    const answers = { ...base, age: ['30s'], lifestyle: ['pregnant'] };
+    const plan = FACE_TRACK.plan(answers, readType(FACE_TRACK, answers));
+    expect(plan.pm.some((line) => line.note.en.startsWith('Retinol'))).toBe(false);
+    expect(plan.avoid).toContain('retinol');
+    expect(plan.avoidReason).not.toBeNull();
+  });
+
+  it('keeps a teenager to a simple routine without retinol', () => {
+    const answers = { ...base, age: ['teens'], concerns: ['acne'] };
+    const plan = FACE_TRACK.plan(answers, readType(FACE_TRACK, answers));
+    expect(plan.avoid).toContain('retinol');
+    expect([...plan.am, ...plan.pm].some((line) => line.note.en.startsWith('Retinol'))).toBe(false);
+    expect(plan.advice[0]!.id).toBe('age-teens');
+  });
+
+  it('puts the patch test and sunscreen habit in every result', () => {
+    const plan = FACE_TRACK.plan({}, readType(FACE_TRACK, {}));
+    expect(plan.advice.map((block) => block.id)).toEqual(expect.arrayContaining(['sun', 'patch']));
+  });
+});
+
+describe('Care Quest state', () => {
+  it('walks age → learn → … → result, and back', () => {
+    let state = careQuestReducer(initialCareQuest, { type: 'begin' });
+    expect(state.phase).toBe('tracks');
+    state = careQuestReducer(state, { type: 'chooseTrack', track: 'face' });
+    state = careQuestReducer(state, { type: 'choose', stepId: 'age', choiceId: '40s' });
+    expect(state.stepIndex).toBe(1);
+    state = careQuestReducer(state, { type: 'next' });
+    expect(state.stepIndex).toBe(2);
+    state = careQuestReducer(state, { type: 'back' });
+    expect(state.stepIndex).toBe(1);
+    for (let i = 0; i < 40 && state.phase === 'steps'; i += 1) {
+      const step = FACE_TRACK.steps[state.stepIndex]!;
+      state =
+        step.kind === 'single'
+          ? careQuestReducer(state, {
+              type: 'choose',
+              stepId: step.id,
+              choiceId: step.choices[0]!.id,
+            })
+          : careQuestReducer(
+              step.kind === 'multi'
+                ? careQuestReducer(state, {
+                    type: 'toggle',
+                    stepId: step.id,
+                    choiceId: step.choices[0]!.id,
+                  })
+                : state,
+              { type: 'next' },
+            );
+    }
+    expect(state.phase).toBe('result');
+    expect(state.answers.age).toEqual(['40s']);
+  });
+
+  it('ignores an answer for a step that is not on screen', () => {
+    const state = careQuestReducer(
+      careQuestReducer(initialCareQuest, { type: 'chooseTrack', track: 'face' }),
+      { type: 'choose', stepId: 'sleep', choiceId: 'under6' },
+    );
+    expect(state.answers).toEqual({});
+  });
+
+  it('treats "none of these" as exclusive and respects a pick limit', () => {
+    expect(toggleChoice(['acne', 'pores'], NONE_ID)).toEqual([NONE_ID]);
+    expect(toggleChoice([NONE_ID], 'acne')).toEqual(['acne']);
+    expect(toggleChoice(['a', 'b', 'c'], 'd', 3)).toEqual(['a', 'b', 'c']);
+    expect(toggleChoice(['a', 'b'], 'a', 3)).toEqual(['b']);
+  });
+});
+
+describe('products to look at', () => {
+  it('offers only products in the routine’s categories that match a picked concern', () => {
+    const answers = { concerns: ['melasma', 'dryness'] };
+    const picked = pickedConcerns(FACE_TRACK, answers);
+    const found = matchProducts(storeCatalog, picked, readType(FACE_TRACK, answers), ['크림']);
+    expect(found.length).toBeGreaterThan(0);
+    for (const product of found) {
+      expect(product.category).toBe('크림');
+      expect(
+        product.fit!.concerns.some((key) => ['tone', 'uv', 'hydration', 'barrier'].includes(key)),
+      ).toBe(true);
+    }
+  });
+});

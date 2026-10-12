@@ -26,7 +26,7 @@ import { applyPreferences, loadPreferences, savePreferences } from './preference
 import { DisplaySettings } from './components/DisplaySettings';
 import { VoiceSwitch } from './components/VoiceSwitch';
 import { VoiceProvider } from './voice';
-import { SkinQuestScreen } from './screens/SkinQuestScreen';
+import { CareQuestScreen } from './screens/CareQuestScreen';
 import { capturePartner } from '@/app/partner';
 import { IngredientHuntScreen } from './screens/IngredientHuntScreen';
 import { CompareLabScreen } from './screens/CompareLabScreen';
@@ -225,11 +225,13 @@ export function App() {
 
           {onQuest ? (
             <>
-              <SkinQuestScreen
-                key={locale}
+              <CareQuestScreen
+                key={focusKey}
                 locale={locale}
                 partner={partner}
                 onExplore={() => go('guide')}
+                onOpenIngredient={openIngredient}
+                onOpenProduct={openProduct}
               />
               <button type="button" className="guide-entry" onClick={() => go('guide')}>
                 <span className="guide-entry__photos" aria-hidden="true">

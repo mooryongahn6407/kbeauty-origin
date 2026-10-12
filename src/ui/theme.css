@@ -1726,3 +1726,60 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 /* Owner's lifestyle photo banner at the top of a reading screen (v9.1). */
 .scene-hero { position: relative; margin: 0 0 var(--space-3); aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius-sm); background: var(--surface-sunk); }
 .scene-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---- Care Quest (face · scalp & hair · body) ------------------------------------------- */
+.care-tracks__list { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
+.care-tracks__list > li { display: grid; gap: var(--space-2); }
+.care-option { display: flex; gap: var(--space-3); align-items: flex-start; }
+.care-option__icon { flex: none; font-size: var(--fs-lg); line-height: 1.3; }
+.care-option__text { display: grid; gap: 2px; min-width: 0; }
+.care-option__label { font-weight: 600; }
+.care-option__detail { font-size: var(--fs-sm); color: var(--text-muted); font-weight: 400; line-height: 1.5; }
+.care-option--muted { border-style: dashed; }
+.care-multi__count { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; color: var(--accent); margin: 0 0 var(--space-2); }
+.care-group { margin-bottom: var(--space-3); }
+.care-group__title { font-size: var(--fs-base); margin: var(--space-3) 0 var(--space-2); color: var(--text); }
+.care-learn { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
+.care-learn__card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); box-shadow: var(--shadow); }
+.care-learn__title { font-size: var(--fs-lg); margin: 0 0 var(--space-2); }
+.care-learn__body { margin: 0 0 var(--space-2); line-height: 1.6; }
+.care-learn__signs { margin: 0 0 var(--space-2); padding-left: 1.2em; color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.6; }
+.care-type { background: var(--accent-wash); border-radius: var(--radius); padding: var(--space-4); display: grid; gap: var(--space-2); }
+.care-type__eyebrow { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; color: var(--accent); margin: 0; }
+.care-type__name { font-size: var(--fs-xl); margin: 0; line-height: 1.3; }
+.care-type__mod { font-size: var(--fs-md); color: var(--accent); }
+.care-type__close { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); }
+.care-type__summary { margin: 0; line-height: 1.6; }
+.care-type__care { margin: 0; padding-left: 1.2em; line-height: 1.6; }
+.care-concerns { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
+.care-concern { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); }
+.care-concern__name { font-size: var(--fs-md); margin: 0 0 var(--space-1); }
+.care-concern__what { margin: 0 0 var(--space-2); color: var(--text-muted); font-size: var(--fs-sm); line-height: 1.55; }
+.care-concern__label { font-family: var(--font-ui); font-size: var(--fs-sm); font-weight: 700; margin: var(--space-2) 0 var(--space-1); }
+.care-concern__kinds { margin: 0; font-size: var(--fs-sm); line-height: 1.6; }
+.care-concern__tip { margin: var(--space-2) 0 0; font-size: var(--fs-sm); line-height: 1.6; }
+.care-concern__doctor { margin: var(--space-2) 0 0; font-size: var(--fs-sm); line-height: 1.6; background: var(--caution-wash); color: var(--text); border-radius: var(--radius-sm); padding: var(--space-2) var(--space-3); }
+.care-chip { appearance: none; border: 0; cursor: pointer; min-height: var(--tap); }
+.care-chip--held { background: var(--caution-wash); color: var(--caution); text-decoration: line-through; }
+.care-routines { display: grid; gap: var(--space-3); }
+@media (min-width: 640px) { .care-routines { grid-template-columns: 1fr 1fr; } }
+.care-routine { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-3); }
+.care-routine__title { font-size: var(--fs-md); margin: 0 0 var(--space-2); }
+.care-routine__steps { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-2); }
+.care-routine__step { display: grid; grid-template-columns: 2rem minmax(0, 1fr); gap: var(--space-2); align-items: start; }
+.care-routine__n { display: grid; place-items: center; width: 2rem; height: 2rem; border-radius: 999px; background: var(--accent); color: var(--btn-fg); font-family: var(--font-ui); font-weight: 700; font-size: var(--fs-sm); }
+.care-routine__text { display: grid; gap: 2px; font-size: var(--fs-sm); line-height: 1.55; }
+.care-routine__text strong { font-size: var(--fs-base); }
+.care-advice__list { margin: 0 0 var(--space-2); padding-left: 1.2em; line-height: 1.65; }
+.care-advice__list li + li { margin-top: var(--space-1); }
+.care-products { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); }
+.care-product { appearance: none; width: 100%; height: 100%; display: grid; gap: var(--space-1); text-align: left; padding: var(--space-2); background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: var(--radius-sm); cursor: pointer; font: inherit; min-height: var(--tap); }
+.care-product:hover { background: var(--surface-sunk); }
+.care-product__media { position: relative; display: grid; place-items: center; aspect-ratio: 1 / 1; overflow: hidden; border-radius: var(--radius-sm); background: var(--surface-sunk); font-size: var(--fs-xl); }
+.care-product__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.care-product__text { display: grid; gap: 2px; min-width: 0; }
+.care-product__brand { font-family: var(--font-ui); font-size: var(--fs-2xs); font-weight: 700; color: var(--accent); }
+.care-product__name { font-size: var(--fs-sm); font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+.care-product__cat { font-size: var(--fs-2xs); color: var(--text-muted); }
+.care-sources__list { margin: var(--space-2) 0 0; padding-left: 1.2em; font-size: var(--fs-sm); line-height: 1.7; overflow-wrap: anywhere; }
+.care-sources__list a { color: var(--accent); }

@@ -97,6 +97,7 @@ const TEXT_PAIRS: readonly { fg: string; bg: string; where: string }[] = [
   { fg: 'violet', bg: 'bg', where: '.hunt__progress on the page' },
   { fg: 'violet', bg: 'violet-wash', where: '.inci__item.is-picked' },
   { fg: 'btn-fg', bg: 'btn-bg', where: 'primary button label' },
+  { fg: 'btn-fg', bg: 'accent', where: 'Care Quest routine step number' },
 ];
 
 const themes: readonly [string, Readonly<Record<string, string>>][] = [
