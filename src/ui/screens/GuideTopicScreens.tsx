@@ -5,6 +5,7 @@
  * every page says it has not yet been through an outside expert's review.
  */
 import { useState } from 'react';
+import { SceneHero } from '../components/SceneHero';
 import { translate, type MessageKey } from '@/localization/messages';
 import {
   ANTI_AGING_TERMS,
@@ -80,6 +81,7 @@ export function CategoriesGuideScreen({
   const [open, setOpen] = useState<string | null>(null);
   return (
     <section className="guide" aria-labelledby="cat-title">
+      <SceneHero src="/scenes/scene-03.jpg" focus="50% 30%" />
       <h1 className="guide-title" id="cat-title">
         {translate('cat.title', locale)}
       </h1>
@@ -170,6 +172,7 @@ export function CategoriesGuideScreen({
 export function KBeautyGuideScreen({ locale }: { locale: string }) {
   return (
     <section className="guide" aria-labelledby="kb-title">
+      <SceneHero src="/scenes/scene-11.jpg" focus="50% 25%" />
       <h1 className="guide-title" id="kb-title">
         {translate('kb.title', locale)}
       </h1>
@@ -226,6 +229,7 @@ const ABOUT_POINTS = [
 export function AboutAppScreen({ locale }: { locale: string }) {
   return (
     <section className="guide" aria-labelledby="about-title">
+      <SceneHero src="/scenes/scene-13.jpg" focus="50% 30%" />
       <h1 className="guide-title" id="about-title">
         {translate('guide.card.about.title', locale)}
       </h1>

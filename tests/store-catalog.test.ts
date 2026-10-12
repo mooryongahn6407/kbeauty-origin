@@ -328,13 +328,17 @@ describe('the "how this app works" page', () => {
 });
 
 describe("the owner's scene photos", () => {
-  it('ship every scene the guide hub points at', async () => {
-    const source = (await import('node:fs')).readFileSync(
-      new URL('../src/ui/screens/GuideHubScreen.tsx', import.meta.url),
-      'utf8',
-    );
-    const scenes = [...source.matchAll(/'(\/scenes\/scene-\d+\.jpg)'/g)].map((m) => m[1]!);
-    expect(scenes.length).toBeGreaterThanOrEqual(3);
+  it('ship every scene a screen or lesson points at', async () => {
+    const { readFileSync, readdirSync } = await import('node:fs');
+    const dirs = ['../src/ui/screens/', '../src/content/partner/'];
+    const scenes = new Set<string>();
+    for (const dir of dirs) {
+      for (const name of readdirSync(new URL(dir, import.meta.url))) {
+        const source = readFileSync(new URL(dir + name, import.meta.url), 'utf8');
+        for (const m of source.matchAll(/["'](\/scenes\/scene-\d+\.jpg)["']/g)) scenes.add(m[1]!);
+      }
+    }
+    expect(scenes.size).toBeGreaterThanOrEqual(10);
     for (const scene of scenes) {
       expect(existsSync(new URL(`../public${scene}`, import.meta.url)), scene).toBe(true);
     }

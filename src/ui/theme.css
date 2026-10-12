@@ -1722,3 +1722,7 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .academy-q__option { appearance: none; text-align: left; min-height: var(--tap); padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); border: 2px solid var(--line-strong); background: var(--surface); color: var(--text); font: inherit; font-size: var(--fs-base); cursor: pointer; }
 .academy-q__option[aria-pressed='true'] { border-color: var(--accent); background: var(--accent-wash); }
 .academy-q__option:disabled { cursor: default; opacity: 1; }
+
+/* Owner's lifestyle photo banner at the top of a reading screen (v9.1). */
+.scene-hero { position: relative; margin: 0 0 var(--space-3); aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius-sm); background: var(--surface-sunk); }
+.scene-hero img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }

@@ -7,6 +7,7 @@
  * has been through this app's expert review. Product links are computed from printed labels.
  */
 import { useMemo, useState } from 'react';
+import { SceneHero } from '../components/SceneHero';
 import { translate, type MessageKey } from '@/localization/messages';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import type { DictionaryEntry, Evidence } from '@/content/company/ingredient-dictionary-types';
@@ -62,6 +63,7 @@ export function IngredientDictionaryScreen({
 
   return (
     <section className="dict" aria-labelledby="dict-title">
+      <SceneHero src="/scenes/scene-01.jpg" focus="50% 28%" />
       <h1 className="guide-title" id="dict-title">
         {translate('dict.title', locale)}
       </h1>

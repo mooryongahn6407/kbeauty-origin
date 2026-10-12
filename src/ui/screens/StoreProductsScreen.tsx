@@ -12,6 +12,7 @@
  * opens a product directly, and the link the screen hands out carries the shop's code.
  */
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { SceneHero } from '../components/SceneHero';
 import { translate, type MessageKey } from '@/localization/messages';
 import { storeCatalog } from '@/content/store-catalog';
 import { nameWithoutBrand, type StoreProduct } from '@/content/store-catalog-types';
@@ -187,6 +188,7 @@ function ProductList({
 
   return (
     <section className="store" aria-labelledby="store-prompt">
+      <SceneHero src="/scenes/scene-12.jpg" focus="50% 35%" />
       <h1 className="guide-title" id="store-prompt">
         {translate('guide.card.store.title', locale)}
       </h1>

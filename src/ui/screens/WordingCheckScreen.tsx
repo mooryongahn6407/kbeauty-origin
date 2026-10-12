@@ -5,6 +5,7 @@
  * and sends nothing anywhere. "No hits" is never presented as "safe".
  */
 import { useMemo, useState } from 'react';
+import { SceneHero } from '../components/SceneHero';
 import { translate } from '@/localization/messages';
 import {
   BAD_EXAMPLE_POST,
@@ -38,6 +39,7 @@ export function WordingCheckScreen({ locale }: { locale: string }) {
 
   return (
     <section className="guide wording" aria-labelledby="wording-title">
+      <SceneHero src="/scenes/scene-07.jpg" focus="50% 35%" />
       <h1 className="guide-title" id="wording-title">
         {translate('guide.card.partner.title', locale)}
       </h1>
