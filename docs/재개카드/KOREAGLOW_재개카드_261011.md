@@ -12,7 +12,7 @@
 | 영상 5편 (나레이션·음악) | 비공개 페이지 https://claude.ai/artifact/8WTk5fkEE9S6kwnnugHV6k | 광고 30초(라오·한), 파트너 89초(라오·한), 투자자 2분30초(한) |
 | 영상 원본 파일 | 컨테이너 `/tmp/claude-0/video/out/sound/` (방이 바뀌면 사라질 수 있음 → 위 페이지가 보관본) | |
 | 영상 대본 3종 (대표님 수정용) | https://claude.ai/code/artifact/9fd4a1cf-091a-45cd-a552-2749538b6a6e | **대표님이 고치는 중** — 고친 대로 다시 만들 것 |
-| 이미지 프롬프트 36개 (Gemini용) | https://claude.ai/code/artifact/cd78eecb-5c07-4401-a4dc-ad2e89bf712f | 대표님이 만들어 드라이브 `KG_앱자산_공유/영상소스`에 `A-01.jpg`처럼 올림 |
+| 이미지 프롬프트 36개 (Gemini용) | **복사 버튼 판** https://claude.ai/artifact/Dd66pJSMkDuRCJpUjHXWK5 (한 장에 문장 1개, 대표님은 복사·붙여넣기만) · 원본 문서 https://claude.ai/code/artifact/cd78eecb-5c07-4401-a4dc-ad2e89bf712f | 대표님이 만들어 드라이브 `KG_앱자산_공유/영상소스`에 `A-01.jpg`처럼 올림 |
 | 대표님 예시 사진 13장 (10/11) | 저장소 `public/scenes/scene-01..13.jpg` (아직 화면에 안 씀) | 01·02·06·13 가게에서 고민 / 03·11 거울 / 04 집에서 고민 / 05·07 링라이트 인플루언서 / 08 파트너 모임 / 09 아누아 80+ (KG-SER-00004) / 10 센텔리안24 (KG-SER-00008) / 12 배송 상자 |
 | 시장 리서치 | https://claude.ai/artifact/T7Bk2dnfap8UatHT1DLqDr | 앱 개선 15개 중 4개 완료 |
 | 라오어 녹음 대본 | 드라이브 «★ 라오어 나레이션 녹음 대본 (수석 파트너용)» | 녹음 파일 기다림 |
