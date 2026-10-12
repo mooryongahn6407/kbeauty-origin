@@ -10,7 +10,8 @@
  * sure". It is a cosmetic-education estimate, and the screen says so above it.
  */
 import { CARE_TRACKS, careTrack } from '@/content/care-quest';
-import { NONE_ID } from '@/content/care-quest/common';
+import { NONE_ID, QUEST_TEXT } from '@/content/care-quest/common';
+import { inLocale } from '@/content/care-quest/types';
 import type {
   CareConcern,
   CareTrack,
@@ -241,4 +242,41 @@ export function saveResult(
     // Private windows and full storage: the result still shows, it just is not remembered.
   }
   return next;
+}
+
+/**
+ * The text a reader can send to a partner shop. Deliberately narrow: the likely type, the
+ * concern names and the goals — never the age band, pregnancy, family history or lifestyle
+ * answers, which are the reader's own business and stay on the phone.
+ */
+export function resultSummary(
+  track: CareTrack,
+  answers: QuestAnswers,
+  locale: string,
+  link: string,
+): string {
+  const t = (text: Parameters<typeof inLocale>[0]) => inLocale(text, locale);
+  const reading = readType(track, answers);
+  const type = track.types.find((item) => item.id === reading.typeId);
+  const typeLine = type
+    ? `${t(type.name)}${reading.modifier ? ` + ${t(QUEST_TEXT.sensitiveToo)}` : ''}`
+    : t(QUEST_TEXT.shareUnknown);
+  const concerns = pickedConcerns(track, answers).map((concern) => t(concern.name));
+  const goalStep = track.steps.find((step) => step.id === 'goals');
+  const goals =
+    goalStep && goalStep.kind === 'multi'
+      ? (answers.goals ?? [])
+          .filter((id) => id !== NONE_ID)
+          .map((id) => goalStep.choices.find((choice) => choice.id === id))
+          .flatMap((choice) => (choice ? [t(choice.label)] : []))
+      : [];
+  return [
+    t(QUEST_TEXT.shareHead).replace('{track}', t(track.title)),
+    `• ${t(QUEST_TEXT.shareType)}: ${typeLine}`,
+    `• ${t(QUEST_TEXT.shareConcerns)}: ${concerns.length > 0 ? concerns.join(', ') : t(QUEST_TEXT.shareNone)}`,
+    ...(goals.length > 0 ? [`• ${t(QUEST_TEXT.shareGoals)}: ${goals.join(', ')}`] : []),
+    t(QUEST_TEXT.shareNotDx),
+    '',
+    link,
+  ].join('\n');
 }

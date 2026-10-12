@@ -15,7 +15,7 @@ import { CARE_TRACKS } from '@/content/care-quest';
 import { NONE_ID, NOT_SURE_ID, PRODUCT_KINDS } from '@/content/care-quest/common';
 import { FACE_CONCERNS } from '@/content/care-quest/face-concerns';
 import { FACE_TRACK } from '@/content/care-quest/face';
-import type { Localized, QuestAnswers } from '@/content/care-quest/types';
+import { inLocale, type Localized, type QuestAnswers } from '@/content/care-quest/types';
 import { CARE_LESSONS } from '@/content/care-quest/lessons';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import { storeCatalog } from '@/content/store-catalog';
@@ -26,6 +26,7 @@ import {
   matchProducts,
   pickedConcerns,
   readType,
+  resultSummary,
   toggleChoice,
 } from '@/app/care-quest';
 
@@ -427,5 +428,39 @@ describe('owner pictures (public/gemini)', () => {
     );
     expect(refs.size).toBeGreaterThan(5);
     for (const ref of refs) expect(existsSync(join(process.cwd(), 'public', ref)), ref).toBe(true);
+  });
+});
+
+describe('sharing a result with a partner shop', () => {
+  const answers: QuestAnswers = {
+    age: ['30s'],
+    ...signature.combination,
+    concerns: ['melasma', 'dryness'],
+    family: ['earlyLines', 'atopy'],
+    lifestyle: ['pregnant', 'smoking'],
+    goals: ['clearTone'],
+  };
+
+  it('sends the type, concerns and goals, with the link', () => {
+    const text = resultSummary(FACE_TRACK, answers, 'ko', 'https://app.korea-glow.com/?p=VTE-01');
+    expect(text).toContain('복합성');
+    expect(text).toContain('기미');
+    expect(text).toContain('맑고 고른 톤');
+    expect(text).toContain('의사 진단 아님');
+    expect(text.endsWith('https://app.korea-glow.com/?p=VTE-01')).toBe(true);
+  });
+
+  it('never sends age, family or lifestyle answers', () => {
+    for (const locale of ['ko', 'en', 'lo']) {
+      const text = resultSummary(FACE_TRACK, answers, locale, 'x');
+      for (const stepId of ['age', 'family', 'lifestyle']) {
+        const step = FACE_TRACK.steps.find((s) => s.id === stepId)!;
+        if (step.kind === 'learn') continue;
+        for (const id of answers[stepId] ?? []) {
+          const label = step.choices.find((choice) => choice.id === id)!.label;
+          expect(text, `${stepId}:${id}`).not.toContain(inLocale(label, locale));
+        }
+      }
+    }
   });
 });

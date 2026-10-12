@@ -41,6 +41,7 @@ import {
   initialCareQuest,
   loadSavedResults,
   matchProducts,
+  resultSummary,
   pickedConcerns,
   readType,
   saveResult,
@@ -63,6 +64,11 @@ import { ReadAloud } from '../components/ReadAloud';
 import { SceneHero } from '../components/SceneHero';
 import { spokenFallback } from '../spoken-fallback';
 import { pick } from '../pick';
+import { PARTNER_PARAM } from '@/app/partner';
+
+/** The address the app is served from, so a shared link opens this same app. */
+const appBase = (): string =>
+  typeof window === 'undefined' ? '/' : `${window.location.origin}${window.location.pathname}`;
 
 const storage = (): Storage | undefined =>
   typeof localStorage === 'undefined' ? undefined : localStorage;
@@ -808,6 +814,8 @@ function CareResult({
         </ul>
       </section>
 
+      <ShareResult track={track} answers={answers} locale={locale} partner={partner} />
+
       {/* Last, after the safety and education above: education outranks commerce (rule 6). */}
       <GiftCard gift={gift} locale={locale} partner={partner} />
 
@@ -831,6 +839,77 @@ function CareResult({
         </button>
       </div>
       <p className="record-block__note">{t(QUEST_TEXT.savedNote)}</p>
+    </section>
+  );
+}
+
+/**
+ * Send the result to a partner shop: the type, concern and goal names only, with the app link
+ * (and the shop's code, if the reader came in through one). Nothing is sent by the app itself —
+ * the reader's own share sheet, clipboard or WhatsApp does it.
+ */
+function ShareResult({
+  track,
+  answers,
+  locale,
+  partner,
+}: {
+  track: CareTrack;
+  answers: QuestAnswers;
+  locale: string;
+  partner: string | null;
+}) {
+  const [state, setState] = useState<'idle' | 'copied' | 'manual'>('idle');
+  const t = (text: Localized) => inLocale(text, locale);
+  const link =
+    partner === null ? appBase() : `${appBase()}?${PARTNER_PARAM}=${encodeURIComponent(partner)}`;
+  const message = resultSummary(track, answers, locale, link);
+  const canShare = typeof navigator !== 'undefined' && typeof navigator.share === 'function';
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(message);
+      setState('copied');
+    } catch {
+      setState('manual');
+    }
+  };
+  const share = async () => {
+    try {
+      await navigator.share({ text: message });
+    } catch {
+      // The reader closed the share sheet; nothing to do.
+    }
+  };
+  return (
+    <section className="record-block care-share" aria-labelledby="care-share-title">
+      <h2 className="record-block__title" id="care-share-title">
+        📤 {t(QUEST_TEXT.shareTitle)}
+      </h2>
+      <p className="record-block__note">{t(QUEST_TEXT.shareIntro)}</p>
+      <pre className="care-share__preview">{message}</pre>
+      <div className="store-share">
+        {canShare ? (
+          <button type="button" className="btn" onClick={share}>
+            📤 {t(QUEST_TEXT.share)}
+          </button>
+        ) : null}
+        <button type="button" className="btn btn--quiet" onClick={copy}>
+          📋 {t(QUEST_TEXT.copy)}
+        </button>
+        <a
+          className="btn btn--quiet"
+          href={`https://wa.me/?text=${encodeURIComponent(message)}`}
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          WhatsApp
+        </a>
+      </div>
+      {state === 'copied' ? (
+        <p className="store-share__done" role="status">
+          ✓ {t(QUEST_TEXT.copied)}
+        </p>
+      ) : null}
     </section>
   );
 }
