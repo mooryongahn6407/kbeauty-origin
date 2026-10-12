@@ -16,6 +16,7 @@ export type GuideTarget =
   | 'kbeauty'
   | 'sunguide'
   | 'about'
+  | 'academy'
   | 'wording'
   | 'more';
 
@@ -51,6 +52,14 @@ const CARDS: readonly Card[] = [
   { target: 'kbeauty', key: 'kbeauty', photos: [photoIn('크림', 3)] },
   { target: 'sunguide', key: 'suncare', photos: [photoIn('선케어', 1)] },
   { target: 'about', key: 'about', photos: [], icon: 'ℹ️', scene: '/scenes/scene-04.jpg' },
+  {
+    target: 'academy',
+    key: 'academy',
+    photos: [],
+    icon: '🎓',
+    scene: '/scenes/scene-05.jpg',
+    focus: '50% 35%',
+  },
   {
     target: 'wording',
     key: 'partner',

@@ -42,6 +42,7 @@ import { QuestMasteryScreen } from './screens/QuestMasteryScreen';
 import { GovernanceScreen } from './screens/GovernanceScreen';
 import { StoreProductsScreen } from './screens/StoreProductsScreen';
 import { WordingCheckScreen } from './screens/WordingCheckScreen';
+import { AcademyScreen } from './screens/AcademyScreen';
 import { GuideHubScreen, type GuideTarget } from './screens/GuideHubScreen';
 import { IngredientDictionaryScreen } from './screens/IngredientDictionaryScreen';
 import {
@@ -62,6 +63,7 @@ type ScreenId =
   | 'kbeauty'
   | 'sunguide'
   | 'about'
+  | 'academy'
   | 'wording'
   | 'more'
   | 'hunt'
@@ -305,6 +307,9 @@ export function App() {
               {screen === 'kbeauty' ? <KBeautyGuideScreen key={locale} locale={locale} /> : null}
               {screen === 'about' ? <AboutAppScreen key={locale} locale={locale} /> : null}
               {screen === 'wording' ? <WordingCheckScreen key={locale} locale={locale} /> : null}
+              {screen === 'academy' ? (
+                <AcademyScreen key={locale} locale={locale} onOpenChecker={() => go('wording')} />
+              ) : null}
               {screen === 'sunguide' ? (
                 <SunCareGuideScreen key={locale} locale={locale} onOpenProduct={openProduct} />
               ) : null}
