@@ -39,7 +39,13 @@ export type CareQuestAction =
   | { readonly type: 'next' }
   | { readonly type: 'back' }
   | { readonly type: 'tracks' }
-  | { readonly type: 'restore'; readonly track: TrackId; readonly answers: QuestAnswers };
+  | { readonly type: 'restore'; readonly track: TrackId; readonly answers: QuestAnswers }
+  | {
+      readonly type: 'resume';
+      readonly track: TrackId;
+      readonly stepIndex: number;
+      readonly answers: QuestAnswers;
+    };
 
 export const initialCareQuest: CareQuestState = {
   phase: 'welcome',
@@ -123,6 +129,17 @@ export function careQuestReducer(state: CareQuestState, action: CareQuestAction)
     case 'restore':
       if (!careTrack(action.track)) return state;
       return { phase: 'result', track: action.track, stepIndex: 0, answers: action.answers };
+
+    case 'resume': {
+      const steps = careTrack(action.track)?.steps;
+      if (!steps || action.stepIndex < 0 || action.stepIndex >= steps.length) return state;
+      return {
+        phase: 'steps',
+        track: action.track,
+        stepIndex: Math.floor(action.stepIndex),
+        answers: action.answers,
+      };
+    }
 
     default:
       return state;
@@ -279,4 +296,49 @@ export function resultSummary(
     '',
     link,
   ].join('\n');
+}
+
+const PROGRESS_KEY = 'korea-glow:care-quest:progress:v1';
+
+/** A track the reader left half-way, so the next visit can pick it up at the same question. */
+export interface QuestProgress {
+  readonly track: TrackId;
+  readonly stepIndex: number;
+  readonly answers: QuestAnswers;
+}
+
+export function loadProgress(storage: Storage | undefined): QuestProgress | null {
+  try {
+    const raw = storage?.getItem(PROGRESS_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as Partial<QuestProgress>;
+    const track = parsed.track ? careTrack(parsed.track) : undefined;
+    if (!track || typeof parsed.stepIndex !== 'number') return null;
+    if (parsed.stepIndex < 1 || parsed.stepIndex >= track.steps.length) return null;
+    const answers: Record<string, readonly string[]> = {};
+    for (const [step, ids] of Object.entries(parsed.answers ?? {})) {
+      if (Array.isArray(ids)) answers[step] = ids.filter((id) => typeof id === 'string');
+    }
+    return { track: track.id, stepIndex: Math.floor(parsed.stepIndex), answers };
+  } catch {
+    return null;
+  }
+}
+
+/** Remembers the questions in progress; anything other than "mid-track" clears it. */
+export function saveProgress(storage: Storage | undefined, state: CareQuestState): void {
+  try {
+    if (state.phase === 'steps' && state.track && state.stepIndex > 0) {
+      const progress: QuestProgress = {
+        track: state.track,
+        stepIndex: state.stepIndex,
+        answers: state.answers,
+      };
+      storage?.setItem(PROGRESS_KEY, JSON.stringify(progress));
+    } else if (state.phase === 'result') {
+      storage?.removeItem(PROGRESS_KEY);
+    }
+  } catch {
+    // Storage unavailable: the quest still works, it just will not be resumable.
+  }
 }

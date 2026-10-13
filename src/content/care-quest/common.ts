@@ -697,6 +697,13 @@ export const QUEST_TEXT = {
     'คัดลอกแล้ว วางในแอปแชทได้เลย',
     'Copié — collez-le dans votre messagerie.',
   ),
+  resume: L(
+    '이어서 하기 ({done}/{total})',
+    'Continue ({done}/{total})',
+    'ສືບຕໍ່ ({done}/{total})',
+    'ทำต่อ ({done}/{total})',
+    'Continuer ({done}/{total})',
+  ),
   restart: L('처음부터 다시', 'Start again', 'ເລີ່ມໃໝ່', 'เริ่มใหม่', 'Recommencer'),
   otherTracks: L(
     '다른 곳도 살펴보기',

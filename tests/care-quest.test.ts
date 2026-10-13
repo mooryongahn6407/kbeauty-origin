@@ -23,10 +23,12 @@ import { concerns as governedConcerns } from '@/knowledge/repository';
 import {
   careQuestReducer,
   initialCareQuest,
+  loadProgress,
   matchProducts,
   pickedConcerns,
   readType,
   resultSummary,
+  saveProgress,
   toggleChoice,
 } from '@/app/care-quest';
 
@@ -462,5 +464,47 @@ describe('sharing a result with a partner shop', () => {
         }
       }
     }
+  });
+});
+
+describe('continuing a track left half-way', () => {
+  const memory = () => {
+    const data = new Map<string, string>();
+    return {
+      getItem: (key: string) => data.get(key) ?? null,
+      setItem: (key: string, value: string) => void data.set(key, value),
+      removeItem: (key: string) => void data.delete(key),
+    } as unknown as Storage;
+  };
+
+  it('remembers the question and answers, and picks up at the same place', () => {
+    const storage = memory();
+    let state = careQuestReducer(initialCareQuest, { type: 'chooseTrack', track: 'face' });
+    state = careQuestReducer(state, { type: 'choose', stepId: 'age', choiceId: '40s' });
+    state = careQuestReducer(state, { type: 'next' });
+    saveProgress(storage, state);
+    const progress = loadProgress(storage)!;
+    expect(progress).toMatchObject({ track: 'face', stepIndex: 2 });
+    const resumed = careQuestReducer(initialCareQuest, { type: 'resume', ...progress });
+    expect(resumed).toMatchObject({ phase: 'steps', track: 'face', stepIndex: 2 });
+    expect(resumed.answers.age).toEqual(['40s']);
+  });
+
+  it('forgets the progress once the result is shown', () => {
+    const storage = memory();
+    saveProgress(storage, { phase: 'steps', track: 'body', stepIndex: 3, answers: {} });
+    expect(loadProgress(storage)).not.toBeNull();
+    saveProgress(storage, { phase: 'result', track: 'body', stepIndex: 0, answers: {} });
+    expect(loadProgress(storage)).toBeNull();
+  });
+
+  it('refuses a step number the track does not have', () => {
+    const state = careQuestReducer(initialCareQuest, {
+      type: 'resume',
+      track: 'face',
+      stepIndex: 999,
+      answers: {},
+    });
+    expect(state).toBe(initialCareQuest);
   });
 });

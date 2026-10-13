@@ -39,7 +39,9 @@ import {
   currentStep,
   governedIdsFor,
   initialCareQuest,
+  loadProgress,
   loadSavedResults,
+  saveProgress,
   matchProducts,
   resultSummary,
   pickedConcerns,
@@ -115,11 +117,19 @@ export function CareQuestScreen({
   // Someone who has finished a track before (and has just come back from the dictionary or a
   // product it linked to) lands on the track list with "see my result", not on the greeting.
   const [state, dispatch] = useReducer(careQuestReducer, saved, (initial: SavedResults) =>
-    Object.keys(initial).length > 0
+    Object.keys(initial).length > 0 || loadProgress(storage())
       ? { ...initialCareQuest, phase: 'tracks' as const }
       : initialCareQuest,
   );
   const [collection, setCollection] = useState<CollectionState>(() => loadCollection(storage()));
+  // A track left half-way — offered as "continue" on the track list, re-read each time the list
+  // is shown so a track finished since then no longer offers it.
+  const progress = useMemo(
+    () => (state.phase === 'tracks' ? loadProgress(storage()) : null),
+    [state.phase],
+  );
+
+  useEffect(() => saveProgress(storage(), state), [state]);
   const t = (text: Localized) => inLocale(text, locale);
 
   useEffect(() => {
@@ -227,6 +237,25 @@ export function CareQuestScreen({
                   <span className="academy-card__body">{t(track.intro)}</span>
                 </span>
               </button>
+              {progress && progress.track === track.id ? (
+                <button
+                  type="button"
+                  className="btn btn--primary btn--small"
+                  onClick={() =>
+                    dispatch({
+                      type: 'resume',
+                      track: progress.track,
+                      stepIndex: progress.stepIndex,
+                      answers: progress.answers,
+                    })
+                  }
+                >
+                  ▶{' '}
+                  {t(QUEST_TEXT.resume)
+                    .replace('{done}', String(progress.stepIndex + 1))
+                    .replace('{total}', String(track.steps.length))}
+                </button>
+              ) : null}
               {saved[track.id] ? (
                 <button
                   type="button"
