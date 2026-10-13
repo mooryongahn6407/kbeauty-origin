@@ -391,6 +391,7 @@ export const productKind = (id: string): ProductKind | undefined =>
 export interface SafetyCard {
   readonly id: string;
   readonly icon: string;
+  readonly photo?: string;
   readonly title: Localized;
   readonly points: readonly Localized[];
 }
@@ -433,6 +434,7 @@ export const PATCH_TEST: SafetyCard = {
 export const SUN_HABIT: SafetyCard = {
   id: 'sun',
   icon: '☀️',
+  photo: '/gemini/C-07.jpg',
   title: L(
     '선크림은 매일, 다시 바르기까지',
     'Sunscreen every day — and again',

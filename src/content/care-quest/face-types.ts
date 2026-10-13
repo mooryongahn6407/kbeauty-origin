@@ -59,6 +59,7 @@ export const SKIN_TYPES: readonly CareType[] = [
   },
   {
     id: 'oily',
+    photo: '/gemini/B-02.jpg',
     icon: '💦',
     name: L('지성', 'Oily', 'ຜິວມັນ', 'ผิวมัน', 'Grasse'),
     summary: L(
@@ -129,6 +130,7 @@ export const SKIN_TYPES: readonly CareType[] = [
   },
   {
     id: 'normal',
+    photo: '/gemini/B-05.jpg',
     icon: '🌸',
     name: L('중성', 'Normal', 'ຜິວປົກກະຕິ', 'ผิวธรรมดา', 'Normale'),
     summary: L(
@@ -164,6 +166,7 @@ export const SKIN_TYPES: readonly CareType[] = [
   },
   {
     id: 'sensitive',
+    photo: '/gemini/B-04.jpg',
     icon: '🌹',
     name: L('민감성', 'Sensitive', 'ຜິວແພ້ງ່າຍ', 'ผิวแพ้ง่าย', 'Sensible'),
     summary: L(
@@ -320,19 +323,13 @@ const SIGNS: Record<string, readonly ReturnType<typeof L>[]> = {
   ],
 };
 
-/** Gemini illustrations the owner has made so far (prompts B-01…B-05); the rest show the icon. */
-const TYPE_IMAGES: Readonly<Record<string, string>> = {
-  dry: '/gemini/B-01.jpg',
-  normal: '/gemini/B-05.jpg',
-};
-
 export const TYPE_CARDS: readonly LearnCard[] = SKIN_TYPES.map((type) => ({
   id: type.id,
   icon: type.icon,
   title: type.name,
   body: type.summary,
   signs: SIGNS[type.id] ?? [],
-  ...(TYPE_IMAGES[type.id] ? { image: TYPE_IMAGES[type.id] } : {}),
+  ...(type.photo ? { image: type.photo } : {}),
 }));
 
 /** Scores helper: a short way to write "this answer points 3 to dry". */

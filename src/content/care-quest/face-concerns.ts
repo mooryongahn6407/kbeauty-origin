@@ -14,6 +14,7 @@ import type { CareConcern, Source } from './types';
 export const FACE_CONCERN_GROUPS = [
   {
     id: 'blemish',
+    photo: '/gemini/C-06.jpg',
     label: L(
       '트러블·모공',
       'Breakouts & pores',
@@ -25,11 +26,13 @@ export const FACE_CONCERN_GROUPS = [
   },
   {
     id: 'tone',
+    photo: '/gemini/C-01.jpg',
     label: L('색·톤', 'Spots & tone', 'ຈຸດດ່າງ ແລະ ສີຜິວ', 'จุดด่างดำและสีผิว', 'Taches & teint'),
     ids: ['melasma', 'sunSpots', 'freckles', 'darkSpots', 'dullness', 'darkCircles'],
   },
   {
     id: 'aging',
+    photo: '/gemini/C-04.jpg',
     label: L(
       '주름·탄력',
       'Lines & firmness',
@@ -41,6 +44,7 @@ export const FACE_CONCERN_GROUPS = [
   },
   {
     id: 'comfort',
+    photo: '/gemini/C-02.jpg',
     label: L(
       '건조·민감',
       'Dryness & sensitivity',
@@ -55,6 +59,7 @@ export const FACE_CONCERN_GROUPS = [
 export const FACE_CONCERNS: readonly CareConcern[] = [
   {
     id: 'acne',
+    photo: '/gemini/C-06.jpg',
     icon: '🔴',
     governedId: 'CON-004',
     name: L(
@@ -156,6 +161,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'sebum',
+    photo: '/gemini/B-02.jpg',
     icon: '💦',
     governedId: 'CON-002',
     name: L(
@@ -192,6 +198,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'marks',
+    photo: '/gemini/C-01.jpg',
     icon: '🟤',
     name: L('여드름 자국', 'Post-acne marks', 'ຮອຍສິວ', 'รอยสิว', 'Marques d’acné'),
     what: L(
@@ -221,6 +228,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'melasma',
+    photo: '/gemini/C-01.jpg',
     icon: '🌫️',
     governedId: 'CON-007',
     name: L('기미', 'Melasma', 'ຝ້າ', 'ฝ้า', 'Mélasma'),
@@ -251,6 +259,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'sunSpots',
+    photo: '/gemini/C-01.jpg',
     icon: '🟫',
     governedId: 'CON-008',
     name: L(
@@ -287,6 +296,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'freckles',
+    photo: '/gemini/C-01.jpg',
     icon: '🌰',
     name: L('주근깨', 'Freckles', 'ຕົກກະ', 'กระ', 'Taches de rousseur'),
     what: L(
@@ -309,6 +319,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'darkSpots',
+    photo: '/gemini/C-01.jpg',
     icon: '🎯',
     name: L(
       '잡티·다크스팟·톤 얼룩',
@@ -344,6 +355,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'dullness',
+    photo: '/gemini/C-01.jpg',
     icon: '🌥️',
     governedId: 'CON-011',
     name: L('칙칙함', 'Dullness', 'ຜິວໝອງ', 'ผิวหมองคล้ำ', 'Teint terne'),
@@ -374,6 +386,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'darkCircles',
+    photo: '/gemini/C-04.jpg',
     icon: '🐼',
     name: L('다크서클', 'Dark circles', 'ຮອຍຄ້ຳໃຕ້ຕາ', 'ใต้ตาคล้ำ', 'Cernes'),
     what: L(
@@ -403,6 +416,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'eyeWrinkles',
+    photo: '/gemini/C-04.jpg',
     icon: '👁️',
     name: L(
       '눈가 주름',
@@ -438,6 +452,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'mouthLines',
+    photo: '/gemini/C-04.jpg',
     icon: '👄',
     name: L(
       '입가·팔자 주름',
@@ -473,6 +488,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'foreheadLines',
+    photo: '/gemini/C-04.jpg',
     icon: '〰️',
     name: L(
       '이마·미간 주름',
@@ -508,6 +524,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'sagging',
+    photo: '/gemini/C-04.jpg',
     icon: '🎈',
     name: L(
       '탄력 저하·처짐',
@@ -543,6 +560,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'neck',
+    photo: '/gemini/C-04.jpg',
     icon: '🦢',
     name: L(
       '목주름·목 탄력',
@@ -571,6 +589,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'dryness',
+    photo: '/gemini/C-03.jpg',
     icon: '🏜️',
     governedId: 'CON-001',
     name: L(
@@ -643,6 +662,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'redness',
+    photo: '/gemini/C-02.jpg',
     icon: '🌹',
     governedId: 'CON-005',
     name: L('붉은기·홍조', 'Redness & flushing', 'ຜິວແດງ', 'ผิวแดงและหน้าแดงง่าย', 'Rougeurs'),
@@ -673,6 +693,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'sensitivity',
+    photo: '/gemini/B-04.jpg',
     icon: '🛡️',
     governedId: 'CON-006',
     name: L(

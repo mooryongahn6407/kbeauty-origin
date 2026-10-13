@@ -53,6 +53,8 @@ export interface MultiStep extends StepBase {
     readonly id: string;
     readonly label: Localized;
     readonly ids: readonly string[];
+    /** A real-skin photo above the group (public/gemini). */
+    readonly photo?: string;
   }[];
   /** At most this many may be picked; undefined means no limit. */
   readonly max?: number;
@@ -80,6 +82,8 @@ export type QuestStep = SingleStep | MultiStep | LearnStep;
 export interface CareType {
   readonly id: string;
   readonly icon: string;
+  /** A real-skin photo of this type (public/gemini), once the owner has made a good one. */
+  readonly photo?: string;
   readonly name: Localized;
   readonly summary: Localized;
   readonly care: readonly Localized[];
@@ -106,6 +110,8 @@ export interface CareConcern {
   readonly seeDoctor?: Localized;
   /** The governed 07_CONCERNS id it corresponds to, if one does — never renamed (rule 1). */
   readonly governedId?: string;
+  /** A real-skin photo shown on the result card (public/gemini). */
+  readonly photo?: string;
 }
 
 export interface RoutineStepText {
@@ -127,6 +133,7 @@ export interface RoutineLine {
 export interface AdviceBlock {
   readonly id: string;
   readonly icon: string;
+  readonly photo?: string;
   readonly title: Localized;
   readonly points: readonly Localized[];
 }

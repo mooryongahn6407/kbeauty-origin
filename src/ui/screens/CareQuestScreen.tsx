@@ -487,6 +487,11 @@ function MultiChoices({
       </p>
       {step.groups?.map((group) => (
         <section key={group.id} className="care-group" aria-label={t(group.label)}>
+          {group.photo ? (
+            <figure className="care-photo care-photo--band" aria-hidden="true">
+              <img src={group.photo} alt="" loading="lazy" />
+            </figure>
+          ) : null}
           <h2 className="care-group__title">{t(group.label)}</h2>
           <ul className="options care-options--grid" role="list">
             {group.ids.map(button)}
@@ -649,6 +654,11 @@ function CareResult({
       </p>
 
       <section className="care-type" aria-labelledby="result-title">
+        {type?.photo ? (
+          <figure className="care-photo care-photo--type" aria-hidden="true">
+            <img src={type.photo} alt="" />
+          </figure>
+        ) : null}
         <p className="care-type__eyebrow">{t(QUEST_TEXT.likelyType)}</p>
         {type ? (
           <>
@@ -701,6 +711,11 @@ function CareResult({
           <ul className="care-concerns" role="list">
             {concerns.map((concern) => (
               <li key={concern.id} className="care-concern">
+                {concern.photo ? (
+                  <figure className="care-photo care-photo--concern" aria-hidden="true">
+                    <img src={concern.photo} alt="" loading="lazy" />
+                  </figure>
+                ) : null}
                 <h3 className="care-concern__name">
                   <span aria-hidden="true">{concern.icon}</span> {t(concern.name)}
                 </h3>
@@ -779,6 +794,11 @@ function CareResult({
 
       {plan.advice.map((block) => (
         <section key={block.id} className="record-block care-advice">
+          {block.photo ? (
+            <figure className="care-photo care-photo--band" aria-hidden="true">
+              <img src={block.photo} alt="" loading="lazy" />
+            </figure>
+          ) : null}
           <h2 className="record-block__title">
             <span aria-hidden="true">{block.icon}</span> {t(block.title)}
           </h2>
