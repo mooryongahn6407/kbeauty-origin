@@ -24,6 +24,7 @@ const SECTION_TYPE = L(
 export const SKIN_TYPES: readonly CareType[] = [
   {
     id: 'dry',
+    photo: '/gemini/B-01.jpg',
     icon: '🏜️',
     name: L('건성', 'Dry', 'ຜິວແຫ້ງ', 'ผิวแห้ง', 'Sèche'),
     summary: L(
@@ -95,6 +96,7 @@ export const SKIN_TYPES: readonly CareType[] = [
   },
   {
     id: 'combination',
+    photo: '/gemini/B-03.jpg',
     icon: '☯️',
     name: L('복합성', 'Combination', 'ຜິວປະສົມ', 'ผิวผสม', 'Mixte'),
     summary: L(

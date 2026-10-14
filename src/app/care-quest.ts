@@ -15,6 +15,7 @@ import { inLocale } from '@/content/care-quest/types';
 import type {
   CareConcern,
   CareTrack,
+  Localized,
   QuestAnswers,
   QuestStep,
   TrackId,
@@ -183,6 +184,65 @@ export function readType(track: CareTrack, answers: QuestAnswers): TypeReading {
   return { typeId, closeTypeId, modifier };
 }
 
+/** One answer that pointed at the type the result names — the "why" under the type. */
+export interface TypeReason {
+  readonly stepId: string;
+  readonly answer: Localized;
+  readonly points: number;
+}
+
+/** The answers that gave the named type points, strongest first. */
+export function typeReasons(
+  track: CareTrack,
+  answers: QuestAnswers,
+  typeId: string,
+): readonly TypeReason[] {
+  const reasons: TypeReason[] = [];
+  for (const step of track.steps) {
+    if (step.kind === 'learn') continue;
+    for (const id of answers[step.id] ?? []) {
+      const choice = step.choices.find((c) => c.id === id);
+      const points = choice?.scores?.[typeId] ?? 0;
+      if (choice && points > 0) reasons.push({ stepId: step.id, answer: choice.label, points });
+    }
+  }
+  return reasons.sort((a, b) => b.points - a.points);
+}
+
+/**
+ * How firmly the answers point at one type. Self-reported skin type is often wrong, so the
+ * screen says how sure the read-out is instead of stating it flatly: "clear" when the leader is
+ * well ahead and several separate answers agree, "mixed" when the runner-up is within a point,
+ * "likely" otherwise. These cut-offs are the app's own heuristic, not a governed number.
+ */
+export type TypeConfidence = 'clear' | 'likely' | 'mixed';
+/** Points the leading type must be ahead by to be read as "clear". */
+export const CLEAR_MARGIN = 3;
+/** Separate answers that must agree before the result is read as "clear". */
+export const CLEAR_REASONS = 3;
+
+export function typeConfidence(track: CareTrack, answers: QuestAnswers): TypeConfidence | null {
+  const reading = readType(track, answers);
+  if (!reading.typeId) return null;
+  if (reading.closeTypeId) return 'mixed';
+  const scores = typeScores(track, answers);
+  const lead = scores[reading.typeId] ?? 0;
+  const runnerUp = Math.max(
+    0,
+    ...track.baseTypeIds.filter((id) => id !== reading.typeId).map((id) => scores[id] ?? 0),
+  );
+  const agreeing = new Set(typeReasons(track, answers, reading.typeId).map((r) => r.stepId)).size;
+  return lead - runnerUp >= CLEAR_MARGIN && agreeing >= CLEAR_REASONS ? 'clear' : 'likely';
+}
+
+/** The type the reader named herself, when the answers point somewhere else. */
+export function selfDisagrees(track: CareTrack, answers: QuestAnswers): string | null {
+  if (!track.selfStepId) return null;
+  const self = (answers[track.selfStepId] ?? []).find((id) => track.baseTypeIds.includes(id));
+  const reading = readType(track, answers);
+  return self && reading.typeId && self !== reading.typeId ? self : null;
+}
+
 export const pickedConcerns = (track: CareTrack, answers: QuestAnswers): readonly CareConcern[] =>
   (answers[track.concernStepId] ?? [])
     .map((id) => track.concerns.find((concern) => concern.id === id))
@@ -341,4 +401,136 @@ export function saveProgress(storage: Storage | undefined, state: CareQuestState
   } catch {
     // Storage unavailable: the quest still works, it just will not be resumable.
   }
+}
+
+const HISTORY_KEY = 'korea-glow:care-quest:history:v1';
+/** Results kept per track, oldest dropped first. */
+export const HISTORY_KEEP = 6;
+/** Days after a result that the screen suggests looking again (skin shifts with the season). */
+export const RETEST_DAYS = 28;
+
+/** One finished track on one day; `at` is null for a result saved before dates were kept. */
+export interface QuestRecord {
+  readonly at: string | null;
+  readonly answers: QuestAnswers;
+}
+
+export type QuestHistory = Readonly<Partial<Record<TrackId, readonly QuestRecord[]>>>;
+
+const sameAnswers = (a: QuestAnswers, b: QuestAnswers): boolean => {
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  for (const key of keys) {
+    const x = [...(a[key] ?? [])].sort().join('|');
+    const y = [...(b[key] ?? [])].sort().join('|');
+    if (x !== y) return false;
+  }
+  return true;
+};
+
+export function loadHistory(storage: Storage | undefined): QuestHistory {
+  try {
+    const raw = storage?.getItem(HISTORY_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw) as Record<string, unknown>;
+    const out: Partial<Record<TrackId, QuestRecord[]>> = {};
+    for (const track of CARE_TRACKS) {
+      const list = parsed[track.id];
+      if (!Array.isArray(list)) continue;
+      out[track.id] = list.flatMap((item: unknown) => {
+        if (!item || typeof item !== 'object') return [];
+        const { at, answers } = item as { at?: unknown; answers?: unknown };
+        if (!answers || typeof answers !== 'object') return [];
+        const clean: Record<string, readonly string[]> = {};
+        for (const [step, ids] of Object.entries(answers as Record<string, unknown>)) {
+          if (Array.isArray(ids)) clean[step] = ids.filter((id) => typeof id === 'string');
+        }
+        return [{ at: typeof at === 'string' ? at : null, answers: clean }];
+      });
+    }
+    return out;
+  } catch {
+    return {};
+  }
+}
+
+/**
+ * Adds a finished result to the track's history. Re-opening the same result adds nothing; a
+ * result saved before history existed (`earlier`) is kept as the first, undated entry so the
+ * reader's next result still has something to be compared with.
+ */
+export function recordHistory(
+  storage: Storage | undefined,
+  history: QuestHistory,
+  track: TrackId,
+  answers: QuestAnswers,
+  now: Date,
+  earlier?: QuestAnswers,
+): QuestHistory {
+  let list = [...(history[track] ?? [])];
+  if (list.length === 0 && earlier && !sameAnswers(earlier, answers)) {
+    list.push({ at: null, answers: earlier });
+  }
+  if (list.some((record) => sameAnswers(record.answers, answers))) return history;
+  list.push({ at: now.toISOString().slice(0, 10), answers });
+  list = list.slice(-HISTORY_KEEP);
+  const next = { ...history, [track]: list };
+  try {
+    storage?.setItem(HISTORY_KEY, JSON.stringify(next));
+  } catch {
+    // Storage unavailable: no comparison next time, nothing else changes.
+  }
+  return next;
+}
+
+/** What changed between two results of the same track. */
+export interface ResultChange {
+  readonly previousAt: string | null;
+  readonly at: string | null;
+  readonly typeBefore: string | null;
+  readonly typeNow: string | null;
+  readonly added: readonly CareConcern[];
+  readonly gone: readonly CareConcern[];
+  readonly kept: readonly CareConcern[];
+}
+
+/** The result shown compared with the one before it, or null when there is none. */
+export function compareWithPrevious(
+  track: CareTrack,
+  history: QuestHistory,
+  answers: QuestAnswers,
+): ResultChange | null {
+  const list = history[track.id] ?? [];
+  const index = list.findIndex((record) => sameAnswers(record.answers, answers));
+  if (index < 1) return null;
+  const before = list[index - 1]!;
+  const was = pickedConcerns(track, before.answers);
+  const now = pickedConcerns(track, answers);
+  const wasIds = new Set(was.map((c) => c.id));
+  const nowIds = new Set(now.map((c) => c.id));
+  return {
+    previousAt: before.at,
+    at: list[index]!.at,
+    typeBefore: readType(track, before.answers).typeId,
+    typeNow: readType(track, answers).typeId,
+    added: now.filter((c) => !wasIds.has(c.id)),
+    gone: was.filter((c) => !nowIds.has(c.id)),
+    kept: now.filter((c) => wasIds.has(c.id)),
+  };
+}
+
+/** The date a result dated `at` suggests looking again, as YYYY-MM-DD. */
+export function retestDate(at: string): string {
+  const date = new Date(`${at}T00:00:00Z`);
+  date.setUTCDate(date.getUTCDate() + RETEST_DAYS);
+  return date.toISOString().slice(0, 10);
+}
+
+/** The date the shown result was recorded, when the history knows it. */
+export function resultDate(
+  history: QuestHistory,
+  track: TrackId,
+  answers: QuestAnswers,
+): string | null {
+  const record = (history[track] ?? []).find((item) => sameAnswers(item.answers, answers));
+  return record?.at ?? null;
 }

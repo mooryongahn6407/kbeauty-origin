@@ -348,7 +348,7 @@ const MESSAGES_EN = {
   'skinquest.welcome.guide':
     'I will be with you the whole way, and nothing here is hard. I ask about one thing, you look in the mirror, and you tap what you see.',
   'skinquest.welcome.promise':
-    'Four minutes. You keep today’s record of your own skin, and there is a small gift for finishing.',
+    'Face, scalp & hair, body — about five minutes each. You get your likely type, a morning and evening routine, and a small gift for finishing.',
   'skinquest.welcome.begin': 'Yes, let’s start',
   'skinquest.welcome.boundary':
     'This is cosmetic observation, not diagnosis. If something hurts, spreads or keeps getting worse, that is for a qualified professional, not for an app.',
@@ -1087,7 +1087,7 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'skinquest.welcome.guide':
     '오늘은 제가 옆에서 같이 볼게요. 어려운 말은 하나도 없어요. 제가 여쭤보면 거울을 한 번 보시고, 보이는 대로 눌러주세요.',
   'skinquest.welcome.promise':
-    '4분이면 끝나요. 오늘 내 피부 기록이 남고, 끝까지 하시면 작은 선물도 드려요.',
+    '얼굴·두피·바디, 한 곳에 5분 정도예요. 내 타입과 아침·저녁 루틴이 나오고, 끝까지 하시면 작은 선물도 드려요.',
   'skinquest.welcome.begin': '네, 시작할게요',
   'skinquest.welcome.boundary':
     '이것은 화장품 관점의 관찰이며 진단이 아닙니다. 아프거나, 번지거나, 점점 심해진다면 그때는 앱이 아니라 전문가를 찾을 때입니다.',
@@ -1827,7 +1827,7 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'skinquest.welcome.guide':
     'Je reste avec vous jusqu’au bout, et rien ici n’est compliqué. Je pose une question, vous vous regardez dans le miroir, et vous touchez ce que vous voyez.',
   'skinquest.welcome.promise':
-    'Quatre minutes. Vous gardez le relevé de votre peau d’aujourd’hui, et un petit cadeau vous attend à la fin.',
+    'Visage, cuir chevelu, corps — environ cinq minutes chacun. Vous obtenez votre type probable, une routine matin et soir, et un petit cadeau à la fin.',
   'skinquest.welcome.begin': 'Oui, commençons',
   'skinquest.welcome.boundary':
     'Il s’agit d’observation cosmétique, pas d’un diagnostic. Si quelque chose fait mal, s’étend ou empire, cela relève d’un professionnel qualifié, pas d’une application.',
@@ -2555,7 +2555,7 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'skinquest.welcome.guide':
     'ຂ້ອຍຈະຢູ່ກັບທ່ານຕະຫຼອດ ແລະ ບໍ່ມີຫຍັງຍາກເລີຍ. ຂ້ອຍຖາມເທື່ອລະຢ່າງ, ທ່ານສ່ອງແວ່ນເບິ່ງ ແລ້ວກົດຕາມທີ່ເຫັນ.',
   'skinquest.welcome.promise':
-    'ສີ່ນາທີກໍ່ແລ້ວ. ທ່ານຈະໄດ້ບັນທຶກຜິວມື້ນີ້ ແລະ ຖ້າເຮັດຈົນຈົບ ມີຂອງຂວັນນ້ອຍໆໃຫ້.',
+    'ໃບໜ້າ, ໜັງຫົວ, ຮ່າງກາຍ — ປະມານ 5 ນາທີຕໍ່ສ່ວນ. ທ່ານຈະໄດ້ຮູ້ປະເພດຜິວ ແລະ ກິດຈະວັດເຊົ້າ-ແລງ, ຖ້າເຮັດຈົນຈົບ ມີຂອງຂວັນນ້ອຍໆໃຫ້.',
   'skinquest.welcome.begin': 'ໄດ້, ເລີ່ມເລີຍ',
   'skinquest.welcome.boundary':
     'ນີ້ແມ່ນການສັງເກດໃນມຸມມອງເຄື່ອງສຳອາງ ບໍ່ແມ່ນການວິນິດໄສ. ຖ້າມີອາການເຈັບ, ລາມ ຫຼື ຮ້າຍແຮງຂຶ້ນ ນັ້ນແມ່ນເລື່ອງຂອງຜູ້ຊ່ຽວຊານ ບໍ່ແມ່ນຂອງແອັບ.',
@@ -3285,7 +3285,7 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'skinquest.welcome.guide':
     'ฉันจะอยู่กับคุณตลอดทาง และไม่มีอะไรยากเลย ฉันถามทีละอย่าง คุณส่องกระจกดู แล้วกดตามที่เห็น',
   'skinquest.welcome.promise':
-    'สี่นาทีก็เสร็จ คุณจะได้บันทึกผิววันนี้ และถ้าทำจนจบ มีของขวัญชิ้นเล็ก ๆ ให้',
+    'ใบหน้า หนังศีรษะ ผิวกาย ส่วนละประมาณ 5 นาที คุณจะได้ประเภทผิวและรูทีนเช้า-เย็น และถ้าทำจนจบ มีของขวัญชิ้นเล็ก ๆ ให้',
   'skinquest.welcome.begin': 'ค่ะ เริ่มเลย',
   'skinquest.welcome.boundary':
     'นี่คือการสังเกตในมุมมองเครื่องสำอาง ไม่ใช่การวินิจฉัย หากมีอาการเจ็บ ลุกลาม หรือแย่ลงเรื่อย ๆ นั่นเป็นเรื่องของผู้เชี่ยวชาญ ไม่ใช่ของแอป',

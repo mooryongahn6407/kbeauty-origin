@@ -1751,6 +1751,13 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .care-type__close { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); }
 .care-type__summary { margin: 0; line-height: 1.6; }
 .care-type__care { margin: 0; padding-left: 1.2em; line-height: 1.6; }
+.care-type__confidence { margin: 0; padding: var(--space-2) var(--space-3); border-radius: var(--radius-sm); background: var(--surface); color: var(--text); border-left: 4px solid var(--accent); font-size: var(--fs-sm); line-height: 1.55; }
+.care-type__confidence--mixed { border-left-color: var(--caution); }
+.care-why { background: var(--surface); border-radius: var(--radius-sm); padding: var(--space-1) var(--space-3) var(--space-2); }
+.care-why__list { margin: 0; padding-left: 1.2em; font-size: var(--fs-sm); line-height: 1.6; color: var(--text); }
+.care-why__list li::marker { content: '✓  '; color: var(--accent); }
+.care-compare__dates { margin: 0 0 var(--space-1); font-family: var(--font-ui); font-size: var(--fs-sm); color: var(--text-muted); }
+.care-compare__type { margin: 0 0 var(--space-2); line-height: 1.6; }
 .care-concerns { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); }
 .care-concern { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: var(--space-3) var(--space-4); }
 .care-concern__name { font-size: var(--fs-md); margin: 0 0 var(--space-1); }
@@ -1802,3 +1809,8 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .care-photo--band { aspect-ratio: 16 / 7; }
 .care-photo--type { aspect-ratio: 16 / 9; margin: calc(var(--space-4) * -1) calc(var(--space-4) * -1) var(--space-2); border-radius: var(--radius) var(--radius) 0 0; }
 .care-photo--concern { aspect-ratio: 16 / 8; margin: calc(var(--space-3) * -1) calc(var(--space-4) * -1) var(--space-3); border-radius: var(--radius-sm) var(--radius-sm) 0 0; }
+/* Source links in lists are tap targets too: give them the full 44px row. */
+main li > a:not([class]) { display: inline-flex; align-items: center; min-height: var(--tap); }
+main .muted a:not([class]) { display: inline-flex; align-items: center; min-height: var(--tap); }
+.compare__columns { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.compare__col { min-width: 0; overflow-wrap: anywhere; }

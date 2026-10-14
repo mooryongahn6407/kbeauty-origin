@@ -36,9 +36,11 @@ import { storeCatalog } from '@/content/store-catalog';
 import type { StoreProduct } from '@/content/store-catalog-types';
 import {
   careQuestReducer,
+  compareWithPrevious,
   currentStep,
   governedIdsFor,
   initialCareQuest,
+  loadHistory,
   loadProgress,
   loadSavedResults,
   saveProgress,
@@ -46,9 +48,17 @@ import {
   resultSummary,
   pickedConcerns,
   readType,
+  recordHistory,
+  resultDate,
+  retestDate,
   saveResult,
+  selfDisagrees,
+  typeConfidence,
+  typeReasons,
   type CareQuestAction,
   type CareQuestState,
+  type QuestHistory,
+  type ResultChange,
   type SavedResults,
 } from '@/app/care-quest';
 import {
@@ -114,6 +124,7 @@ export function CareQuestScreen({
   onOpenProduct: (sku: string) => void;
 }) {
   const [saved, setSaved] = useState<SavedResults>(() => loadSavedResults(storage()));
+  const [history, setHistory] = useState<QuestHistory>(() => loadHistory(storage()));
   // Someone who has finished a track before (and has just come back from the dictionary or a
   // product it linked to) lands on the track list with "see my result", not on the greeting.
   const [state, dispatch] = useReducer(careQuestReducer, saved, (initial: SavedResults) =>
@@ -145,6 +156,10 @@ export function CareQuestScreen({
     if (state.phase !== 'result' || !state.track) return;
     const track = careTrack(state.track);
     if (!track) return;
+    const earlier = loadSavedResults(storage())[track.id];
+    setHistory((previous) =>
+      recordHistory(storage(), previous, track.id, state.answers, new Date(), earlier),
+    );
     setSaved((previous) => saveResult(storage(), previous, track.id, state.answers));
     const ids = governedIdsFor(pickedConcerns(track, state.answers));
     if (ids.length > 0) {
@@ -285,6 +300,7 @@ export function CareQuestScreen({
         answers={state.answers}
         locale={locale}
         collection={collection}
+        history={history}
         partner={partner}
         dispatch={dispatch}
         onExplore={onExplore}
@@ -595,6 +611,7 @@ function CareResult({
   answers,
   locale,
   collection,
+  history,
   partner,
   dispatch,
   onExplore,
@@ -605,6 +622,7 @@ function CareResult({
   answers: QuestAnswers;
   locale: string;
   collection: CollectionState;
+  history: QuestHistory;
   partner: string | null;
   dispatch: Dispatch;
   onExplore: () => void;
@@ -631,6 +649,12 @@ function CareResult({
       ? track.types.find((item) => item.id === track.modifierTypeId)
       : undefined;
   const now = useMemo(() => new Date(), []);
+  const reasons = reading.typeId ? typeReasons(track, answers, reading.typeId) : [];
+  const confidence = typeConfidence(track, answers);
+  const selfId = selfDisagrees(track, answers);
+  const selfType = selfId ? track.types.find((item) => item.id === selfId) : undefined;
+  const change = compareWithPrevious(track, history, answers);
+  const shownAt = resultDate(history, track.id, answers) ?? now.toISOString().slice(0, 10);
   const gift = useMemo(() => issueGift(now), [now]);
   const streak = currentStreak(collection, now);
   const avoid = new Set(plan.avoid);
@@ -679,6 +703,32 @@ function CareResult({
                 <li key={line.en}>{t(line)}</li>
               ))}
             </ul>
+            {confidence ? (
+              <p className={`care-type__confidence care-type__confidence--${confidence}`}>
+                {t(
+                  confidence === 'clear'
+                    ? QUEST_TEXT.confidenceClear
+                    : confidence === 'mixed'
+                      ? QUEST_TEXT.confidenceMixed
+                      : QUEST_TEXT.confidenceLikely,
+                )}
+              </p>
+            ) : null}
+            {reasons.length > 0 ? (
+              <div className="care-why">
+                <p className="care-concern__label">{t(QUEST_TEXT.why)}</p>
+                <ul className="care-why__list">
+                  {reasons.slice(0, 6).map((reason) => (
+                    <li key={`${reason.stepId}:${reason.answer.en}`}>{t(reason.answer)}</li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+            {selfType ? (
+              <p className="care-type__close">
+                {fill(t(QUEST_TEXT.selfDiffers), { name: t(selfType.name) })}
+              </p>
+            ) : null}
             <Say
               text={{
                 ko: `${type.name.ko}. ${type.summary.ko}`,
@@ -768,6 +818,8 @@ function CareResult({
           </ul>
         )}
       </section>
+
+      {change ? <ResultCompare track={track} change={change} locale={locale} /> : null}
 
       <section className="record-block">
         <h2 className="record-block__title">
@@ -863,6 +915,13 @@ function CareResult({
         </ul>
       </section>
 
+      <section className="record-block care-retest">
+        <h2 className="record-block__title">🗓️ {t(QUEST_TEXT.retestTitle)}</h2>
+        <p className="record-block__note">
+          {fill(t(QUEST_TEXT.retestBody), { date: retestDate(shownAt) })}
+        </p>
+      </section>
+
       <ShareResult track={track} answers={answers} locale={locale} partner={partner} />
 
       {/* Last, after the safety and education above: education outranks commerce (rule 6). */}
@@ -897,6 +956,60 @@ function CareResult({
  * (and the shop's code, if the reader came in through one). Nothing is sent by the app itself —
  * the reader's own share sheet, clipboard or WhatsApp does it.
  */
+/** This result beside the one before it: the reader's own answers, never a product effect. */
+function ResultCompare({
+  track,
+  change,
+  locale,
+}: {
+  track: CareTrack;
+  change: ResultChange;
+  locale: string;
+}) {
+  const t = (text: Localized) => inLocale(text, locale);
+  const typeName = (id: string | null) => {
+    const type = id ? track.types.find((item) => item.id === id) : undefined;
+    return type ? `${type.icon} ${t(type.name)}` : '🤔';
+  };
+  const rows = [
+    { key: 'added', label: QUEST_TEXT.compareAdded, items: change.added },
+    { key: 'kept', label: QUEST_TEXT.compareKept, items: change.kept },
+    { key: 'gone', label: QUEST_TEXT.compareGone, items: change.gone },
+  ].filter((row) => row.items.length > 0);
+  return (
+    <section className="record-block care-compare">
+      <h2 className="record-block__title">↔️ {t(QUEST_TEXT.compareTitle)}</h2>
+      <p className="care-compare__dates">
+        {fill(t(QUEST_TEXT.compareDates), {
+          before: change.previousAt ?? t(QUEST_TEXT.earlier),
+          now: change.at ?? '—',
+        })}
+      </p>
+      <p className="care-compare__type">
+        <strong>{t(QUEST_TEXT.compareType)}:</strong>{' '}
+        {change.typeBefore === change.typeNow
+          ? `${typeName(change.typeNow)} · ${t(QUEST_TEXT.compareSame)}`
+          : `${typeName(change.typeBefore)} → ${typeName(change.typeNow)}`}
+      </p>
+      {rows.map((row) => (
+        <div key={row.key} className="care-compare__row">
+          <p className="care-concern__label">{t(row.label)}</p>
+          <ul className="chips" role="list">
+            {row.items.map((concern) => (
+              <li key={concern.id}>
+                <span className="chip chip--soft">
+                  {concern.icon} {t(concern.name)}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+      <p className="record-block__note">{t(QUEST_TEXT.compareNote)}</p>
+    </section>
+  );
+}
+
 function ShareResult({
   track,
   answers,

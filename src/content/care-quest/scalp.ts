@@ -464,6 +464,7 @@ export const SCALP_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'scalpSun',
+    photo: '/gemini/A-07.jpg',
     icon: '☀️',
     name: L(
       '가르마 햇빛 화상',
@@ -1254,11 +1255,13 @@ export const SCALP_STEPS: readonly QuestStep[] = [
     groups: [
       {
         id: 'scalp',
+        photo: '/products/sku/KG-HAR-00016.jpg',
         label: L('두피', 'Scalp', 'ໜັງຫົວ', 'หนังศีรษะ', 'Cuir chevelu'),
         ids: ['dandruff', 'itchy', 'oilyScalp', 'scalpRed', 'scalpSun'],
       },
       {
         id: 'loss',
+        photo: '/products/sku/KG-HAR-00009.jpg',
         label: L(
           '빠짐·볼륨·새치',
           'Shedding, volume, greys',
@@ -1270,6 +1273,7 @@ export const SCALP_STEPS: readonly QuestStep[] = [
       },
       {
         id: 'lengths',
+        photo: '/products/sku/KG-HAR-00017.jpg',
         label: L(
           '머리카락 길이·끝',
           'Lengths & ends',
@@ -1853,6 +1857,7 @@ export const SCALP_TRACK: CareTrack = {
   baseTypeIds: ['oily', 'dry', 'dandruff', 'normal'],
   modifierTypeId: 'sensitive',
   concernStepId: 'concerns',
+  selfStepId: 'scalpSelf',
   concerns: SCALP_CONCERNS,
   plan: scalpPlan,
   sources: SCALP_SOURCES,

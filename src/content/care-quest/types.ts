@@ -182,6 +182,8 @@ export interface CareTrack {
   /** A type that can sit on top of any base type ("with a sensitive tendency"). */
   readonly modifierTypeId: string | null;
   readonly concernStepId: string;
+  /** The question where the reader names her own type, compared with what the answers say. */
+  readonly selfStepId?: string;
   readonly concerns: readonly CareConcern[];
   readonly plan: (answers: QuestAnswers, reading: TypeReading) => CarePlan;
   readonly sources: readonly Source[];

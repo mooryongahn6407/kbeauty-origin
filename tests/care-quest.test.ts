@@ -21,9 +21,19 @@ import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import { storeCatalog } from '@/content/store-catalog';
 import { concerns as governedConcerns } from '@/knowledge/repository';
 import {
+  CLEAR_MARGIN,
+  HISTORY_KEEP,
   careQuestReducer,
+  compareWithPrevious,
   initialCareQuest,
+  loadHistory,
   loadProgress,
+  recordHistory,
+  resultDate,
+  retestDate,
+  selfDisagrees,
+  typeConfidence,
+  typeReasons,
   matchProducts,
   pickedConcerns,
   readType,
@@ -203,6 +213,33 @@ describe('likely skin type', () => {
     const reading = readType(FACE_TRACK, { afterWash: ['mixed'], blotting: ['everywhere'] });
     expect(reading.typeId).toBe('combination');
     expect(reading.closeTypeId).toBe('oily');
+  });
+
+  it('shows which answers gave the named type its points, strongest first', () => {
+    const reasons = typeReasons(FACE_TRACK, signature.dry!, 'dry');
+    expect(reasons.length).toBeGreaterThanOrEqual(3);
+    expect(reasons.every((reason) => reason.points > 0)).toBe(true);
+    for (let i = 1; i < reasons.length; i++) {
+      expect(reasons[i - 1]!.points).toBeGreaterThanOrEqual(reasons[i]!.points);
+    }
+    expect(typeReasons(FACE_TRACK, {}, 'dry')).toEqual([]);
+  });
+
+  it('says how sure it is instead of stating the type flatly', () => {
+    for (const answers of Object.values(signature)) {
+      expect(typeConfidence(FACE_TRACK, answers)).toBe('clear');
+    }
+    expect(typeConfidence(FACE_TRACK, { afterWash: ['mixed'], blotting: ['everywhere'] })).toBe(
+      'mixed',
+    );
+    expect(typeConfidence(FACE_TRACK, { typeSelf: ['unsure'] })).toBeNull();
+    expect(CLEAR_MARGIN).toBeGreaterThan(1);
+  });
+
+  it('points out when the type she picked herself differs from her answers', () => {
+    expect(selfDisagrees(FACE_TRACK, { ...signature.oily, typeSelf: ['dry'] })).toBe('dry');
+    expect(selfDisagrees(FACE_TRACK, { ...signature.oily, typeSelf: ['oily'] })).toBeNull();
+    expect(selfDisagrees(FACE_TRACK, { ...signature.oily, typeSelf: ['unsure'] })).toBeNull();
   });
 });
 
@@ -506,5 +543,76 @@ describe('continuing a track left half-way', () => {
       answers: {},
     });
     expect(state).toBe(initialCareQuest);
+  });
+});
+
+describe('looking again and comparing with last time', () => {
+  const memory = () => {
+    const data = new Map<string, string>();
+    return {
+      getItem: (key: string) => data.get(key) ?? null,
+      setItem: (key: string, value: string) => void data.set(key, value),
+      removeItem: (key: string) => void data.delete(key),
+    } as unknown as Storage;
+  };
+  const first: QuestAnswers = { ...signature.dry, concerns: ['dryness', 'darkCircles'] };
+  const second: QuestAnswers = { ...signature.combination, concerns: ['darkCircles', 'pores'] };
+
+  it('puts this result beside the one before, as her answers only', () => {
+    const storage = memory();
+    let history = recordHistory(storage, {}, 'face', first, new Date('2026-06-01T10:00:00Z'));
+    history = recordHistory(storage, history, 'face', second, new Date('2026-07-01T10:00:00Z'));
+    const change = compareWithPrevious(FACE_TRACK, loadHistory(storage), second)!;
+    expect(change).toMatchObject({
+      previousAt: '2026-06-01',
+      at: '2026-07-01',
+      typeBefore: 'dry',
+      typeNow: 'combination',
+    });
+    expect(change.added.map((c) => c.id)).toEqual(['pores']);
+    expect(change.kept.map((c) => c.id)).toEqual(['darkCircles']);
+    expect(change.gone.map((c) => c.id)).toEqual(['dryness']);
+    expect(compareWithPrevious(FACE_TRACK, history, first)).toBeNull();
+  });
+
+  it('does not add an entry when the same result is opened again', () => {
+    const storage = memory();
+    const once = recordHistory(storage, {}, 'face', first, new Date('2026-06-01T10:00:00Z'));
+    const twice = recordHistory(storage, once, 'face', first, new Date('2026-06-09T10:00:00Z'));
+    expect(twice).toBe(once);
+    expect(resultDate(twice, 'face', first)).toBe('2026-06-01');
+  });
+
+  it('keeps a result saved before dates were kept as the first, undated entry', () => {
+    const history = recordHistory(memory(), {}, 'face', second, new Date('2026-07-01'), first);
+    expect(history.face!.map((record) => record.at)).toEqual([null, '2026-07-01']);
+    expect(compareWithPrevious(FACE_TRACK, history, second)!.previousAt).toBeNull();
+  });
+
+  it('keeps only the latest few results per track', () => {
+    let history = {};
+    for (let day = 1; day <= HISTORY_KEEP + 3; day++) {
+      history = recordHistory(
+        undefined,
+        history,
+        'face',
+        { age: [String(day)] },
+        new Date(`2026-08-${String(day).padStart(2, '0')}T00:00:00Z`),
+      );
+    }
+    expect((history as { face: unknown[] }).face).toHaveLength(HISTORY_KEEP);
+  });
+
+  it('suggests a date to look again, across a month end', () => {
+    expect(retestDate('2026-10-14')).toBe('2026-11-11');
+    expect(retestDate('2026-12-20')).toBe('2027-01-17');
+  });
+
+  it('survives storage that holds rubbish', () => {
+    const storage = memory();
+    storage.setItem('korea-glow:care-quest:history:v1', '{"face":[1,{"answers":"x"}]');
+    expect(loadHistory(storage)).toEqual({});
+    storage.setItem('korea-glow:care-quest:history:v1', '{"face":[1,{"answers":{"a":[2,"b"]}}]}');
+    expect(loadHistory(storage)).toEqual({ face: [{ at: null, answers: { a: ['b'] } }] });
   });
 });

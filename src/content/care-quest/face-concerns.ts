@@ -96,6 +96,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'comedones',
+    photo: '/gemini/C-05.jpg',
     icon: '⚫',
     governedId: 'CON-003',
     name: L(
@@ -132,6 +133,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'pores',
+    photo: '/gemini/C-05.jpg',
     icon: '⭕',
     name: L('넓은 모공', 'Visible pores', 'ຮູຂຸມຂົນກວ້າງ', 'รูขุมขนกว้าง', 'Pores dilatés'),
     what: L(
@@ -589,7 +591,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'dryness',
-    photo: '/gemini/C-03.jpg',
+    photo: '/gemini/B-01.jpg',
     icon: '🏜️',
     governedId: 'CON-001',
     name: L(
@@ -626,6 +628,7 @@ export const FACE_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'flaking',
+    photo: '/gemini/B-01.jpg',
     icon: '❄️',
     governedId: 'CON-009',
     name: L(

@@ -173,6 +173,7 @@ export const BODY_TYPES: readonly CareType[] = [
 export const BODY_CONCERNS: readonly CareConcern[] = [
   {
     id: 'dryBody',
+    photo: '/gemini/B-06.jpg',
     icon: '🏜️',
     governedId: 'CON-012',
     name: L(
@@ -412,6 +413,7 @@ export const BODY_CONCERNS: readonly CareConcern[] = [
   },
   {
     id: 'tanBurn',
+    photo: '/gemini/B-07.jpg',
     icon: '☀️',
     name: L(
       '햇빛에 그을림·화상',
@@ -575,6 +577,7 @@ export const BODY_STEPS: readonly QuestStep[] = [
       {
         id: 'neck',
         icon: '🦢',
+        image: '/gemini/B-05.jpg',
         title: L(
           '목·가슴 위 → 얼굴 루틴',
           'Neck & upper chest → face routine',
@@ -594,6 +597,7 @@ export const BODY_STEPS: readonly QuestStep[] = [
       {
         id: 'body',
         icon: '🧍‍♀️',
+        image: '/gemini/B-06.jpg',
         title: L(
           '몸 (팔·다리·등·배)',
           'Body (arms, legs, back, belly)',
@@ -612,6 +616,7 @@ export const BODY_STEPS: readonly QuestStep[] = [
       },
       {
         id: 'handsFeet',
+        image: '/products/sku/KG-HND-00006.jpg',
         icon: '🤲',
         title: L('손과 발', 'Hands & feet', 'ມື ແລະ ຕີນ', 'มือและเท้า', 'Mains & pieds'),
         body: L(
@@ -795,6 +800,7 @@ export const BODY_STEPS: readonly QuestStep[] = [
     groups: [
       {
         id: 'limbs',
+        photo: '/gemini/B-06.jpg',
         label: L(
           '팔·다리·피부결',
           'Arms, legs & texture',
@@ -806,6 +812,7 @@ export const BODY_STEPS: readonly QuestStep[] = [
       },
       {
         id: 'heat',
+        photo: '/gemini/B-07.jpg',
         label: L(
           '더위·땀·접히는 곳',
           'Heat, sweat & folds',
@@ -817,6 +824,7 @@ export const BODY_STEPS: readonly QuestStep[] = [
       },
       {
         id: 'handsFeet',
+        photo: '/products/sku/KG-HND-00006.jpg',
         label: L('손·발', 'Hands & feet', 'ມື ແລະ ຕີນ', 'มือและเท้า', 'Mains & pieds'),
         ids: ['roughHands', 'crackedHeels'],
       },

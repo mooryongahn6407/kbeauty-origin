@@ -1252,6 +1252,7 @@ export const FACE_TRACK: CareTrack = {
   baseTypeIds: BASE_TYPE_IDS,
   modifierTypeId: SENSITIVE_ID,
   concernStepId: 'concerns',
+  selfStepId: 'typeSelf',
   concerns: FACE_CONCERNS,
   plan: facePlan,
   sources: [...COMMON_SOURCES, ...FACE_SOURCES],

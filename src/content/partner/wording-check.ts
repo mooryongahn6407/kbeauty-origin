@@ -7,7 +7,8 @@
  * spaces between words), so a hit means "read this again", not "this is forbidden".
  *
  * Categories follow the risks in the 2026-10-11 market research: medical claims (cosmetics are not
- * medicine), promises and absolutes, "no side effects", removal/whitening promises, borrowed
+ * medicine), promises and absolutes, "no side effects", removal/whitening promises, claims that a product changes how the body
+ * works (ASEAN Cosmetic Directive: hair regrowth, reversing ageing, cell regeneration, slimming), borrowed
  * authority, calling other sellers' goods fake, and "cheapest" claims.
  */
 /** Written in all five app languages, because partners post in Lao and Thai as much as Korean. */
@@ -174,6 +175,66 @@ export const WORDING_RULES: readonly WordingRule[] = [
     },
   },
   {
+    id: 'body-change',
+    patterns: [
+      '발모',
+      '모발\\s*(?:이\\s*)?(?:다시\\s*)?(?:나|자라)',
+      '머리(?:카락)?\\s*(?:이|가)?\\s*다시\\s*(?:나|자라)',
+      '탈모\\s*(?:를\\s*)?(?:방지|예방|치료|멈|막)',
+      '노화\\s*(?:를\\s*)?(?:되돌|역전|멈추)',
+      '세포\\s*(?:를\\s*)?재생',
+      '보톡스',
+      '지방\\s*(?:을\\s*)?(?:분해|연소|태)',
+      '살\\s*(?:이\\s*)?빠(?:져|진|지)',
+      '가슴\\s*(?:이\\s*)?커',
+      '\\bhair\\s+(?:re)?growth',
+      '\\bregrows?\\b',
+      '\\bstops?\\s+hair\\s+loss',
+      '\\breverses?\\s+(?:the\\s+)?(?:signs\\s+of\\s+)?(?:ag(?:e|ing)|ageing)',
+      '\\bcell(?:ular)?\\s+regenerat',
+      '\\bbotox',
+      '\\bfat[- ]burn',
+      '\\bslimming',
+      '\\bdna\\s+repair',
+      'ຜົມງອກ',
+      'ປູກຜົມ',
+      'ຢຸດຜົມຫຼົ່ນ',
+      'ຍ້ອນໄວ',
+      'ຟື້ນຟູເຊລ',
+      'ໂບທັອກ',
+      'ເຜົາຜານໄຂມັນ',
+      'ຫຼຸດນ້ຳໜັກ',
+      'ปลูกผม',
+      'ผมงอก',
+      'หยุดผมร่วง',
+      'ย้อนวัย',
+      'ฟื้นฟูเซลล์',
+      'โบท็อก',
+      'เผาผลาญไขมัน',
+      'ลดน้ำหนัก',
+      '\\brepousse',
+      'stoppe\\s+la\\s+chute',
+      'inverse\\s+le\\s+vieillissement',
+      'régénération\\s+cellulaire',
+      'brûle[- ]graisses?',
+      '\\bamincissant',
+    ],
+    why: {
+      ko: '«머리카락이 다시 난다·노화를 되돌린다·세포 재생·지방 분해·살 빠짐»은 몸의 기능을 바꾼다는 말이라 화장품이 아니라 의약품 표현이에요. 아세안 화장품 규정에서 허용되지 않는 주장이에요.',
+      en: '"Regrows hair", "reverses ageing", "regenerates cells", "burns fat" and "slimming" say a product changes how the body works. Under the ASEAN cosmetic rules that is a medicine claim, not a cosmetic one.',
+      lo: '«ຜົມງອກໃໝ່, ຍ້ອນໄວ, ຟື້ນຟູເຊລ, ເຜົາຜານໄຂມັນ, ຫຼຸດນ້ຳໜັກ» ແມ່ນການບອກວ່າປ່ຽນການເຮັດວຽກຂອງຮ່າງກາຍ. ຕາມລະບຽບເຄື່ອງສຳອາງອາຊຽນ ນີ້ແມ່ນຄຳຂອງຢາ ບໍ່ແມ່ນເຄື່ອງສຳອາງ.',
+      th: '«ปลูกผม ผมงอกใหม่ ย้อนวัย ฟื้นฟูเซลล์ เผาผลาญไขมัน ลดน้ำหนัก» คือการบอกว่าเปลี่ยนการทำงานของร่างกาย ตามเกณฑ์เครื่องสำอางอาเซียน นี่เป็นคำของยา ไม่ใช่เครื่องสำอาง',
+      fr: '« Fait repousser les cheveux », « inverse le vieillissement », « régénération cellulaire », « brûle-graisses », « amincissant » : dire qu’un produit change le fonctionnement du corps est une allégation de médicament selon les règles cosmétiques de l’ASEAN.',
+    },
+    instead: {
+      ko: '«두피를 깨끗하고 촉촉하게», «피부를 탄력 있어 보이게 가꿔 줘요»처럼 겉모습과 느낌으로 말하기.',
+      en: 'Talk about how skin and hair look and feel: "keeps the scalp clean and comfortable", "helps skin look firmer".',
+      lo: 'ເວົ້າເຖິງການເບິ່ງ ແລະ ຄວາມຮູ້ສຶກ: «ຊ່ວຍໃຫ້ໜັງຫົວສະອາດ ສະບາຍ», «ຊ່ວຍໃຫ້ຜິວເບິ່ງກະຊັບ».',
+      th: 'พูดถึงรูปลักษณ์และความรู้สึก: «ช่วยให้หนังศีรษะสะอาด สบาย» «ช่วยให้ผิวดูกระชับ»',
+      fr: 'Parlez de l’aspect et de la sensation : « garde le cuir chevelu propre et confortable », « aide la peau à paraître plus ferme ».',
+    },
+  },
+  {
     id: 'authority',
     patterns: [
       '의사\\s*추천',
@@ -273,7 +334,7 @@ export const BAD_EXAMPLE_POST: Localized = {
   en: 'New cream! Guaranteed to cure acne and remove dark spots, no side effects, cheapest in town!',
   lo: 'ຄີມໃໝ່! ຮັບປະກັນປິ່ນປົວສິວ ລຶບຝ້າ ບໍ່ມີຜົນຂ້າງຄຽງ ຖືກທີ່ສຸດ!',
   th: 'ครีมใหม่! รับประกันรักษาสิว ลบฝ้า ไม่มีผลข้างเคียง ถูกที่สุด!',
-  fr: 'Nouvelle crème ! Garantie pour guérir l\'acné, efface les taches, sans effets secondaires, le moins cher !',
+  fr: "Nouvelle crème ! Garantie pour guérir l'acné, efface les taches, sans effets secondaires, le moins cher !",
 };
 
 export interface WordingHit {
