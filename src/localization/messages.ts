@@ -317,6 +317,7 @@ const MESSAGES_EN = {
   'speech.listen': 'Listen',
   'speech.stop': 'Stop',
   'speech.unavailable': 'No voice for this language on this device',
+  'speech.unavailable.tip': "This is the phone's own setting, not something broken in the app — most phones can add it: Settings › Accessibility › Text-to-speech (Android) or Settings › Accessibility › Spoken Content › Voices (iPhone).",
   'speech.listenIn': 'Listen (in {language})',
 
   'catalog.unreviewed':
@@ -1076,6 +1077,7 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'speech.listen': '듣기',
   'speech.stop': '정지',
   'speech.unavailable': '이 기기에는 이 언어의 음성이 없습니다',
+  'speech.unavailable.tip': '앱의 문제가 아니라 이 휴대폰의 설정이에요. 대부분 추가하실 수 있어요 — 안드로이드는 설정 › 접근성 › 텍스트 음성 변환, 아이폰은 설정 › 손쉬운 사용 › 음성 콘텐츠 › 음성에서요.',
   'speech.listenIn': '{language}로 듣기',
 
   'catalog.unreviewed':
@@ -1816,6 +1818,7 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'speech.listen': 'Écouter',
   'speech.stop': 'Arrêter',
   'speech.unavailable': 'Aucune voix pour cette langue sur cet appareil',
+  'speech.unavailable.tip': "Ce n'est pas un problème de l'application, mais un réglage du téléphone — on peut souvent l'ajouter : Réglages › Accessibilité › Synthèse vocale (Android) ou Réglages › Accessibilité › Contenu énoncé › Voix (iPhone).",
   'speech.listenIn': 'Écouter (en {language})',
 
   'catalog.unreviewed':
@@ -2544,6 +2547,7 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'speech.listen': 'ຟັງ',
   'speech.stop': 'ຢຸດ',
   'speech.unavailable': 'ບໍ່ມີສຽງສຳລັບພາສານີ້ໃນອຸປະກອນນີ້',
+  'speech.unavailable.tip': 'ນີ້ແມ່ນການຕັ້ງຄ່າຂອງໂທລະສັບ ບໍ່ແມ່ນບັນຫາຂອງແອັບ — ສ່ວນຫຼາຍເພີ່ມໄດ້: Android ໄປທີ່ ການຕັ້ງຄ່າ › ການຊ່ວຍເຂົ້າເຖິງ › Text-to-speech, iPhone ໄປທີ່ ການຕັ້ງຄ່າ › ການຊ່ວຍເຂົ້າເຖິງ › ເນື້ອຫາທີ່ເວົ້າອອກ › ສຽງ.',
   'speech.listenIn': 'ຟັງເປັນ{language}',
 
   'catalog.unreviewed':
@@ -3273,6 +3277,7 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'speech.listen': 'ฟัง',
   'speech.stop': 'หยุด',
   'speech.unavailable': 'ไม่มีเสียงสำหรับภาษานี้ในอุปกรณ์นี้',
+  'speech.unavailable.tip': 'นี่คือการตั้งค่าของโทรศัพท์ ไม่ใช่ปัญหาของแอป — ส่วนใหญ่เพิ่มได้: Android ไปที่ การตั้งค่า › การช่วยเหลือพิเศษ › การแปลงข้อความเป็นเสียง, iPhone ไปที่ การตั้งค่า › การช่วยการเข้าถึง › เนื้อหาที่พูด › เสียง',
 
   'speech.listenIn': 'ฟังเป็นภาษา{language}',
 

@@ -18,9 +18,15 @@ import { languageName } from '@/localization/locales';
 import { availableVoices, planSpeech, speechSupported, stopSpeaking } from '../speech';
 import { SPOKEN_FALLBACK } from '../speech';
 import { useVoice } from '../voice';
+import { useVoiceCount } from '../hooks/use-voice-count';
 
 export function VoiceSwitch({ locale }: { locale: string }) {
   const { on, toggle } = useVoice();
+  // Re-renders this switch once the device's real voice list is in (see use-voice-count.ts) —
+  // without it, a device that loads its voice list a moment after first paint could show "no
+  // voice" and stay stuck there, disabled, for the whole visit: nothing else makes this switch
+  // re-render on its own.
+  const voiceCount = useVoiceCount();
 
   // Whether *anything* could be spoken in this language on this device — the same plan the
   // passage controls make, asked here before the reader commits to pressing. The lending locale
@@ -28,9 +34,10 @@ export function VoiceSwitch({ locale }: { locale: string }) {
   // controls can never disagree about which languages may speak for which.
   const lender = SPOKEN_FALLBACK[locale];
   const available = lender ? [locale, lender] : [locale];
-  const plan = speechSupported()
-    ? planSpeech(availableVoices(), locale, available)
-    : { voice: null, spokenLocale: locale, isSubstitute: false };
+  const plan =
+    speechSupported() && voiceCount >= 0
+      ? planSpeech(availableVoices(), locale, available)
+      : { voice: null, spokenLocale: locale, isSubstitute: false };
   const unavailable = plan.voice === null;
 
   const press = () => {
@@ -56,7 +63,11 @@ export function VoiceSwitch({ locale }: { locale: string }) {
             : translate(on ? 'speech.master.on' : 'speech.master.off', locale)}
         </span>
       </button>
-      {unavailable ? null : (
+      {unavailable ? (
+        // The missing voice is the phone's own setting, not a broken app — said plainly, once,
+        // here (rule 15's "never silent" extends to explaining a gap, not only a substitution).
+        <p className="voiceswitch__hint">{translate('speech.unavailable.tip', locale)}</p>
+      ) : (
         <p className="voiceswitch__hint">
           {translate(on ? 'speech.master.hintOn' : 'speech.master.hintOff', locale)}
         </p>

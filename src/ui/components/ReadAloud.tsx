@@ -29,6 +29,7 @@ import { translate } from '@/localization/messages';
 import { languageName } from '@/localization/locales';
 import { availableVoices, planSpeech, speak, speechSupported, stopSpeaking } from '../speech';
 import { useVoice } from '../voice';
+import { useVoiceCount } from '../hooks/use-voice-count';
 
 export function ReadAloud({
   text,
@@ -60,18 +61,10 @@ export function ReadAloud({
   const [speaking, setSpeaking] = useState(false);
   // What this control last started saying by itself, so a re-render does not restart it.
   const spokenRef = useRef<string | null>(null);
-  const [voiceCount, setVoiceCount] = useState(() => availableVoices().length);
-
-  // Chrome populates the voice list asynchronously and fires this event once it has. Without
-  // it the first render of every page reports "no voice", which is wrong rather than merely
-  // early.
-  useEffect(() => {
-    if (!speechSupported()) return undefined;
-    const onVoices = () => setVoiceCount(availableVoices().length);
-    globalThis.speechSynthesis.addEventListener('voiceschanged', onVoices);
-    onVoices();
-    return () => globalThis.speechSynthesis.removeEventListener('voiceschanged', onVoices);
-  }, []);
+  // Re-renders this control once the device's real voice list is in — see use-voice-count.ts.
+  // Without it the first render of every page reports "no voice", which is wrong rather than
+  // merely early.
+  const voiceCount = useVoiceCount();
 
   // Leaving the screen mid-sentence should stop the sentence. Clearing the marker below at the
   // same time is what makes this correct under StrictMode's deliberate unmount/remount: the
