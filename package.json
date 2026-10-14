@@ -15,11 +15,13 @@
     "verify:sources": "node scripts/extract-sources.mjs --verify"
   },
   "dependencies": {
+    "@netlify/blobs": "11.1.4",
     "qrcode-generator": "2.0.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
+    "@netlify/functions": "6.0.2",
     "@types/node": "^26.6.1",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",

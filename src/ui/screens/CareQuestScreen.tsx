@@ -77,6 +77,7 @@ import { SceneHero } from '../components/SceneHero';
 import { spokenFallback } from '../spoken-fallback';
 import { pick } from '../pick';
 import { PARTNER_PARAM } from '@/app/partner';
+import { trackPartnerVisit } from '@/app/partner-track';
 
 /** The address the app is served from, so a shared link opens this same app. */
 const appBase = (): string =>
@@ -171,6 +172,9 @@ export function CareQuestScreen({
         return next;
       });
     }
+    // Counts the visit for the partner who sent this reader here (decision ② — see
+    // src/app/partner-track.ts for exactly what this does and does not record).
+    if (partner) trackPartnerVisit(partner, 'result', track.id);
   }, [state.phase, state.track, state.answers]);
 
   useEffect(() => {

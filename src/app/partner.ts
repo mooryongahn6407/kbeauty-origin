@@ -14,17 +14,12 @@
  *   of partners: the code is whatever the shop's own link says, validated only for shape.
  * - Not personal data. It identifies a shop, never the reader, and never leaves the device.
  */
+import { normalizePartnerCode } from './partner-shape';
+
+export { normalizePartnerCode } from './partner-shape';
+
 export const PARTNER_PARAM = 'p';
 const STORAGE_KEY = 'korea-glow:partner:v1';
-
-/** Letters, digits and single hyphens; 3–16 characters; stored upper-case. */
-const SHAPE = /^[A-Z0-9](?:[A-Z0-9]|-(?=[A-Z0-9])){2,15}$/;
-
-export function normalizePartnerCode(raw: string | null | undefined): string | null {
-  if (typeof raw !== 'string') return null;
-  const code = raw.trim().toUpperCase();
-  return SHAPE.test(code) ? code : null;
-}
 
 /** The partner code carried by a link's query string, if it carries a well-formed one. */
 export function partnerFromSearch(search: string): string | null {

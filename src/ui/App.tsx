@@ -28,7 +28,9 @@ import { VoiceSwitch } from './components/VoiceSwitch';
 import { VoiceProvider } from './voice';
 import { CareQuestScreen } from './screens/CareQuestScreen';
 import { CareLessonsScreen } from './screens/CareLessonsScreen';
-import { capturePartner } from '@/app/partner';
+import { capturePartner, partnerFromSearch } from '@/app/partner';
+import { trackPartnerVisit } from '@/app/partner-track';
+import { PartnerReportScreen } from './screens/PartnerReportScreen';
 import { IngredientHuntScreen } from './screens/IngredientHuntScreen';
 import { CompareLabScreen } from './screens/CompareLabScreen';
 import { RoutineOrderScreen } from './screens/RoutineOrderScreen';
@@ -111,6 +113,16 @@ const OFFERED_LOCALES: readonly { tag: string; label: string }[] = [
 ];
 
 export function App() {
+  // The owner's own report, at `?admin=report` — never linked from inside the app, never shown
+  // to a reader. This check runs once, from the address this page loaded with, before any other
+  // hook, so it never changes mid-session: see the doc comment on PartnerReportScreen.
+  if (
+    typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).get('admin') === 'report'
+  ) {
+    return <PartnerReportScreen />;
+  }
+
   // A partner's product link (`?product=KG-CRM-00003`) opens straight onto that product's label.
   const [linkedProduct] = useState(() =>
     productFromSearch(typeof window === 'undefined' ? '' : window.location.search),
@@ -144,12 +156,17 @@ export function App() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   // A partner shop's link (its QR code) carries the shop's code. Read once, remembered on this
   // device, and printed only on the gift card — see src/app/partner.ts for what it is not.
-  const [partner] = useState(() =>
-    capturePartner(
-      typeof window === 'undefined' ? '' : window.location.search,
+  const [partner] = useState(() => {
+    const search = typeof window === 'undefined' ? '' : window.location.search;
+    const code = capturePartner(
+      search,
       typeof localStorage === 'undefined' ? undefined : localStorage,
-    ),
-  );
+    );
+    // Only when the code is freshly in this load's own link — not on every later visit that
+    // merely remembers it — so "link opened" stays close to "someone followed this link".
+    if (code && partnerFromSearch(search) === code) trackPartnerVisit(code, 'open');
+    return code;
+  });
 
   useEffect(() => {
     applyPreferences(preferences, document.documentElement);
