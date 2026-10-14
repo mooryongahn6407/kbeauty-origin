@@ -54,6 +54,22 @@ const AAD_DRY_SKIN = {
   name: 'AAD — dry skin relief',
   url: 'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dry-skin-relief',
 };
+const AAD_HAIR_DAMAGE = {
+  name: 'AAD — habits that damage hair',
+  url: 'https://www.aad.org/public/everyday-care/hair-scalp-care/hair/habits-that-damage-hair',
+};
+const AAD_SHEDDING = {
+  name: 'AAD — hair loss or hair shedding',
+  url: 'https://www.aad.org/public/diseases/hair-loss/insider/shedding',
+};
+const AAD_ACNE_TIPS = {
+  name: 'AAD — acne: tips for managing',
+  url: 'https://www.aad.org/public/diseases/acne/skin-care/tips',
+};
+const AAD_HYPERHIDROSIS = {
+  name: 'AAD — hyperhidrosis self-care',
+  url: 'https://www.aad.org/public/diseases/a-z/hyperhidrosis-self-care',
+};
 
 export const CARE_LESSONS: readonly CareLesson[] = [
   {
@@ -637,5 +653,215 @@ export const CARE_LESSONS: readonly CareLesson[] = [
     ],
     ingredients: ['sunscreen', 'aha', 'bha', 'retinol', 'hyaluronic'],
     sources: [AAD_SUN, AAD_KP, AAD_DRY_SKIN],
+  },
+  {
+    id: 'hair-damage',
+    icon: '🪮',
+    title: L(
+      '손상모 관리 — 열·염색·펌',
+      'Damaged hair — heat, color, and perms',
+      'ການບຳລຸງຜົມຊຸດໂຊມ — ຄວາມຮ້ອນ, ຍ້ອມ, ດັດ',
+      'ดูแลผมเสีย — ความร้อน สีผม ดัดผม',
+      'Cheveux abîmés — chaleur, couleur et permanente',
+    ),
+    intro: L(
+      '드라이기·고데기·염색·펌은 모두 머릿결을 상하게 할 수 있어요. 얼마나, 어떻게 쓰느냐가 차이를 만들어요.',
+      'Blow-dryers, hot tools, color, and perms can all damage hair. How much and how you use them makes the difference.',
+      'ເຄື່ອງເປົ່າຜົມ, ເຫຼັກດັດ, ການຍ້ອມ ແລະ ດັດຜົມ ລ້ວນເຮັດໃຫ້ຜົມເສຍໄດ້. ໃຊ້ເທົ່າໃດ ແລະ ແນວໃດ ສ້າງຄວາມແຕກຕ່າງ.',
+      'ไดร์เป่าผม เครื่องหนีบ การย้อมและดัดผม ล้วนทำให้ผมเสียได้ ปริมาณและวิธีที่ใช้สร้างความแตกต่าง',
+      'Sèche-cheveux, fer à friser, couleur et permanente peuvent tous abîmer les cheveux. La fréquence et la manière de les utiliser font la différence.',
+    ),
+    sections: [
+      {
+        title: L(
+          '열 스타일링 줄이기',
+          'Cutting back on heat styling',
+          'ຫຼຸດການໃຊ້ຄວາມຮ້ອນ',
+          'ลดการใช้ความร้อนจัดแต่งทรงผม',
+          'Réduire le coiffage à la chaleur',
+        ),
+        body: L(
+          'AAD는 가능하면 자연 건조를 먼저 권하고, 드라이기·고데기·매직기를 쓴다면 가장 낮은 온도로, 닿는 시간을 짧게, 자주 쓰지 않는 것(일주일에 한 번 이하)을 권해요. 매일 고열을 쓰면 손상이 쌓여요.',
+          'AAD’s first recommendation, where possible, is to let hair air dry. If you do use a blow-dryer, hot comb, or curling or straightening iron, use the lowest heat setting that works, keep contact brief, and use these tools as little as possible — about once a week or less. Daily high heat adds up.',
+          'AAD ແນະນຳໃຫ້ປ່ອຍຜົມແຫ້ງເອງກ່ອນຖ້າເປັນໄປໄດ້ ແລະ ຖ້າໃຊ້ເຄື່ອງເປົ່າຜົມ, ແປງຮ້ອນ ຫຼື ເຫຼັກດັດ ໃຫ້ໃຊ້ອຸນຫະພູມຕ່ຳສຸດທີ່ໄດ້ຜົນ, ສຳຜັດສັ້ນໆ, ແລະ ໃຊ້ໜ້ອຍທີ່ສຸດ (ປະມານອາທິດລະເທື່ອ ຫຼື ໜ້ອຍກວ່ານັ້ນ). ໃຊ້ຄວາມຮ້ອນສູງທຸກມື້ ຄວາມເສຍຫາຍຈະສະສົມ.',
+          'AAD แนะนำให้ปล่อยผมแห้งเองก่อนถ้าเป็นไปได้ และถ้าใช้ไดร์เป่าผม หวีร้อน หรือเครื่องหนีบ ให้ใช้อุณหภูมิต่ำสุดที่ได้ผล สัมผัสสั้นๆ และใช้ให้น้อยที่สุด (ประมาณสัปดาห์ละครั้งหรือน้อยกว่านั้น) ใช้ความร้อนสูงทุกวันความเสียหายจะสะสม',
+          'L’AAD recommande de laisser sécher à l’air libre quand c’est possible, et si vous utilisez sèche-cheveux, brosse chauffante ou fer, de choisir la température la plus basse qui fonctionne, un contact bref, et d’en limiter l’usage (environ une fois par semaine ou moins). Une chaleur élevée tous les jours, ça s’accumule.',
+        ),
+      },
+      {
+        title: L(
+          '염색·펌 뒤에는 더 조심스럽게',
+          'After coloring or perming, extra care',
+          'ລະມັດລະວັງຫຼາຍຂຶ້ນຫຼັງຍ້ອມ ຫຼື ດັດຜົມ',
+          'ดูแลเพิ่มเติมหลังย้อมหรือดัดผม',
+          'Plus de soin après coloration ou permanente',
+        ),
+        body: L(
+          '염색이나 펌 같은 화학 시술은 모발 큐티클을 감싸는 보호 지질층을 벗겨내요. 그래서 시술 후에는 염색모 전용 샴푸를 쓰고, 건성·손상모라면 감는 횟수를 줄이는 것도 도움이 돼요.',
+          'Chemical treatments such as coloring and perming strip away the protective lipid layer around the hair’s cuticle. Afterward, a color-safe shampoo helps, and for dry or damaged hair, washing less often can help too.',
+          'ການຍ້ອມ ຫຼື ດັດຜົມ ລອກຊັ້ນໄຂມັນທີ່ປົກປ້ອງຊັ້ນນອກຂອງເສັ້ນຜົມອອກ. ຫຼັງຈາກນັ້ນ ແຊມພູສຳລັບຜົມຍ້ອມຊ່ວຍໄດ້ ແລະ ຖ້າຜົມແຫ້ງ ຫຼື ເສຍ ການສະຫຼອຍໜ້ອຍລົງກໍ່ຊ່ວຍໄດ້ຄືກັນ.',
+          'การย้อมหรือดัดผมลอกชั้นไขมันที่ปกป้องผิวนอกของเส้นผมออก หลังจากนั้นแชมพูสำหรับผมย้อมช่วยได้ และถ้าผมแห้งหรือเสีย การสระน้อยลงก็ช่วยได้เช่นกัน',
+          'La coloration et la permanente retirent la couche lipidique protectrice autour de la cuticule. Ensuite, un shampoing pour cheveux colorés aide, et pour des cheveux secs ou abîmés, laver moins souvent aide aussi.',
+        ),
+      },
+      {
+        title: L(
+          "이미 상한 머리카락은 '고치는' 게 아니라 '달래는' 것",
+          'Damaged hair isn’t “fixed” — it’s soothed',
+          "ຜົມທີ່ເສຍແລ້ວ ບໍ່ແມ່ນ 'ແກ້' ແຕ່ແມ່ນ 'ບັນເທົາ'",
+          "ผมที่เสียแล้วไม่ใช่ 'ซ่อม' แต่คือ 'บรรเทา'",
+          'Un cheveu abîmé ne se « répare » pas, il s’apaise',
+        ),
+        body: L(
+          '갈라지거나 끊어진 모발은 성분으로 다시 붙지 않아요 — 오일·트리트먼트는 겉을 매끄럽게 하고 다음 손상을 줄여 줄 뿐이에요. 끝이 심하게 갈라졌다면 다듬는 것이 가장 확실해요. 자꾸 푸석하거나 뚝뚝 끊어진다면 피부과 상담도 고려해 보세요.',
+          'Split or broken strands can’t be glued back together by an ingredient — oils and treatments smooth the surface and reduce further damage, not reverse what’s already happened. Trimming is the most reliable fix for badly split ends. If hair keeps feeling brittle or breaking, a dermatologist visit is worth considering.',
+          'ເສັ້ນຜົມທີ່ແຕກ ຫຼື ຂາດ ບໍ່ສາມາດຕິດກັບຄືນໄດ້ດ້ວຍສ່ວນປະສົມ — ນ້ຳມັນ ແລະ ທຣີດເມັ້ນພຽງແຕ່ເຮັດໃຫ້ຜິວນອກລຽບ ແລະ ຫຼຸດຄວາມເສຍຫາຍຕໍ່ໄປ. ຖ້າປາຍຜົມແຕກໜັກ ການຕັດແຕ່ງແມ່ນວິທີທີ່ແນ່ນອນທີ່ສຸດ. ຖ້າຜົມແຫ້ງກະດ້າງ ຫຼື ຂາດເລື້ອຍໆ ລອງປຶກສາທ່ານໝໍຜິວໜັງ.',
+          'เส้นผมที่แตกหรือขาดไม่สามารถติดกลับคืนได้ด้วยส่วนผสม — น้ำมันและทรีตเมนต์เพียงทำให้ผิวนอกเรียบและลดความเสียหายต่อไป ถ้าปลายผมแตกมากการตัดแต่งเป็นวิธีที่แน่นอนที่สุด ถ้าผมแห้งกระด้างหรือขาดบ่อยๆ ลองปรึกษาแพทย์ผิวหนัง',
+          'Une pointe fourchue ou cassée ne se recolle pas grâce à un ingrédient : les huiles et soins lissent la surface et limitent les dégâts futurs, sans annuler ceux déjà là. Pour des pointes très fourchues, la coupe reste la solution la plus fiable. Si les cheveux restent cassants ou cassent souvent, consulter un dermatologue vaut le coup.',
+        ),
+      },
+    ],
+    ingredients: ['squalane', 'ceramide'],
+    sources: [AAD_HAIR_DAMAGE],
+  },
+  {
+    id: 'hair-shedding',
+    icon: '🔍',
+    title: L(
+      '머리카락이 가늘어지거나 빠질 때',
+      'When hair thins or sheds more than usual',
+      'ເວລາຜົມບາງລົງ ຫຼື ຫຼົ່ນຫຼາຍຂຶ້ນ',
+      'เมื่อผมบางลงหรือร่วงมากกว่าปกติ',
+      'Quand les cheveux s’affinent ou tombent plus que d’habitude',
+    ),
+    intro: L(
+      '머리를 감거나 빗을 때 조금씩 빠지는 건 자연스러워요. 어떤 때 병원에 가봐야 하는지가 중요해요.',
+      'Losing some hair when you wash or brush is normal. What matters is knowing when it’s worth seeing a doctor.',
+      'ຜົມຫຼົ່ນນ້ອຍໆຕອນສະຫຼອຍ ຫຼື ແປງຜົມແມ່ນເລື່ອງທຳມະດາ. ສິ່ງສຳຄັນແມ່ນຮູ້ວ່າເວລາໃດຄວນໄປພົບທ່ານໝໍ.',
+      'ผมร่วงเล็กน้อยตอนสระหรือหวีผมเป็นเรื่องปกติ สิ่งสำคัญคือรู้ว่าเมื่อไรควรพบแพทย์',
+      'Perdre un peu de cheveux au lavage ou au brossage est normal. Ce qui compte, c’est de savoir quand consulter.',
+    ),
+    sections: [
+      {
+        title: L(
+          '일시적인 빠짐 vs 계속되는 변화',
+          'Temporary shedding vs. an ongoing change',
+          'ຫຼົ່ນຊົ່ວຄາວ ທຽບກັບ ການປ່ຽນແປງຕໍ່ເນື່ອງ',
+          'ร่วงชั่วคราว เทียบกับ การเปลี่ยนแปลงต่อเนื่อง',
+          'Chute passagère ou changement durable',
+        ),
+        body: L(
+          '스트레스·체중 변화·출산·몸이 아팠던 뒤에는 일시적으로 머리카락이 더 많이 빠질 수 있고, 보통 몇 달 안에 가라앉아요. 반면 가르마가 눈에 띄게 넓어지거나, 특정 부위가 둥글게 비거나, 숱이 계속 줄어드는 느낌이라면 다른 이야기예요.',
+          'Stress, weight change, childbirth, or recovering from illness can trigger extra shedding for a while, and it usually settles within a few months. A noticeably widening part, a round bald patch, or density that keeps dropping is a different story.',
+          'ຄວາມຕຶງຄຽດ, ນ້ຳໜັກປ່ຽນ, ການເກີດລູກ, ຫຼື ຫຼັງຈາກປ່ວຍ ອາດເຮັດໃຫ້ຜົມຫຼົ່ນຫຼາຍຂຶ້ນຊົ່ວຄາວ ແລະ ມັກຈະດີຂຶ້ນພາຍໃນຈັກເດືອນ. ແຕ່ຖ້າແບ່ງຜົມກວ້າງຂຶ້ນຢ່າງເຫັນໄດ້ຊັດ, ມີບ່ອນເປັນວົງມົນ, ຫຼື ຮູ້ສຶກວ່າຜົມບາງລົງເລື້ອຍໆ ແມ່ນເລື່ອງແຕກຕ່າງ.',
+          'ความเครียด น้ำหนักเปลี่ยน การคลอดบุตร หรือหลังป่วยอาจทำให้ผมร่วงมากขึ้นชั่วคราว และมักดีขึ้นภายในไม่กี่เดือน แต่ถ้าแสกผมกว้างขึ้นอย่างเห็นได้ชัด มีบริเวณเป็นวงกลม หรือรู้สึกว่าผมบางลงเรื่อยๆ นั่นเป็นอีกเรื่องหนึ่ง',
+          'Le stress, un changement de poids, un accouchement ou une maladie récente peuvent causer une chute passagère, qui se calme en général en quelques mois. Une raie qui s’élargit nettement, une plaque ronde, ou une densité qui continue de baisser, c’est différent.',
+        ),
+      },
+      {
+        title: L(
+          '병원에 가봐야 할 때',
+          'When it’s worth seeing a doctor',
+          'ເວລາຄວນໄປພົບທ່ານໝໍ',
+          'เมื่อควรพบแพทย์',
+          'Quand consulter',
+        ),
+        body: L(
+          '두피가 아프거나, 각질·가려움·붉어짐이 같이 있거나, 심한 빠짐이 6~8주 넘게 계속되거나, 동그랗게 비는 부분이 보인다면 피부과 상담을 권해요. 원인에 따라 방법이 전혀 다르기 때문에, 자가 진단보다 전문가 확인이 먼저예요.',
+          'If the scalp hurts, or there’s scaling, itching, or redness along with it, if heavy shedding lasts more than six to eight weeks, or if you notice a round bare patch, a dermatologist visit is worth it. The cause changes what actually helps, so a professional check matters more than guessing at home.',
+          'ຖ້າຫນັງຫົວເຈັບ, ມີສະເກັດ-ຄັນ-ແດງ ຮ່ວມນຳ, ຫຼົ່ນໜັກຕິດຕໍ່ກັນເກີນ 6-8 ອາທິດ, ຫຼື ເຫັນບ່ອນເປັນວົງມົນຫວ່າງ ຄວນປຶກສາທ່ານໝໍຜິວໜັງ. ສາເຫດແຕກຕ່າງກັນເຮັດໃຫ້ວິທີຊ່ວຍແຕກຕ່າງກັນ, ການກວດກັບຜູ້ຊ່ຽວຊານ ສຳຄັນກວ່າການເດົາເອງ.',
+          'ถ้าหนังศีรษะเจ็บ มีสะเก็ด คัน หรือแดงร่วมด้วย ร่วงหนักต่อเนื่องเกิน 6-8 สัปดาห์ หรือเห็นบริเวณเป็นวงกลมโล่ง ควรปรึกษาแพทย์ผิวหนัง สาเหตุที่ต่างกันทำให้วิธีที่ช่วยต่างกัน การตรวจกับผู้เชี่ยวชาญสำคัญกว่าการเดาเอง',
+          'Si le cuir chevelu fait mal, s’accompagne de squames, démangeaisons ou rougeurs, si une chute importante dure plus de six à huit semaines, ou si une plaque ronde apparaît, mieux vaut consulter un dermatologue. La cause change ce qui aide vraiment, donc un avis professionnel vaut mieux qu’une supposition.',
+        ),
+      },
+      {
+        title: L(
+          '화장품이 할 수 있는 것과 할 수 없는 것',
+          'What cosmetics can and can’t do',
+          'ສິ່ງທີ່ເຄື່ອງສຳອາງເຮັດໄດ້ ແລະ ເຮັດບໍ່ໄດ້',
+          'สิ่งที่เครื่องสำอางทำได้และทำไม่ได้',
+          'Ce que les cosmétiques peuvent et ne peuvent pas faire',
+        ),
+        body: L(
+          '두피를 깨끗하고 편안하게 유지하는 샴푸·토닉은 도움이 될 수 있지만, 빠짐의 원인(호르몬·유전·갑상선·영양 등)을 바꾸지는 못해요. "빠짐을 멈춘다"는 말은 화장품이 솔직하게 할 수 있는 약속이 아니에요 — 꾸준히 신경 쓰이면 화장품을 바꾸기보다 병원에서 원인을 확인하는 게 먼저예요.',
+          'Shampoos and tonics that keep the scalp clean and comfortable can help, but they don’t change the underlying cause (hormones, genetics, thyroid, nutrition, and so on). Cosmetics can’t honestly promise to “stop” shedding — if it keeps worrying you, finding the cause at a clinic comes before trying another product.',
+          'ແຊມພູ ຫຼື ໂທນິກທີ່ຮັກສາຫນັງຫົວໃຫ້ສະອາດ ແລະ ສະບາຍ ອາດຊ່ວຍໄດ້ ແຕ່ບໍ່ປ່ຽນສາເຫດຂອງການຫຼົ່ນ (ຮໍໂມນ, ພັນທຸກຳ, ໄທລອຍ, ໂພຊະນາການ). ຄຳວ່າ "ຢຸດການຫຼົ່ນ" ບໍ່ແມ່ນສິ່ງທີ່ເຄື່ອງສຳອາງສັນຍາໄດ້ຢ່າງຊື່ສັດ — ຖ້າຍັງກັງວົນຢູ່ ການຊອກຫາສາເຫດຢູ່ໂຮງໝໍ ສຳຄັນກວ່າການປ່ຽນຜະລິດຕະພັນ.',
+          'แชมพูหรือโทนิกที่รักษาหนังศีรษะให้สะอาดและสบายอาจช่วยได้ แต่ไม่เปลี่ยนสาเหตุของการร่วง (ฮอร์โมน พันธุกรรม ไทรอยด์ โภชนาการ) คำว่า "หยุดผมร่วง" ไม่ใช่สิ่งที่เครื่องสำอางสัญญาได้อย่างตรงไปตรงมา ถ้ายังกังวลอยู่ การหาสาเหตุที่โรงพยาบาลสำคัญกว่าการเปลี่ยนผลิตภัณฑ์',
+          'Un shampoing ou un tonique qui garde le cuir chevelu propre et confortable peut aider, mais ne change pas la cause sous-jacente (hormones, génétique, thyroïde, nutrition). Promettre d’« arrêter » la chute n’est pas honnête de la part d’un cosmétique — si cela vous inquiète, en trouver la cause chez un médecin compte plus que changer de produit.',
+        ),
+      },
+    ],
+    ingredients: [],
+    sources: [AAD_SHEDDING],
+  },
+  {
+    id: 'body-acne-sweat',
+    icon: '💦',
+    title: L(
+      '등·가슴 트러블과 땀·체취',
+      'Back and chest breakouts, sweat, and odor',
+      'ບັນຫາຜິວຫຼັງ-ເອິກ ແລະ ເຫື່ອ-ກິ່ນຕົວ',
+      'สิวที่หลัง-หน้าอก และเหงื่อ-กลิ่นตัว',
+      'Boutons dans le dos, sur le torse, transpiration et odeur',
+    ),
+    intro: L(
+      '몸 트러블은 얼굴 여드름과 원인이 조금 달라요. 땀·마찰·꽉 끼는 옷이 큰 몫을 해요.',
+      'Body breakouts don’t have quite the same causes as facial acne. Sweat, friction, and tight clothing play a bigger role.',
+      'ບັນຫາຜິວຕາມຮ່າງກາຍ ມີສາເຫດຕ່າງຈາກສິວໜ້າໜ້ອຍໜຶ່ງ. ເຫື່ອ, ການຖູ, ແລະ ເຄື່ອງນຸ່ງຮັດແໜ້ນ ມີບົດບາດໃຫຍ່.',
+      'ปัญหาผิวตามร่างกายมีสาเหตุต่างจากสิวบนใบหน้าเล็กน้อย เหงื่อ การเสียดสี และเสื้อผ้ารัดรูปมีบทบาทมาก',
+      'Les boutons sur le corps n’ont pas tout à fait les mêmes causes que l’acné du visage. La transpiration, les frottements et les vêtements serrés y jouent un plus grand rôle.',
+    ),
+    sections: [
+      {
+        title: L(
+          '등·가슴 트러블, 왜 날까',
+          'Why back and chest breakouts happen',
+          'ເປັນຫຍັງຜິວຫຼັງ-ເອິກຈຶ່ງເປັນບັນຫາ',
+          'ทำไมผิวหลัง-หน้าอกถึงเป็นปัญหา',
+          'Pourquoi le dos et le torse réagissent',
+        ),
+        body: L(
+          '땀이 찬 상태로 꽉 끼는 옷·가방끈·운동복을 오래 입으면 마찰과 막힘이 늘어요. 헹굴 때 흘러내리는 헤어 트리트먼트·오일도 등 모공을 막는 흔한 원인이에요. 운동 후 바로 씻고 옷을 갈아입는 것이 도움이 돼요.',
+          'Tight clothing, bag straps, or workout gear worn for a long time while sweaty adds friction and clogging. Hair conditioner or oil that runs down the back while rinsing is also a common cause. Showering and changing out of sweaty clothes soon after exercise helps.',
+          'ການໃສ່ເຄື່ອງນຸ່ງຮັດແໜ້ນ, ສາຍເປ້, ຫຼື ຊຸດອອກກຳລັງກາຍດົນໆໃນຂະນະທີ່ມີເຫື່ອ ເພີ່ມການຖູ ແລະ ການອຸດຕັນ. ທຣີດເມັ້ນຜົມ ຫຼື ນ້ຳມັນທີ່ໄຫຼລົງຕອນລ້າງກໍ່ເປັນສາເຫດທົ່ວໄປທີ່ອຸດຕັນຮູຂຸມຂົນຢູ່ຫຼັງ. ການອາບນ້ຳ ແລະ ປ່ຽນເຄື່ອງທັນທີຫຼັງອອກກຳລັງກາຍຊ່ວຍໄດ້.',
+          'การใส่เสื้อผ้ารัดรูป สายกระเป๋า หรือชุดออกกำลังกายนานๆ ขณะมีเหงื่อเพิ่มการเสียดสีและการอุดตัน ทรีตเมนต์ผมหรือน้ำมันที่ไหลลงตอนล้างก็เป็นสาเหตุทั่วไปที่อุดตันรูขุมขนที่หลัง การอาบน้ำและเปลี่ยนเสื้อผ้าทันทีหลังออกกำลังกายช่วยได้',
+          'Porter longtemps des vêtements serrés, une bretelle de sac ou une tenue de sport en transpirant augmente les frottements et le colmatage des pores. Le soin capillaire ou l’huile qui coulent dans le dos au rinçage en est une cause fréquente aussi. Se doucher et se changer vite après le sport aide.',
+        ),
+      },
+      {
+        title: L(
+          '등·가슴엔 순하게',
+          'Go gentle on the back and chest',
+          'ໃຊ້ແບບອ່ອນໂຍນກັບຫຼັງ-ເອິກ',
+          'ใช้ผลิตภัณฑ์อ่อนโยนกับหลัง-หน้าอก',
+          'Y aller doucement sur le dos et le torse',
+        ),
+        body: L(
+          'AAD는 몸 트러블에도 박박 문지르거나 바디스크럽·드라이브러시 같은 강한 각질 제거는 피하라고 해요 — 오히려 자극만 늘어요. 향 없는 순한 클렌저를 쓰고, 바디로션·선크림은 "논코메도제닉" 또는 "오일프리" 표시를 찾아보세요. 토너·각질 제거제를 몸에 중복해서 많이 쓰면 오히려 건조해져서 더 안 좋아 보일 수 있어요.',
+          'AAD advises against scrubbing hard or using body scrubs and dry brushes for body breakouts too — that just adds irritation. Use a gentle, fragrance-free cleanser, and look for “non-comedogenic” or “oil-free” on body lotions and sunscreens. Stacking several toners or exfoliants on the body can dry the skin and make breakouts look worse, not better.',
+          'AAD ແນະນຳບໍ່ໃຫ້ຂັດແຮງ ຫຼື ໃຊ້ແປງຂັດແຫ້ງສຳລັບບັນຫາຜິວຕາມຮ່າງກາຍເຊັ່ນກັນ — ມັນພຽງແຕ່ເພີ່ມການລະຄາຍ. ໃຊ້ສະບູ່ອ່ອນໂຍນບໍ່ມີກິ່ນ ແລະ ຊອກຫາຄຳວ່າ "ນອນຄໍເມໂດເຈນິກ" ຫຼື "ອອຍເຟຣ" ເທິງບາດີໂລຊັ່ນ-ກັນແດດ. ການໃຊ້ໂທນເນີ-ສານຂັດຜິວຫຼາຍອັນພ້ອມກັນຢູ່ຮ່າງກາຍ ອາດເຮັດໃຫ້ແຫ້ງ ແລະ ເບິ່ງແຍ່ກວ່າເກົ່າ.',
+          'AAD แนะนำไม่ให้ขัดแรงหรือใช้แปรงขัดแห้งสำหรับปัญหาผิวตามร่างกายเช่นกัน — มีแต่จะเพิ่มการระคายเคือง ใช้คลีนเซอร์อ่อนโยนไม่มีกลิ่น และมองหาคำว่า "นอนคอมีโดเจนิก" หรือ "ออยล์ฟรี" บนโลชั่น-กันแดดสำหรับผิวกาย การใช้โทนเนอร์หรือสารผลัดเซลล์หลายตัวพร้อมกันที่ร่างกายอาจทำให้แห้งและดูแย่กว่าเดิม',
+          'L’AAD déconseille le gommage fort ou la brosse sèche pour les boutons du corps aussi — cela ne fait qu’ajouter de l’irritation. Utilisez un nettoyant doux sans parfum, et cherchez la mention « non comédogène » ou « sans huile » sur les lotions et écrans solaires pour le corps. Empiler plusieurs toniques ou exfoliants sur le corps peut assécher la peau et aggraver l’aspect des boutons.',
+        ),
+      },
+      {
+        title: L(
+          '땀 냄새 — 데오드란트와 땀 억제제는 달라요',
+          'Odor — deodorant and antiperspirant are different',
+          'ກິ່ນເຫື່ອ — ດີໂອໂດແຣນ ແລະ ຢາຕ້ານເຫື່ອ ແຕກຕ່າງກັນ',
+          'กลิ่นเหงื่อ — ดีโอโดแรนท์กับแอนตี้เพอร์สไปแรนท์ต่างกัน',
+          'Odeur — déodorant et antitranspirant, ce n’est pas pareil',
+        ),
+        body: L(
+          '데오드란트는 냄새를 막거나 가리는 제품이고, 땀 억제제(안티퍼스피런트)는 땀 자체를 줄여 줘요 — 목적이 달라요. 평소보다 땀이 심하게 많다면, 몸 전체용 제품보다 땀이 특히 많은 부위(겨드랑이 등)에 맞춘 제품과 피부과 상담이 더 확실해요.',
+          'Deodorant masks or stops odor; antiperspirant actually reduces sweating — they do different jobs. If sweating is heavier than usual, a product made for the specific area (like the underarms) and a dermatologist visit are more reliable than a whole-body product.',
+          'ດີໂອໂດແຣນແມ່ນຜະລິດຕະພັນທີ່ປິດບັງ ຫຼື ຢຸດກິ່ນ, ສ່ວນຢາຕ້ານເຫື່ອ (ແອນຕິເພີສະໄພແຣນ) ຫຼຸດຕົວເຫື່ອເອງ — ໜ້າທີ່ແຕກຕ່າງກັນ. ຖ້າເຫື່ອອອກຫຼາຍກວ່າປົກກະຕິ ຜະລິດຕະພັນສະເພາະບ່ອນ (ເຊັ່ນ ຮັກແຮ້) ແລະ ການປຶກສາທ່ານໝໍຜິວໜັງ ແນ່ນອນກວ່າຜະລິດຕະພັນທົ່ວຮ່າງກາຍ.',
+          'ดีโอโดแรนท์คือผลิตภัณฑ์ที่ปิดบังหรือหยุดกลิ่น ส่วนแอนตี้เพอร์สไปแรนท์ลดเหงื่อเอง — หน้าที่ต่างกัน ถ้าเหงื่อออกมากกว่าปกติ ผลิตภัณฑ์เฉพาะจุด (เช่น รักแร้) และการปรึกษาแพทย์ผิวหนังแน่นอนกว่าผลิตภัณฑ์ทั่วร่างกาย',
+          'Le déodorant masque ou stoppe l’odeur ; l’antitranspirant réduit la transpiration elle-même — deux rôles différents. En cas de transpiration plus forte que d’habitude, un produit ciblé (comme pour les aisselles) et une consultation chez le dermatologue sont plus fiables qu’un produit pour tout le corps.',
+        ),
+      },
+    ],
+    ingredients: ['bha'],
+    sources: [AAD_ACNE_TIPS, AAD_HYPERHIDROSIS],
   },
 ];
