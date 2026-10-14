@@ -70,6 +70,14 @@ const AAD_HYPERHIDROSIS = {
   name: 'AAD — hyperhidrosis self-care',
   url: 'https://www.aad.org/public/diseases/a-z/hyperhidrosis-self-care',
 };
+const AAD_STRETCH_MARKS = {
+  name: 'AAD — stretch marks',
+  url: 'https://www.aad.org/public/skin-hair-nails/skin-care/stretch-marks',
+};
+const AAD_DRY_HEELS = {
+  name: 'AAD — how to care for dry, cracked heels',
+  url: 'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dry-heels',
+};
 
 export const CARE_LESSONS: readonly CareLesson[] = [
   {
@@ -863,5 +871,75 @@ export const CARE_LESSONS: readonly CareLesson[] = [
     ],
     ingredients: ['bha'],
     sources: [AAD_ACNE_TIPS, AAD_HYPERHIDROSIS],
+  },
+  {
+    id: 'body-details',
+    icon: '🦶',
+    title: L(
+      '튼살·거칠고 트는 손·갈라진 발뒤꿈치',
+      'Stretch marks, chapped hands, and cracked heels',
+      'ຮອຍແຕກຜິວ · ມືແຫ້ງແຕກ · ສົ້ນຕີນແຕກ',
+      'รอยแตกลาย · มือแห้งแตก · ส้นเท้าแตก',
+      'Vergetures, mains gercées, talons crevassés',
+    ),
+    intro: L(
+      '셋 다 흔한 바디 고민이지만 기대할 수 있는 정도가 달라요 — 뭘 기대할 수 있고 뭘 기대하면 안 되는지부터 알아둬요.',
+      'All three are common body concerns, but how much to expect from care is different for each — worth knowing what’s realistic and what isn’t.',
+      'ທັງສາມແມ່ນບັນຫາຜິວກາຍທົ່ວໄປ ແຕ່ຄາດຫວັງໄດ້ບໍ່ເທົ່າກັນ — ຄວນຮູ້ວ່າຫຍັງຄາດຫວັງໄດ້ ແລະ ຫຍັງບໍ່ຄວນຄາດຫວັງ.',
+      'ทั้งสามเป็นปัญหาผิวกายที่พบบ่อย แต่สิ่งที่คาดหวังได้ไม่เท่ากัน ควรรู้ว่าอะไรคาดหวังได้และอะไรไม่ควรคาดหวัง',
+      'Ces trois préoccupations sont courantes, mais ce qu’on peut en attendre n’est pas le même — utile de savoir ce qui est réaliste et ce qui ne l’est pas.',
+    ),
+    sections: [
+      {
+        title: L(
+          '튼살 — 사라지진 않지만 옅어져요',
+          'Stretch marks — they don’t vanish, but they fade',
+          'ຮອຍແຕກຜິວ — ບໍ່ຫາຍໄປ ແຕ່ຈາງລົງ',
+          'รอยแตกลาย — ไม่หายไป แต่จางลง',
+          'Vergetures — elles ne disparaissent pas, mais s’estompent',
+        ),
+        body: L(
+          '튼살은 흉터처럼 완전히 없어지진 않지만, 시간이 지나면 색이 옅어지고 폭도 가라앉아요. 크림·젤은 갓 생긴 붉은 튼살에는 어느 정도 도움이 될 수 있지만, 오래돼서 하얗게 자리 잡은 튼살엔 효과가 거의 없다고 알려져 있어요. 효과를 보려면 몇 주는 꾸준히 발라야 하고, 레티놀 같은 성분이 도움이 된다는 연구도 있지만 임신 중이거나 모유 수유 중이라면 레티노이드 계열은 쓰기 전에 꼭 의사와 상의하세요 — 튼살이 가장 많이 생기는 시기가 바로 임신 중이라서 특히 중요해요. 햇볕에 타면 튼살이 더 도드라져 보일 수 있어요.',
+          'Stretch marks don’t disappear completely, like any scar, but their color fades and they sink down over time. Creams and gels can help somewhat on fresh, reddish stretch marks, but they have little effect on old, whitened ones. Any visible result takes weeks of consistent use, and while some research points to retinol-type ingredients helping, check with a doctor before using retinoids if you’re pregnant or breastfeeding — this matters especially because pregnancy is exactly when stretch marks most often appear. Tanning can make stretch marks stand out more.',
+          'ຮອຍແຕກຜິວບໍ່ຫາຍໄປໝົດຄືບາດແຜ, ແຕ່ສີຈາງລົງ ແລະ ຍຸບລົງຕາມເວລາ. ຄີມ/ເຈວ ອາດຊ່ວຍໄດ້ບາງສ່ວນກັບຮອຍແຕກສົດສີແດງ ແຕ່ແທບບໍ່ໄດ້ຜົນກັບຮອຍເກົ່າທີ່ຂາວແລ້ວ. ຕ້ອງທາຕໍ່ເນື່ອງຫຼາຍອາທິດຈຶ່ງເຫັນຜົນ ແລະ ແມ່ນມີການສຶກສາວ່າເຣຕິນອລຊ່ວຍໄດ້ ແຕ່ຖ້າຖືພາ ຫຼື ໃຫ້ນົມລູກ ຕ້ອງປຶກສາທ່ານໝໍກ່ອນໃຊ້ເຣຕິນອຍ — ສຳຄັນເພາະຊ່ວງຖືພາແມ່ນຊ່ວງທີ່ຮອຍແຕກຜິວເກີດຫຼາຍທີ່ສຸດ. ການຕາກແດດອາດເຮັດໃຫ້ຮອຍແຕກເຫັນຊັດຂຶ້ນ.',
+          'รอยแตกลายไม่หายไปหมดเหมือนแผลเป็น แต่สีจางลงและยุบลงตามเวลา ครีม/เจลอาจช่วยได้บ้างกับรอยแตกสดสีแดง แต่แทบไม่ได้ผลกับรอยเก่าที่ขาวแล้ว ต้องทาต่อเนื่องหลายสัปดาห์ถึงจะเห็นผล และมีงานวิจัยว่าเรตินอลช่วยได้ แต่ถ้าตั้งครรภ์หรือให้นมบุตรต้องปรึกษาแพทย์ก่อนใช้เรตินอยด์ — สำคัญเพราะช่วงตั้งครรภ์เป็นช่วงที่รอยแตกลายเกิดมากที่สุด การตากแดดอาจทำให้รอยแตกเห็นชัดขึ้น',
+          'Les vergetures ne disparaissent pas entièrement, comme toute cicatrice, mais leur couleur s’estompe et elles s’aplanissent avec le temps. Crèmes et gels peuvent aider un peu sur des vergetures récentes et rougeâtres, mais ont peu d’effet sur les anciennes, devenues blanches. Un résultat visible demande des semaines d’application régulière, et si des études pointent vers le rétinol, demandez l’avis d’un médecin avant d’utiliser un rétinoïde en cas de grossesse ou d’allaitement — c’est important car la grossesse est justement la période où les vergetures apparaissent le plus. Bronzer peut les rendre plus visibles.',
+        ),
+      },
+      {
+        title: L(
+          '거칠고 트는 손 — 손 씻은 직후가 기회',
+          'Chapped hands — right after washing is the window',
+          'ມືແຫ້ງແຕກ — ຫຼັງລ້າງມືທັນທີແມ່ນໂອກາດ',
+          'มือแห้งแตก — หลังล้างมือทันทีคือโอกาส',
+          'Mains gercées — juste après le lavage, le bon moment',
+        ),
+        body: L(
+          '손을 씻거나 물일을 한 직후, 물기가 아직 남아 있을 때 보습제를 바르면 더 잘 스며들어요. 심하게 트거나 갈라진 손엔 요소(우레아) 성분이 든 크림이 도움이 되고, 자기 전엔 바셀린 같은 오일프리 연고를 두껍게 바르고 자는 것도 방법이에요.',
+          'Moisturizer sinks in better right after washing hands or wet work, while skin is still a little damp. For badly chapped or cracked hands, a urea-based cream can help, and a thick layer of plain petroleum jelly at bedtime is another option.',
+          'ທາຄວາມຊຸ່ມທັນທີຫຼັງລ້າງມື ຫຼື ເຮັດວຽກກັບນ້ຳ ຕອນຜິວຍັງປຽກໆ ຈະເຂົ້າໄດ້ດີກວ່າ. ມືທີ່ແຕກໜັກ ຄີມທີ່ມີຢູເຣຍຊ່ວຍໄດ້ ແລະ ທາວາສະລິນໜາໆຕອນກ່ອນນອນກໍ່ເປັນອີກວິທີໜຶ່ງ.',
+          'ทามอยส์เจอไรเซอร์ทันทีหลังล้างมือหรือทำงานกับน้ำ ตอนผิวยังชื้นอยู่ จะซึมได้ดีกว่า มือที่แตกมาก ครีมที่มียูเรียช่วยได้ และทาวาสลีนหนาๆ ก่อนนอนก็เป็นอีกวิธีหนึ่ง',
+          'La crème pénètre mieux juste après le lavage des mains ou un travail à l’eau, pendant que la peau est encore un peu humide. Pour des mains très gercées ou fendillées, une crème à l’urée aide, et une couche épaisse de vaseline pure au coucher est une autre option.',
+        ),
+      },
+      {
+        title: L(
+          '갈라진 발뒤꿈치',
+          'Cracked heels',
+          'ສົ້ນຕີນແຕກ',
+          'ส้นเท้าแตก',
+          'Talons crevassés',
+        ),
+        body: L(
+          'AAD는 목욕·샤워를 5~10분으로 줄이고, 씻은 뒤 5분 안에 요소·AHA·살리실산이 10~25% 들어간 크림을 물기가 남은 피부에 바르라고 안내해요. 자기 전엔 바셀린을 바르고 양말을 신으면 이불이 덜 더러워져요. 낮에는 갈라진 틈을 액체 밴드로 덮어 보호할 수 있어요. 당뇨 같은 다른 원인으로 생기는 경우도 있어서, 심하거나 나아지지 않으면 피부과 상담을 권해요.',
+          'AAD advises keeping baths and showers to five to ten minutes, and within about five minutes of bathing, applying a cream with 10–25% urea, AHA, or salicylic acid to still-damp skin. At bedtime, plain petroleum jelly plus socks keeps it off the bedding. During the day, a liquid bandage over the cracks can protect them. Cracked heels can sometimes come from another cause such as diabetes, so if they’re severe or not improving, a dermatologist visit is worth it.',
+          'AAD ແນະນຳໃຫ້ອາບນ້ຳ 5-10 ນາທີ ແລະ ພາຍໃນ 5 ນາທີຫຼັງອາບນ້ຳ ທາຄີມທີ່ມີຢູເຣຍ, AHA, ຫຼື ອາຊິດຊາລິໄຊລິກ 10-25% ເທິງຜິວທີ່ຍັງປຽກ. ກ່ອນນອນ ທາວາສະລິນ ແລະ ໃສ່ຖົງຕີນ ຊ່ວຍບໍ່ໃຫ້ເປື້ອນຜ້າປູບ່ອນນອນ. ຕອນກາງເວັນ ໃຊ້ແຜ່ນປິດແຜແບບແຫຼວປົກປິດຮອຍແຕກໄດ້. ບາງຄັ້ງສົ້ນຕີນແຕກມາຈາກສາເຫດອື່ນເຊັ່ນເບົາຫວານ, ຖ້າໜັກ ຫຼື ບໍ່ດີຂຶ້ນ ຄວນປຶກສາທ່ານໝໍຜິວໜັງ.',
+          'AAD แนะนำให้อาบน้ำ 5-10 นาที และภายใน 5 นาทีหลังอาบน้ำ ทาครีมที่มียูเรีย AHA หรือกรดซาลิไซลิก 10-25% บนผิวที่ยังชื้นอยู่ ก่อนนอนทาวาสลีนและใส่ถุงเท้าช่วยไม่ให้เลอะผ้าปูที่นอน ตอนกลางวันใช้แผ่นปิดแผลแบบของเหลวปกป้องรอยแตกได้ บางครั้งส้นเท้าแตกมาจากสาเหตุอื่นเช่นเบาหวาน ถ้ารุนแรงหรือไม่ดีขึ้นควรปรึกษาแพทย์ผิวหนัง',
+          'L’AAD recommande des douches de cinq à dix minutes, et dans les cinq minutes qui suivent, d’appliquer sur une peau encore humide une crème à 10-25% d’urée, d’AHA ou d’acide salicylique. Au coucher, de la vaseline pure et des chaussettes évitent de tacher les draps. Le jour, un pansement liquide peut protéger les fissures. Des talons crevassés peuvent parfois venir d’une autre cause, comme le diabète, donc s’ils sont sévères ou ne s’améliorent pas, mieux vaut consulter un dermatologue.',
+        ),
+      },
+    ],
+    ingredients: ['hyaluronic', 'retinol', 'aha'],
+    sources: [AAD_STRETCH_MARKS, AAD_DRY_HEELS],
   },
 ];
