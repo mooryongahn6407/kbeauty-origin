@@ -467,6 +467,10 @@ describe('owner pictures (public/gemini)', () => {
     );
     expect(refs.size).toBeGreaterThan(5);
     for (const ref of refs) expect(existsSync(join(process.cwd(), 'public', ref)), ref).toBe(true);
+    // and the other way round: a photo the owner made is never left sitting unused
+    for (const name of readdirSync(join(process.cwd(), 'public', 'gemini'))) {
+      expect(refs.has(`/gemini/${name}`), `/gemini/${name} is not used anywhere`).toBe(true);
+    }
   });
 });
 

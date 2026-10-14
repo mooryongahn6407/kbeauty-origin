@@ -1184,6 +1184,7 @@ export function facePlan(answers: QuestAnswers, reading: TypeReading): CarePlan 
     advice.push({
       id: 'habits',
       icon: '🗓️',
+      photo: '/gemini/C-03.jpg',
       title: L(
         '생활 습관에서 챙길 것',
         'From your habits',
