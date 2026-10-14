@@ -1801,6 +1801,10 @@ a.btn { display: inline-flex; align-items: center; text-decoration: none; }
 .care-lesson-card__body { font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.5; }
 .care-lesson__section { border-top: 1px solid var(--line); padding-top: var(--space-3); margin-top: var(--space-3); }
 .care-lesson__heading { font-size: var(--fs-md); margin: var(--space-3) 0 var(--space-2); }
+/* A short vertical clip, sized like a phone video rather than stretched full width. */
+.care-lesson__video { margin: var(--space-3) auto; max-width: 17rem; }
+.care-lesson__video video { display: block; width: 100%; aspect-ratio: 9 / 16; border-radius: var(--radius-sm); border: 1px solid var(--line); background: var(--surface-sunk); object-fit: cover; }
+.care-lesson__video figcaption { margin-top: var(--space-1); font-size: var(--fs-xs); color: var(--text-muted); text-align: center; }
 .care-lesson__body { line-height: 1.7; margin: 0 0 var(--space-2); }
 .care-learn__media { position: relative; margin: calc(var(--space-3) * -1) calc(var(--space-4) * -1) var(--space-3); aspect-ratio: 4 / 3; overflow: hidden; border-radius: var(--radius-sm) var(--radius-sm) 0 0; background: var(--surface-sunk); }
 .care-learn__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; }

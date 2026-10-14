@@ -27,6 +27,11 @@ export interface CareLesson {
   readonly sources: readonly Source[];
   /** A picture for the top of the lesson (public/gemini), when there is one. */
   readonly cover?: string;
+  /** A short illustrative clip for the lesson (public/lessons), when there is one — silent,
+      hands/forearm only, nothing it shows is a claim: see CareLessonsScreen for how it plays. */
+  readonly video?: string;
+  /** The clip's first frame, shown before the reader presses play. */
+  readonly videoPoster?: string;
 }
 
 const AAD_SUN = {
@@ -43,6 +48,8 @@ export const CARE_LESSONS: readonly CareLesson[] = [
     id: 'sun-forms',
     icon: '☀️',
     cover: '/gemini/B-08.jpg',
+    video: '/lessons/sun-forms.mp4',
+    videoPoster: '/lessons/sun-forms-poster.jpg',
     title: L(
       '선케어 더 알기 — 필터와 제형',
       'Sun care, further — filters and forms',
@@ -135,6 +142,8 @@ export const CARE_LESSONS: readonly CareLesson[] = [
   {
     id: 'cleansing',
     icon: '🫧',
+    video: '/lessons/cleansing.mp4',
+    videoPoster: '/lessons/cleansing-poster.jpg',
     title: L(
       '클렌징과 pH',
       'Cleansing and pH',
@@ -212,6 +221,8 @@ export const CARE_LESSONS: readonly CareLesson[] = [
     id: 'order',
     icon: '🪜',
     cover: '/gemini/B-09.jpg',
+    video: '/lessons/order.mp4',
+    videoPoster: '/lessons/order-poster.jpg',
     title: L(
       '바르는 순서와 기다리는 시간',
       'What goes on first, and how long to wait',
@@ -293,6 +304,8 @@ export const CARE_LESSONS: readonly CareLesson[] = [
     id: 'pairings',
     icon: '🤝',
     cover: '/gemini/A-04.jpg',
+    video: '/lessons/pairings.mp4',
+    videoPoster: '/lessons/pairings-poster.jpg',
     title: L(
       '같이 쓰면 좋은 성분, 떨어뜨릴 성분',
       'Ingredients that get on, and ones to keep apart',
@@ -362,6 +375,8 @@ export const CARE_LESSONS: readonly CareLesson[] = [
   {
     id: 'eye-cream',
     icon: '👁️',
+    video: '/lessons/eye-cream.mp4',
+    videoPoster: '/lessons/eye-cream-poster.jpg',
     title: L(
       '아이크림은 왜 따로 있을까',
       'Why eye cream is its own product',
@@ -419,6 +434,8 @@ export const CARE_LESSONS: readonly CareLesson[] = [
   {
     id: 'patch-test',
     icon: '🩹',
+    video: '/lessons/patch-test.mp4',
+    videoPoster: '/lessons/patch-test-poster.jpg',
     title: L(
       '패치 테스트 — 새 제품을 쓰기 전에',
       'The patch test — before any new product',

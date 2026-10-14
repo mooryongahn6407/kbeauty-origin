@@ -837,6 +837,13 @@ export const QUEST_TEXT = {
     'นี่ไม่ใช่ผลของผลิตภัณฑ์ เป็นเพียงการวางคำตอบสองครั้งของคุณไว้คู่กัน',
     'Ce n’est pas un résultat de produit : vos deux séries de réponses sont seulement mises côte à côte.',
   ),
+  videoExample: L(
+    '방법을 보여 드리는 예시 영상이에요. 특정 제품을 추천하는 것이 아니에요.',
+    'An example video showing the technique — not a recommendation for any specific product.',
+    'ວີດີໂອຕົວຢ່າງສະແດງວິທີການ — ບໍ່ແມ່ນການແນະນຳຜະລິດຕະພັນໃດໜຶ່ງ.',
+    'วิดีโอตัวอย่างแสดงวิธีการ ไม่ใช่การแนะนำผลิตภัณฑ์ใดผลิตภัณฑ์หนึ่ง',
+    'Vidéo d’exemple montrant la technique — ce n’est pas la recommandation d’un produit en particulier.',
+  ),
 } as const;
 
 export const COMMON_SOURCES: readonly Source[] = [

@@ -109,6 +109,22 @@ function Lesson({
       </h1>
       {lesson.cover ? <SceneHero src={lesson.cover} focus="50% 35%" /> : null}
       <p className="lead">{t(lesson.intro)}</p>
+      {lesson.video ? (
+        <figure className="care-lesson__video">
+          {/* Silent clip — no dialogue to translate, and nothing it shows is a claim (hands or
+              forearm only, never a face or a real brand). Not autoplayed: a reader on a slow or
+              paid connection presses play, rather than data spending itself. */}
+          <video
+            src={lesson.video}
+            poster={lesson.videoPoster}
+            controls
+            muted
+            playsInline
+            preload="none"
+          />
+          <figcaption>{t(QUEST_TEXT.videoExample)}</figcaption>
+        </figure>
+      ) : null}
       {lesson.sections.map((section) => (
         <section key={section.title.en} className="care-lesson__section">
           <h2 className="care-lesson__heading">{t(section.title)}</h2>

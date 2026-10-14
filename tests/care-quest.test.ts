@@ -427,6 +427,29 @@ describe('skin lessons', () => {
       ]),
     );
   });
+
+  it('every video and poster a lesson points at is in public/, and every file in public/lessons is used', () => {
+    const referenced = new Set<string>();
+    for (const lesson of CARE_LESSONS) {
+      if (lesson.video) {
+        expect(existsSync(join(process.cwd(), 'public', lesson.video)), lesson.video).toBe(true);
+        referenced.add(lesson.video.replace(/^\/lessons\//, ''));
+      }
+      if (lesson.videoPoster) {
+        expect(
+          existsSync(join(process.cwd(), 'public', lesson.videoPoster)),
+          lesson.videoPoster,
+        ).toBe(true);
+        referenced.add(lesson.videoPoster.replace(/^\/lessons\//, ''));
+      }
+    }
+    const dir = join(process.cwd(), 'public', 'lessons');
+    if (existsSync(dir)) {
+      for (const name of readdirSync(dir)) {
+        expect(referenced.has(name), `public/lessons/${name} is not used anywhere`).toBe(true);
+      }
+    }
+  });
 });
 
 describe('scripts do not cross', () => {
