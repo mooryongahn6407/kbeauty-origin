@@ -42,6 +42,18 @@ const AAD_BASICS = {
   name: 'AAD — skin care basics',
   url: 'https://www.aad.org/public/everyday-care/skin-care-basics',
 };
+const AAD_DANDRUFF = {
+  name: 'AAD — how to treat dandruff',
+  url: 'https://www.aad.org/public/everyday-care/hair-scalp-care/scalp/treat-dandruff',
+};
+const AAD_KP = {
+  name: 'AAD — keratosis pilaris self-care',
+  url: 'https://www.aad.org/public/diseases/a-z/keratosis-pilaris-self-care',
+};
+const AAD_DRY_SKIN = {
+  name: 'AAD — dry skin relief',
+  url: 'https://www.aad.org/public/everyday-care/skin-care-basics/dry/dry-skin-relief',
+};
 
 export const CARE_LESSONS: readonly CareLesson[] = [
   {
@@ -485,5 +497,145 @@ export const CARE_LESSONS: readonly CareLesson[] = [
         url: 'https://www.aad.org/public/everyday-care/skin-care-basics/care/test-skin-care-products',
       },
     ],
+  },
+  {
+    id: 'scalp-type',
+    icon: '🧴',
+    title: L(
+      '두피 관리 — 비듬과 건조는 다르게',
+      "Scalp care — dandruff and dryness aren't the same",
+      'ການບຳລຸງຫນັງຫົວ — ຂີ້ຫົວ ແລະ ຫນັງຫົວແຫ້ງ ແຕກຕ່າງກັນ',
+      'ดูแลหนังศีรษะ — รังแคกับหนังศีรษะแห้งไม่เหมือนกัน',
+      "Soin du cuir chevelu — pellicules et sécheresse, ce n'est pas pareil",
+    ),
+    intro: L(
+      '두피가 기름지고 비듬이 있는지, 아니면 건조해서 당기는지에 따라 맞는 샴푸가 달라요.',
+      'Whether your scalp is oily with flaking, or dry and tight, calls for a different shampoo.',
+      'ຫນັງຫົວມັນ ມີຂີ້ຫົວ ຫຼື ແຫ້ງຕຶງ — ຕ້ອງການແຊມພູຄົນລະແບບ.',
+      'หนังศีรษะมันและมีรังแค หรือแห้งตึง ต้องใช้แชมพูต่างกัน',
+      "Cuir chevelu gras avec pellicules, ou sec et tiraillé : le shampoing à choisir n'est pas le même.",
+    ),
+    sections: [
+      {
+        title: L(
+          '비듬 vs 건조한 두피',
+          'Dandruff vs. dry scalp',
+          'ຂີ້ຫົວ ທຽບກັບ ຫນັງຫົວແຫ້ງ',
+          'รังแค เทียบกับ หนังศีรษะแห้ง',
+          'Pellicules ou cuir chevelu sec',
+        ),
+        body: L(
+          '비듬은 두피가 기름지고 말라세지아균과 관련 있는 경우가 많고, 각질도 크고 기름져 보여요. 건조한 두피는 추운 날씨·건조한 실내·세정력이 강한 제품 같은 외부 요인으로 생기는 경우가 많고, 각질이 더 작고 하얗고 두피가 당겨요. 둘을 구분하기 어렵다면, 센 비듬 샴푸를 건조한 두피에 쓰면 오히려 더 건조해질 수 있다는 점만 기억하세요.',
+          "Dandruff often comes with an oily scalp and the yeast Malassezia, with larger, oilier-looking flakes. Dry scalp is usually driven by outside causes — cold weather, dry indoor air, a harsh product — with smaller, whiter flakes and a tight feeling. If you can't tell which is which, remember that a strong anti-dandruff shampoo can make a truly dry scalp even drier.",
+          'ຂີ້ຫົວ ມັກມາພ້ອມຫນັງຫົວມັນ ແລະ ເຊື້ອລາມາລາເຊເຊຍ, ສະເກັດໃຫຍ່ ແລະ ມັນກວ່າ. ຫນັງຫົວແຫ້ງ ມັກມາຈາກອາກາດໜາວ, ອາກາດແຫ້ງໃນຫ້ອງ, ຫຼື ຜະລິດຕະພັນທີ່ແຮງ — ສະເກັດນ້ອຍ ຂາວ ແລະ ຮູ້ສຶກຕຶງ. ຖ້າແຍກບໍ່ອອກ ຈື່ໄວ້ວ່າ ແຊມພູຂີ້ຫົວແຮງໆ ອາດເຮັດໃຫ້ຫນັງຫົວແຫ້ງຍິ່ງແຫ້ງກວ່າເກົ່າ.',
+          'รังแคส่วนมากมาพร้อมหนังศีรษะมันและเชื้อยีสต์มาลาสซีเซีย สะเก็ดมีขนาดใหญ่และดูมันกว่า หนังศีรษะแห้งมักเกิดจากอากาศหนาว อากาศแห้งในห้อง หรือผลิตภัณฑ์ที่รุนแรง สะเก็ดเล็กกว่า สีขาว และรู้สึกตึง ถ้าแยกไม่ออก ให้จำไว้ว่าแชมพูขจัดรังแคที่แรงอาจทำให้หนังศีรษะแห้งยิ่งแห้งขึ้น',
+          "Les pellicules s'accompagnent souvent d'un cuir chevelu gras et de la levure Malassezia, avec des squames plus grosses et plus grasses. Un cuir chevelu sec vient plutôt du froid, de l'air sec intérieur ou d'un produit agressif, avec des squames plus petites et blanches, et une sensation de tiraillement. En cas de doute, retenez qu'un shampoing antipelliculaire fort peut assécher davantage un cuir chevelu déjà sec.",
+        ),
+      },
+      {
+        title: L(
+          '비듬 샴푸의 성분과 쓰는 빈도',
+          'Dandruff shampoo: ingredients and how often',
+          'ສ່ວນປະກອບ ແລະ ຄວາມຖີ່ຂອງແຊມພູຂີ້ຫົວ',
+          'ส่วนผสมและความถี่ของแชมพูขจัดรังแค',
+          'Shampoing antipelliculaire : ingrédients et fréquence',
+        ),
+        body: L(
+          'AAD에 따르면 비듬 샴푸는 징크피리치온·살리실산·황·셀레늄설파이드·케토코나졸·콜타르 같은 활성 성분이 핵심이에요. 머리카락이 가늘거나 곧고 두피가 기름지면 자주 감아도 되고, 머릿결이 굵거나 곱슬이라면 일주일에 한 번 정도로 줄여도 괜찮아요(곱슬머리는 이 성분들이 모발을 더 건조하게 만들 수 있다고 해요). 한 제품이 안 들으면 활성 성분이 다른 제품으로 바꿔 보는 것도 방법이에요.',
+          "AAD guidance centers on active ingredients: zinc pyrithione, salicylic acid, sulfur, selenium sulfide, ketoconazole, or coal tar. Fine or straight hair with an oily scalp can be washed often; coarse or curly hair can go down to about once a week, since these actives can dry curly hair further. If one shampoo isn't working, switching to a different active ingredient is worth trying.",
+          'ອີງຕາມ AAD ແຊມພູຂີ້ຫົວ ສຳຄັນຢູ່ທີ່ສານອອກລິດ: ຊິງຄ໌ໄພຣິທິໂອນ, ອາຊິດຊາລິໄຊລິກ, ກຳມະຖັນ, ເຊເລນຽມຊຸນຟິດ, ເກໂຕໂຄນາໂຊນ, ຫຼື ນ້ຳມັນຖ່ານຫີນ. ຜົມບາງຫຼືກົງ ແລະ ຫນັງຫົວມັນ ສາມາດສະຫຼອຍເລື້ອຍໆ; ຜົມແຂງຫຼືຫ​ຍິກ ສະຫຼອຍອາທິດລະເທື່ອກໍພໍ (ສານເຫຼົ່ານີ້ອາດເຮັດໃຫ້ຜົມຫ​ຍິກແຫ້ງກວ່າເກົ່າ). ຖ້າໃຊ້ແລ້ວບໍ່ໄດ້ຜົນ ລອງປ່ຽນສານອອກລິດອື່ນ.',
+          'ตาม AAD แชมพูขจัดรังแคสำคัญที่สารออกฤทธิ์: ซิงค์ไพริไทออน กรดซาลิไซลิก กำมะถัน ซีลีเนียมซัลไฟด์ คีโตโคนาโซล หรือน้ำมันดินถ่านหิน ผมเส้นเล็กหรือตรงและหนังศีรษะมันสระได้บ่อย ผมหยาบหรือหยิกลดเหลือสัปดาห์ละครั้งก็พอ (สารเหล่านี้อาจทำให้ผมหยิกแห้งขึ้นอีก) ถ้าใช้แล้วไม่ได้ผล ลองเปลี่ยนไปใช้สารออกฤทธิ์ตัวอื่น',
+          "Selon l'AAD, les shampoings antipelliculaires reposent sur des actifs : pyrithione de zinc, acide salicylique, soufre, sulfure de sélénium, kétoconazole ou goudron de houille. Cheveux fins ou raides avec cuir chevelu gras : lavage fréquent possible ; cheveux épais ou bouclés : environ une fois par semaine, ces actifs pouvant assécher davantage les boucles. Si un shampoing ne fonctionne pas, changer d'actif peut aider.",
+        ),
+      },
+      {
+        title: L(
+          '건조한 두피엔 보습을',
+          'For a dry scalp, moisturize',
+          'ຫນັງຫົວແຫ້ງ ໃຫ້ເພີ່ມຄວາມຊຸ່ມ',
+          'หนังศีรษะแห้ง ให้เพิ่มความชุ่มชื้น',
+          'Cuir chevelu sec : hydrater',
+        ),
+        body: L(
+          '두피가 당기고 작은 흰 각질이 일어난다면, 센 비듬 샴푸 대신 두피용 보습 제품을 먼저 시도해 보세요. 히알루론산처럼 수분을 채우는 성분이 들어간 제품을 찾아보고, 너무 뜨거운 물로 자주 감는 것도 피하세요. 어떤 샴푸를 써도 가려움·붉어짐·각질이 계속 심하면 피부과 상담을 권해요.',
+          'If your scalp feels tight with small white flakes, try a scalp-moisturizing product before reaching for a strong anti-dandruff shampoo. Look for hydrating ingredients such as hyaluronic acid, and avoid very hot water or washing too often. If itching, redness or flaking stays bad no matter what you use, see a dermatologist.',
+          'ຖ້າຫນັງຫົວຕຶງ ແລະ ມີສະເກັດຂາວນ້ອຍໆ ລອງໃຊ້ຜະລິດຕະພັນໃຫ້ຄວາມຊຸ່ມແກ່ຫນັງຫົວກ່ອນແຊມພູຂີ້ຫົວແຮງໆ. ຊອກຫາສ່ວນປະສົມໃຫ້ຄວາມຊຸ່ມ ເຊັ່ນ ໄຮຢາລູໂຣນິກອາຊິດ, ແລະ ຫຼີກລ່ຽງນ້ຳຮ້ອນຫຼາຍ ຫຼື ສະຫຼອຍເລື້ອຍເກີນໄປ. ຖ້າຄັນ ແດງ ຫຼື ສະເກັດຍັງຮ້າຍແຮງຢູ່ ບໍ່ວ່າໃຊ້ຫຍັງກໍຕາມ ຄວນປຶກສາທ່ານໝໍຜິວໜັງ.',
+          'ถ้าหนังศีรษะตึงและมีสะเก็ดขาวเล็กๆ ลองใช้ผลิตภัณฑ์เพิ่มความชุ่มชื้นให้หนังศีรษะก่อนแชมพูขจัดรังแคที่แรง มองหาส่วนผสมให้ความชุ่มชื้นอย่างไฮยาลูรอนิกแอซิด และหลีกเลี่ยงน้ำร้อนจัดหรือสระบ่อยเกินไป ถ้าคัน แดง หรือสะเก็ดยังรุนแรงไม่ว่าใช้อะไรก็ตาม ควรปรึกษาแพทย์ผิวหนัง',
+          "Si le cuir chevelu tiraille avec de petites squames blanches, essayez d'abord un soin hydratant pour cuir chevelu plutôt qu'un shampoing antipelliculaire fort. Cherchez des ingrédients hydratants comme l'acide hyaluronique, évitez l'eau très chaude et les lavages trop fréquents. Si les démangeaisons, rougeurs ou squames persistent quoi que vous utilisiez, consultez un dermatologue.",
+        ),
+      },
+    ],
+    ingredients: ['bha', 'hyaluronic', 'panthenol', 'centella'],
+    sources: [AAD_DANDRUFF],
+  },
+  {
+    id: 'body-care',
+    icon: '🛁',
+    title: L(
+      '바디케어 — 얼굴과 다르게 챙길 것',
+      "Body care — what's different from the face",
+      'ບຳລຸງຜິວກາຍ — ແຕກຕ່າງຈາກໜ້າແນວໃດ',
+      'ดูแลผิวกาย — ต่างจากใบหน้าอย่างไร',
+      'Soin du corps — ce qui diffère du visage',
+    ),
+    intro: L(
+      '몸도 자외선·보습이 필요하지만 양과 방법이 얼굴과는 달라요. 닭살(모공각화증)도 흔한 고민이에요.',
+      "The body needs sun protection and moisture too, but the amount and method differ from the face. Keratosis pilaris (bumpy 'goose-skin' texture) is a common concern as well.",
+      'ຮ່າງກາຍກໍ່ຕ້ອງການກັນແດດ ແລະ ຄວາມຊຸ່ມຄືກັນ ແຕ່ປະລິມານ ແລະ ວິທີຕ່າງຈາກໜ້າ. ຜິວໜັງເປັນເມັດໆ (keratosis pilaris) ກໍ່ເປັນເລື່ອງທົ່ວໄປ.',
+      'ร่างกายก็ต้องการกันแดดและความชุ่มชื้นเช่นกัน แต่ปริมาณและวิธีต่างจากใบหน้า ผิวเป็นตุ่มขรุขระ (keratosis pilaris) ก็เป็นปัญหาที่พบได้บ่อย',
+      "Le corps a lui aussi besoin de protection solaire et d'hydratation, mais en quantité et selon une méthode différentes du visage. La kératose pilaire (peau « chair de poule ») est aussi un problème fréquent.",
+    ),
+    sections: [
+      {
+        title: L(
+          '몸에도 선크림이 필요한 이유',
+          'Why the body needs sunscreen too',
+          'ເປັນຫຍັງຮ່າງກາຍກໍ່ຕ້ອງການກັນແດດ',
+          'ทำไมร่างกายก็ต้องการกันแดด',
+          "Pourquoi le corps a besoin d'écran solaire aussi",
+        ),
+        body: L(
+          'AAD는 옷으로 가리지 않은 피부 전체에 대략 1온스(샷 잔 한 잔 분량)의 선크림을 쓰라고 안내해요. 야외에서는 2시간마다, 수영이나 땀을 많이 흘린 뒤에는 바로 덧발라요. 등처럼 손이 안 닿는 곳은 다른 사람에게 부탁하거나 스프레이 타입을 쓰고, 스프레이는 뿌린 뒤 손으로 문질러 고르게 펴 주세요.',
+          'AAD guidance is roughly one ounce (about a shot glass) of sunscreen for all the skin clothing does not cover. Reapply every two hours outdoors, and right after swimming or heavy sweating. For hard-to-reach spots like the back, ask someone to help or use a spray — and rub a spray in afterward so it covers evenly.',
+          'AAD ແນະນຳໃຫ້ໃຊ້ກັນແດດປະມານ 1 ອອນສ໌ (ເທົ່າຈອກຊັອດ) ກັບຜິວທັງໝົດທີ່ເສື້ອຜ້າບໍ່ປົກປິດ. ທາຊ້ຳທຸກ 2 ຊົ່ວໂມງເວລາຢູ່ນອກ ແລະ ທັນທີຫຼັງລອຍນ້ຳ ຫຼື ເຫື່ອອອກຫຼາຍ. ບ່ອນທີ່ມືເອື້ອມບໍ່ເຖິງເຊັ່ນຫຼັງ ໃຫ້ຄົນອື່ນຊ່ວຍ ຫຼື ໃຊ້ແບບສະເປຣ — ແລະ ຖູໃຫ້ທົ່ວຫຼັງສີດ.',
+          'AAD แนะนำให้ใช้กันแดดประมาณ 1 ออนซ์ (เท่าแก้วช็อต) กับผิวทั้งหมดที่เสื้อผ้าไม่ได้ปกคลุม ทาซ้ำทุก 2 ชั่วโมงเมื่ออยู่กลางแจ้ง และทันทีหลังว่ายน้ำหรือเหงื่อออกมาก บริเวณที่มือเอื้อมไม่ถึงอย่างแผ่นหลัง ให้คนอื่นช่วยทาหรือใช้แบบสเปรย์ และถูให้ทั่วหลังฉีด',
+          "L'AAD recommande environ une once (un verre à shot) d'écran solaire pour toute la peau non couverte par les vêtements. Renouveler toutes les deux heures en extérieur, et juste après la baignade ou une forte transpiration. Pour les zones difficiles d'accès comme le dos, demandez de l'aide ou utilisez un spray, à frotter ensuite pour une couverture uniforme.",
+        ),
+      },
+      {
+        title: L(
+          '닭살(모공각화증) 관리법',
+          "Caring for keratosis pilaris ('chicken skin')",
+          'ການບຳລຸງຜິວເປັນເມັດໆ (Keratosis Pilaris)',
+          'การดูแลผิวเป็นตุ่มขรุขระ (Keratosis Pilaris)',
+          'Prendre soin de la kératose pilaire',
+        ),
+        body: L(
+          'AAD는 꼭 없애야 하는 건 아니지만 신경 쓰인다면 세 단계를 권해요: 부드러운 각질 제거(거친 때수건이 아니라 가벼운 샤워타월 정도로), 글리콜산·락틱산·살리실산·레티놀 같은 각질 성분(지시대로만, 과하면 오히려 자극), 그 뒤 보습(오일프리 크림이나 연고). 자연히 좋아지는 데 몇 년씩 걸리기도 하고, 계속 신경 쓰이면 피부과 상담을 권해요.',
+          "AAD says treatment isn't required, but if it bothers you, three steps help: gentle exfoliation (a soft washcloth, not a harsh scrub), a chemical exfoliant — glycolic or lactic acid, salicylic acid, or a retinoid, used exactly as directed since overuse irritates — and moisturizing afterward (an oil-free cream or ointment). It often clears gradually over years; see a dermatologist if it keeps bothering you.",
+          'AAD ບອກວ່າບໍ່ຈຳເປັນຕ້ອງແກ້ໄຂ ແຕ່ຖ້າກັງວົນ ມີ 3 ຂັ້ນຕອນ: ຂັດຜິວເບົາໆ (ຜ້າອາບນ້ຳອ່ອນໆ ບໍ່ແມ່ນຜ້າຂັດແຮງ), ສານຂັດຜິວເຄມີ — ອາຊິດໄກລີໂຄລິກ ຫຼື ແລັກຕິກ, ອາຊິດຊາລິໄຊລິກ, ຫຼື ເຣຕິນອຍ (ໃຊ້ຕາມຄຳແນະນຳ ຖ້າໃຊ້ຫຼາຍເກີນໄປ ຈະລະຄາຍ), ແລະ ທາຄວາມຊຸ່ມຫຼັງຈາກນັ້ນ (ຄີມ ຫຼື ຂີ້ຜຶ້ງແບບບໍ່ມີນ້ຳມັນ). ມັກຄ່ອຍດີຂຶ້ນໃນໄລຍະຫຼາຍປີ, ຖ້າຍັງກັງວົນຢູ່ ຄວນປຶກສາທ່ານໝໍຜິວໜັງ.',
+          'AAD บอกว่าไม่จำเป็นต้องแก้ไข แต่ถ้ากังวลมี 3 ขั้นตอน: ผลัดเซลล์ผิวเบาๆ (ผ้าขนหนูอาบน้ำนุ่มๆ ไม่ใช่การขัดแรง) สารผลัดเซลล์เคมี — กรดไกลโคลิกหรือแลคติก กรดซาลิไซลิก หรือเรตินอยด์ (ใช้ตามคำแนะนำเท่านั้น ถ้าใช้มากเกินไปจะระคายเคือง) และเพิ่มความชุ่มชื้นหลังจากนั้น (ครีมหรือขี้ผึ้งสูตรไม่มีน้ำมัน) มักค่อยๆ ดีขึ้นในช่วงหลายปี หากยังกังวลอยู่ควรปรึกษาแพทย์ผิวหนัง',
+          "L'AAD indique qu'un traitement n'est pas obligatoire, mais si cela vous gêne, trois étapes aident : une exfoliation douce (gant de toilette doux, pas de gommage agressif), un exfoliant chimique — acide glycolique ou lactique, acide salicylique, ou un rétinoïde, utilisé exactement comme indiqué car un excès irrite — puis une hydratation (crème ou pommade sans huile). Cela s'estompe souvent progressivement sur plusieurs années ; consultez un dermatologue si cela persiste.",
+        ),
+      },
+      {
+        title: L(
+          '목욕은 따뜻한 물로 짧게',
+          'Bathe warm, not hot — and keep it short',
+          'ອາບນ້ຳອຸ່ນ ບໍ່ຮ້ອນ ແລະ ບໍ່ດົນ',
+          'อาบน้ำอุ่น ไม่ร้อน และใช้เวลาสั้นๆ',
+          'Douche tiède, pas chaude, et courte',
+        ),
+        body: L(
+          'AAD는 목욕·샤워를 5~10분으로 줄이고 뜨겁지 않은 따뜻한 물을 쓰라고 안내해요. 문지르지 말고 수건으로 톡톡 두드려 물기를 없애고, 향이 없는 보습제를 피부가 촉촉할 때 바로 발라요. 세정제도 꼭 필요한 만큼만 쓰면 돼요 — 거품이 두껍게 날 정도로 많이 쓰지 않아도 괜찮아요.',
+          "AAD advises keeping baths and showers to five to ten minutes in warm, not hot, water. Pat dry with a towel instead of rubbing, and apply a fragrance-free moisturizer right away while skin is still damp. Use only as much cleanser as you need — you don't need a thick lather.",
+          'AAD ແນະນຳໃຫ້ອາບນ້ຳ 5-10 ນາທີ ດ້ວຍນ້ຳອຸ່ນ ບໍ່ຮ້ອນ. ໃຊ້ຜ້າເຊັດຕົບເບົາໆແທນການຖູ, ແລະ ທາຄວາມຊຸ່ມແບບບໍ່ມີກິ່ນທັນທີຕອນຜິວຍັງປຽກໆ. ໃຊ້ສະບູ່ເທົ່າທີ່ຈຳເປັນ — ບໍ່ຈຳເປັນໃຫ້ມີຟອງໜາ.',
+          'AAD แนะนำให้อาบน้ำ 5-10 นาที ด้วยน้ำอุ่นไม่ร้อน ใช้ผ้าขนหนูซับเบาๆ แทนการถู และทามอยส์เจอไรเซอร์สูตรไม่มีกลิ่นทันทีตอนผิวยังชื้นอยู่ ใช้คลีนเซอร์เท่าที่จำเป็น ไม่ต้องให้เกิดฟองหนา',
+          "L'AAD recommande des douches ou bains de cinq à dix minutes à l'eau tiède, pas chaude. Tamponnez avec une serviette plutôt que de frotter, et appliquez une crème hydratante sans parfum tout de suite pendant que la peau est encore humide. Utilisez seulement la quantité de nettoyant nécessaire, sans chercher une mousse épaisse.",
+        ),
+      },
+    ],
+    ingredients: ['sunscreen', 'aha', 'bha', 'retinol', 'hyaluronic'],
+    sources: [AAD_SUN, AAD_KP, AAD_DRY_SKIN],
   },
 ];
