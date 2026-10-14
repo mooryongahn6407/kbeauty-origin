@@ -12,8 +12,16 @@ import { translate, type MessageKey } from '@/localization/messages';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import type { DictionaryEntry, Evidence } from '@/content/company/ingredient-dictionary-types';
 import { productsWith } from '@/content/company/ingredient-links';
+import { INGREDIENT_GOVERNED_LINKS } from '@/content/company/ingredient-governed-links';
+import { labelPhotosForIngredient } from '@/content/label-photos';
 import { pick, showsEnglishFallback } from '../pick';
 import { ProductStrip } from '../components/ProductCard';
+import { ReadAloud } from '../components/ReadAloud';
+
+/** Company content exists in ko/lo/en only (see `pick.ts`) — never asks a device for a voice in
+    a language the on-screen text is not actually written in (rule 15's own reasoning). */
+const spokenLocaleFor = (locale: string): string =>
+  locale === 'ko' || locale === 'lo' ? locale : 'en';
 
 const entryById = (id: string): DictionaryEntry | undefined =>
   companyDictionary.ingredients.find((entry) => entry.id === id);
@@ -139,6 +147,9 @@ function EntryPage({
 }) {
   const products = useMemo(() => productsWith(entry.id), [entry.id]);
   const group = companyDictionary.groups[entry.group];
+  const spokenLocale = spokenLocaleFor(locale);
+  const governedId = INGREDIENT_GOVERNED_LINKS[entry.id];
+  const labelPhotos = governedId ? labelPhotosForIngredient(governedId) : [];
 
   return (
     <article className="dict" aria-labelledby="dict-entry-name">
@@ -158,6 +169,36 @@ function EntryPage({
         </p>
       </header>
 
+      {labelPhotos.length > 0 ? (
+        <section className="card">
+          <h2 className="store-labels__title">{translate('ingredient.seenOnLabel', locale)}</h2>
+          <div className="label-photo-row">
+            {labelPhotos.map((photo) => (
+              <a
+                key={photo.id}
+                href={photo.src}
+                rel="noreferrer noopener"
+                target="_blank"
+                title={translate('ingredient.viewLabelPhoto', locale, {
+                  product: photo.productName,
+                })}
+              >
+                <img
+                  className="label-photo-thumb label-photo-thumb--large"
+                  src={photo.thumbSrc}
+                  alt={translate('ingredient.viewLabelPhoto', locale, {
+                    product: photo.productName,
+                  })}
+                  width={96}
+                  height={171}
+                  loading="lazy"
+                />
+              </a>
+            ))}
+          </div>
+        </section>
+      ) : null}
+
       <div className="chips dict-entry__concerns" aria-label={translate('dict.concerns', locale)}>
         {entry.concerns.map((key) => {
           const concern = companyDictionary.concerns[key];
@@ -176,13 +217,19 @@ function EntryPage({
           ['dict.use', entry.use],
           ['dict.caution', entry.caution],
         ] as const
-      ).map(([key, text]) => (
+      ).map(([key, text], index) => (
         <section
           key={key}
           className={`card dict-entry__part${key === 'dict.caution' ? ' dict-entry__part--caution' : ''}`}
         >
           <h2 className="store-labels__title">{translate(key, locale)}</h2>
           <p>{pick(text, locale)}</p>
+          <ReadAloud
+            text={pick(text, locale)}
+            locale={locale}
+            spokenLocale={spokenLocale}
+            autoplay={index === 0}
+          />
         </section>
       ))}
 

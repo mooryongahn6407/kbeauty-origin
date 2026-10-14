@@ -676,6 +676,8 @@ select.field, .locale-switch select, .settings__select {
   border-radius: var(--radius-sm);
   border: 1px solid var(--line);
 }
+/* The dictionary entry page shows a label as something to actually look at, not a table icon. */
+.label-photo-thumb--large { width: 96px; height: 171px; }
 
 .tag {
   display: inline-block;

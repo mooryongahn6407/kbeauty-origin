@@ -22,7 +22,12 @@
  *   - speaking    press again to stop;
  *   - unavailable no voice for either, said plainly. Disabled rather than hidden, because a
  *                 missing control looks like a missing feature while a disabled one explains
- *                 itself.
+ *                 itself — including the `autoplay` control, for the same reason: an earlier
+ *                 version hid it instead (reasoning it would repeat what `VoiceSwitch` already
+ *                 says once per screen), which meant the one passage a reader actually looks at
+ *                 showed nothing while every other control on the same device explained itself,
+ *                 and *that* read as broken. One repeated sentence is a smaller cost than a
+ *                 control that silently exists on some screens and not others.
  */
 import { useEffect, useRef, useState } from 'react';
 import { translate } from '@/localization/messages';
@@ -118,11 +123,6 @@ export function ReadAloud({
     });
     setSpeaking(started);
   };
-
-  // The master switch at the top of every screen already says, once, that this device has no
-  // voice for this language. Repeating it on the screen's main passage is the same sentence
-  // twice on one screen, which reads as a fault rather than as an explanation.
-  if (autoplay && unavailable) return null;
 
   const readyLabel = plan.isSubstitute
     ? translate('speech.listenIn', locale, { language: languageName(plan.spokenLocale) })
