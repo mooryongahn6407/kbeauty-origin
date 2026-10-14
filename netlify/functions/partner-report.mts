@@ -9,8 +9,7 @@
  */
 import { getStore } from '@netlify/blobs';
 import type { Config, Context } from '@netlify/functions';
-
-const TRACKS = ['face', 'scalp', 'body'] as const;
+import { KEY_ROOT, TRACKS, directoryLabel } from '../../src/app/partner-blob-keys';
 
 interface MonthCount {
   readonly opens: number;
@@ -29,17 +28,23 @@ export default async (req: Request, _context: Context) => {
   const onlyCode = normalizeFilter(url.searchParams.get('code'));
   const store = getStore('partner-visits');
 
-  const { directories: codes } = await store.list({ directories: true, prefix: 'v1/' });
+  // `list({ directories: true })` hands back each subfolder as a full prefix ready to pass
+  // straight back into the next `list()` call (e.g. `v1/VTE-01/`, not the bare name `VTE-01`) —
+  // see src/app/partner-blob-keys.ts, which is what actually says so and is what is tested.
+  const { directories: codePrefixes } = await store.list({ directories: true, prefix: KEY_ROOT });
   const report: Record<string, Record<string, MonthCount>> = {};
 
-  for (const code of codes) {
+  for (const codePrefix of codePrefixes) {
+    const code = directoryLabel(KEY_ROOT, codePrefix);
     if (onlyCode && code !== onlyCode) continue;
-    const codePrefix = `v1/${code}/`;
-    const { directories: months } = await store.list({ directories: true, prefix: codePrefix });
+    const { directories: monthPrefixes } = await store.list({
+      directories: true,
+      prefix: codePrefix,
+    });
     const byMonth: Record<string, MonthCount> = {};
 
-    for (const month of months) {
-      const monthPrefix = `${codePrefix}${month}/`;
+    for (const monthPrefix of monthPrefixes) {
+      const month = directoryLabel(codePrefix, monthPrefix);
       const opens = (await store.list({ prefix: `${monthPrefix}open/` })).blobs.length;
       const byTrack = { face: 0, scalp: 0, body: 0 };
       for (const track of TRACKS) {

@@ -7,17 +7,15 @@
  * on a blob — so a blind write of a brand-new key is the safe move here: it can never race with
  * another visit or lose an update, because nothing is ever read back and rewritten.
  * `partner-report.mts` counts visits by *listing* these keys, never by reading a stored total.
- *
- * Key shape: v1/<code>/<yyyyMM>/<event>/<track-or-dash>/<timestamp>-<random>
- * The value is empty — everything the report needs is in the key itself, so a count never has
- * to read a blob's body, only list its keys.
+ * The key shape itself lives in `src/app/partner-blob-keys.ts`, shared with that function.
  */
 import { getStore } from '@netlify/blobs';
 import type { Config, Context } from '@netlify/functions';
 import { normalizePartnerCode } from '../../src/app/partner-shape';
+import { TRACKS, visitKey, type Track, type VisitEvent } from '../../src/app/partner-blob-keys';
 
-const EVENTS = new Set(['open', 'result']);
-const TRACKS = new Set(['face', 'scalp', 'body']);
+const EVENTS = new Set<VisitEvent>(['open', 'result']);
+const TRACK_SET = new Set<string>(TRACKS);
 
 export default async (req: Request, _context: Context) => {
   let body: unknown;
@@ -31,14 +29,21 @@ export default async (req: Request, _context: Context) => {
     unknown
   >;
   const normalized = typeof code === 'string' ? normalizePartnerCode(code) : null;
-  if (!normalized || typeof event !== 'string' || !EVENTS.has(event)) {
+  if (!normalized || typeof event !== 'string' || !EVENTS.has(event as VisitEvent)) {
     return new Response('Bad request', { status: 400 });
   }
-  const trackPart =
-    event === 'result' && typeof track === 'string' && TRACKS.has(track) ? track : '-';
-  const month = new Date().toISOString().slice(0, 7).replace('-', '');
+  const trackPart: Track | '-' =
+    event === 'result' && typeof track === 'string' && TRACK_SET.has(track)
+      ? (track as Track)
+      : '-';
   const random = Math.random().toString(36).slice(2, 8);
-  const key = `v1/${normalized}/${month}/${event}/${trackPart}/${Date.now()}-${random}`;
+  const key = visitKey(
+    normalized,
+    event as VisitEvent,
+    trackPart,
+    new Date(),
+    `${Date.now()}-${random}`,
+  );
 
   try {
     await getStore('partner-visits').set(key, '');
