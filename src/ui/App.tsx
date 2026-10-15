@@ -154,6 +154,12 @@ export function App() {
   // cost a phone screen's whole top third before the first question is even visible. Folded
   // away they are one tap, and the question is the first thing on the screen.
   const [settingsOpen, setSettingsOpen] = useState(false);
+  // SKIN QUEST's "learn more" link lands here with ?from=skinquest — greeted as such, once.
+  const [fromSkinQuest] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      new URLSearchParams(window.location.search).get('from') === 'skinquest',
+  );
   // A partner shop's link (its QR code) carries the shop's code. Read once, remembered on this
   // device, and printed only on the gift card — see src/app/partner.ts for what it is not.
   const [partner] = useState(() => {
@@ -248,6 +254,7 @@ export function App() {
                 key={focusKey}
                 locale={locale}
                 partner={partner}
+                fromSkinQuest={fromSkinQuest}
                 onExplore={() => go('lessons')}
                 onOpenIngredient={openIngredient}
                 onOpenProduct={openProduct}

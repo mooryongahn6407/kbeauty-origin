@@ -1,0 +1,17 @@
+{
+  "name": "GLOW Class · KOREA GLOW",
+  "short_name": "GLOW Class",
+  "description": "Learn your skin, read ingredients, choose better — skincare lessons in Lao, Korean, English, Thai and French.",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fdfaf7",
+  "theme_color": "#a33753",
+  "icons": [
+    { "src": "/icons/glow-class-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/glow-class-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/glow-class-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

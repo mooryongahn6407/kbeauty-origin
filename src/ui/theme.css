@@ -1820,3 +1820,158 @@ main li > a:not([class]) { display: inline-flex; align-items: center; min-height
 main .muted a:not([class]) { display: inline-flex; align-items: center; min-height: var(--tap); }
 .compare__columns { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 .compare__col { min-width: 0; overflow-wrap: anywhere; }
+
+/* GLOW Class front door — clip, question, what is inside, save-to-home, SKIN QUEST. */
+.glow-hero {
+  display: grid;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+  text-align: left;
+}
+.glow-hero--compact {
+  margin-bottom: var(--space-3);
+}
+.glow-hero__media {
+  margin: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--surface-sunk);
+  box-shadow: var(--shadow);
+}
+.glow-hero__media video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  max-height: 42vh;
+  object-fit: cover;
+}
+.glow-hero__media figcaption {
+  font-size: var(--fs-2xs);
+  color: var(--text-muted);
+  background: var(--surface);
+  padding: var(--space-1) var(--space-3);
+}
+.glow-hero__brand {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.glow-hero__welcome {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--accent-wash);
+  color: var(--text);
+  font-size: var(--fs-sm);
+}
+.glow-hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-2xl);
+  line-height: 1.15;
+  color: var(--text);
+  text-wrap: balance;
+}
+.glow-hero__body {
+  margin: 0;
+  font-size: var(--fs-base);
+  color: var(--text-muted);
+}
+.glow-hero__stats {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.glow-hero__stats li {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  padding: var(--space-1) var(--space-3);
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+.glow-hero__stats strong {
+  color: var(--accent);
+  font-size: var(--fs-sm);
+}
+.install {
+  display: grid;
+  gap: var(--space-2);
+}
+.install__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  font-size: var(--fs-base);
+}
+.install__icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 7px;
+}
+.install__hint,
+.install__done {
+  margin: 0;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}
+.install__done {
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  color: var(--botanical);
+}
+.install__steps {
+  margin: 0;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-size: var(--fs-sm);
+  color: var(--text);
+}
+.install__steps-title {
+  margin: 0 0 var(--space-1);
+  font-weight: 700;
+}
+.install__steps ol {
+  margin: 0;
+  padding-left: 1.3em;
+}
+.glow-hero__quest {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: var(--tap);
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--violet-wash);
+  color: var(--text);
+  text-decoration: none;
+}
+.glow-hero__quest img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  flex: none;
+}
+.glow-hero__quest-title {
+  display: block;
+  font-weight: 700;
+  font-size: var(--fs-base);
+  color: var(--violet);
+}
+.glow-hero__quest-body {
+  display: block;
+  font-size: var(--fs-xs);
+  color: var(--text-muted);
+}

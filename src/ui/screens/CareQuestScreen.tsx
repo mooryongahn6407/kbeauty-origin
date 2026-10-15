@@ -74,6 +74,7 @@ import { GiftCard, StreakBadge } from '../components/Collection';
 import { Companion, CompanionSays, SpeechBubble } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
 import { SceneHero } from '../components/SceneHero';
+import { GlowHero } from '../components/GlowHero';
 import { spokenFallback } from '../spoken-fallback';
 import { pick } from '../pick';
 import { PARTNER_PARAM } from '@/app/partner';
@@ -114,12 +115,15 @@ const fill = (text: string, params: Record<string, string>) =>
 export function CareQuestScreen({
   locale,
   partner = null,
+  fromSkinQuest = false,
   onExplore,
   onOpenIngredient,
   onOpenProduct,
 }: {
   locale: string;
   partner?: string | null;
+  /** Arrived from SKIN QUEST's "learn more" link (`?from=skinquest`). */
+  fromSkinQuest?: boolean;
   onExplore: () => void;
   onOpenIngredient: (id: string) => void;
   onOpenProduct: (sku: string) => void;
@@ -188,13 +192,13 @@ export function CareQuestScreen({
       translate('skinquest.welcome.promise', locale),
     ].join(' ');
     return (
-      <section className="quest quest--welcome" aria-labelledby="quest-hello">
-        <SceneHero src="/gemini/A-01.jpg" focus="50% 30%" />
+      <section className="quest quest--welcome" aria-labelledby="glow-hero-title">
+        <GlowHero locale={locale} partner={partner} fromSkinQuest={fromSkinQuest} />
         <Companion mood="calm" size={116} />
         <SpeechBubble>
-          <h1 id="quest-hello" className="bubble__hello">
+          <h2 id="quest-hello" className="bubble__hello">
             {translate('skinquest.welcome.hello', locale)}
-          </h1>
+          </h2>
           <p className="bubble__prompt">{translate('skinquest.welcome.guide', locale)}</p>
           <p className="bubble__help">{translate('skinquest.welcome.promise', locale)}</p>
           <ReadAloud
@@ -225,6 +229,7 @@ export function CareQuestScreen({
   if (state.phase === 'tracks') {
     return (
       <section className="quest care-tracks" aria-labelledby="tracks-title">
+        <GlowHero locale={locale} partner={partner} fromSkinQuest={fromSkinQuest} compact />
         <CompanionSays>
           <p className="bubble__prompt" id="tracks-title">
             {t(QUEST_TEXT.chooseTrack)}

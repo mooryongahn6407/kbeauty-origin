@@ -6,6 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>GLOW Class · KOREA GLOW</title>
     <meta name="description" content="Learn Beauty. Know Yourself. Choose Better." />
+    <!-- Home-screen install: manifest for Android/Chrome, apple-* tags for iPhone's "Add to Home
+         Screen". No service worker on purpose — a caching worker can pin an old version of the
+         app on a phone, and installing does not need one. -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <meta name="theme-color" content="#a33753" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="GLOW Class" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   </head>
   <body>
     <div id="root"></div>
