@@ -12,7 +12,7 @@ import { BASE_LOCALE } from './locales';
 export type MessageKey = keyof typeof MESSAGES_EN;
 
 const MESSAGES_EN = {
-  'app.title': 'Beauty Learning World',
+  'app.title': 'GLOW Class',
   'app.brand': 'KOREA GLOW',
   'app.northStar': 'Learn Beauty. Know Yourself. Choose Better.',
 
@@ -777,7 +777,7 @@ const MESSAGES_EN = {
  * Keys with no entry fall back to English and the UI reports the fallback.
  */
 const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
-  'app.title': '뷰티 러닝 월드',
+  'app.title': 'GLOW Class',
   'app.northStar': '뷰티를 배우고, 나를 알고, 더 잘 선택하기.',
 
   'nav.mySkin': '마이 스킨',
@@ -1504,7 +1504,7 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
  * fallback stated on screen rather than passed off as a translation.
  */
 const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
-  'app.title': 'Le Monde de la Beauté',
+  'app.title': 'GLOW Class',
   'app.northStar': 'Apprendre la beauté. Se connaître. Mieux choisir.',
 
   'nav.mySkin': 'Ma peau',
@@ -2242,7 +2242,7 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
  * Replacing this with reviewed text is a market task, not an engineering one (SR-014).
  */
 const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
-  'app.title': 'ໂລກແຫ່ງການຮຽນຮູ້ຄວາມງາມ',
+  'app.title': 'GLOW Class',
   'app.northStar': 'ຮຽນຮູ້ຄວາມງາມ. ຮູ້ຈັກຕົນເອງ. ເລືອກໃຫ້ດີຂຶ້ນ.',
 
   'nav.mySkin': 'ຜິວຂອງຂ້ອຍ',
@@ -2972,7 +2972,7 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
  * UNREVIEWED_DRAFT and the app says so while it is selected.
  */
 const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
-  'app.title': 'โลกแห่งการเรียนรู้ความงาม',
+  'app.title': 'GLOW Class',
   'app.northStar': 'เรียนรู้ความงาม รู้จักตัวเอง เลือกได้ดีขึ้น',
 
   'nav.mySkin': 'ผิวของฉัน',

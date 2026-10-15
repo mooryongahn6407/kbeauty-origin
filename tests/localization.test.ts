@@ -88,8 +88,8 @@ describe('UI message catalog', () => {
     // U+0E80–U+0EFF is the Lao block. A key that slipped through untranslated would be pure
     // Latin and is caught here rather than in a screenshot.
     const lao = /[\u0E80-\u0EFF]/;
-    // The brand name is the same in every catalog on purpose: a brand is not translated.
-    const NOT_TRANSLATED = ['app.brand'];
+    // Brand and product names are the same in every catalog on purpose: a brand is not translated.
+    const NOT_TRANSLATED = ['app.brand', 'app.title'];
     const latinOnly = messageKeys
       .filter((key) => !NOT_TRANSLATED.includes(key))
       .filter((key) => !lao.test(translate(key, 'lo')));
@@ -113,7 +113,7 @@ describe('UI message catalog', () => {
     // different set of code points, so a Thai string cannot pass this check by accident of
     // sharing Lao's.
     const thai = /[\u0E00-\u0E7F]/;
-    const NOT_TRANSLATED = ['app.brand'];
+    const NOT_TRANSLATED = ['app.brand', 'app.title'];
     const latinOnly = messageKeys
       .filter((key) => !NOT_TRANSLATED.includes(key))
       .filter((key) => !thai.test(translate(key, 'th')));

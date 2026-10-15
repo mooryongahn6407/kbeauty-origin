@@ -213,7 +213,7 @@ export function App() {
                 onClick={() => go('quest')}
                 aria-current={onQuest ? 'page' : undefined}
               >
-                {translate('app.brand', locale)}
+                {translate('app.title', locale)}
               </button>
               <button
                 type="button"
