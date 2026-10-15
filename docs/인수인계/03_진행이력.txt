@@ -1,0 +1,92 @@
+2026-10-15  53e828a  docs: record v10.15 and the next steps toward daily-return learning
+2026-10-15  cce382c  Serve the web app manifest with its own content type
+2026-10-15  728d4c1  v10.15: GLOW Class hero, home-screen install, and the SKIN QUEST link
+2026-10-15  3c7c016  v10.14: rename the learning app to GLOW Class
+2026-10-15  16c70ff  docs: Skin Quest face-only redesign brief, app name options, pause until Sunday
+2026-10-14  ca84c58  v10.13: add body-details lesson (stretch marks, chapped hands, cracked heels)
+2026-10-14  9270ce5  docs: record the hair/body content plan artifact
+2026-10-14  ae8e725  v10.12: add hair-damage, hair-shedding, and body-acne/sweat lessons
+2026-10-14  0c5a2ad  v10.11: add scalp-care and body-care lessons
+2026-10-14  ff6b7a5  docs: record the review checklist artifact and next-build priorities
+2026-10-14  d0b8c92  v10.9: add the owner's 6 Google Flow videos to the skin lessons
+2026-10-14  2be96b2  v10.8: fix the voice-button inconsistency, add photos + voice to the ingredient dictionary
+2026-10-14  a7a2887  v10.7.3: fix the partner report always coming back empty
+2026-10-14  00ed904  docs: note the PARTNER_REPORT_KEY env-var fix, trigger a redeploy
+2026-10-14  0e5597f  docs: record v10.7/v10.7.1, owner's three decisions, test count
+2026-10-14  499d039  v10.7.1: fix the voice switch freezing on "no voice" before Chrome loads its list
+2026-10-14  1cb8ef8  v10.7: partner-code visit counting, decision ② implemented
+2026-10-14  eb247b0  docs: record the v10.6 completion audit report and pending owner decisions
+2026-10-14  dab9491  v10.6.1: place the unused C-03 photo, test that every owner photo is used
+2026-10-14  2c304a4  v10.6: second photo set, completion audit, why-this-type and look-again
+2026-10-13  f891d42  v10.5: real-skin photos in the Care Quest (9 of the owner's 12)
+2026-10-13  05889e6  v10.4: continue a Care Quest track where you left off
+2026-10-12  d7a0b11  v10.3: send a Care Quest result to a partner shop
+2026-10-12  0562270  v10.2: the owner's Gemini pictures in the app; C icon prompts fixed
+2026-10-12  db693f5  Memory: v10/v10.1 Care Quest recorded (03, 04, 05, 07)
+2026-10-12  ff71010  v10.1: Care Quest scalp & hair and body tracks; six skin lessons
+2026-10-12  4a5605b  v10: Skin Quest rebuilt as Care Quest — face track first
+2026-10-12  c1a5e7d  Videos v3: all 13 owner photos used; partner-types scene becomes a photo grid
+2026-10-12  bcfafa9  v9.1: the owner's photos at the top of six reading screens; two styled product photos
+2026-10-12  9606e44  Videos v2: the owner's photos in the opening scenes; engine photo position option
+2026-10-12  cc18d6e  v9: Partner Academy — five short lessons for partner shops
+2026-10-12  2bf7a4d  Resume card: point to the copy-button prompt page
+2026-10-11  84412d7  v8.2: the owner's photos on the three guide cards that had only an emoji
+2026-10-11  9ddd9a3  Prepare for a fresh session: resume card, video tools, owner's scene photos
+2026-10-11  8f790a1  Record v8/v8.1, the narrated videos and the market research in project memory
+2026-10-11  9e00725  v8.1: partner post checker — points at risky words before a partner posts
+2026-10-11  3e8d439  v8: compare two labels, a questions list for the shop, and 'how this app works'
+2026-10-11  cc4dfab  Record where today's videos were delivered
+2026-10-11  a831a8e  Record v7 (label photos) and the three videos in project memory
+2026-10-11  7a24da4  v7: back-label photos for 62 products, all 92 products now have a photo
+2026-10-11  b9c7e9d  Prepare a back-label photo gallery on each product page
+2026-10-11  26c3cd3  Record the owner's decisions: Lumina Noy's 8/25 face is canonical; Lao review is in hand
+2026-10-11  b718ace  Show Lumina Noy as the company's real AI-model photo instead of a drawing
+2026-10-11  8f8f822  Record where the Lumina Noi photos live and where they will arrive
+2026-10-11  c8b1fa6  Turn the app into a picture-led beauty guide with real content
+2026-10-11  a16ac4b  Record why the live site may not open on the owner's devices, and the domain fix
+2026-10-11  4c772e2  Correct the deploy record: Netlify does build main, and the live site is now checked directly
+2026-10-11  a993018  Add a shop-wide partner QR code, and correct the record on how the site deploys
+2026-10-10  d5dd099  Let a partner show or save a product's QR code, with their shop code in it
+2026-10-10  3cc8ccb  Give every product the shop sells a page that reads its back label
+2026-10-08  b6734c2  Show where AHA, BHA and PHA appear on the labels of products the shop sells
+2026-10-07  8ad82ba  Record the decision to stay and receive desktop assets through Drive
+2026-10-07  1e0521e  Add move guide to project memory, and correct the earlier disconnected-rooms claim
+2026-10-05  58074cc  Update project memory: resolved decisions, TTS environment limits, v1 history
+2026-10-05  1c2fd46  Update project memory with this session's photo-wiring and deploy
+2026-10-05  17065d8  Wire real sunscreen label photos into Sun Protection, framed as evidence not advice
+2026-10-04  1b2e54a  Flag each ingredient's verification state visibly, not just in a hidden field
+2026-10-04  345d51b  Wire 4 real product-label photos into the Ingredient Garden catalog
+2026-09-29  e413cee  Add a second accent colour so ingredient learning isn't the same pink as everything else
+2026-09-29  fc177e9  Translate routine description labels out of raw Korean too
+2026-09-29  0d5892f  Translate routine-step and ingredient-function labels out of raw Korean
+2026-09-29  5d50258  Refresh memory: main now includes partner codes and lesson disclosure
+2026-09-29  cf972ae  Merge partner-code and lesson-disclosure changes into main
+2026-09-28  ca149c0  Open each lesson on the lesson, with its audit trail behind one closed disclosure
+2026-09-28  6c74f8d  Print the partner shop's code on the gift card
+2026-09-23  2c34cae  Say the concern in the reader's language, and draw a person on the map (#10)
+2026-09-23  974a2af  Let LUMINA speak on every step, not only at the door (#9)
+2026-09-22  9e8e21e  Update the memory for the hand-off, and record the weekly report (#8)
+2026-09-21  da677c9  Add docs/기억 — the memory this project keeps between sessions (#7)
+2026-09-21  92e67c0  Let LUMINA NOY introduce herself, and drop the jargon from the room names (#6)
+2026-09-21  df9b2fe  Put language and voice at the top, and fix the type and colour (#5)
+2026-09-20  f6e0046  Add netlify.toml so the app can also be hosted on Netlify
+2026-09-19  03f134e  Fix mobile tap targets and horizontal overflow found in post-deploy self-check
+2026-09-18  a4c5333  Merge pull request #2: Deploy to GitHub Pages
+2026-09-18  6d330a8  Deploy to GitHub Pages, so there is a live link to open
+2026-09-18  f959a28  Merge pull request #1: KOREA GLOW Beauty Learning World — initial build
+2026-09-18  77d2a55  Fix three defects found in self-review before merge: epoch-stamped safety events, and a mispronounced label in SafetyNotice
+2026-09-18  7809298  Add CI: typecheck, test, build and verify:sources on every PR
+2026-09-18  42b59ec  Add Thai UI catalog; Lao speech falls back to it, never to Lao script
+2026-09-18  70f28c9  Add the Lao UI catalog, labelled as the unreviewed draft it is
+2026-09-18  975a223  Make the app legible: type scale, dark theme, read-aloud, French
+2026-09-18  4bb13a1  Fire lesson_started and lesson_completed, and stamp them with the real time
+2026-09-18  103e079  Make the four learning reducers pure; drain events once per transition
+2026-09-18  4f81d77  Add Quests & Mastery: quest map, cross-lesson mastery ledger, no invented points
+2026-09-18  d0c7c39  Add AI Tutor: knowledge retriever, mode contracts, and the Constitution §16 eval suite
+2026-09-18  f0a6c61  Add Label Detective: label sorting exercise with specific, warm corrections
+2026-09-18  6049670  Add Sun Protection: exposure log, evidence-position panel, URL-derived evidence mapping
+2026-09-18  5719247  Add product proposal register and systematised numeric consistency audit
+2026-09-18  8c76287  Add Routine Studio: governed routine catalog, reflection tool, reasoning lesson
+2026-09-18  081e21c  Add Ingredient Garden: catalog, real quest wiring, availability gate, literacy lesson
+2026-09-18  34ed3b4  Initialize Beauty Learning World: architecture, governance gates, first learning slice
+2026-04-03  12f6a44  Add files via upload
