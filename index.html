@@ -18,7 +18,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <!-- Shown at once on a slow connection, replaced by the app as soon as it has loaded. -->
+      <p style="margin:0;padding:48px 20px;font:600 18px/1.5 system-ui,sans-serif;color:#0D1B3E;background:#FBF1E3;text-align:center">
+        GLOW Class · KOREA GLOW<br />
+        <span style="font-weight:400;font-size:16px">Loading… · 불러오는 중… · ກຳລັງໂຫຼດ… · กำลังโหลด… · Chargement…</span>
+      </p>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
