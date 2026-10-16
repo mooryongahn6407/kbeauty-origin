@@ -24,6 +24,8 @@ import {
   CLEAR_MARGIN,
   HISTORY_KEEP,
   careQuestReducer,
+  playTrackFromSearch,
+  startingCareQuest,
   compareWithPrevious,
   initialCareQuest,
   loadHistory,
@@ -641,5 +643,29 @@ describe('looking again and comparing with last time', () => {
     expect(loadHistory(storage)).toEqual({});
     storage.setItem('korea-glow:care-quest:history:v1', '{"face":[1,{"answers":{"a":[2,"b"]}}]}');
     expect(loadHistory(storage)).toEqual({ face: [{ at: null, answers: { a: ['b'] } }] });
+  });
+});
+
+describe('game door (?play) — where play.korea-glow.com forwards', () => {
+  it('opens the face track by default, and the scalp or body track when named', () => {
+    expect(playTrackFromSearch('?play')).toBe('face');
+    expect(playTrackFromSearch('?play=&p=VTE-01')).toBe('face');
+    expect(playTrackFromSearch('?play=SCALP')).toBe('scalp');
+    expect(playTrackFromSearch('?play=body')).toBe('body');
+  });
+
+  it('is no door without ?play, or with a track that does not exist', () => {
+    expect(playTrackFromSearch('')).toBeNull();
+    expect(playTrackFromSearch('?from=skinquest')).toBeNull();
+    expect(playTrackFromSearch('?play=hands')).toBeNull();
+  });
+
+  it('starts on the first question of that track, with nothing answered yet', () => {
+    const start = startingCareQuest('face');
+    expect(start.phase).toBe('steps');
+    expect(start.track).toBe('face');
+    expect(start.stepIndex).toBe(0);
+    expect(start.answers).toEqual({});
+    expect(startingCareQuest(null)).toEqual(initialCareQuest);
   });
 });

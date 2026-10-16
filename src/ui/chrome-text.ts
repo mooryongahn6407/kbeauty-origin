@@ -1,0 +1,92 @@
+/**
+ * Words for the KG-APP-BASE chrome (bottom bar, settings, button guide, help desk, update line).
+ * Korean and English are the base; Lao, Thai and French are unreviewed drafts, and the app
+ * already says so at the top of every screen in those languages.
+ */
+import { L } from '@/content/care-quest/common';
+import type { Localized } from '@/content/care-quest/types';
+
+export const CHROME: Readonly<Record<string, Localized>> = {
+  whyLabel: L('성분표 근거', 'On the label', 'ໃນສະຫຼາກ', 'บนฉลาก', "Sur l'étiquette"),
+  nth: L('{n}번째', 'no. {n}', 'ທີ {n}', 'ลำดับ {n}', 'n° {n}'),
+  prev: L('이전', 'Back', 'ກັບຄືນ', 'ย้อนกลับ', 'Retour'),
+  next: L('다음', 'Next', 'ຕໍ່ໄປ', 'ถัดไป', 'Suivant'),
+  skip: L('건너뛰기', 'Skip', 'ຂ້າມ', 'ข้าม', 'Passer'),
+  restart: L('다시 하기', 'Play again', 'ເຮັດໃໝ່', 'เล่นอีกครั้ง', 'Recommencer'),
+  first: L('처음으로', 'Start', 'ເລີ່ມຕົ້ນ', 'หน้าแรก', 'Début'),
+  home: L('홈', 'Home', 'ໜ້າຫຼັກ', 'หน้าหลัก', 'Accueil'),
+  settings: L('설정', 'Settings', 'ຕັ້ງຄ່າ', 'ตั้งค่า', 'Réglages'),
+  close: L('닫기', 'Close', 'ປິດ', 'ปิด', 'Fermer'),
+  confirmFirst: L(
+    '처음으로 갈까요? 지금까지의 답은 저장돼요.',
+    'Go back to the start? Your answers so far are saved.',
+    'ກັບໄປໜ້າທຳອິດບໍ? ຄຳຕອບທີ່ຜ່ານມາຖືກບັນທຶກໄວ້ແລ້ວ.',
+    'กลับไปหน้าแรกไหม? คำตอบที่ตอบไปแล้วถูกบันทึกไว้',
+    'Revenir au début ? Vos réponses sont enregistrées.',
+  ),
+  backAgainToLeave: L(
+    '한 번 더 누르면 앱을 나가요.',
+    'Press back once more to leave the app.',
+    'ກົດກັບຄືນອີກເທື່ອໜຶ່ງເພື່ອອອກຈາກແອັບ.',
+    'กดย้อนกลับอีกครั้งเพื่อออกจากแอป',
+    'Appuyez encore sur retour pour quitter.',
+  ),
+  // Settings
+  sLanguage: L('언어', 'Language', 'ພາສາ', 'ภาษา', 'Langue'),
+  sDisplay: L('화면·글씨 크기', 'Screen and text size', 'ໜ້າຈໍ ແລະ ຂະໜາດຕົວໜັງສື', 'หน้าจอและขนาดตัวอักษร', 'Affichage et taille du texte'),
+  sSound: L('소리', 'Sound', 'ສຽງ', 'เสียง', 'Son'),
+  sInstall: L('홈 화면에 저장', 'Save to home screen', 'ບັນທຶກໃສ່ໜ້າຈໍຫຼັກ', 'บันทึกไว้ที่หน้าจอหลัก', "Ajouter à l'écran d'accueil"),
+  sUpdate: L('새 버전 확인', 'Check for a new version', 'ກວດເບິ່ງເວີຊັນໃໝ່', 'ตรวจหาเวอร์ชันใหม่', 'Chercher une nouvelle version'),
+  sUpToDate: L('지금이 최신 버전이에요.', 'You have the latest version.', 'ນີ້ແມ່ນເວີຊັນລ່າສຸດແລ້ວ.', 'นี่คือเวอร์ชันล่าสุดแล้ว', 'Vous avez la dernière version.'),
+  sGuide: L('버튼 안내 다시 보기', 'See the button guide again', 'ເບິ່ງຄຳແນະນຳປຸ່ມອີກຄັ້ງ', 'ดูคำแนะนำปุ่มอีกครั้ง', 'Revoir le guide des boutons'),
+  sHelp: L('고객센터', 'Help desk', 'ສູນບໍລິການລູກຄ້າ', 'ศูนย์ช่วยเหลือ', 'Assistance'),
+  sApps: L('KOREA GLOW 다른 앱', 'Other KOREA GLOW apps', 'ແອັບອື່ນຂອງ KOREA GLOW', 'แอปอื่นของ KOREA GLOW', 'Autres apps KOREA GLOW'),
+  sVersion: L('버전', 'Version', 'ເວີຊັນ', 'เวอร์ชัน', 'Version'),
+  appSkinQuest: L('SKIN QUEST — 3분 피부 게임 (이 앱 안)', 'SKIN QUEST — 3-minute skin game (in this app)', 'SKIN QUEST — ເກມຜິວ 3 ນາທີ (ໃນແອັບນີ້)', 'SKIN QUEST — เกมผิว 3 นาที (ในแอปนี้)', 'SKIN QUEST — jeu de peau en 3 min (dans cette app)'),
+  appSmartBuy: L('KOREA SMART BUY — 한국 정품 쇼핑', 'KOREA SMART BUY — genuine Korean products', 'KOREA SMART BUY — ສິນຄ້າເກົາຫຼີແທ້', 'KOREA SMART BUY — สินค้าเกาหลีของแท้', 'KOREA SMART BUY — produits coréens authentiques'),
+  appLaoBridge: L('LAO BRIDGE — 말 배우기', 'LAO BRIDGE — learn languages', 'LAO BRIDGE — ຮຽນພາສາ', 'LAO BRIDGE — เรียนภาษา', 'LAO BRIDGE — apprendre les langues'),
+  // Update line
+  updateReady: L('새 버전이 있어요', 'A new version is ready', 'ມີເວີຊັນໃໝ່ແລ້ວ', 'มีเวอร์ชันใหม่แล้ว', 'Une nouvelle version est prête'),
+  updateApply: L('지금 적용', 'Update now', 'ອັບເດດດຽວນີ້', 'อัปเดตตอนนี้', 'Mettre à jour'),
+  // Button guide (3 cards)
+  g1t: L('아래 막대로 움직여요', 'Move with the bar at the bottom', 'ເລື່ອນດ້ວຍແຖບລຸ່ມ', 'เลื่อนด้วยแถบด้านล่าง', 'Avancez avec la barre du bas'),
+  g1b: L(
+    '이전 · 다음(건너뛰기) · 처음으로. 휴대폰의 «뒤로» 버튼도 똑같이 돼요.',
+    'Back · Next (or Skip) · Start. Your phone’s back button works the same way.',
+    'ກັບຄືນ · ຕໍ່ໄປ (ຫຼື ຂ້າມ) · ເລີ່ມຕົ້ນ. ປຸ່ມກັບຄືນຂອງໂທລະສັບກໍໃຊ້ໄດ້ຄືກັນ.',
+    'ย้อนกลับ · ถัดไป (หรือข้าม) · หน้าแรก ปุ่มย้อนกลับของโทรศัพท์ก็ใช้ได้เหมือนกัน',
+    'Retour · Suivant (ou Passer) · Début. Le bouton retour du téléphone marche aussi.',
+  ),
+  g2t: L('위에는 홈과 설정', 'Home and Settings at the top', 'ໜ້າຫຼັກ ແລະ ຕັ້ງຄ່າ ຢູ່ດ້ານເທິງ', 'หน้าหลักและตั้งค่าอยู่ด้านบน', 'Accueil et Réglages en haut'),
+  g2b: L(
+    '홈은 첫 화면으로, 설정에서는 언어·글씨 크기·소리·홈 화면 저장·고객센터를 바꿀 수 있어요.',
+    'Home takes you to the first screen. Settings has language, text size, sound, save to home screen and the help desk.',
+    'ໜ້າຫຼັກພາກັບໄປໜ້າທຳອິດ. ຕັ້ງຄ່າມີ ພາສາ, ຂະໜາດຕົວໜັງສື, ສຽງ, ບັນທຶກໃສ່ໜ້າຈໍ ແລະ ສູນບໍລິການ.',
+    'หน้าหลักพากลับไปหน้าแรก ตั้งค่ามีภาษา ขนาดตัวอักษร เสียง บันทึกที่หน้าจอ และศูนย์ช่วยเหลือ',
+    "Accueil ramène au premier écran. Réglages : langue, taille du texte, son, écran d'accueil et assistance.",
+  ),
+  g3t: L('언제든 다시 볼 수 있어요', 'You can see this again any time', 'ເບິ່ງຄືນໄດ້ທຸກເວລາ', 'ดูอีกครั้งได้ทุกเมื่อ', 'Revoyez-le quand vous voulez'),
+  g3b: L(
+    '이 안내는 설정 › «버튼 안내 다시 보기»에 있어요.',
+    'This guide lives in Settings › “See the button guide again”.',
+    'ຄຳແນະນຳນີ້ຢູ່ໃນ ຕັ້ງຄ່າ › «ເບິ່ງຄຳແນະນຳປຸ່ມອີກຄັ້ງ».',
+    'คำแนะนำนี้อยู่ใน ตั้งค่า › «ดูคำแนะนำปุ่มอีกครั้ง»',
+    'Ce guide se trouve dans Réglages › « Revoir le guide des boutons ».',
+  ),
+  gDone: L('시작하기', 'Got it', 'ເຂົ້າໃຈແລ້ວ', 'เข้าใจแล้ว', "C'est compris"),
+  // Help desk
+  hIntro: L(
+    '앱이 열리지 않거나, 틀린 내용이 있거나, 꼭 필요한 기능 제안이 있을 때만 보내 주세요. 간단히 적어 주시면 바로 고치겠습니다. 고맙습니다.',
+    'Please write only when the app will not open, something is wrong, or there is a feature you really need. A short note is enough and we will fix it quickly. Thank you.',
+    'ກະລຸນາສົ່ງສະເພາະເມື່ອແອັບເປີດບໍ່ໄດ້, ມີຂໍ້ມູນຜິດ, ຫຼື ມີຄຳແນະນຳທີ່ຈຳເປັນ. ຂຽນສັ້ນໆກໍພໍ ພວກເຮົາຈະແກ້ໄຂໄວ. ຂອບໃຈ.',
+    'กรุณาส่งเฉพาะเมื่อแอปเปิดไม่ได้ มีข้อมูลผิด หรือมีฟีเจอร์ที่จำเป็นจริงๆ เขียนสั้นๆ ก็พอ เราจะรีบแก้ไข ขอบคุณค่ะ',
+    "Écrivez-nous seulement si l'app ne s'ouvre pas, si quelque chose est faux, ou pour une fonction vraiment utile. Une courte note suffit, nous corrigeons vite. Merci.",
+  ),
+  hKind: L('어떤 일인가요?', 'What is it about?', 'ເລື່ອງຫຍັງ?', 'เรื่องอะไร?', 'De quoi s’agit-il ?'),
+  hError: L('오류', 'Error', 'ຂໍ້ຜິດພາດ', 'ข้อผิดพลาด', 'Erreur'),
+  hWrong: L('틀린 내용', 'Wrong information', 'ຂໍ້ມູນຜິດ', 'ข้อมูลผิด', 'Information fausse'),
+  hIdea: L('기능 제안', 'Feature idea', 'ແນະນຳຟັງຊັນ', 'เสนอฟีเจอร์', 'Idée de fonction'),
+  hNote: L('한 줄로 적어 주세요 (필수)', 'Write one line (required)', 'ຂຽນໜຶ່ງແຖວ (ຈຳເປັນ)', 'เขียนหนึ่งบรรทัด (จำเป็น)', 'Écrivez une ligne (obligatoire)'),
+  hSend: L('WhatsApp으로 보내기', 'Send on WhatsApp', 'ສົ່ງທາງ WhatsApp', 'ส่งทาง WhatsApp', 'Envoyer sur WhatsApp'),
+  hLimit: L('오늘은 이미 보내 주셨어요. 고맙습니다.', 'You have already written to us today. Thank you.', 'ມື້ນີ້ທ່ານສົ່ງມາແລ້ວ. ຂອບໃຈ.', 'วันนี้คุณส่งมาแล้ว ขอบคุณค่ะ', "Vous nous avez déjà écrit aujourd'hui. Merci."),
+};

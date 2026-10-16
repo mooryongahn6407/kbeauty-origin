@@ -99,7 +99,12 @@ open(out, 'w').write('''/**
  * They are the master's AI-assisted analysis, not reviewed by an expert yet, and the screen
  * labels them that way. `names` (Lao, Thai, French) and `photo` come from the company site.
  */
+import { OWNER_ADDITIONS } from './store-catalog-owner';
 import type { StoreProduct } from './store-catalog-types';
 
-export const storeCatalog: readonly StoreProduct[] = ''' + body + ';\n')
+const generatedCatalog: readonly StoreProduct[] = ''' + body + ''';
+
+/** The generated list plus anything the owner put on the shelf from the company master. */
+export const storeCatalog: readonly StoreProduct[] = [...generatedCatalog, ...OWNER_ADDITIONS];
+''')
 print(len(rows))

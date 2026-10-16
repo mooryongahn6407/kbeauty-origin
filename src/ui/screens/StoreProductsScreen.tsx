@@ -36,6 +36,8 @@ import {
   searchCatalog,
   storeCategories,
   type LabelEntry,
+  displayCode,
+  showcaseOrder,
 } from '@/app/store-catalog';
 import { PARTNER_PARAM, normalizePartnerCode, shopLink } from '@/app/partner';
 import { ReadAloud } from '../components/ReadAloud';
@@ -179,7 +181,9 @@ function ProductList({
   const categories = useMemo(storeCategories, []);
   const results = useMemo(
     () =>
-      searchCatalog(query).filter((product) => category === '' || product.category === category),
+      showcaseOrder(
+        searchCatalog(query).filter((product) => category === '' || product.category === category),
+      ),
     [query, category],
   );
   const prompt = translate('store.prompt', locale, {
@@ -267,6 +271,9 @@ function ProductList({
               <li key={item.sku}>
                 <button type="button" className="store-item" onClick={() => onOpen(item.sku)}>
                   <ProductPhoto product={item} locale={locale} className="store-item__photo" />
+                  {displayCode(item.sku) ? (
+                    <span className="store-item__code">{displayCode(item.sku)}</span>
+                  ) : null}
                   <span className="store-item__brand">{item.brand}</span>
                   <span className="store-item__name">{primaryName(item, locale)}</span>
                   {secondary ? <span className="store-item__alt">{secondary}</span> : null}

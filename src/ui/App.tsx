@@ -20,7 +20,7 @@
  *   they are for whoever owns the content, not for someone looking at their own skin. The rule
  *   they enforce is unchanged: nothing unverified is ever stated as fact anywhere.
  */
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { isUnreviewedCatalog, translate, type MessageKey } from '@/localization/messages';
 import { applyPreferences, loadPreferences, savePreferences } from './preferences';
 import { DisplaySettings } from './components/DisplaySettings';
@@ -56,6 +56,19 @@ import {
 } from './screens/GuideTopicScreens';
 import { storeCatalog } from '@/content/store-catalog';
 import { productFromSearch } from '@/app/store-catalog';
+import { playTrackFromSearch } from '@/app/care-quest';
+import { APP_VERSION, buttonGuideSeen, markButtonGuideSeen, type QuestNav } from '@/app/app-chrome';
+import {
+  BottomBar,
+  ButtonGuide,
+  HelpDesk,
+  Icon,
+  Sheet,
+  UpdateCheck,
+  UpdateLine,
+  chromeText,
+} from './components/AppChrome';
+import { InstallButton, SKIN_QUEST_URL } from './components/GlowHero';
 
 type ScreenId =
   | 'quest'
@@ -133,7 +146,13 @@ export function App() {
   const [focusSku, setFocusSku] = useState<string | null>(linkedProduct);
   const [focusIngredient, setFocusIngredient] = useState<string | null>(null);
   const [focusKey, setFocusKey] = useState(0);
-  const go = (next: ScreenId) => {
+  // KG-APP-BASE: «Back» (the bar's and the phone's) walks back through the screens visited.
+  const stackRef = useRef<ScreenId[]>([]);
+  const screenRef = useRef<ScreenId>(screen);
+  screenRef.current = screen;
+  const go = (next: ScreenId, remember = true) => {
+    if (remember && next !== screenRef.current) stackRef.current.push(screenRef.current);
+    if (next === 'quest') stackRef.current = [];
     setScreen(next);
     if (next !== 'store') setFocusSku(null);
     if (next !== 'dictionary') setFocusIngredient(null);
@@ -154,11 +173,28 @@ export function App() {
   // cost a phone screen's whole top third before the first question is even visible. Folded
   // away they are one tap, and the question is the first thing on the screen.
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(() =>
+    typeof localStorage === 'undefined' ? false : !buttonGuideSeen(localStorage),
+  );
+  const closeGuide = () => {
+    if (typeof localStorage !== 'undefined') markButtonGuideSeen(localStorage);
+    setGuideOpen(false);
+  };
+  const [questNav, setQuestNav] = useState<QuestNav | null>(null);
+  const questNavRef = useRef<QuestNav | null>(null);
+  questNavRef.current = questNav;
+  const onNav = useCallback((nav: QuestNav | null) => setQuestNav(nav), []);
+  const [toast, setToast] = useState<string | null>(null);
   // SKIN QUEST's "learn more" link lands here with ?from=skinquest — greeted as such, once.
   const [fromSkinQuest] = useState(
     () =>
       typeof window !== 'undefined' &&
       new URLSearchParams(window.location.search).get('from') === 'skinquest',
+  );
+  // The game door (`?play`, where play.korea-glow.com forwards): straight onto the first question.
+  const [playTrack] = useState(() =>
+    playTrackFromSearch(typeof window === 'undefined' ? '' : window.location.search),
   );
   // A partner shop's link (its QR code) carries the shop's code. Read once, remembered on this
   // device, and printed only on the gift card — see src/app/partner.ts for what it is not.
@@ -182,6 +218,63 @@ export function App() {
   useEffect(() => {
     document.documentElement.lang = locale;
   }, [locale]);
+
+  const localeRef = useRef(locale);
+  localeRef.current = locale;
+  /** One step back inside the app. False only on the very first screen. */
+  const stepBack = (): boolean => {
+    if (screenRef.current === 'quest' && questNavRef.current?.canGoBack) {
+      questNavRef.current.back();
+      return true;
+    }
+    const previous = stackRef.current.pop();
+    if (previous) {
+      go(previous, false);
+      return true;
+    }
+    if (screenRef.current !== 'quest') {
+      go('quest', false);
+      return true;
+    }
+    return false;
+  };
+  const stepBackRef = useRef(stepBack);
+  stepBackRef.current = stepBack;
+
+  // The phone's back button: a guard entry in history turns «back» into an in-app step back,
+  // so the app never closes by surprise. On the first screen it asks once, then lets go.
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.history?.pushState) return;
+    let armedUntil = 0;
+    window.history.pushState({ kgGuard: true }, '');
+    const onPop = () => {
+      if (stepBackRef.current()) {
+        window.history.pushState({ kgGuard: true }, '');
+        return;
+      }
+      if (Date.now() < armedUntil) {
+        window.history.back();
+        return;
+      }
+      armedUntil = Date.now() + 2500;
+      setToast(chromeText('backAgainToLeave', localeRef.current));
+      window.history.pushState({ kgGuard: true }, '');
+    };
+    window.addEventListener('popstate', onPop);
+    return () => window.removeEventListener('popstate', onPop);
+  }, []);
+
+  useEffect(() => {
+    if (!toast) return;
+    const timer = window.setTimeout(() => setToast(null), 2500);
+    return () => window.clearTimeout(timer);
+  }, [toast]);
+
+  const goFirst = () => {
+    const inProgress = screenRef.current === 'quest' && questNavRef.current?.position;
+    if (inProgress && !window.confirm(chromeText('confirmFirst', locale))) return;
+    go('quest');
+  };
 
   const onQuest = screen === 'quest';
   const inStudyRooms =
@@ -223,17 +316,24 @@ export function App() {
               </button>
               <button
                 type="button"
-                className="settings-toggle"
-                aria-expanded={settingsOpen}
-                aria-controls="display-settings"
-                onClick={() => setSettingsOpen((open) => !open)}
+                className="kg-iconbtn"
+                onClick={goFirst}
+                aria-label={chromeText('home', locale)}
+                data-guide="home"
               >
-                {translate('display.theme', locale)} · {translate('display.textSize', locale)}
+                <Icon name="home" />
+              </button>
+              <button
+                type="button"
+                className="kg-iconbtn"
+                aria-haspopup="dialog"
+                onClick={() => setSettingsOpen(true)}
+                aria-label={chromeText('settings', locale)}
+                data-guide="settings"
+              >
+                <Icon name="gear" />
               </button>
             </div>
-          </div>
-          <div className="topbar__settings" id="display-settings" hidden={!settingsOpen}>
-            <DisplaySettings preferences={preferences} onChange={setPreferences} locale={locale} />
           </div>
         </header>
 
@@ -255,6 +355,9 @@ export function App() {
                 locale={locale}
                 partner={partner}
                 fromSkinQuest={fromSkinQuest}
+                // Only on first arrival: coming back from a lesson must not restart the quest.
+                startTrack={focusKey === 0 ? playTrack : null}
+                onNav={onNav}
                 onExplore={() => go('lessons')}
                 onOpenIngredient={openIngredient}
                 onOpenProduct={openProduct}
@@ -376,8 +479,139 @@ export function App() {
               {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
             </>
           )}
+          {onQuest ? (
+            <p className="kg-helplink">
+              <button type="button" className="kg-helplink__btn" onClick={() => setHelpOpen(true)}>
+                {chromeText('sHelp', locale)}
+              </button>
+            </p>
+          ) : null}
         </main>
+
+        <UpdateLine locale={locale} />
+        <BottomBar
+          locale={locale}
+          position={onQuest ? (questNav?.position ?? null) : null}
+          canGoBack={!onQuest || Boolean(questNav?.canGoBack)}
+          nextLabel={onQuest ? (questNav?.nextLabel ?? null) : null}
+          onPrev={() => stepBack()}
+          onNext={() => questNav?.next()}
+          onFirst={goFirst}
+        />
+        {toast ? (
+          <p className="kg-toast" role="status">
+            {toast}
+          </p>
+        ) : null}
+
+        {settingsOpen ? (
+          <Sheet title={chromeText('settings', locale)} locale={locale} onClose={() => setSettingsOpen(false)}>
+            <section className="kg-setting">
+              <h3 className="kg-setting__title">{chromeText('sLanguage', locale)}</h3>
+              <ul className="langchips" role="list">
+                {OFFERED_LOCALES.map((option) => (
+                  <li key={option.tag}>
+                    <button
+                      type="button"
+                      className="langchip"
+                      aria-pressed={locale === option.tag}
+                      lang={option.tag}
+                      onClick={() => setLocale(option.tag)}
+                    >
+                      {option.label}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            </section>
+            <section className="kg-setting">
+              <h3 className="kg-setting__title">{chromeText('sDisplay', locale)}</h3>
+              <DisplaySettings preferences={preferences} onChange={setPreferences} locale={locale} />
+            </section>
+            <section className="kg-setting">
+              <h3 className="kg-setting__title">{chromeText('sSound', locale)}</h3>
+              <VoiceSwitch locale={locale} />
+            </section>
+            <section className="kg-setting">
+              <h3 className="kg-setting__title">{chromeText('sInstall', locale)}</h3>
+              <InstallButton locale={locale} />
+            </section>
+            <section className="kg-setting">
+              <UpdateCheck locale={locale} />
+              <button
+                type="button"
+                className="kg-setting__btn"
+                onClick={() => {
+                  setSettingsOpen(false);
+                  setGuideOpen(true);
+                }}
+              >
+                {chromeText('sGuide', locale)}
+              </button>
+              <button
+                type="button"
+                className="kg-setting__btn"
+                onClick={() => {
+                  setSettingsOpen(false);
+                  setHelpOpen(true);
+                }}
+              >
+                <Icon name="chat" />
+                {chromeText('sHelp', locale)}
+              </button>
+            </section>
+            <section className="kg-setting">
+              <h3 className="kg-setting__title">{chromeText('sApps', locale)}</h3>
+              <ul className="kg-applist" role="list">
+                <li>
+                  <a className="kg-setting__btn" href={SKIN_QUEST_URL}>
+                    {chromeText('appSkinQuest', locale)}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="kg-setting__btn"
+                    href="https://buy.korea-glow.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {chromeText('appSmartBuy', locale)}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="kg-setting__btn"
+                    href="https://laobridge.korea-glow.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {chromeText('appLaoBridge', locale)}
+                  </a>
+                </li>
+              </ul>
+            </section>
+            <p className="kg-setting__version">
+              {chromeText('sVersion', locale)} {APP_VERSION}
+            </p>
+          </Sheet>
+        ) : null}
+
+        {helpOpen ? (
+          <Sheet title={chromeText('sHelp', locale)} locale={locale} onClose={() => setHelpOpen(false)}>
+            <HelpDesk
+              locale={locale}
+              screen={
+                questNav?.position
+                  ? `${screen} ${questNav.position.index}/${questNav.position.total}`
+                  : screen
+              }
+            />
+          </Sheet>
+        ) : null}
+
+        {guideOpen ? <ButtonGuide locale={locale} onDone={closeGuide} /> : null}
       </div>
     </VoiceProvider>
+
   );
 }

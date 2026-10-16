@@ -5,6 +5,7 @@
  * reader's promises: positions are printed places, an avoid hit is a printed name, and nothing
  * claims a product is free of anything.
  */
+import { OWNER_ADDITIONS } from '@/content/store-catalog-owner';
 import { existsSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { LABEL_GALLERY } from '@/content/label-gallery';
@@ -50,8 +51,8 @@ const ALLOWED_FIELDS = [
 ].sort();
 
 describe('store catalog', () => {
-  it('holds the 92 products the shop sells today, each once', () => {
-    expect(storeCatalog).toHaveLength(92);
+  it('holds the 92 generated products plus the owner shelf additions, each once', () => {
+    expect(storeCatalog).toHaveLength(92 + OWNER_ADDITIONS.length);
     const skus = storeCatalog.map((product) => product.sku);
     expect(new Set(skus).size).toBe(skus.length);
     for (const sku of skus) expect(sku).toMatch(/^KG-[A-Z]{3}-\d{5}$/);
@@ -220,7 +221,7 @@ describe('label reader', () => {
   });
 
   it('searches names, brands and ingredients, in Korean or English', () => {
-    expect(searchCatalog('')).toHaveLength(92);
+    expect(searchCatalog('')).toHaveLength(92 + OWNER_ADDITIONS.length);
     const byEnglish = searchCatalog('niacinamide');
     const byKorean = searchCatalog('나이아신아마이드');
     expect(byEnglish.length).toBeGreaterThan(0);

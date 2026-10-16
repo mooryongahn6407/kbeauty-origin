@@ -31,7 +31,7 @@ function motionAllowed(): boolean {
   return !reduced && !saveData;
 }
 
-function InstallButton({ locale }: { locale: string }) {
+export function InstallButton({ locale }: { locale: string }) {
   const [mode, setMode] = useState<InstallMode>(() => currentInstallMode());
   const [help, setHelp] = useState(false);
   useEffect(() => onInstallChange(() => setMode(currentInstallMode())), []);

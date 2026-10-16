@@ -22,6 +22,9 @@ import type {
   TypeReading,
 } from '@/content/care-quest/types';
 import type { StoreProduct } from '@/content/store-catalog-types';
+import { companyDictionary } from '@/content/company/ingredient-dictionary';
+import { printedMatches } from '@/content/company/ingredient-links';
+import { RECOMMENDABLE_SKUS } from '@/content/recommendable';
 
 export type CarePhase = 'welcome' | 'tracks' | 'steps' | 'result';
 
@@ -38,6 +41,8 @@ export type CareQuestAction =
   | { readonly type: 'choose'; readonly stepId: string; readonly choiceId: string }
   | { readonly type: 'toggle'; readonly stepId: string; readonly choiceId: string }
   | { readonly type: 'next' }
+  /** «Skip»: move on without an answer — the result treats it as unanswered, never as a guess. */
+  | { readonly type: 'skip' }
   | { readonly type: 'back' }
   | { readonly type: 'tracks' }
   | { readonly type: 'restore'; readonly track: TrackId; readonly answers: QuestAnswers }
@@ -54,6 +59,27 @@ export const initialCareQuest: CareQuestState = {
   stepIndex: 0,
   answers: {},
 };
+
+/**
+ * The game door: `?play` opens straight onto the face track's first question, skipping the
+ * greeting and the track list — the address play.korea-glow.com forwards to, so SKIN QUEST and
+ * GLOW Class are one app with one way in. `?play=scalp` / `?play=body` open those tracks.
+ * Anything that is not a track is no door, and the app opens as it always has.
+ */
+export function playTrackFromSearch(search: string): TrackId | null {
+  try {
+    const params = new URLSearchParams(search);
+    if (!params.has('play')) return null;
+    const raw = params.get('play')?.trim().toLowerCase() || 'face';
+    return CARE_TRACKS.some((track) => track.id === raw) ? (raw as TrackId) : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Where a quest begins: on a track's first question when a door named one, else the greeting. */
+export const startingCareQuest = (track: TrackId | null): CareQuestState =>
+  track ? careQuestReducer(initialCareQuest, { type: 'chooseTrack', track }) : initialCareQuest;
 
 const stepsOf = (state: CareQuestState): readonly QuestStep[] =>
   (state.track ? careTrack(state.track)?.steps : undefined) ?? [];
@@ -110,6 +136,9 @@ export function careQuestReducer(state: CareQuestState, action: CareQuestAction)
       if (!step || step.kind === 'single') return state;
       return advance(state);
     }
+
+    case 'skip':
+      return state.phase === 'steps' && currentStep(state) ? advance(state) : state;
 
     case 'back': {
       if (state.phase === 'result') {
@@ -258,26 +287,147 @@ export const governedIdsFor = (concerns: readonly CareConcern[]): readonly strin
  * routine uses — at most `limit`, photographed ones first. The catalog's notes are AI-assisted
  * and unreviewed; the screen says so beside the list.
  */
+/**
+ * Kinds the app may recommend (CEO, 2026-10-15/16): toner, essence/serum/ampoule, cream,
+ * eye care — plus sunscreen, which melasma and sun spots cannot do without. Never masks,
+ * accessories, gift sets, perfume or make-up. Scalp and body tracks keep their own kinds.
+ */
+export const RECOMMEND_CATEGORIES: ReadonlySet<string> = new Set([
+  '토너',
+  '에센스·세럼·앰플',
+  '크림',
+  '아이케어',
+  '선케어',
+  '헤어케어',
+  '바디케어',
+  '핸드크림',
+]);
+
+const EVIDENCE_WEIGHT: Readonly<Record<string, number>> = { strong: 3, moderate: 2, emerging: 1 };
+
+/** One reason a product was picked: a dictionary ingredient printed on its own label. */
+export interface LabelEvidence {
+  readonly id: string;
+  /** The name exactly as printed on the label. */
+  readonly printed: string;
+  /** 1-based place in the printed list — earlier usually means more of it. */
+  readonly position: number;
+  readonly evidence: string;
+  /** Which of the reader's concerns this ingredient is commonly used for. */
+  readonly concernIds: readonly string[];
+}
+
+/**
+ * The label evidence for these concerns: every dictionary ingredient the concerns name that
+ * this product actually prints, earliest first. Nothing is inferred from the product's name,
+ * its marketing or the master's AI-written columns — only the printed ingredient list.
+ */
+export function labelEvidence(
+  product: StoreProduct,
+  concerns: readonly CareConcern[],
+): readonly LabelEvidence[] {
+  const wanted = new Map<string, string[]>();
+  for (const concern of concerns) {
+    for (const id of concern.ingredients) wanted.set(id, [...(wanted.get(id) ?? []), concern.id]);
+  }
+  const found: LabelEvidence[] = [];
+  for (const [id, concernIds] of wanted) {
+    // A name printed with a trace amount — «(100 ppb)», «(313ppm)» — is there for the label,
+    // not for the skin: below 0.1% it earns no credit.
+    const printed = printedMatches(product, id).find((name) => !isTraceAmount(name));
+    if (!printed) continue;
+    const entry = companyDictionary.ingredients.find((ingredient) => ingredient.id === id);
+    found.push({
+      id,
+      printed,
+      position: product.inci.indexOf(printed) + 1,
+      evidence: entry?.evidence ?? 'emerging',
+      concernIds,
+    });
+  }
+  return found.sort((a, b) => a.position - b.position);
+}
+
+/**
+ * True when the printed name states an amount under 0.1% (1,000 ppm): any ppb figure, or a ppm
+ * figure below 1,000. Names without a stated amount are not judged here.
+ */
+export function isTraceAmount(printed: string): boolean {
+  const match = /([\d.,]+)\s*(ppb|ppm)/i.exec(printed);
+  if (!match) return false;
+  const value = Number(match[1]!.replace(/,/g, ''));
+  return match[2]!.toLowerCase() === 'ppb' || (Number.isFinite(value) && value < 1000);
+}
+
+/**
+ * Ranking weight for one printed ingredient: evidence strength × how high it sits on the list.
+ * Sunscreen filters count for little here: they protect against new spots but are not what fades
+ * existing ones, so a sunscreen should not outrank a serum built for the concern.
+ */
+const evidenceScore = (item: LabelEvidence): number =>
+  (item.id === 'sunscreen' ? 1 : (EVIDENCE_WEIGHT[item.evidence] ?? 1)) *
+  (item.position <= 5 ? 2 : item.position <= 10 ? 1.2 : item.position <= 20 ? 0.6 : 0.2);
+
+/** Eye-care products are offered only to someone who picked an eye-area concern. */
+const EYE_CONCERNS: ReadonlySet<string> = new Set(['darkCircles', 'eyeWrinkles']);
+
+/** At most this many picks of one kind, so the list spans serum, cream, sunscreen… */
+const PER_CATEGORY = 2;
+
+/**
+ * Products to show for these concerns. Three gates, in order:
+ *  1. the owner allows recommending it (approved price at or above the floor — RECOMMENDABLE_SKUS),
+ *  2. it is a kind the routine uses and the owner allows (RECOMMEND_CATEGORIES),
+ *  3. its printed label carries at least one ingredient the reader's concerns call for.
+ * Ranked by how many of the concerns the label covers, then evidence strength and list position;
+ * the master's AI skin-type note only breaks ties.
+ */
 export function matchProducts(
   catalog: readonly StoreProduct[],
   concerns: readonly CareConcern[],
   reading: TypeReading,
   categories: readonly string[],
   limit = 6,
+  allowed: ReadonlySet<string> = RECOMMENDABLE_SKUS,
 ): readonly StoreProduct[] {
+  if (concerns.length === 0) return [];
+  const usesIngredients = concerns.some((concern) => concern.ingredients.length > 0);
   const keys = new Set(concerns.flatMap((concern) => concern.storeKeys));
-  if (keys.size === 0) return [];
   const skin = reading.modifier ? 'sensitive' : reading.typeId;
   const scored = catalog
-    .filter((product) => product.fit && categories.includes(product.category))
+    .filter(
+      (product) =>
+        allowed.has(product.sku) &&
+        RECOMMEND_CATEGORIES.has(product.category) &&
+        categories.includes(product.category) &&
+        (product.category !== '아이케어' || concerns.some((concern) => EYE_CONCERNS.has(concern.id))),
+    )
     .map((product) => {
-      const overlap = product.fit!.concerns.filter((key) => keys.has(key)).length;
-      const skinFit = skin && product.fit!.skin.includes(skin) ? 1 : 0;
-      return { product, score: overlap * 2 + skinFit + (product.photo ? 0.5 : 0) };
+      const skinFit = skin && product.fit?.skin.includes(skin) ? 1 : 0;
+      const photo = product.photo ? 0.25 : 0;
+      if (usesIngredients) {
+        const evidence = labelEvidence(product, concerns);
+        const covered = new Set(evidence.flatMap((item) => item.concernIds)).size;
+        const strength = evidence.reduce((sum, item) => sum + evidenceScore(item), 0);
+        return { product, ok: evidence.length > 0, score: covered * 10 + strength + skinFit + photo };
+      }
+      // Tracks whose concerns name no dictionary ingredient (some scalp/body ones) fall back to
+      // the master's concern tags — still behind the price and kind gates above.
+      const overlap = product.fit ? product.fit.concerns.filter((key) => keys.has(key)).length : 0;
+      return { product, ok: overlap > 0, score: overlap * 2 + skinFit + photo };
     })
-    .filter((entry) => entry.score >= 2)
+    .filter((entry) => entry.ok)
     .sort((a, b) => b.score - a.score || a.product.sku.localeCompare(b.product.sku));
-  return scored.slice(0, limit).map((entry) => entry.product);
+  const perCategory = new Map<string, number>();
+  const picked: StoreProduct[] = [];
+  for (const { product } of scored) {
+    const used = perCategory.get(product.category) ?? 0;
+    if (used >= PER_CATEGORY) continue;
+    perCategory.set(product.category, used + 1);
+    picked.push(product);
+    if (picked.length >= limit) break;
+  }
+  return picked;
 }
 
 const SAVE_KEY = 'korea-glow:care-quest:v1';

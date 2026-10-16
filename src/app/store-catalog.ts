@@ -9,6 +9,8 @@
  * a name on a label; it never says a product is free of something, because a list that is
  * truncated, unchecked or not yet collected cannot prove an absence.
  */
+import { DISPLAY_CODES, SHOWCASE_PINS } from '@/content/display-codes';
+import { RECOMMENDABLE_SKUS } from '@/content/recommendable';
 import { storeCatalog } from '@/content/store-catalog';
 import type { StoreProduct } from '@/content/store-catalog-types';
 import { ingredientIdForPrinted, printedBase } from '@/content/inci-names';
@@ -60,7 +62,7 @@ export function searchCatalog(
   const q = fold(query);
   if (q === '') return products;
   return products.filter((product) => {
-    const names = [product.brand, product.nameKo, product.nameEn ?? '', product.sku];
+    const names = [product.brand, product.nameKo, product.nameEn ?? '', product.sku, displayCode(product.sku) ?? ''];
     if (names.some((name) => fold(name).includes(q))) return true;
     return product.inci.some((printed) => {
       if (fold(printedBase(printed)).includes(q)) return true;
@@ -224,4 +226,53 @@ export function inquiryMessage(
   link: string,
 ): string {
   return [head, ...lines.map((line) => `• ${line.name} (${line.sku})`), '', link].join('\n');
+}
+
+/** The number every KOREA GLOW app shows for this product (e.g. A-69), when it has one. */
+export const displayCode = (sku: string): string | null => DISPLAY_CODES[sku]?.code ?? null;
+
+/**
+ * Until the owner sets the order product by product, kinds go in this order: the skincare people
+ * come for first, small accessories and sets last.
+ */
+const SHELF_ORDER: readonly string[] = [
+  '에센스·세럼·앰플',
+  '크림',
+  '토너',
+  '선케어',
+  '아이케어',
+  '클렌징',
+  '헤어케어',
+  '바디케어',
+  '핸드크림',
+  '마스크팩',
+  '립케어',
+  '메이크업',
+  '향수',
+  '기프트세트',
+  '뷰티소품',
+];
+const shelfRank = (category: string) => {
+  const index = SHELF_ORDER.indexOf(category);
+  return index === -1 ? SHELF_ORDER.length : index;
+};
+
+/**
+ * Showcase order (CEO, 2026-10-16: «the attractive ones first — not tissues»): the owner's own
+ * pinned products first, in the owner's order; then products the owner allows recommending, then kind (skincare first, accessories and sets last), then the
+ * shared display order, then the product number.
+ */
+export function showcaseOrder(products: readonly StoreProduct[]): readonly StoreProduct[] {
+  const rank = (product: StoreProduct) => [
+    SHOWCASE_PINS.includes(product.sku) ? SHOWCASE_PINS.indexOf(product.sku) : SHOWCASE_PINS.length,
+    RECOMMENDABLE_SKUS.has(product.sku) ? 0 : 1,
+    shelfRank(product.category),
+    DISPLAY_CODES[product.sku]?.order ?? 9999,
+  ];
+  return [...products].sort((a, b) => {
+    const ra = rank(a);
+    const rb = rank(b);
+    for (let i = 0; i < ra.length; i += 1) if (ra[i] !== rb[i]) return ra[i]! - rb[i]!;
+    return a.sku.localeCompare(b.sku);
+  });
 }

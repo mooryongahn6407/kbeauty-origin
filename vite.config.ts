@@ -1,6 +1,12 @@
 import { fileURLToPath, URL } from 'node:url';
 import react from '@vitejs/plugin-react';
+import { readFileSync } from 'node:fs';
 import { defineConfig } from 'vite';
+
+// KG-APP-BASE §4: every build carries its version (shown in Settings, sent with help-desk notes).
+const pkg = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf-8')) as { version: string };
+const stamp = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '').slice(2);
+const APP_VERSION = `v${pkg.version} · ${stamp}`;
 
 export default defineConfig(({ command }) => ({
   // GitHub Pages serves the production build as a project site at
@@ -10,6 +16,7 @@ export default defineConfig(({ command }) => ({
   // picks up the prefix.
   base: command === 'build' ? '/kbeauty-origin/' : '/',
   plugins: [react()],
+  define: { __APP_VERSION__: JSON.stringify(APP_VERSION) },
   resolve: {
     alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) },
   },

@@ -30,7 +30,11 @@ import type {
   QuestAnswers,
   RoutineLine,
   SingleStep,
+  TrackId,
 } from '@/content/care-quest/types';
+import type { QuestNav } from '@/app/app-chrome';
+import { CHROME } from '../chrome-text';
+import { displayCode } from '@/app/store-catalog';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import { storeCatalog } from '@/content/store-catalog';
 import type { StoreProduct } from '@/content/store-catalog-types';
@@ -44,6 +48,7 @@ import {
   loadProgress,
   loadSavedResults,
   saveProgress,
+  labelEvidence,
   matchProducts,
   resultSummary,
   pickedConcerns,
@@ -53,6 +58,7 @@ import {
   retestDate,
   saveResult,
   selfDisagrees,
+  startingCareQuest,
   typeConfidence,
   typeReasons,
   type CareQuestAction,
@@ -116,6 +122,8 @@ export function CareQuestScreen({
   locale,
   partner = null,
   fromSkinQuest = false,
+  startTrack = null,
+  onNav,
   onExplore,
   onOpenIngredient,
   onOpenProduct,
@@ -124,6 +132,10 @@ export function CareQuestScreen({
   partner?: string | null;
   /** Arrived from SKIN QUEST's "learn more" link (`?from=skinquest`). */
   fromSkinQuest?: boolean;
+  /** Came in through the game door (`?play`): open on this track's first question. */
+  startTrack?: TrackId | null;
+  /** KG-APP-BASE bottom bar: where the reader is, and what Back/Next do here. */
+  onNav?: (nav: QuestNav | null) => void;
   onExplore: () => void;
   onOpenIngredient: (id: string) => void;
   onOpenProduct: (sku: string) => void;
@@ -132,11 +144,43 @@ export function CareQuestScreen({
   const [history, setHistory] = useState<QuestHistory>(() => loadHistory(storage()));
   // Someone who has finished a track before (and has just come back from the dictionary or a
   // product it linked to) lands on the track list with "see my result", not on the greeting.
+  // The game door (`?play`) always starts the quest itself, even for someone who has played before.
   const [state, dispatch] = useReducer(careQuestReducer, saved, (initial: SavedResults) =>
-    Object.keys(initial).length > 0 || loadProgress(storage())
-      ? { ...initialCareQuest, phase: 'tracks' as const }
-      : initialCareQuest,
+    startTrack
+      ? startingCareQuest(startTrack)
+      : Object.keys(initial).length > 0 || loadProgress(storage())
+        ? { ...initialCareQuest, phase: 'tracks' as const }
+        : initialCareQuest,
   );
+  // Tell the bottom bar where we are. Next on a question is «Skip» until it is answered —
+  // skipping records nothing, so the result never pretends to know an answer it was not given.
+  useEffect(() => {
+    if (!onNav) return;
+    const step = currentStep(state);
+    const steps = state.track ? (careTrack(state.track)?.steps.length ?? 0) : 0;
+    const answered = step ? (state.answers[step.id]?.length ?? 0) > 0 : false;
+    onNav({
+      position:
+        state.phase === 'steps' && steps > 0 ? { index: state.stepIndex + 1, total: steps } : null,
+      canGoBack: state.phase !== 'welcome',
+      nextLabel:
+        state.phase === 'result'
+          ? 'restart'
+          : state.phase === 'steps'
+            ? answered
+              ? 'next'
+              : 'skip'
+            : 'next',
+      back: () => dispatch({ type: 'back' }),
+      next: () => {
+        if (state.phase === 'welcome') dispatch({ type: 'begin' });
+        else if (state.phase === 'tracks') dispatch({ type: 'chooseTrack', track: 'face' });
+        else if (state.phase === 'steps') dispatch({ type: 'skip' });
+        else if (state.track) dispatch({ type: 'chooseTrack', track: state.track });
+      },
+    });
+  }, [state, onNav]);
+  useEffect(() => () => onNav?.(null), [onNav]);
   const [collection, setCollection] = useState<CollectionState>(() => loadCollection(storage()));
   // A track left half-way — offered as "continue" on the track list, re-read each time the list
   // is shown so a track finished since then no longer offers it.
@@ -896,10 +940,22 @@ function CareResult({
                     {product.photo ? <img src={product.photo} alt="" loading="lazy" /> : '🧴'}
                   </span>
                   <span className="care-product__text">
-                    <span className="care-product__brand">{product.brand}</span>
+                    <span className="care-product__brand">
+                      {displayCode(product.sku) ? `${displayCode(product.sku)} · ` : ''}
+                      {product.brand}
+                    </span>
                     <span className="care-product__name">{productName(product, locale)}</span>
                     {locale === 'ko' ? (
                       <span className="care-product__cat">{product.category}</span>
+                    ) : null}
+                    {labelEvidence(product, concerns).length > 0 ? (
+                      <span className="care-product__why">
+                        {t(CHROME.whyLabel!)}:{' '}
+                        {labelEvidence(product, concerns)
+                          .slice(0, 3)
+                          .map((item) => `${item.printed} (${fill(t(CHROME.nth!), { n: String(item.position) })})`)
+                          .join(' · ')}
+                      </span>
                     ) : null}
                   </span>
                 </button>

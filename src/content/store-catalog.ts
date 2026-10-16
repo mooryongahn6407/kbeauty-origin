@@ -19,9 +19,10 @@
  * They are the master's AI-assisted analysis, not reviewed by an expert yet, and the screen
  * labels them that way. `names` (Lao, Thai, French) and `photo` come from the company site.
  */
+import { OWNER_ADDITIONS } from './store-catalog-owner';
 import type { StoreProduct } from './store-catalog-types';
 
-export const storeCatalog: readonly StoreProduct[] = [
+const generatedCatalog: readonly StoreProduct[] = [
   {
     sku: 'KG-CRM-00001',
     category: '크림',
@@ -5999,3 +6000,6 @@ export const storeCatalog: readonly StoreProduct[] = [
     },
   },
 ];
+
+/** The generated list plus anything the owner put on the shelf from the company master. */
+export const storeCatalog: readonly StoreProduct[] = [...generatedCatalog, ...OWNER_ADDITIONS];
