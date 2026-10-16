@@ -18,6 +18,7 @@ import { languageName } from '@/localization/locales';
 import { availableVoices, planSpeech, speechSupported, stopSpeaking } from '../speech';
 import { SPOKEN_FALLBACK } from '../speech';
 import { useVoice } from '../voice';
+import { Icon } from './AppChrome';
 import { useVoiceCount } from '../hooks/use-voice-count';
 
 export function VoiceSwitch({ locale }: { locale: string }) {
@@ -55,7 +56,7 @@ export function VoiceSwitch({ locale }: { locale: string }) {
         onClick={press}
       >
         <span className="voiceswitch__icon" aria-hidden="true">
-          {on ? '🔊' : '🔈'}
+          <Icon name={on ? 'speakerOn' : 'speaker'} />
         </span>
         <span>
           {unavailable

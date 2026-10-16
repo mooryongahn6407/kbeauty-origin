@@ -139,3 +139,11 @@ export function saveLocale(storage: Storage | undefined, locale: string): void {
     // Private windows: the choice lasts for this visit only.
   }
 }
+
+/**
+ * Opened inside Facebook, Instagram, Messenger, WhatsApp, LINE or KakaoTalk? Those in-app browsers
+ * cannot install the app and often lose what the reader did, so the app asks once to open it in
+ * the phone's own browser (KG-APP-BASE §3).
+ */
+export const isInAppBrowser = (userAgent: string): boolean =>
+  /FBAN|FBAV|FB_IAB|Instagram|Messenger|WhatsApp|Line\/|KAKAOTALK/i.test(userAgent);

@@ -7,6 +7,20 @@ import { L } from '@/content/care-quest/common';
 import type { Localized } from '@/content/care-quest/types';
 
 export const CHROME: Readonly<Record<string, Localized>> = {
+  inApp: L(
+    '이 화면은 앱 안 브라우저예요. 오른쪽 위 ⋯ → «브라우저에서 열기»를 누르면 저장·설치가 잘 돼요.',
+    'You are in an in-app browser. Tap ⋯ at the top right → “Open in browser” so saving and installing work.',
+    'ນີ້ແມ່ນບຣາວເຊີໃນແອັບ. ກົດ ⋯ ດ້ານເທິງຂວາ → «ເປີດໃນບຣາວເຊີ» ເພື່ອບັນທຶກ ແລະ ຕິດຕັ້ງໄດ້.',
+    'นี่คือเบราว์เซอร์ในแอป แตะ ⋯ มุมขวาบน → «เปิดในเบราว์เซอร์» เพื่อให้บันทึกและติดตั้งได้',
+    'Vous êtes dans le navigateur d’une app. Touchez ⋯ en haut à droite → « Ouvrir dans le navigateur ».',
+  ),
+  aiGuide: L(
+    'AI 안내자예요 · 실제 사람이 아닙니다',
+    'AI guide · not a real person',
+    'ຜູ້ນຳທາງ AI · ບໍ່ແມ່ນຄົນແທ້',
+    'ผู้นำทาง AI · ไม่ใช่คนจริง',
+    'Guide IA · pas une vraie personne',
+  ),
   whyLabel: L('성분표 근거', 'On the label', 'ໃນສະຫຼາກ', 'บนฉลาก', "Sur l'étiquette"),
   nth: L('{n}번째', 'no. {n}', 'ທີ {n}', 'ลำดับ {n}', 'n° {n}'),
   prev: L('이전', 'Back', 'ກັບຄືນ', 'ย้อนกลับ', 'Retour'),

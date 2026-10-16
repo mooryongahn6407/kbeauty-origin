@@ -230,7 +230,7 @@ const ABOUT_POINTS = [
 export function AboutAppScreen({ locale }: { locale: string }) {
   return (
     <section className="guide" aria-labelledby="about-title">
-      <SceneHero src="/scenes/scene-13.jpg" focus="50% 30%" />
+      <SceneHero src="/gemini/A-09.jpg" focus="50% 40%" />
       <h1 className="guide-title" id="about-title">
         {translate('guide.card.about.title', locale)}
       </h1>

@@ -26,6 +26,7 @@ import { applyPreferences, loadPreferences, savePreferences } from './preference
 import { DisplaySettings } from './components/DisplaySettings';
 import { VoiceSwitch } from './components/VoiceSwitch';
 import { VoiceProvider } from './voice';
+import { LocaleContext } from './locale-context';
 import { CareQuestScreen } from './screens/CareQuestScreen';
 import { CareLessonsScreen } from './screens/CareLessonsScreen';
 import { capturePartner, partnerFromSearch } from '@/app/partner';
@@ -61,6 +62,7 @@ import {
   APP_VERSION,
   buttonGuideSeen,
   initialLocale,
+  isInAppBrowser,
   markButtonGuideSeen,
   saveLocale,
   type QuestNav,
@@ -299,6 +301,7 @@ export function App() {
 
   return (
     <VoiceProvider>
+      <LocaleContext.Provider value={locale}>
       <div className="app">
         <a className="skip-link" href="#main">
           {translate('display.skipToContent', locale)}
@@ -355,6 +358,12 @@ export function App() {
         </header>
 
         <main className="main" id="main" tabIndex={-1}>
+          {typeof navigator !== 'undefined' && isInAppBrowser(navigator.userAgent) ? (
+            <p className="disclosure disclosure--caution kg-inapp" role="note">
+              <span className="disclosure__mark">!</span>
+              <span>{chromeText('inApp', locale)}</span>
+            </p>
+          ) : null}
           {isUnreviewedCatalog(locale) ? (
             // Said once, at the top of every screen, for as long as the reader stays in an
             // unchecked language. A translation nobody has read is a draft, and the app does not
@@ -628,6 +637,7 @@ export function App() {
 
         {guideOpen ? <ButtonGuide locale={locale} onDone={closeGuide} /> : null}
       </div>
+      </LocaleContext.Provider>
     </VoiceProvider>
 
   );

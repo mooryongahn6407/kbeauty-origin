@@ -8,6 +8,7 @@ import {
   helpDeskHref,
   helpDeskLeft,
   initialLocale,
+  isInAppBrowser,
   saveLocale,
   markButtonGuideSeen,
   recordHelpDeskSend,
@@ -150,5 +151,14 @@ describe('language is remembered and carried (CEO 2026-10-16: «French disappear
     expect(initialLocale('?play', storage, ['fr-FR'], offered)).toBe('lo');
     expect(initialLocale('?play&lang=fr', storage, ['ko'], offered)).toBe('fr');
     expect(initialLocale('?lang=xx', storage, [], offered)).toBe('lo');
+  });
+});
+
+describe('in-app browsers get an «open in browser» note (KG-APP-BASE §3)', () => {
+  it('recognises Facebook, Instagram, WhatsApp and LINE, and not Chrome or Safari', () => {
+    expect(isInAppBrowser('Mozilla/5.0 (Linux; Android 13) [FBAN/EMA;FBAV/400.0]')).toBe(true);
+    expect(isInAppBrowser('Mozilla/5.0 (iPhone) Instagram 300.0')).toBe(true);
+    expect(isInAppBrowser('Mozilla/5.0 (Linux; Android 13) WhatsApp/2.24')).toBe(true);
+    expect(isInAppBrowser('Mozilla/5.0 (Linux; Android 13) Chrome/129.0 Mobile Safari/537.36')).toBe(false);
   });
 });

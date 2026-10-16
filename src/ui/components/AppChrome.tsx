@@ -25,7 +25,19 @@ const storage = (): Storage | undefined => {
   }
 };
 
-type IconName = 'prev' | 'next' | 'first' | 'home' | 'gear' | 'close' | 'chat' | 'refresh';
+type IconName =
+  | 'prev'
+  | 'next'
+  | 'first'
+  | 'home'
+  | 'gear'
+  | 'close'
+  | 'chat'
+  | 'refresh'
+  | 'check'
+  | 'speaker'
+  | 'speakerOn'
+  | 'bottle';
 const PATHS: Record<IconName, string> = {
   prev: 'M15 5l-7 7 7 7',
   next: 'M9 5l7 7-7 7',
@@ -35,6 +47,10 @@ const PATHS: Record<IconName, string> = {
   close: 'M6 6l12 12M18 6L6 18',
   chat: 'M5 5h14v10H9l-4 4z',
   refresh: 'M20 12a8 8 0 11-2.3-5.7M20 4v5h-5',
+  check: 'M5 12.5l4.5 4.5L19 7.5',
+  speaker: 'M4 9.5v5h4l5 4v-13l-5 4H4z',
+  speakerOn: 'M4 9.5v5h4l5 4v-13l-5 4H4zM16.5 9a4.5 4.5 0 010 6M19 6.5a8 8 0 010 11',
+  bottle: 'M10 3h4v3l2 3v12H8V9l2-3V3z',
 };
 
 export function Icon({ name }: { name: IconName }) {

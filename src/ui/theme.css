@@ -1992,7 +1992,7 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
 .main { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
 .kg-bottombar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--surface); border-top: 1px solid var(--line); padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -6px 20px -12px rgba(13, 27, 62, 0.25); }
 .kg-bottombar__inner { display: flex; align-items: center; gap: 8px; max-width: 720px; margin: 0 auto; }
-.kg-bottombar__pos { flex: 1; text-align: center; font-size: var(--fs-sm); color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.kg-bottombar__pos { flex: 1 0 auto; text-align: center; white-space: nowrap; font-size: var(--fs-sm); color: var(--text-muted); font-variant-numeric: tabular-nums; }
 .kg-navbtn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 48px; min-width: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--text); font-size: var(--fs-base); font-weight: 600; cursor: pointer; }
 .kg-navbtn[hidden] { display: none; }
 .kg-navbtn--quiet { border-color: var(--line); color: var(--text-muted); }
@@ -2037,3 +2037,9 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
 
 .care-product__why { display: block; margin-top: 4px; font-size: var(--fs-xs); color: var(--text-muted); line-height: 1.4; }
 .store-item__code { display: inline-block; width: fit-content; justify-self: start; align-self: flex-start; margin-bottom: 2px; padding: 2px 8px; border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.02em; }
+.care-option__mark { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; flex: none; border: 2px solid var(--line-strong); border-radius: 999px; color: var(--btn-fg); background: var(--surface); }
+.care-option[aria-pressed='true'] .care-option__mark { background: var(--btn-bg); border-color: var(--btn-bg); }
+.care-option__mark .kg-icon { width: 18px; height: 18px; }
+.voiceswitch__icon .kg-icon, .care-product__media .kg-icon { width: 22px; height: 22px; }
+.kg-host { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 0; flex: none; }
+.kg-host__ai { max-width: 120px; font-size: var(--fs-2xs); line-height: 1.25; color: var(--text-muted); text-align: center; }

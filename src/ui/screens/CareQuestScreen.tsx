@@ -34,6 +34,7 @@ import type {
 } from '@/content/care-quest/types';
 import type { QuestNav } from '@/app/app-chrome';
 import { CHROME } from '../chrome-text';
+import { Icon } from '../components/AppChrome';
 import { displayCode } from '@/app/store-catalog';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import { storeCatalog } from '@/content/store-catalog';
@@ -298,7 +299,7 @@ export function CareQuestScreen({
                 </span>
                 <span className="academy-card__text">
                   <span className="academy-card__n">
-                    {track.icon} {index + 1}
+                    {index + 1}
                     {saved[track.id] ? ` · ${t(QUEST_TEXT.done)}` : ''}
                   </span>
                   <span className="academy-card__title">{t(track.title)}</span>
@@ -388,7 +389,7 @@ function StepView({
     <section className="quest care-step" aria-labelledby="quest-prompt">
       <header className="quest__header">
         <p className="quest__level">
-          {track.icon} {t(track.title)} · {t(step.section)}
+          {t(track.title)} · {t(step.section)}
         </p>
         <div className="quest__bar">
           <span className="quest__bar-fill" style={{ width: `${percent}%` }} />
@@ -450,7 +451,6 @@ function StepView({
 }
 
 function ChoiceButton({
-  icon,
   label,
   detail,
   pressed,
@@ -471,11 +471,10 @@ function ChoiceButton({
       aria-pressed={pressed}
       onClick={onClick}
     >
-      {icon ? (
-        <span className="care-option__icon" aria-hidden="true">
-          {icon}
-        </span>
-      ) : null}
+      {/* KG-APP-BASE §5: a line mark, never an emoji. Empty until picked, then a check. */}
+      <span className="care-option__icon care-option__mark" aria-hidden="true">
+        {pressed ? <Icon name="check" /> : null}
+      </span>
       <span className="care-option__text">
         <span className="care-option__label">{label}</span>
         {detail ? <span className="care-option__detail">{detail}</span> : null}
@@ -586,7 +585,7 @@ function LearnCards({ step, locale }: { step: LearnStep; locale: string }) {
             </figure>
           ) : null}
           <h2 className="care-learn__title">
-            <span aria-hidden="true">{card.icon}</span> {t(card.title)}
+            {t(card.title)}
           </h2>
           <p className="care-learn__body">{t(card.body)}</p>
           <ul className="care-learn__signs">
@@ -637,7 +636,7 @@ function RoutineList({
   return (
     <section className="care-routine" aria-label={title}>
       <h3 className="care-routine__title">
-        <span aria-hidden="true">{icon}</span> {title}
+        {title}
       </h3>
       <ol className="care-routine__steps">
         {lines.map((line, index) => {
@@ -648,7 +647,7 @@ function RoutineList({
                 {index + 1}
               </span>
               <span className="care-routine__text">
-                <strong>{kind ? `${kind.icon} ${inLocale(kind.name, locale)}` : line.kind}</strong>
+                <strong>{kind ? `${inLocale(kind.name, locale)}` : line.kind}</strong>
                 <span>{inLocale(line.note, locale)}</span>
               </span>
             </li>
@@ -715,7 +714,7 @@ function CareResult({
   return (
     <section className="quest quest--record care-result" aria-labelledby="result-title">
       <p className="eyebrow">
-        {track.icon} {t(QUEST_TEXT.resultEyebrow)} · {t(track.title)}
+        {t(QUEST_TEXT.resultEyebrow)} · {t(track.title)}
       </p>
       <StreakBadge days={streak} locale={locale} />
 
@@ -740,7 +739,7 @@ function CareResult({
         {type ? (
           <>
             <h1 className="care-type__name" id="result-title">
-              <span aria-hidden="true">{type.icon}</span> {t(type.name)}
+              {t(type.name)}
               {modifier ? (
                 <span className="care-type__mod"> + {t(QUEST_TEXT.sensitiveToo)}</span>
               ) : null}
@@ -820,7 +819,7 @@ function CareResult({
                   </figure>
                 ) : null}
                 <h3 className="care-concern__name">
-                  <span aria-hidden="true">{concern.icon}</span> {t(concern.name)}
+                  {t(concern.name)}
                 </h3>
                 <p className="care-concern__what">{t(concern.what)}</p>
                 {concern.ingredients.length + (concern.otherIngredients?.length ?? 0) > 0 ? (
@@ -857,7 +856,7 @@ function CareResult({
                   {concern.products
                     .map((id) => productKind(id))
                     .filter((kind) => kind !== undefined)
-                    .map((kind) => `${kind!.icon} ${t(kind!.name)}`)
+                    .map((kind) => `${t(kind!.name)}`)
                     .join(' · ')}
                 </p>
                 <p className="care-concern__tip">💡 {t(concern.tip)}</p>
@@ -905,7 +904,7 @@ function CareResult({
             </figure>
           ) : null}
           <h2 className="record-block__title">
-            <span aria-hidden="true">{block.icon}</span> {t(block.title)}
+            {t(block.title)}
           </h2>
           <ul className="care-advice__list">
             {block.points.map((point) => (
@@ -937,7 +936,7 @@ function CareResult({
                   onClick={() => onOpenProduct(product.sku)}
                 >
                   <span className="care-product__media" aria-hidden="true">
-                    {product.photo ? <img src={product.photo} alt="" loading="lazy" /> : '🧴'}
+                    {product.photo ? <img src={product.photo} alt="" loading="lazy" /> : <Icon name="bottle" />}
                   </span>
                   <span className="care-product__text">
                     <span className="care-product__brand">
@@ -1034,7 +1033,7 @@ function ResultCompare({
   const t = (text: Localized) => inLocale(text, locale);
   const typeName = (id: string | null) => {
     const type = id ? track.types.find((item) => item.id === id) : undefined;
-    return type ? `${type.icon} ${t(type.name)}` : '🤔';
+    return type ? t(type.name) : '—';
   };
   const rows = [
     { key: 'added', label: QUEST_TEXT.compareAdded, items: change.added },
@@ -1063,7 +1062,7 @@ function ResultCompare({
             {row.items.map((concern) => (
               <li key={concern.id}>
                 <span className="chip chip--soft">
-                  {concern.icon} {t(concern.name)}
+                  {t(concern.name)}
                 </span>
               </li>
             ))}
