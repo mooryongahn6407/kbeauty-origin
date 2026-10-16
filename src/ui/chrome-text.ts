@@ -14,12 +14,13 @@ export const CHROME: Readonly<Record<string, Localized>> = {
     'นี่คือเบราว์เซอร์ในแอป แตะ ⋯ มุมขวาบน → «เปิดในเบราว์เซอร์» เพื่อให้บันทึกและติดตั้งได้',
     'Vous êtes dans le navigateur d’une app. Touchez ⋯ en haut à droite → « Ouvrir dans le navigateur ».',
   ),
+  // CEO 2026-10-17: the caption names the guide — no «AI» notice.
   aiGuide: L(
-    'AI 안내자예요 · 실제 사람이 아닙니다',
-    'AI guide · not a real person',
-    'ຜູ້ນຳທາງ AI · ບໍ່ແມ່ນຄົນແທ້',
-    'ผู้นำทาง AI · ไม่ใช่คนจริง',
-    'Guide IA · pas une vraie personne',
+    '루미나 노이 · GLOW Class 가이드',
+    'Lumina Noy · GLOW Class guide',
+    'ລູມິນາ ນ້ອຍ · ຜູ້ນຳທາງ GLOW Class',
+    'ลูมินา นอย · ผู้นำทาง GLOW Class',
+    'Lumina Noy · guide GLOW Class',
   ),
   whyLabel: L('성분표 근거', 'On the label', 'ໃນສະຫຼາກ', 'บนฉลาก', "Sur l'étiquette"),
   nth: L('{n}번째', 'no. {n}', 'ທີ {n}', 'ลำดับ {n}', 'n° {n}'),

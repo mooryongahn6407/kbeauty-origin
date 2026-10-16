@@ -2042,4 +2042,4 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
 .care-option__mark .kg-icon { width: 18px; height: 18px; }
 .voiceswitch__icon .kg-icon, .care-product__media .kg-icon { width: 22px; height: 22px; }
 .kg-host { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 0; flex: none; }
-.kg-host__ai { max-width: 120px; font-size: var(--fs-2xs); line-height: 1.25; color: var(--text-muted); text-align: center; }
+.kg-host__name { max-width: 120px; font-size: var(--fs-2xs); line-height: 1.25; color: var(--text-muted); text-align: center; }

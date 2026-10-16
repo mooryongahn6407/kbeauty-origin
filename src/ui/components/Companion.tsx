@@ -29,8 +29,8 @@ const AS_LUMINA: Readonly<Record<CompanionMood, LuminaMood>> = {
 export function Companion({ mood = 'calm', size = 96 }: { mood?: CompanionMood; size?: number }) {
   const locale = useContext(LocaleContext);
   if (LUMINA_PHOTO) {
-    // KG-APP-WORLD §2: the guide is an AI model, and says so — small, honest, always beside her.
-    const disclosure = inLocale(CHROME.aiGuide!, locale);
+    // The guide's name under her photo (CEO 2026-10-17: name only — no «AI» notice).
+    const caption = inLocale(CHROME.aiGuide!, locale);
     return (
       <figure className="kg-host">
         <img
@@ -38,9 +38,9 @@ export function Companion({ mood = 'calm', size = 96 }: { mood?: CompanionMood; 
           src={LUMINA_PHOTO}
           width={size}
           height={size}
-          alt={`Lumina Noi — ${disclosure}`}
+          alt={caption}
         />
-        <figcaption className="kg-host__ai">{disclosure}</figcaption>
+        <figcaption className="kg-host__name">{caption}</figcaption>
       </figure>
     );
   }
