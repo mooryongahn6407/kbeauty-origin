@@ -57,7 +57,14 @@ import {
 import { storeCatalog } from '@/content/store-catalog';
 import { productFromSearch } from '@/app/store-catalog';
 import { playTrackFromSearch } from '@/app/care-quest';
-import { APP_VERSION, buttonGuideSeen, markButtonGuideSeen, type QuestNav } from '@/app/app-chrome';
+import {
+  APP_VERSION,
+  buttonGuideSeen,
+  initialLocale,
+  markButtonGuideSeen,
+  saveLocale,
+  type QuestNav,
+} from '@/app/app-chrome';
 import {
   BottomBar,
   ButtonGuide,
@@ -167,7 +174,16 @@ export function App() {
     go('dictionary');
     setFocusIngredient(id);
   };
-  const [locale, setLocale] = useState('en');
+  // Remembered across visits and carried by links (?lang=), so the game door and the class open
+  // in the language the reader chose — not back in English (CEO, 2026-10-16).
+  const [locale, setLocale] = useState(() =>
+    initialLocale(
+      typeof window === 'undefined' ? '' : window.location.search,
+      typeof localStorage === 'undefined' ? undefined : localStorage,
+      typeof navigator === 'undefined' ? [] : navigator.languages ?? [navigator.language],
+      OFFERED_LOCALES.map((option) => option.tag),
+    ),
+  );
   const [preferences, setPreferences] = useState(loadPreferences);
   // Theme and text size matter to whoever needs them and to nobody else, and expanded they
   // cost a phone screen's whole top third before the first question is even visible. Folded
@@ -217,6 +233,7 @@ export function App() {
 
   useEffect(() => {
     document.documentElement.lang = locale;
+    saveLocale(typeof localStorage === 'undefined' ? undefined : localStorage, locale);
   }, [locale]);
 
   const localeRef = useRef(locale);

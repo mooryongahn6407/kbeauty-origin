@@ -15,10 +15,12 @@ import { currentInstallMode, onInstallChange, promptInstall, type InstallMode } 
 
 export const SKIN_QUEST_URL = 'https://play.korea-glow.com/';
 
-export function skinQuestHref(partner: string | null): string {
+export function skinQuestHref(partner: string | null, locale?: string): string {
   const url = new URL(SKIN_QUEST_URL);
   url.searchParams.set('from', 'glowclass');
   if (partner) url.searchParams.set('p', partner);
+  // The reader's language goes along, so the game opens in the language they were reading.
+  if (locale) url.searchParams.set('lang', locale);
   return url.toString();
 }
 
@@ -79,7 +81,7 @@ function SkinQuestLink({ locale, partner }: { locale: string; partner: string | 
   return (
     <a
       className="glow-hero__quest"
-      href={skinQuestHref(partner)}
+      href={skinQuestHref(partner, locale)}
       target="_blank"
       rel="noopener noreferrer"
     >

@@ -7,6 +7,8 @@ import {
   deviceLabel,
   helpDeskHref,
   helpDeskLeft,
+  initialLocale,
+  saveLocale,
   markButtonGuideSeen,
   recordHelpDeskSend,
 } from '@/app/app-chrome';
@@ -135,5 +137,18 @@ describe('recommendations (CEO 2026-10-16): price floor, real label evidence, ri
     const concerns = FACE_CONCERNS.filter((concern) => concern.id === 'melasma');
     const [first] = matchProducts(storeCatalog, concerns, reading, kinds);
     expect(first!.category).toBe('에센스·세럼·앰플');
+  });
+});
+
+describe('language is remembered and carried (CEO 2026-10-16: «French disappeared in SKIN QUEST»)', () => {
+  const offered = ['en', 'ko', 'fr', 'th', 'lo'];
+  it('follows ?lang= first, then the saved choice, then the phone, else English', () => {
+    const storage = store();
+    expect(initialLocale('', storage, ['de-DE'], offered)).toBe('en');
+    expect(initialLocale('', storage, ['fr-FR', 'en'], offered)).toBe('fr');
+    saveLocale(storage, 'lo');
+    expect(initialLocale('?play', storage, ['fr-FR'], offered)).toBe('lo');
+    expect(initialLocale('?play&lang=fr', storage, ['ko'], offered)).toBe('fr');
+    expect(initialLocale('?lang=xx', storage, [], offered)).toBe('lo');
   });
 });

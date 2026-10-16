@@ -99,3 +99,43 @@ export interface QuestNav {
   readonly back: () => void;
   readonly next: () => void;
 }
+
+const LOCALE_KEY = 'korea-glow:locale:v1';
+
+/**
+ * The language to open in: a link's `?lang=` first (so SKIN QUEST and partner links keep the
+ * reader's language), then the one this phone chose last time, then the phone's own language,
+ * else English. Only languages the app offers.
+ */
+export function initialLocale(
+  search: string,
+  storage: Storage | undefined,
+  deviceLanguages: readonly string[],
+  offered: readonly string[],
+): string {
+  const ok = (tag: string | null | undefined) => {
+    const base = (tag ?? '').toLowerCase().split('-')[0] ?? '';
+    return offered.includes(base) ? base : null;
+  };
+  let fromLink: string | null = null;
+  try {
+    fromLink = ok(new URLSearchParams(search).get('lang'));
+  } catch {
+    fromLink = null;
+  }
+  let saved: string | null = null;
+  try {
+    saved = ok(storage?.getItem(LOCALE_KEY));
+  } catch {
+    saved = null;
+  }
+  return fromLink ?? saved ?? deviceLanguages.map(ok).find((tag) => tag) ?? 'en';
+}
+
+export function saveLocale(storage: Storage | undefined, locale: string): void {
+  try {
+    storage?.setItem(LOCALE_KEY, locale);
+  } catch {
+    // Private windows: the choice lasts for this visit only.
+  }
+}
