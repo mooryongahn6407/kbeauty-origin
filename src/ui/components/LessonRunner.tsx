@@ -32,6 +32,7 @@ import { SafetyNotice } from './SafetyNotice';
 import { Disclosures } from '../components/Disclosures';
 import { LessonGrounding, LessonSources } from './LessonSources';
 import { ReadAloud } from '../components/ReadAloud';
+import { spokenFallback } from '../spoken-fallback';
 import { MasteryPanel } from '../components/MasteryPanel';
 
 const PHASE_ORDER: readonly LessonPhase[] = [
@@ -178,6 +179,14 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
             <ReadAloud
               locale={locale}
               spokenLocale={lessonText.usedFallback ? BASE_LOCALE : locale}
+              fallback={spokenFallback(locale, (lender) => {
+                // Only the lender's own lesson text — never the English fallback in a Thai voice.
+                const lent = atom ? resolveVariant(atom.variants, lender) : undefined;
+                if (!lent || lent.usedFallback) return '';
+                return [lent.variant.text['hook'], lent.variant.text['core'], lent.variant.text['analogy']]
+                  .filter(Boolean)
+                  .join(' ');
+              })}
               text={[
                 text['hook'] ?? lessonText.variant.text['hook'],
                 lessonText.variant.text['core'],
@@ -202,6 +211,10 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
             <ReadAloud
               locale={locale}
               spokenLocale={usedFallback ? BASE_LOCALE : locale}
+              fallback={spokenFallback(locale, (lender) => {
+                const lent = currentActivityText({ ...state, locale: lender });
+                return lent && !lent.usedFallback ? (lent.text['question'] ?? '') : '';
+              })}
               text={text['question'] ?? ''}
             />
           </div>
@@ -217,6 +230,12 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
             <ReadAloud
               locale={locale}
               spokenLocale={usedFallback ? BASE_LOCALE : locale}
+              fallback={spokenFallback(locale, (lender) => {
+                const lent = currentActivityText({ ...state, locale: lender });
+                return lent && !lent.usedFallback
+                  ? [lent.text['question'], ...lent.options].filter(Boolean).join('. ')
+                  : '';
+              })}
               text={[text['question'], ...options].filter(Boolean).join('. ')}
             />
           </div>

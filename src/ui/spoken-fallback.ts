@@ -13,6 +13,7 @@
  * Returns undefined when the reader's locale has no lender, which is every locale but Lao — in
  * which case the control falls back to the base locale or says it has no voice, unchanged.
  */
+import { BASE_LOCALE } from '@/localization/locales';
 import { SPOKEN_FALLBACK } from './speech';
 
 export function spokenFallback(
@@ -24,4 +25,26 @@ export function spokenFallback(
   if (!lender) return undefined;
   const text = render(lender);
   return text.trim() === '' ? undefined : { locale: lender, text };
+}
+
+/**
+ * The same idea for content that is not built from message keys — the company dictionary and
+ * authored lessons, which exist only in some languages.
+ *
+ * `versions` holds the passage in every language it is actually written in. The lender's own
+ * text is used when it exists (Thai text for a Thai voice, exactly as above). When the content
+ * has no version in the lender's language, the base-locale version is offered instead, so a Lao
+ * reader on a phone with no Lao voice hears the English that the content does carry rather than
+ * silence. Never a version in one language handed to a voice for another.
+ */
+export function contentSpokenFallback(
+  locale: string,
+  versions: { readonly ko?: string; readonly en?: string; readonly lo?: string; readonly th?: string; readonly fr?: string },
+): { locale: string; text: string } | undefined {
+  const lender = SPOKEN_FALLBACK[locale];
+  if (!lender) return undefined;
+  const lent = versions[lender as keyof typeof versions];
+  if (lent && lent.trim() !== '') return { locale: lender, text: lent };
+  const base = versions[BASE_LOCALE as keyof typeof versions];
+  return base && base.trim() !== '' ? { locale: BASE_LOCALE, text: base } : undefined;
 }

@@ -17,6 +17,7 @@ import { labelPhotosForIngredient } from '@/content/label-photos';
 import { pick, showsEnglishFallback } from '../pick';
 import { ProductStrip } from '../components/ProductCard';
 import { ReadAloud } from '../components/ReadAloud';
+import { contentSpokenFallback } from '../spoken-fallback';
 
 /** Company content exists in ko/lo/en only (see `pick.ts`) — never asks a device for a voice in
     a language the on-screen text is not actually written in (rule 15's own reasoning). */
@@ -229,6 +230,7 @@ function EntryPage({
             text={pick(text, locale)}
             locale={locale}
             spokenLocale={spokenLocale}
+            fallback={contentSpokenFallback(locale, text)}
             autoplay={index === 0}
           />
         </section>
