@@ -57,6 +57,17 @@ export const CHROME: Readonly<Record<string, Localized>> = {
   sHelp: L('고객센터', 'Help desk', 'ສູນບໍລິການລູກຄ້າ', 'ศูนย์ช่วยเหลือ', 'Assistance'),
   sApps: L('KOREA GLOW 다른 앱', 'Other KOREA GLOW apps', 'ແອັບອື່ນຂອງ KOREA GLOW', 'แอปอื่นของ KOREA GLOW', 'Autres apps KOREA GLOW'),
   sVersion: L('버전', 'Version', 'ເວີຊັນ', 'เวอร์ชัน', 'Version'),
+  // Error boundary — shown instead of a blank screen when a screen fails to draw
+  errTitle: L('잠깐 문제가 생겼어요', 'Something went wrong for a moment', 'ມີບັນຫາເລັກນ້ອຍ', 'เกิดปัญหาเล็กน้อย', 'Un petit souci est survenu'),
+  errBody: L(
+    '화면을 그리지 못했어요. 저장된 내용은 그대로예요. 다시 시도하거나 홈으로 가 주세요.',
+    'This screen could not be drawn. What you saved is still there. Try again, or go home.',
+    'ບໍ່ສາມາດສະແດງໜ້ານີ້ໄດ້. ສິ່ງທີ່ບັນທຶກໄວ້ຍັງຢູ່. ລອງໃໝ່ ຫຼື ກັບໄປໜ້າຫຼັກ.',
+    'แสดงหน้านี้ไม่ได้ สิ่งที่บันทึกไว้ยังอยู่ ลองอีกครั้งหรือกลับหน้าหลัก',
+    'Cet écran n’a pas pu s’afficher. Ce que vous avez enregistré est toujours là. Réessayez ou revenez à l’accueil.',
+  ),
+  errRetry: L('다시 시도', 'Try again', 'ລອງໃໝ່', 'ลองอีกครั้ง', 'Réessayer'),
+  errHome: L('홈으로', 'Go home', 'ກັບໜ້າຫຼັກ', 'กลับหน้าหลัก', 'Accueil'),
   // Delete my data on this phone
   sData: L('이 폰에 저장된 내 정보', 'My data on this phone', 'ຂໍ້ມູນຂອງຂ້ອຍໃນໂທລະສັບນີ້', 'ข้อมูลของฉันในโทรศัพท์นี้', 'Mes données sur ce téléphone'),
   sDataNote: L(
