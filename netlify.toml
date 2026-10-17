@@ -10,3 +10,20 @@
   for = "/manifest.webmanifest"
   [headers.values]
     Content-Type = "application/manifest+json"
+
+## Security headers for every path. The app loads only its own files: scripts, styles, pictures,
+## video, the manifest and the service worker all come from this origin, and the only network
+## calls are to its own Netlify functions (/.netlify/functions/*). External sites (WhatsApp,
+## the other KOREA GLOW apps, reference sources) are plain links, which a CSP does not govern.
+## No camera, microphone or location is used anywhere in the code, so they are switched off.
+## `style-src 'unsafe-inline'` is needed for the loading line's inline style in index.html.
+## The CSP is Report-Only for now: Netlify can inject snippets this repo cannot see. Check the
+## browser console on the live site for violations, then rename it to Content-Security-Policy.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Content-Security-Policy-Report-Only = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self' blob:; connect-src 'self'; worker-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
