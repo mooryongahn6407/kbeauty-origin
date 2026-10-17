@@ -259,6 +259,14 @@ const MESSAGES_EN = {
     'A {mode} response has {total} parts. {filled} can be filled honestly right now.',
   'tutor.slotBlocked': 'cannot be filled',
   'tutor.uncertainty': 'What I am unsure about',
+  'tutor.unc.nodeMissing':
+    'The record {nodeId} was requested but does not exist, so nothing was grounded. No other record was substituted for it.',
+  'tutor.unc.noMatch':
+    'Nothing in the governed knowledge matched this question, so there is no record to answer from.',
+  'tutor.unc.notFact': 'Grounded record cannot be stated as fact: {reason}',
+  'tutor.unc.unresolvedEvidence':
+    '{count} grounded record(s) cite an evidence source that does not resolve in 14_EVIDENCE (OQ-E01).',
+  'tutor.unc.unfilled': '{missing} of {total} parts of a {mode} response cannot be filled honestly yet.',
   'tutor.commerce': 'Product suggestions',
   'tutor.commerceBlocked': 'Suppressed. Failed gates: {gates}',
   'tutor.trace': 'Runtime trace',
@@ -1036,6 +1044,13 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
     '{mode} 응답은 {total}개 부분으로 이루어집니다. 지금 정직하게 채울 수 있는 것은 {filled}개입니다.',
   'tutor.slotBlocked': '채울 수 없음',
   'tutor.uncertainty': '제가 확신하지 못하는 것',
+  'tutor.unc.nodeMissing':
+    '요청한 기록 {nodeId}이(가) 없어서 근거로 삼은 것이 없어요. 다른 기록으로 바꿔 넣지 않았어요.',
+  'tutor.unc.noMatch': '관리되는 지식 안에 이 질문에 맞는 기록이 없어서, 답할 근거가 없어요.',
+  'tutor.unc.notFact': '근거로 찾은 기록을 사실로 말할 수 없어요: {reason}',
+  'tutor.unc.unresolvedEvidence':
+    '근거 기록 {count}개가 14_EVIDENCE에서 확인되지 않는 출처를 인용하고 있어요 (OQ-E01).',
+  'tutor.unc.unfilled': '{mode} 답변의 {total}개 부분 중 {missing}개는 아직 정직하게 채울 수 없어요.',
   'tutor.commerce': '제품 제안',
   'tutor.commerceBlocked': '표시하지 않습니다. 통과하지 못한 게이트: {gates}',
   'tutor.trace': '런타임 추적',
@@ -1792,6 +1807,15 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
     'Une réponse en mode {mode} comporte {total} parties. {filled} peuvent être remplies honnêtement pour l’instant.',
   'tutor.slotBlocked': 'ne peut pas être remplie',
   'tutor.uncertainty': 'Ce dont je ne suis pas sûr',
+  'tutor.unc.nodeMissing':
+    'L’enregistrement {nodeId} a été demandé mais n’existe pas : rien n’a servi de base. Aucun autre enregistrement ne l’a remplacé.',
+  'tutor.unc.noMatch':
+    'Rien dans les connaissances validées ne correspond à cette question : il n’y a pas d’enregistrement sur lequel répondre.',
+  'tutor.unc.notFact': 'L’enregistrement trouvé ne peut pas être présenté comme un fait : {reason}',
+  'tutor.unc.unresolvedEvidence':
+    '{count} enregistrement(s) trouvé(s) citent une source introuvable dans 14_EVIDENCE (OQ-E01).',
+  'tutor.unc.unfilled':
+    '{missing} des {total} parties d’une réponse {mode} ne peuvent pas encore être remplies honnêtement.',
   'tutor.commerce': 'Suggestions de produits',
   'tutor.commerceBlocked': 'Supprimées. Contrôles échoués : {gates}',
   'tutor.trace': 'Trace d’exécution',
@@ -2540,6 +2564,12 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'tutor.contractNote': 'ຄຳຕອບແບບ {mode} ມີ {total} ສ່ວນ. {filled} ສ່ວນສາມາດຕື່ມໄດ້ຢ່າງຊື່ສັດຕອນນີ້.',
   'tutor.slotBlocked': 'ຕື່ມບໍ່ໄດ້',
   'tutor.uncertainty': 'ສິ່ງທີ່ຂ້ອຍບໍ່ແນ່ໃຈ',
+  'tutor.unc.nodeMissing':
+    'ໄດ້ຂໍບັນທຶກ {nodeId} ແຕ່ບໍ່ມີຢູ່ ຈຶ່ງບໍ່ມີຫຍັງເປັນພື້ນຖານ. ບໍ່ໄດ້ເອົາບັນທຶກອື່ນມາແທນ.',
+  'tutor.unc.noMatch': 'ບໍ່ມີຫຍັງໃນຄວາມຮູ້ທີ່ຄວບຄຸມກົງກັບຄຳຖາມນີ້ ຈຶ່ງບໍ່ມີບັນທຶກໃຫ້ຕອບ.',
+  'tutor.unc.notFact': 'ບັນທຶກທີ່ພົບບໍ່ສາມາດກ່າວເປັນຂໍ້ເທັດຈິງໄດ້: {reason}',
+  'tutor.unc.unresolvedEvidence': 'ບັນທຶກ {count} ລາຍການ ອ້າງອີງແຫຼ່ງທີ່ບໍ່ພົບໃນ 14_EVIDENCE (OQ-E01).',
+  'tutor.unc.unfilled': '{missing} ຈາກ {total} ສ່ວນຂອງຄຳຕອບແບບ {mode} ຍັງບໍ່ສາມາດຕື່ມໄດ້ຢ່າງຊື່ສັດ.',
   'tutor.commerce': 'ການແນະນຳຜະລິດຕະພັນ',
   'tutor.commerceBlocked': 'ຖືກລະງັບໄວ້. ດ່ານທີ່ບໍ່ຜ່ານ: {gates}',
   'tutor.trace': 'ຮ່ອງຮອຍການເຮັດວຽກ',
@@ -3287,6 +3317,11 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'tutor.contractNote': 'คำตอบแบบ {mode} มี {total} ส่วน {filled} ส่วนเติมได้อย่างซื่อสัตย์ตอนนี้',
   'tutor.slotBlocked': 'เติมไม่ได้',
   'tutor.uncertainty': 'สิ่งที่ฉันไม่แน่ใจ',
+  'tutor.unc.nodeMissing': 'มีการขอบันทึก {nodeId} แต่ไม่มีอยู่จริง จึงไม่มีอะไรเป็นฐาน ไม่ได้ใช้บันทึกอื่นแทน',
+  'tutor.unc.noMatch': 'ไม่มีความรู้ที่ควบคุมไว้ตรงกับคำถามนี้ จึงไม่มีบันทึกให้ตอบ',
+  'tutor.unc.notFact': 'บันทึกที่พบยังกล่าวเป็นข้อเท็จจริงไม่ได้: {reason}',
+  'tutor.unc.unresolvedEvidence': 'บันทึก {count} รายการอ้างแหล่งที่ไม่พบใน 14_EVIDENCE (OQ-E01)',
+  'tutor.unc.unfilled': '{missing} จาก {total} ส่วนของคำตอบแบบ {mode} ยังเติมอย่างซื่อสัตย์ไม่ได้',
   'tutor.commerce': 'การแนะนำผลิตภัณฑ์',
   'tutor.commerceBlocked': 'ถูกระงับไว้ ด่านที่ไม่ผ่าน: {gates}',
   'tutor.trace': 'ร่องรอยการทำงาน',

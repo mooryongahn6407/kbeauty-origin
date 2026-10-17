@@ -22,6 +22,21 @@ import { evaluatePublication } from '@/governance/publication-gate';
 import { findNode, aiRules } from '@/knowledge/repository';
 import { ground, type GroundingResult } from './retriever';
 import { evaluateModeContract, type ModeContract } from './mode-contract';
+import { BASE_LOCALE } from '@/localization/locales';
+import { translate } from '@/localization/messages';
+
+/** Catalogue keys the tutor may use to say why it is unsure. */
+export type UncertaintyKey =
+  | 'tutor.unc.nodeMissing'
+  | 'tutor.unc.noMatch'
+  | 'tutor.unc.notFact'
+  | 'tutor.unc.unresolvedEvidence'
+  | 'tutor.unc.unfilled';
+
+export interface UncertaintyNote {
+  readonly key: UncertaintyKey;
+  readonly params: Readonly<Record<string, string>>;
+}
 
 /** Structured response contract from AI Constitution §11.1. */
 export interface TutorResponse {
@@ -45,8 +60,10 @@ export interface TutorResponse {
   readonly contract: ModeContract;
   /** True when the response may state its grounded content as fact. Currently never. */
   readonly mayStateAsFact: boolean;
-  /** Reasons the answer is held uncertain, shown to the learner rather than hidden. */
+  /** Reasons the answer is held uncertain, in the base locale — for tests and admin surfaces. */
   readonly uncertainty: readonly string[];
+  /** The same reasons as catalogue keys, which the screen translates for the learner. */
+  readonly uncertaintyNotes: readonly UncertaintyNote[];
   /** Internal trace of the seven runtime stages, for tests and admin surfaces. */
   readonly trace: readonly string[];
 }
@@ -204,18 +221,22 @@ export function respond(request: TutorRequest): TutorResponse {
   const disclosures: Disclosure[] = [...safety.disclosures];
   const uncertainty: string[] = [];
 
+  // Each note is a localization key plus its parameters (rule 11: the tutor writes no prose).
+  // `uncertainty` keeps the base-locale wording for tests, the evaluation suite and admin views.
+  const uncertaintyNotes: UncertaintyNote[] = [];
+  const note = (key: UncertaintyKey, params: Readonly<Record<string, string>> = {}) => {
+    uncertaintyNotes.push({ key, params });
+    uncertainty.push(translate(key, BASE_LOCALE, params));
+  };
+
   if (explicitNodeMissed) {
-    uncertainty.push(
-      `The record ${request.nodeId} was requested but does not exist, so nothing was grounded. No other record was substituted for it.`,
-    );
+    note('tutor.unc.nodeMissing', { nodeId: String(request.nodeId) });
   } else if (grounding.empty && !explicitNode) {
-    uncertainty.push(
-      'Nothing in the governed knowledge matched this question, so there is no record to answer from.',
-    );
+    note('tutor.unc.noMatch');
   }
   if (publication && !publication.mayStateAsFact) {
     disclosures.push(...publication.disclosures);
-    uncertainty.push(`Grounded record cannot be stated as fact: ${publication.reason}`);
+    note('tutor.unc.notFact', { reason: publication.reason });
     trace.push(
       `6:verify grounded=${groundedNodeId ?? topCandidate?.id ?? 'none'} mayStateAsFact=false`,
     );
@@ -223,14 +244,14 @@ export function respond(request: TutorRequest): TutorResponse {
     trace.push('6:verify ok');
   }
   if (!explicitNodeMissed && grounding.withUnresolvedEvidence > 0) {
-    uncertainty.push(
-      `${grounding.withUnresolvedEvidence} grounded record(s) cite an evidence source that does not resolve in 14_EVIDENCE (OQ-E01).`,
-    );
+    note('tutor.unc.unresolvedEvidence', { count: String(grounding.withUnresolvedEvidence) });
   }
   if (!contract.complete && !isSafety) {
-    uncertainty.push(
-      `${contract.totalCount - contract.filledCount} of ${contract.totalCount} parts of a ${mode} response cannot be filled honestly yet.`,
-    );
+    note('tutor.unc.unfilled', {
+      missing: String(contract.totalCount - contract.filledCount),
+      total: String(contract.totalCount),
+      mode,
+    });
   }
 
   // 7 Learn
@@ -264,6 +285,7 @@ export function respond(request: TutorRequest): TutorResponse {
     contract,
     mayStateAsFact,
     uncertainty,
+    uncertaintyNotes,
     trace,
   };
 }

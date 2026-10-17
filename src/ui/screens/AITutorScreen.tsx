@@ -138,13 +138,13 @@ function ResponsePanel({ response, locale }: { response: TutorResponse; locale: 
         </table>
       </section>
 
-      {response.uncertainty.length > 0 ? (
+      {response.uncertaintyNotes.length > 0 ? (
         <section className="card">
           <p className="eyebrow">{translate('tutor.uncertainty', locale)}</p>
-          {response.uncertainty.map((line) => (
-            <p key={line} className="disclosure disclosure--caution">
+          {response.uncertaintyNotes.map((note) => (
+            <p key={note.key} className="disclosure disclosure--caution">
               <span className="disclosure__mark">?</span>
-              <span>{line}</span>
+              <span>{translate(note.key, locale, note.params)}</span>
             </p>
           ))}
         </section>
@@ -232,7 +232,21 @@ function EvaluationPanel({ locale }: { locale: string }) {
   );
 }
 
-export function AITutorScreen({ locale }: { locale: string }) {
+/** Longest question the box accepts. A question, not a document. */
+export const TUTOR_QUESTION_MAX = 500;
+
+/**
+ * `showInternals` shows the AI rule table and the self-test (evaluation) table. They are for the
+ * team, not for readers, and the app has no general staff flag — `?admin=report` opens only the
+ * partner report — so they stay hidden unless a caller asks for them explicitly.
+ */
+export function AITutorScreen({
+  locale,
+  showInternals = false,
+}: {
+  locale: string;
+  showInternals?: boolean;
+}) {
   const [draft, setDraft] = useState('');
   const [asked, setAsked] = useState<string | null>(null);
   const response = useMemo(
@@ -254,7 +268,7 @@ export function AITutorScreen({ locale }: { locale: string }) {
 
   const ask = (question: string) => {
     if (question.trim() === '') return;
-    setAsked(question.trim());
+    setAsked(question.trim().slice(0, TUTOR_QUESTION_MAX));
     setDraft('');
   };
 
@@ -270,6 +284,7 @@ export function AITutorScreen({ locale }: { locale: string }) {
             className="textarea"
             style={{ minHeight: 'auto', flex: '1 1 280px' }}
             value={draft}
+            maxLength={TUTOR_QUESTION_MAX}
             placeholder={translate('tutor.placeholder', locale)}
             onChange={(event) => setDraft(event.target.value)}
             onKeyDown={(event) => {
@@ -304,28 +319,30 @@ export function AITutorScreen({ locale }: { locale: string }) {
 
       {response ? <ResponsePanel response={response} locale={locale} /> : null}
 
-      <section className="card">
-        <p className="eyebrow">{translate('tutor.rulesTitle', locale)}</p>
-        <p className="muted">{translate('tutor.rulesNote', locale)}</p>
-        <table className="table">
-          <tbody>
-            {mandatoryApprovedAIRules.map((rule) => (
-              <tr key={rule.Rule_ID}>
-                <td>{rule.Rule_ID}</td>
-                <td>{rule.Rule_Name}</td>
-                <td className="muted">{rule.Policy}</td>
-                <td>
-                  <span className="tag">
-                    {rule.Status} · {rule.Priority}
-                  </span>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+      {showInternals ? (
+        <section className="card">
+          <p className="eyebrow">{translate('tutor.rulesTitle', locale)}</p>
+          <p className="muted">{translate('tutor.rulesNote', locale)}</p>
+          <table className="table">
+            <tbody>
+              {mandatoryApprovedAIRules.map((rule) => (
+                <tr key={rule.Rule_ID}>
+                  <td>{rule.Rule_ID}</td>
+                  <td>{rule.Rule_Name}</td>
+                  <td className="muted">{rule.Policy}</td>
+                  <td>
+                    <span className="tag">
+                      {rule.Status} · {rule.Priority}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+      ) : null}
 
-      <EvaluationPanel locale={locale} />
+      {showInternals ? <EvaluationPanel locale={locale} /> : null}
     </div>
   );
 }
