@@ -79,6 +79,7 @@ export function IngredientDictionaryScreen({
         {translate('dict.intro', locale, { count: String(companyDictionary.ingredients.length) })}
       </p>
       <p className="fine">{translate('dict.evidenceLegend', locale)}</p>
+      <p className="fine">{translate('dict.gradeNote', locale)}</p>
       {showsEnglishFallback(locale) ? (
         <p className="fine">{translate('guide.englishShown', locale)}</p>
       ) : null}
