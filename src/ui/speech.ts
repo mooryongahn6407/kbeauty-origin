@@ -10,7 +10,9 @@
  *
  * 1. **It only ever reads text that is already on screen.** It is a reader, not a narrator:
  *    nothing is generated, summarised or rephrased for it. Whatever governance applies to the
- *    text applies unchanged to the spoken version, because it is the same text.
+ *    text applies unchanged to the spoken version, because it is the same text. The one step
+ *    in between is pronunciation (`speech-normalize.ts`): "SPF50+" is *said* "S P F 50 plus",
+ *    "%" is said "percent" — symbols read out, no word added or changed.
  *
  * 2. **It will not read a language in the wrong voice.** If the device has no voice for the
  *    locale, `pickVoice` returns null and the control says so rather than reading French
@@ -22,6 +24,7 @@
  * the judgement is, and it should not need a browser to check.
  */
 import { BASE_LOCALE } from '@/localization/locales';
+import { normalizeForSpeech, splitForSpeech } from './speech-normalize';
 
 /** The parts of `SpeechSynthesisVoice` this module needs. Keeps the ranking testable. */
 export interface VoiceLike {
@@ -154,8 +157,24 @@ export const availableVoices = (): readonly SpeechSynthesisVoice[] =>
 
 export interface SpeakOptions {
   readonly voice?: SpeechSynthesisVoice | null;
+  /** The whole passage finished, or was stopped or replaced. */
   readonly onEnd?: () => void;
+  /**
+   * The engine failed partway (not a stop). Called instead of `onEnd`, so the caller can say
+   * "voice could not play" rather than pretending the passage was read.
+   */
+  readonly onError?: () => void;
 }
+
+/** Engine error codes that mean "someone stopped or replaced this", not "it broke". */
+const STOPPED_ERRORS = new Set(['interrupted', 'canceled']);
+
+/**
+ * Bumped by every `speak` and `stopSpeaking`. A queued sentence only starts the next one while
+ * its passage is still the current one, so stopping (or starting another passage) ends the
+ * whole queue — not just the sentence that happened to be playing.
+ */
+let generation = 0;
 
 /**
  * Speak one passage, cancelling anything already speaking.
@@ -176,17 +195,55 @@ export function speak(text: string, locale: string, options: SpeakOptions = {}):
   const voice = options.voice ?? pickVoice(availableVoices(), locale);
   if (!voice) return false;
 
+  // Said, not shown: "SPF50+" becomes "S P F 50 plus" for the engine only. Then one sentence at
+  // a time, because some engines go quiet partway through a long utterance.
+  let sentences: readonly string[];
   try {
-    globalThis.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
+    sentences = splitForSpeech(normalizeForSpeech(text, voice.lang || locale));
+  } catch {
+    sentences = [text];
+  }
+  if (sentences.length === 0) return false;
+
+  generation += 1;
+  const mine = generation;
+  const synth = globalThis.speechSynthesis;
+
+  const sayFrom = (index: number): void => {
+    const sentence = sentences[index];
+    if (sentence === undefined) return;
+    const utterance = new SpeechSynthesisUtterance(sentence);
     utterance.voice = voice;
     utterance.lang = voice.lang;
     utterance.rate = SPEECH_RATE;
-    if (options.onEnd) {
-      utterance.onend = options.onEnd;
-      utterance.onerror = options.onEnd;
-    }
-    globalThis.speechSynthesis.speak(utterance);
+    utterance.onend = () => {
+      if (mine !== generation) return options.onEnd?.();
+      if (index + 1 < sentences.length) {
+        try {
+          sayFrom(index + 1);
+        } catch {
+          if (options.onError) options.onError();
+          else options.onEnd?.();
+        }
+        return;
+      }
+      options.onEnd?.();
+    };
+    utterance.onerror = (event?: { error?: string }) => {
+      // A stop or a newer passage cancels this one: that is an ending, not a failure.
+      if (mine !== generation || STOPPED_ERRORS.has(event?.error ?? '')) {
+        options.onEnd?.();
+        return;
+      }
+      if (options.onError) options.onError();
+      else options.onEnd?.();
+    };
+    synth.speak(utterance);
+  };
+
+  try {
+    synth.cancel();
+    sayFrom(0);
     return true;
   } catch {
     return false;
@@ -195,6 +252,8 @@ export function speak(text: string, locale: string, options: SpeakOptions = {}):
 
 export function stopSpeaking(): void {
   if (!speechSupported()) return;
+  // Ends the queue: no sentence after the current one will start.
+  generation += 1;
   try {
     globalThis.speechSynthesis.cancel();
   } catch {

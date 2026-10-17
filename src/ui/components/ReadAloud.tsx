@@ -64,6 +64,8 @@ export function ReadAloud({
 }) {
   const { on: voiceOn } = useVoice();
   const [speaking, setSpeaking] = useState(false);
+  // The engine broke partway — said plainly, not passed off as "finished".
+  const [failed, setFailed] = useState(false);
   // What this control last started saying by itself, so a re-render does not restart it.
   const spokenRef = useRef<string | null>(null);
   // Re-renders this control once the device's real voice list is in — see use-voice-count.ts.
@@ -103,15 +105,23 @@ export function ReadAloud({
     const passage = `${plan.spokenLocale}\u0000${spokenText}`;
     if (spokenRef.current === passage) return;
     spokenRef.current = passage;
+    setFailed(false);
     setSpeaking(
       speak(spokenText, plan.spokenLocale, {
         voice: plan.voice,
         onEnd: () => setSpeaking(false),
+        onError,
       }),
     );
   });
 
+  function onError() {
+    setSpeaking(false);
+    setFailed(true);
+  }
+
   const toggle = () => {
+    setFailed(false);
     if (speaking) {
       stopSpeaking();
       setSpeaking(false);
@@ -120,6 +130,7 @@ export function ReadAloud({
     const started = speak(spokenText, plan.spokenLocale, {
       voice: plan.voice,
       onEnd: () => setSpeaking(false),
+      onError,
     });
     setSpeaking(started);
   };
@@ -129,23 +140,30 @@ export function ReadAloud({
     : (label ?? translate('speech.listen', locale));
 
   return (
-    <button
-      type="button"
-      className={`speak${speaking ? ' speak--speaking' : ''}`}
-      onClick={toggle}
-      disabled={unavailable}
-      title={unavailable ? translate('speech.unavailable', locale) : undefined}
-    >
-      <span className="speak__icon" aria-hidden="true">
-        {speaking ? '■' : '▶'}
-      </span>
-      <span>
-        {unavailable
-          ? translate('speech.unavailable', locale)
-          : speaking
-            ? translate('speech.stop', locale)
-            : readyLabel}
-      </span>
-    </button>
+    <>
+      <button
+        type="button"
+        className={`speak${speaking ? ' speak--speaking' : ''}`}
+        onClick={toggle}
+        disabled={unavailable}
+        title={unavailable ? translate('speech.unavailable', locale) : undefined}
+      >
+        <span className="speak__icon" aria-hidden="true">
+          {speaking ? '■' : '▶'}
+        </span>
+        <span>
+          {unavailable
+            ? translate('speech.unavailable', locale)
+            : speaking
+              ? translate('speech.stop', locale)
+              : readyLabel}
+        </span>
+      </button>
+      {failed ? (
+        <span className="speak__note" role="status">
+          {translate('speech.failed', locale)}
+        </span>
+      ) : null}
+    </>
   );
 }

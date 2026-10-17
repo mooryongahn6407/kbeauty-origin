@@ -319,6 +319,7 @@ const MESSAGES_EN = {
   'speech.unavailable': 'No voice for this language on this device',
   'speech.unavailable.tip': "This is the phone's own setting, not something broken in the app — most phones can add it: Settings › Accessibility › Text-to-speech (Android) or Settings › Accessibility › Spoken Content › Voices (iPhone).",
   'speech.listenIn': 'Listen (in {language})',
+  'speech.failed': 'Voice could not play.',
 
   'catalog.unreviewed':
     'This interface translation has not yet been checked by a speaker of this language. Wording may be wrong. The lessons themselves are unaffected.',
@@ -1095,6 +1096,7 @@ const MESSAGES_KO: Partial<Record<MessageKey, string>> = {
   'speech.unavailable': '이 기기에는 이 언어의 음성이 없습니다',
   'speech.unavailable.tip': '앱의 문제가 아니라 이 휴대폰의 설정이에요. 대부분 추가하실 수 있어요 — 안드로이드는 설정 › 접근성 › 텍스트 음성 변환, 아이폰은 설정 › 손쉬운 사용 › 음성 콘텐츠 › 음성에서요.',
   'speech.listenIn': '{language}로 듣기',
+  'speech.failed': '음성을 재생하지 못했어요.',
 
   'catalog.unreviewed':
     '이 화면의 번역은 아직 해당 언어 사용자의 검수를 받지 않았습니다. 표현이 틀릴 수 있습니다. 레슨 내용 자체는 영향을 받지 않습니다.',
@@ -1852,6 +1854,7 @@ const MESSAGES_FR: Partial<Record<MessageKey, string>> = {
   'speech.unavailable': 'Aucune voix pour cette langue sur cet appareil',
   'speech.unavailable.tip': "Ce n'est pas un problème de l'application, mais un réglage du téléphone — on peut souvent l'ajouter : Réglages › Accessibilité › Synthèse vocale (Android) ou Réglages › Accessibilité › Contenu énoncé › Voix (iPhone).",
   'speech.listenIn': 'Écouter (en {language})',
+  'speech.failed': 'La voix n’a pas pu être lue.',
 
   'catalog.unreviewed':
     'Cette interface a été traduite en français mais n’a pas encore été relue par une personne francophone. La formulation peut être inexacte. Les leçons elles-mêmes ne sont pas concernées.',
@@ -2597,6 +2600,7 @@ const MESSAGES_LO: Partial<Record<MessageKey, string>> = {
   'speech.unavailable': 'ບໍ່ມີສຽງສຳລັບພາສານີ້ໃນອຸປະກອນນີ້',
   'speech.unavailable.tip': 'ນີ້ແມ່ນການຕັ້ງຄ່າຂອງໂທລະສັບ ບໍ່ແມ່ນບັນຫາຂອງແອັບ — ສ່ວນຫຼາຍເພີ່ມໄດ້: Android ໄປທີ່ ການຕັ້ງຄ່າ › ການຊ່ວຍເຂົ້າເຖິງ › Text-to-speech, iPhone ໄປທີ່ ການຕັ້ງຄ່າ › ການຊ່ວຍເຂົ້າເຖິງ › ເນື້ອຫາທີ່ເວົ້າອອກ › ສຽງ.',
   'speech.listenIn': 'ຟັງເປັນ{language}',
+  'speech.failed': 'ບໍ່ສາມາດຫຼິ້ນສຽງໄດ້.',
 
   'catalog.unreviewed':
     'ໜ້າຈໍນີ້ຖືກແປເປັນພາສາລາວ ແຕ່ຍັງບໍ່ທັນໄດ້ຮັບການກວດຈາກຜູ້ເວົ້າພາສາລາວ. ຖ້ອຍຄຳອາດຜິດ. ບົດຮຽນເອງບໍ່ໄດ້ຮັບຜົນກະທົບ.',
@@ -3344,6 +3348,7 @@ const MESSAGES_TH: Partial<Record<MessageKey, string>> = {
   'speech.unavailable.tip': 'นี่คือการตั้งค่าของโทรศัพท์ ไม่ใช่ปัญหาของแอป — ส่วนใหญ่เพิ่มได้: Android ไปที่ การตั้งค่า › การช่วยเหลือพิเศษ › การแปลงข้อความเป็นเสียง, iPhone ไปที่ การตั้งค่า › การช่วยการเข้าถึง › เนื้อหาที่พูด › เสียง',
 
   'speech.listenIn': 'ฟังเป็นภาษา{language}',
+  'speech.failed': 'เล่นเสียงไม่ได้',
 
   'catalog.unreviewed':
     'หน้าจอนี้ถูกแปลเป็นภาษาไทย แต่ยังไม่ได้รับการตรวจจากผู้พูดภาษาไทย ถ้อยคำอาจผิด บทเรียนเองไม่ได้รับผลกระทบ',

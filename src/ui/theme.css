@@ -722,6 +722,7 @@ select.field, .locale-switch select, .settings__select {
 .speak:disabled { opacity: 0.45; cursor: not-allowed; color: var(--text-muted); }
 .speak--speaking { background: var(--accent-wash); border-color: var(--accent); }
 .speak__icon { font-size: 1em; }
+.speak__note { align-self: center; font-family: var(--font-ui); font-size: var(--fs-xs); color: var(--caution); }
 
 .muted { color: var(--text-muted); font-size: var(--fs-sm); }
 /* One step down for a provenance line or a footnote. On the scale, so it still grows with the
