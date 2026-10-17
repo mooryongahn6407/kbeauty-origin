@@ -26,8 +26,11 @@ import {
   huntResult,
   huntableFamilies,
   initialHuntState,
+  reviewAnswers,
+  reviewAttempts,
   type HuntState,
 } from '@/app/ingredient-hunt';
+import { masteryLedger } from '@/mastery/mastery-ledger';
 import {
   dueIds,
   loadQueue,
@@ -84,14 +87,28 @@ export function IngredientHuntScreen({ locale }: { locale: string }) {
   }));
 
   // Reschedule the moment a round is marked: what was recognised moves further out, what was
-  // missed comes back tomorrow. Nothing here is written to the mastery ledger.
+  // missed comes back tomorrow. Items that were *due* are spaced reviews, and only those are
+  // written to the mastery ledger — as retention attempts (M04), never as a granted level.
   useEffect(() => {
     if (!state.revealed || !state.round) return;
     const result = huntResult(state);
+    const now = new Date();
+    // `queue` here is the queue the round was built from: it only changes when a round is marked.
+    // The ledger write stays out of the state updater below, which StrictMode runs twice.
+    const answers = reviewAnswers(state, dueIds(queue, now));
+    for (const attempt of reviewAttempts(answers, 'local-learner', now.toISOString())) {
+      masteryLedger.record(attempt);
+    }
     setQueue((previous) => {
       let next = previous;
-      for (const id of result.correct) next = withRecognised(next, id, new Date());
-      for (const id of result.missed) next = withMissed(next, id, new Date());
+      for (const id of result.correct) next = withRecognised(next, id, now);
+      for (const id of result.missed) next = withMissed(next, id, now);
+      // A due decoy was asked about too: left alone it was recognised, picked it was missed.
+      const targets = new Set(state.round?.targetIds ?? []);
+      for (const answer of answers) {
+        if (targets.has(answer.id)) continue;
+        next = answer.correct ? withRecognised(next, answer.id, now) : withMissed(next, answer.id, now);
+      }
       saveQueue(storage(), next);
       return next;
     });

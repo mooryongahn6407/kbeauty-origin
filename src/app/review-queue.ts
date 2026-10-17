@@ -12,6 +12,8 @@
  * app's own scheduling policy, the way a reminder is, and it asserts nothing about skin, about
  * an ingredient, or about mastery. Nothing here is written to the mastery ledger, which still
  * accepts evidence only from recorded attempts (rule 9), and the queue never reports a score.
+ * What a reader *answers* about a due item is an attempt, though: `reviewAttempts` in
+ * ingredient-hunt.ts turns those answers into M04 retention attempts for the ledger.
  *
  * State is per-browser, like the shelf. Every read is defensive and the app works without it.
  */

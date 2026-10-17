@@ -15,6 +15,7 @@
  */
 import { ingredients } from '@/knowledge/repository';
 import type { Ingredient } from '@/domain/entities';
+import type { Attempt } from '@/domain/learning';
 
 /** A round's target: one governed Family, and the records that carry it. */
 export interface HuntRound {
@@ -154,6 +155,64 @@ export function huntResult(state: HuntState): HuntResult {
     missed: round.targetIds.filter((id) => !state.picked.includes(id)),
     wrong: state.picked.filter((id) => !targets.has(id)),
   };
+}
+
+/**
+ * The skill and node a hunt answer is evidence for, read from the governed maps rather than
+ * chosen here: QST-009 "Humectant Hunt" has KN-D06-02-001 as its Core node (quest-node-map), and
+ * that node's Primary skill is SK02 Identify (node-skill-map). A test pins both links.
+ */
+export const HUNT_QUEST_ID = 'QST-009';
+export const HUNT_NODE_ID = 'KN-D06-02-001';
+export const HUNT_SKILL_ID = 'SK02';
+
+/** One answer about an item the review queue had scheduled for this round. */
+export interface ReviewAnswer {
+  readonly id: string;
+  readonly correct: boolean;
+}
+
+/**
+ * The answers in this round that were spaced reviews — items the queue said were due before the
+ * round was marked — and whether each was answered right.
+ *
+ * A due item can be in the round either as a target (right = picked) or as a decoy
+ * (right = left alone, because the reader knew it does not belong to this family). Anything that
+ * was not due is ordinary practice and is not returned.
+ */
+export function reviewAnswers(state: HuntState, dueIds: readonly string[]): readonly ReviewAnswer[] {
+  const round = state.round;
+  if (!round || !state.revealed) return [];
+  const targets = new Set(round.targetIds);
+  const shown = new Set(round.shown.map((ingredient) => ingredient.Ingredient_ID));
+  return [...new Set(dueIds)]
+    .filter((id) => shown.has(id))
+    .map((id) => ({ id, correct: targets.has(id) === state.picked.includes(id) }));
+}
+
+/**
+ * Spaced-review answers as mastery attempts, flagged `isRetention` — they are exactly the
+ * "scheduled delayed-recall check" that M04 Retention asks for. This only *declares* the
+ * attempts; the caller writes them to the ledger, which still accepts evidence from attempts
+ * alone (rule 9). The thresholds are untouched: retention is satisfied only by passing these.
+ */
+export function reviewAttempts(
+  answers: readonly ReviewAnswer[],
+  userId: string,
+  at: string,
+): readonly Attempt[] {
+  return answers.map((answer) => ({
+    attemptId: `${HUNT_QUEST_ID}:review:${answer.id}@${at}`,
+    userId,
+    nodeId: HUNT_NODE_ID,
+    skillId: HUNT_SKILL_ID,
+    activityId: `${HUNT_QUEST_ID}:${answer.id}`,
+    correct: answer.correct,
+    hintsUsed: 0,
+    isTransfer: false,
+    isRetention: true,
+    at,
+  }));
 }
 
 export function huntReducer(state: HuntState, action: HuntAction): HuntState {
