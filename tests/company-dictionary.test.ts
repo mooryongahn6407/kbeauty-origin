@@ -78,3 +78,21 @@ describe('dictionary ↔ product links', () => {
     expect(productsWith('sunscreen').length).toBeGreaterThan(5);
   });
 });
+
+describe('cosmetic wording, not medical wording', () => {
+  const entry = (id: string) => companyDictionary.ingredients.find((item) => item.id === id)!;
+  const allText = (id: string) => JSON.stringify(entry(id));
+
+  it('describes centella as soothing care, not repair or wound healing', () => {
+    const text = allText('centella');
+    expect(text).not.toMatch(/wound|repair of damaged|inflammatory signalling/i);
+    expect(text).not.toMatch(/재생|상처|염증 신호/);
+    expect(text).not.toMatch(/ສະມານບາດແຜ|ການອັກເສບ/);
+    expect(entry('centella').how.en).toMatch(/soothing care/i);
+  });
+
+  it('describes tea tree as spot care, not a treatment', () => {
+    expect(entry('teatree').what.en).not.toMatch(/treatment/i);
+    expect(entry('teatree').what.en).toMatch(/spot care/i);
+  });
+});

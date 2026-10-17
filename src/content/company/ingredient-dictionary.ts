@@ -334,9 +334,9 @@ export const companyDictionary: CompanyDictionary = {
         en: 'The go-to for hot, flushed skin — and one of the most useful actives for the Lao climate.',
       },
       how: {
-        ko: '염증 신호 물질을 줄이고, 손상된 피부가 회복되는 과정을 돕습니다. 상처 회복 연구에서 출발한 성분이라 "진정"과 "재생"이 같이 붙어 있습니다.',
-        lo: 'ຫຼຸດສານສົ່ງສັນຍານການອັກເສບ ແລະ ຊ່ວຍຂັ້ນຕອນຟື້ນຟູຜິວທີ່ເສຍຫາຍ. ມາຈາກການສຶກສາການສະມານບາດແຜ ຈຶ່ງມີທັງ "ຜ່ອນຄາຍ" ແລະ "ຟື້ນຟູ".',
-        en: 'Lowers inflammatory signalling and supports repair of damaged skin. Its research roots are in wound healing, which is why calming and recovery come together.',
+        ko: '붉고 화끈거리는 피부를 진정시키고, 지친 피부가 다시 편안해 보이도록 돕는 진정 케어 성분입니다. 그래서 "진정" 성분으로 많이 불립니다.',
+        lo: 'ຊ່ວຍຜ່ອນຄາຍຜິວທີ່ແດງ ແລະ ຮ້ອນ ແລະ ຊ່ວຍໃຫ້ຜິວທີ່ອິດເມື່ອຍເບິ່ງສະບາຍຂຶ້ນ. ຈຶ່ງມັກຖືກເອີ້ນວ່າສານ "ຜ່ອນຄາຍ".',
+        en: 'Soothing care for hot, reddened skin that helps the skin\'s look of recovery. That is why it is so often called a calming ingredient.',
       },
       use: {
         ko: '아침·저녁 언제든, 토너·앰플·크림 어느 단계에서든 씁니다. 자극이 거의 없어 매일 써도 됩니다. 레티놀이나 각질 제거제를 쓰는 날에 같이 쓰면 자극을 덜어줍니다.',
@@ -1171,7 +1171,7 @@ export const companyDictionary: CompanyDictionary = {
       what: {
         ko: '올라온 여드름 한두 개를 부분적으로 진정시키는 데 쓰는 성분입니다.',
         lo: 'ສານທີ່ໃຊ້ແຕະສະເພາະຈຸດ ເພື່ອຜ່ອນຄາຍສິວ 1–2 ເມັດທີ່ຂຶ້ນມາ.',
-        en: 'A spot treatment for one or two active breakouts.',
+        en: 'Spot care for one or two breakouts.',
       },
       how: {
         ko: '테르피넨-4-올 성분이 항균·항염 작용을 합니다. 여드름에 대한 연구가 있지만 벤조일퍼옥사이드 같은 약보다는 약하고 느립니다.',
