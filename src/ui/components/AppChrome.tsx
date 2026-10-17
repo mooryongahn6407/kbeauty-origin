@@ -13,6 +13,7 @@ import {
   recordHelpDeskSend,
   type HelpKind,
 } from '@/app/app-chrome';
+import { browserStores, clearDeviceData } from '@/app/device-data';
 import { CHROME } from '../chrome-text';
 import { applyUpdate, checkForUpdate, onUpdateReady } from '../updates';
 
@@ -166,6 +167,42 @@ export function UpdateCheck({ locale }: { locale: string }) {
           {t('updateApply', locale)}
         </button>
       ) : null}
+    </div>
+  );
+}
+
+/**
+ * "Delete my data on this phone" — a button, then a confirm step, then every key this app owns
+ * is removed and the page reloads into the first-visit state. See `src/app/device-data.ts`.
+ */
+export function DeleteMyData({ locale }: { locale: string }) {
+  const [asking, setAsking] = useState(false);
+  return (
+    <div className="kg-setting__row">
+      <p className="kg-setting__note">{t('sDataNote', locale)}</p>
+      {asking ? (
+        <div className="kg-setting__confirm" role="alertdialog" aria-label={t('sDelete', locale)}>
+          <p className="kg-setting__note">{t('sDeleteConfirm', locale)}</p>
+          <button
+            type="button"
+            className="kg-setting__btn kg-setting__btn--danger"
+            onClick={() => {
+              const { local, session } = browserStores();
+              clearDeviceData(local, session);
+              window.location.reload();
+            }}
+          >
+            {t('sDeleteYes', locale)}
+          </button>
+          <button type="button" className="kg-setting__btn" onClick={() => setAsking(false)}>
+            {t('sDeleteNo', locale)}
+          </button>
+        </div>
+      ) : (
+        <button type="button" className="kg-setting__btn kg-setting__btn--danger" onClick={() => setAsking(true)}>
+          {t('sDelete', locale)}
+        </button>
+      )}
     </div>
   );
 }

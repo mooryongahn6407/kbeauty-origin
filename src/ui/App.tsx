@@ -70,6 +70,7 @@ import {
 import {
   BottomBar,
   ButtonGuide,
+  DeleteMyData,
   HelpDesk,
   Icon,
   Sheet,
@@ -615,6 +616,10 @@ export function App() {
                   </a>
                 </li>
               </ul>
+            </section>
+            <section className="kg-setting">
+              <h3 className="kg-setting__title">{chromeText('sData', locale)}</h3>
+              <DeleteMyData locale={locale} />
             </section>
             <p className="kg-setting__version">
               {chromeText('sVersion', locale)} {APP_VERSION}
