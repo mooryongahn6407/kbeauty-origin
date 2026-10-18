@@ -32,7 +32,7 @@ import { capturePartner, partnerFromSearch } from '@/app/partner';
 import { trackPartnerVisit } from '@/app/partner-track';
 import type { GuideTarget } from './screens/GuideHubScreen';
 import { GUIDE_ENTRY_PHOTOS } from '@/content/hero-counts';
-import { hasPlayedBefore, playTrackFromSearch, productShapeFromSearch } from '@/app/entry-links';
+import { hasPlayedBefore, hasProgress, hasSavedResult, playTrackFromSearch, productShapeFromSearch } from '@/app/entry-links';
 import {
   APP_VERSION,
   buttonGuideSeen,
@@ -55,7 +55,11 @@ import {
 } from './components/AppChrome';
 import { InstallButton, SKIN_QUEST_URL } from './components/GlowHero';
 import { OtherAppItems } from './components/OtherApps';
-import { relabelShare } from '@/app/share-ask';
+import { relabelShare, requestShareNudge } from '@/app/share-ask';
+import { introWanted, markIntro } from '@/app/intro';
+import { IntroGuide } from './components/IntroGuide';
+import { ShareNudge } from './components/ShareNudge';
+import { RoutineWeekCard } from './components/RoutineWeek';
 
 type ScreenId =
   | 'quest'
@@ -119,6 +123,50 @@ const AboutAppScreen = screen(() => import('./screens/GuideTopicScreens'), 'Abou
 const KBeautyGuideScreen = screen(() => import('./screens/GuideTopicScreens'), 'KBeautyGuideScreen');
 const SunCareGuideScreen = screen(() => import('./screens/GuideTopicScreens'), 'SunCareGuideScreen');
 
+const localStore = (): Storage | undefined => {
+  try {
+    return typeof localStorage === 'undefined' ? undefined : localStorage;
+  } catch {
+    return undefined;
+  }
+};
+
+/** GLOW home's first card for someone who has played before. */
+function ContinueCard({
+  locale,
+  onOpen,
+}: {
+  locale: string;
+  onOpen: (entry: 'result' | 'resume' | null) => void;
+}) {
+  const store = localStore();
+  return (
+    <>
+      <section className="kg-continue" aria-labelledby="kg-continue-title">
+        <h2 className="kg-continue__title" id="kg-continue-title">
+          {chromeText('welcomeBack', locale)}
+        </h2>
+        <div className="kg-continue__actions">
+          {hasSavedResult(store) ? (
+            <button type="button" className="btn btn--primary" onClick={() => onOpen('result')}>
+              {chromeText('lastResult', locale)}
+            </button>
+          ) : null}
+          {hasProgress(store) ? (
+            <button type="button" className="btn" onClick={() => onOpen('resume')}>
+              {chromeText('continueQuest', locale)}
+            </button>
+          ) : null}
+          <button type="button" className="btn btn--quiet" onClick={() => onOpen(null)}>
+            {chromeText('newQuest', locale)}
+          </button>
+        </div>
+      </section>
+      {hasSavedResult(store) ? <RoutineWeekCard locale={locale} /> : null}
+    </>
+  );
+}
+
 /** While a screen's file is on its way: a quiet, screen-sized space, so nothing jumps. */
 function ScreenLoading() {
   return <div className="kg-screen-loading" aria-busy="true" />;
@@ -172,7 +220,19 @@ export function App() {
   const [linkedProduct] = useState(() =>
     productShapeFromSearch(typeof window === 'undefined' ? '' : window.location.search),
   );
-  const [screen, setScreen] = useState<ScreenId>(linkedProduct ? 'store' : 'quest');
+  // SKIN QUEST and GLOW Class are one app (owner, 2026-10-18): someone who has played before
+  // lands on GLOW home with «see my last result / continue»; a first-timer and the game door
+  // (?play) land on the game.
+  const [screen, setScreen] = useState<ScreenId>(() =>
+    linkedProduct
+      ? 'store'
+      : !playTrackFromSearch(typeof window === 'undefined' ? '' : window.location.search) &&
+          hasPlayedBefore(localStore())
+        ? 'guide'
+        : 'quest',
+  );
+  // «See my last result» / «continue» from GLOW home, handed to the game when it opens.
+  const [questEntry, setQuestEntry] = useState<'result' | 'resume' | null>(null);
   // Which product or dictionary entry a cross-link asked for. Bumping `focusKey` remounts the
   // screen on that item even when the same screen is already open.
   const [focusSku, setFocusSku] = useState<string | null>(linkedProduct);
@@ -215,6 +275,11 @@ export function App() {
   // away they are one tap, and the question is the first thing on the screen.
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
+  // Lumina Noy's first-visit introduction (preview only until the owner approves its script).
+  const [introOpen, setIntroOpen] = useState(() =>
+    typeof window === 'undefined' ? false : introWanted(window.location, localStore()),
+  );
+  const [introTrack, setIntroTrack] = useState<'face' | null>(null);
   const [guideOpen, setGuideOpen] = useState(() =>
     typeof localStorage === 'undefined' ? false : !buttonGuideSeen(localStorage),
   );
@@ -336,7 +401,22 @@ export function App() {
   const goFirst = () => {
     const inProgress = screenRef.current === 'quest' && questNavRef.current?.position;
     if (inProgress && !window.confirm(chromeText('confirmFirst', locale))) return;
+    setQuestEntry(null);
+    go(hasPlayedBefore(localStore()) ? 'guide' : 'quest');
+  };
+  const openQuest = (entry: 'result' | 'resume' | null) => {
+    setQuestEntry(entry);
+    setQuestOpen(true);
     go('quest');
+  };
+  const finishIntro = (how: 'seen' | 'off') => {
+    markIntro(localStore(), how);
+    setIntroOpen(false);
+    // Straight into the skin game's first question.
+    if (screenRef.current === 'quest' && !hasPlayedBefore(localStore())) {
+      setIntroTrack('face');
+      setQuestOpen(true);
+    }
   };
 
   const onQuest = screen === 'quest';
@@ -428,10 +508,17 @@ export function App() {
                 partner={partner}
                 fromSkinQuest={fromSkinQuest}
                 // Only on first arrival: coming back from a lesson must not restart the quest.
-                startTrack={focusKey === 0 ? playTrack : null}
+                startTrack={focusKey === 0 ? (playTrack ?? introTrack) : null}
                 begun
+                entry={questEntry}
                 onNav={onNav}
                 onExplore={() => go('lessons')}
+                onGlowHome={() => {
+                  setQuestEntry(null);
+                  go('guide');
+                  // Result → GLOW Class is a step change: the soft like/share note may follow.
+                  setTimeout(() => requestShareNudge(), 1500);
+                }}
                 onOpenIngredient={openIngredient}
                 onOpenProduct={openProduct}
               />
@@ -493,6 +580,9 @@ export function App() {
               </nav>
 
               <Suspense fallback={<ScreenLoading />}>
+              {screen === 'guide' && hasPlayedBefore(localStore()) ? (
+                <ContinueCard locale={locale} onOpen={openQuest} />
+              ) : null}
               {screen === 'guide' ? (
                 <GuideHubScreen locale={locale} onGo={(target: GuideTarget) => go(target)} />
               ) : null}
@@ -675,7 +765,9 @@ export function App() {
           </Sheet>
         ) : null}
 
-        {guideOpen ? <ButtonGuide locale={locale} onDone={closeGuide} /> : null}
+        {guideOpen && !introOpen ? <ButtonGuide locale={locale} onDone={closeGuide} /> : null}
+        {introOpen ? <IntroGuide locale={locale} onDone={finishIntro} /> : null}
+        <ShareNudge locale={locale} />
       </div>
       </LocaleContext.Provider>
     </VoiceProvider>

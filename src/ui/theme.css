@@ -2051,7 +2051,7 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
  * bottom right, above the bottom bar. Room under the last line so they never sit on top of it,
  * and hidden while one of the app's own sheets, the button guide or the update line is up. */
 .main { padding-bottom: calc(210px + env(safe-area-inset-bottom, 0px)); }
-body:has(.kg-sheet) .kgs-dock, body:has(.kg-guide) .kgs-dock, body:has(.kg-update) .kgs-dock { display: none; }
+body:has(.kg-sheet) .kgs-dock, body:has(.kg-guide) .kgs-dock, body:has(.kg-update) .kgs-dock, body:has(.kg-intro) .kgs-dock { display: none; }
 .kg-share-ask { display: block; height: 1px; }
 .kg-screen-loading { min-height: 60vh; }
 
@@ -2063,3 +2063,48 @@ body:has(.kg-sheet) .kgs-dock, body:has(.kg-guide) .kgs-dock, body:has(.kg-updat
 .voiceswitch__icon .kg-icon, .care-product__media .kg-icon { width: 22px; height: 22px; }
 .kg-host { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 0; flex: none; }
 .kg-host__name { max-width: 120px; font-size: var(--fs-2xs); line-height: 1.25; color: var(--text-muted); text-align: center; }
+
+/* 2026-10-18 owner orders C–F: continue card, «learn more deeply», product WhatsApp ask,
+ * the soft like/share note, and Lumina Noy's first-visit introduction. Tokens only. */
+.kg-continue { display: grid; gap: 10px; margin: 0 0 18px; padding: 16px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); }
+.kg-continue__title { margin: 0; font-size: var(--fs-lg); }
+.kg-continue__actions { display: grid; gap: 8px; }
+.kg-continue__actions .btn { min-height: 48px; font-size: var(--fs-base); }
+.kg-deeper { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 56px; margin: 20px 0 0; font-size: var(--fs-lg); }
+.kg-kgtag { display: inline-block; margin: 0 0 6px; padding: 2px 10px; border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); font-size: var(--fs-xs); font-weight: 700; }
+.kg-askproduct { display: flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; margin: 6px 0 0; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--text); font-size: var(--fs-sm); font-weight: 600; text-decoration: none; }
+.kg-askproduct .kg-icon { width: 20px; height: 20px; }
+.kg-nudge { position: fixed; left: 12px; right: 12px; bottom: calc(80px + env(safe-area-inset-bottom, 0px)); z-index: 46; display: flex; align-items: center; gap: 10px; max-width: 560px; margin: 0 auto; padding: 10px 10px 10px 16px; border-radius: 14px; background: var(--surface); color: var(--text); border: 1px solid var(--line-strong); border-left: 4px solid var(--gold); box-shadow: var(--shadow); }
+.kg-nudge__text { margin: 0; flex: 1; font-size: var(--fs-sm); line-height: 1.5; }
+.kg-nudge__close { flex: none; }
+body:has(.kg-nudge) .kgs-dock { bottom: calc(160px + env(safe-area-inset-bottom, 0px)) !important; }
+.kg-intro { position: fixed; inset: 0; z-index: 80; display: flex; align-items: center; justify-content: center; padding: 16px; background: var(--bg); overflow-y: auto; }
+.kg-intro__panel { width: 100%; max-width: 460px; display: grid; gap: 14px; justify-items: center; text-align: center; }
+.kg-intro__figure { margin: 0; display: grid; gap: 6px; justify-items: center; }
+.kg-intro__photo { width: min(240px, 60vw); height: min(300px, 38vh); object-fit: cover; object-position: top; border-radius: 20px; border: 3px solid var(--gold); }
+.kg-intro__name { font-size: var(--fs-sm); color: var(--text-muted); }
+.kg-intro__line { margin: 0; min-height: 6.5em; font-size: var(--fs-lg); line-height: 1.55; font-weight: 600; color: var(--text); }
+.kg-intro__dots { list-style: none; margin: 0; padding: 0; display: flex; gap: 6px; }
+.kg-intro__dots li { width: 8px; height: 8px; border-radius: 50%; background: var(--line-strong); }
+.kg-intro__dots li.is-done { background: var(--text-muted); }
+.kg-intro__dots li.is-on { background: var(--gold); width: 20px; border-radius: 4px; }
+.kg-intro__actions { display: grid; gap: 8px; width: 100%; }
+.kg-intro__btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; font-size: var(--fs-base); }
+.kg-intro__noauto { min-height: 44px; border: 0; background: none; color: var(--text-muted); font-size: var(--fs-sm); text-decoration: underline; cursor: pointer; }
+.kg-week { display: grid; gap: 10px; margin: 18px 0 0; padding: 16px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); }
+.kg-week__title { margin: 0; font-size: var(--fs-base); }
+.kg-week__day { color: var(--text-muted); font-weight: 600; }
+.kg-week__ticks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.kg-week__tick { display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 12px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--bg); color: var(--text); font-size: var(--fs-base); font-weight: 600; text-align: left; cursor: pointer; }
+.kg-week__tick[aria-pressed='true'] { border-color: var(--btn-bg); }
+.kg-week__box { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; flex: none; border-radius: 8px; border: 2px solid var(--line-strong); color: var(--btn-fg); }
+.kg-week__tick[aria-pressed='true'] .kg-week__box { background: var(--btn-bg); border-color: var(--btn-bg); }
+.kg-week__box .kg-icon { width: 18px; height: 18px; }
+.kg-week__note { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); line-height: 1.5; }
+.kg-week__start { min-height: 48px; font-size: var(--fs-base); }
+.kg-week__dots { list-style: none; margin: 0; padding: 0; display: flex; gap: 8px; }
+.kg-week__dot { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--line-strong); }
+.kg-week__dot.is-both { background: var(--gold); border-color: var(--gold); }
+.kg-week__dot.is-one { background: linear-gradient(90deg, var(--gold) 50%, transparent 50%); border-color: var(--gold); }
+.kg-week__dot.is-ahead { border-style: dashed; }
+.kg-tips { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin: 12px 0 0; font-size: var(--fs-base); text-decoration: none; }

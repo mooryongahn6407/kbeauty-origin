@@ -50,6 +50,7 @@ import { pick } from '../pick';
 import { translateSentence } from '@/content/company/usage-translations';
 import { LABEL_GALLERY } from '@/content/label-gallery';
 import { ProductStrip } from '../components/ProductCard';
+import { ProductAskLink } from '../components/ProductAsk';
 
 const storage = (): Storage | undefined =>
   typeof localStorage === 'undefined' ? undefined : localStorage;
@@ -532,6 +533,13 @@ function ProductLabel({
           ? `✓ ${translate('store.inquiry.added', locale)}`
           : `📝 ${translate('store.inquiry.add', locale)}`}
       </button>
+      <ProductAskLink
+        code={displayCode(product.sku) ?? product.sku}
+        brand={product.brand}
+        name={productName(product, locale)}
+        locale={locale}
+        partner={partner}
+      />
       <ShareLink sku={product.sku} partner={partner} locale={locale} />
       <p className="record-block__note">{translate('store.noCommerce', locale)}</p>
     </section>

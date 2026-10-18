@@ -31,6 +31,9 @@ export const LOCAL_STORAGE_KEYS: readonly string[] = [
   'korea-glow:help-desk:v1',
   'korea-glow:button-guide:v1',
   'korea-glow:locale:v1',
+  'korea-glow:intro:v1',
+  'korea-glow:install-hint:v1',
+  'korea-glow:routine-week:v1',
   'korea-glow.display',
   'korea-glow.voice',
 ];

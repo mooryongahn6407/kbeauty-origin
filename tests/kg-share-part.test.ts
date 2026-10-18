@@ -8,7 +8,7 @@ import { globSync, readFileSync } from 'node:fs';
 import { createElement } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
-import { askToShare, relabelShare } from '@/app/share-ask';
+import { askToShare, relabelShare, resetVisitForTests } from '@/app/share-ask';
 import { CHROME } from '@/ui/chrome-text';
 import { OTHER_APPS, OtherAppLinks } from '@/ui/components/OtherApps';
 
@@ -56,6 +56,7 @@ describe('the shared Share + Like part', () => {
   });
 
   it('asks only through the part, never over an open dialog, and does nothing without it', () => {
+    resetVisitForTests();
     let asked = 0;
     const api = { ask: () => ((asked += 1), true) };
     const none = { querySelector: () => null };
@@ -69,13 +70,14 @@ describe('the shared Share + Like part', () => {
     expect(() => relabelShare({ KGShare: broken })).not.toThrow();
   });
 
-  it('asks at the end of a skin-game result and at the end of a lesson — nowhere else', () => {
+  it('asks or nudges only at the result, on the way to GLOW home and at lesson ends', () => {
     const askers = globSync('src/ui/**/*.tsx', { cwd: ROOT })
       .map((path) => path.replace(/\\/g, '/'))
-      .filter((path) => /<ShareAskAtEnd\b|askToShare\(/.test(source(path)))
+      .filter((path) => /<ShareAskAtEnd\b|askToShare\(|requestShareNudge\(/.test(source(path)))
       .filter((path) => !path.endsWith('ShareAsk.tsx'))
       .sort();
     expect(askers).toEqual([
+      'src/ui/App.tsx',
       'src/ui/components/LessonRunner.tsx',
       'src/ui/screens/CareLessonsScreen.tsx',
       'src/ui/screens/CareQuestScreen.tsx',

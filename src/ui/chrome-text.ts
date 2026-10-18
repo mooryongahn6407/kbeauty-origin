@@ -92,6 +92,69 @@ export const CHROME: Readonly<Record<string, Localized>> = {
   appLaoBridge: L('LAO BRIDGE — 라오어·한국어·영어 배우기', 'LAO BRIDGE — learn Lao, Korean and English', 'LAO BRIDGE — ຮຽນພາສາລາວ, ເກົາຫຼີ ແລະ ອັງກິດ', 'LAO BRIDGE — เรียนภาษาลาว เกาหลี และอังกฤษ', 'LAO BRIDGE — apprendre le lao, le coréen et l’anglais'),
   // lo/th/fr: unreviewed drafts like every other lo/th/fr line here.
   appOfficial: L('KOREA GLOW 공식 사이트', 'KOREA GLOW official site', 'ເວັບໄຊທາງການ KOREA GLOW', 'เว็บไซต์ทางการ KOREA GLOW', 'Site officiel KOREA GLOW'),
+  // ── 2026-10-18 owner orders C–F. Korean is the master; en is base; lo/th/fr below are
+  // unreviewed drafts like every other lo/th/fr line in this file (the app says so on screen).
+  // C · SKIN QUEST → GLOW Class
+  deeper: L('더 깊이 공부하기 → GLOW 클래스', 'Learn more deeply → GLOW Class', 'ຮຽນຮູ້ໃຫ້ເລິກຂຶ້ນ → GLOW Class', 'เรียนรู้ให้ลึกขึ้น → GLOW Class', 'Approfondir → GLOW Class'),
+  welcomeBack: L('다시 오셨네요', 'Welcome back', 'ຍິນດີຕ້ອນຮັບກັບມາ', 'ยินดีต้อนรับกลับมา', 'Bon retour'),
+  lastResult: L('지난 결과 보기', 'See my last result', 'ເບິ່ງຜົນຄັ້ງກ່ອນ', 'ดูผลครั้งก่อน', 'Voir mon dernier résultat'),
+  continueQuest: L('이어 하기', 'Continue', 'ສືບຕໍ່', 'ทำต่อ', 'Continuer'),
+  newQuest: L('피부 게임 새로 하기', 'Play the skin game again', 'ຫຼິ້ນເກມຜິວໃໝ່', 'เล่นเกมผิวใหม่', 'Rejouer au jeu de peau'),
+  installHintTitle: L('폰 홈 화면에 아이콘 저장', 'Save the icon to your home screen', 'ບັນທຶກໄອຄອນໃສ່ໜ້າຈໍຫຼັກ', 'บันทึกไอคอนไว้ที่หน้าจอหลัก', "Ajouter l'icône à l'écran d'accueil"),
+  installHintBody: L(
+    '아이콘을 저장해 두면 언제든 결과를 다시 보고 이어서 공부할 수 있어요.',
+    'With the icon on your home screen, you can see your result again and keep learning any time.',
+    'ຖ້າບັນທຶກໄອຄອນໄວ້ ທ່ານຈະເບິ່ງຜົນຄືນ ແລະ ຮຽນຕໍ່ໄດ້ທຸກເວລາ.',
+    'ถ้าบันทึกไอคอนไว้ จะกลับมาดูผลและเรียนต่อได้ทุกเมื่อ',
+    "Avec l'icône sur votre écran d'accueil, vous retrouvez votre résultat et continuez d'apprendre quand vous voulez.",
+  ),
+  // D · ask about a product on WhatsApp Business (no prices, ever)
+  kgProducts: L('KOREA GLOW 제품', 'KOREA GLOW products', 'ສິນຄ້າ KOREA GLOW', 'สินค้า KOREA GLOW', 'Produits KOREA GLOW'),
+  askProduct: L('WhatsApp으로 이 제품 문의하기', 'Ask about this product on WhatsApp', 'ສອບຖາມສິນຄ້ານີ້ທາງ WhatsApp', 'สอบถามสินค้านี้ทาง WhatsApp', 'Poser une question sur ce produit (WhatsApp)'),
+  askProductMessage: L(
+    '안녕하세요! GLOW 클래스에서 보고 연락드려요. 이 제품에 대해 여쭤보고 싶어요: {product}',
+    'Hello! I saw this in GLOW Class and would like to ask about this product: {product}',
+    'ສະບາຍດີ! ຂ້ອຍເຫັນໃນ GLOW Class ແລະ ຢາກສອບຖາມກ່ຽວກັບສິນຄ້ານີ້: {product}',
+    'สวัสดีค่ะ เห็นใน GLOW Class และอยากสอบถามเกี่ยวกับสินค้านี้: {product}',
+    'Bonjour ! Je l’ai vu dans GLOW Class et j’aimerais me renseigner sur ce produit : {product}',
+  ),
+  // E · a gentle one-line reminder at step changes
+  nudge: L(
+    '내용이 좋으면 ♥ 좋아요를 눌러 주세요. 친구분들께 공유해 주시면 정말 고맙겠습니다.',
+    'If you like it, please tap ♥ Like. Sharing it with your friends would mean a lot to us.',
+    'ຖ້າມັກ ກະລຸນາກົດ ♥ ຖືກໃຈ. ຖ້າແບ່ງປັນໃຫ້ໝູ່ເພື່ອນ ພວກເຮົາຈະຂອບໃຈຫຼາຍ.',
+    'ถ้าชอบ ช่วยกด ♥ ถูกใจนะคะ ถ้าช่วยแชร์ให้เพื่อน ๆ เราจะขอบคุณมากค่ะ',
+    "Si cela vous plaît, touchez ♥ J'aime. Le partager avec vos amis nous ferait vraiment plaisir.",
+  ),
+  // F · first-visit intro (preview only until the owner approves the script)
+  introSkip: L('건너뛰기', 'Skip', 'ຂ້າມ', 'ข้าม', 'Passer'),
+  introNoAuto: L('다음부터 자동으로 보지 않기', "Don't play this automatically", 'ບໍ່ຕ້ອງເປີດອັດຕະໂນມັດ', 'ไม่ต้องเล่นอัตโนมัติ', 'Ne plus lancer automatiquement'),
+  introSound: L('소리 켜기', 'Turn on sound', 'ເປີດສຽງ', 'เปิดเสียง', 'Activer le son'),
+  introStart: L('시작하기', "Let's start", 'ເລີ່ມເລີຍ', 'เริ่มเลย', 'Commencer'),
+  // H · skin-care tips on WhatsApp Business (secondary to «learn more deeply»)
+  tips: L('WhatsApp으로 피부 관리 팁 받기', 'Get skin-care tips on WhatsApp', 'ຮັບຄຳແນະນຳດູແລຜິວທາງ WhatsApp', 'รับเคล็ดลับดูแลผิวทาง WhatsApp', 'Recevoir des conseils de soin sur WhatsApp'),
+  tipsMessage: L(
+    '안녕하세요! GLOW 클래스 피부 게임 결과가 «{type}»(으)로 나왔어요. 저에게 맞는 피부 관리 팁을 받아 보고 싶어요.',
+    'Hello! My GLOW Class skin game result was «{type}». I would love some skin-care tips that suit me.',
+    'ສະບາຍດີ! ຜົນເກມຜິວ GLOW Class ຂອງຂ້ອຍແມ່ນ «{type}». ຢາກໄດ້ຄຳແນະນຳດູແລຜິວທີ່ເໝາະກັບຂ້ອຍ.',
+    'สวัสดีค่ะ ผลเกมผิว GLOW Class ของฉันคือ «{type}» อยากได้เคล็ดลับดูแลผิวที่เหมาะกับฉันค่ะ',
+    'Bonjour ! Mon résultat au jeu de peau GLOW Class : « {type} ». J’aimerais recevoir des conseils de soin adaptés.',
+  ),
+  // I · 7-day routine check — gentle, no streak pressure, nothing tied to it
+  weekTitle: L('7일 루틴 체크', '7-day routine check', 'ກວດກິດຈະວັດ 7 ມື້', 'เช็กรูทีน 7 วัน', 'Routine sur 7 jours'),
+  weekIntro: L(
+    '아침·저녁 관리를 했으면 가볍게 체크해 보세요. 못 한 날이 있어도 괜찮아요. 이 폰에만 저장돼요.',
+    'Tick your morning and evening care when you have done it. Missing a day is fine. Saved only on this phone.',
+    'ເມື່ອດູແລຕອນເຊົ້າ ແລະ ຕອນແລງແລ້ວ ໝາຍໄວ້ເບົາໆ. ມື້ທີ່ບໍ່ໄດ້ເຮັດກໍບໍ່ເປັນຫຍັງ. ບັນທຶກໄວ້ໃນໂທລະສັບນີ້ເທົ່ານັ້ນ.',
+    'ถ้าดูแลผิวเช้าและเย็นแล้ว ติ๊กไว้เบา ๆ ได้เลย วันไหนพลาดก็ไม่เป็นไร บันทึกไว้ในโทรศัพท์นี้เท่านั้น',
+    'Cochez vos soins du matin et du soir une fois faits. Un jour manqué, ce n’est pas grave. Enregistré seulement sur ce téléphone.',
+  ),
+  weekStart: L('오늘부터 시작하기', 'Start today', 'ເລີ່ມມື້ນີ້', 'เริ่มวันนี้', 'Commencer aujourd’hui'),
+  weekDay: L('{n}일째', 'Day {n}', 'ມື້ທີ {n}', 'วันที่ {n}', 'Jour {n}'),
+  weekAm: L('아침 관리', 'Morning care', 'ດູແລຕອນເຊົ້າ', 'ดูแลตอนเช้า', 'Soin du matin'),
+  weekPm: L('저녁 관리', 'Evening care', 'ດູແລຕອນແລງ', 'ดูแลตอนเย็น', 'Soin du soir'),
+  weekDone: L('7일을 함께했어요. 수고하셨어요!', 'Seven days together. Well done!', 'ຄົບ 7 ມື້ແລ້ວ. ເກັ່ງຫຼາຍ!', 'ครบ 7 วันแล้ว เก่งมากค่ะ!', 'Sept jours ensemble. Bravo !'),
+  weekAgain: L('7일 다시 시작', 'Start another 7 days', 'ເລີ່ມ 7 ມື້ໃໝ່', 'เริ่ม 7 วันใหม่', 'Recommencer 7 jours'),
   // Update line
   updateReady: L('새 버전이 있어요', 'A new version is ready', 'ມີເວີຊັນໃໝ່ແລ້ວ', 'มีเวอร์ชันใหม่แล้ว', 'Une nouvelle version est prête'),
   updateApply: L('지금 적용', 'Update now', 'ອັບເດດດຽວນີ້', 'อัปเดตตอนนี้', 'Mettre à jour'),

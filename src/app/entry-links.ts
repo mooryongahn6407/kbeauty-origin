@@ -47,3 +47,22 @@ export function hasPlayedBefore(storage: Pick<Storage, 'getItem'> | undefined): 
     return false;
   }
 }
+
+/** A finished result is saved on this phone. */
+export function hasSavedResult(storage: Pick<Storage, 'getItem'> | undefined): boolean {
+  try {
+    const raw = storage?.getItem(QUEST_KEYS[0]!);
+    return Boolean(raw && raw !== '{}');
+  } catch {
+    return false;
+  }
+}
+
+/** A track was left half-way on this phone. */
+export function hasProgress(storage: Pick<Storage, 'getItem'> | undefined): boolean {
+  try {
+    return Boolean(storage?.getItem(QUEST_KEYS[1]!));
+  } catch {
+    return false;
+  }
+}

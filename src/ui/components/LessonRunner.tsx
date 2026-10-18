@@ -34,7 +34,7 @@ import { LessonGrounding, LessonSources } from './LessonSources';
 import { ReadAloud } from '../components/ReadAloud';
 import { spokenFallback } from '../spoken-fallback';
 import { MasteryPanel } from '../components/MasteryPanel';
-import { askToShare } from '@/app/share-ask';
+import { requestShareNudge } from '@/app/share-ask';
 
 const PHASE_ORDER: readonly LessonPhase[] = [
   'LESSON',
@@ -106,12 +106,12 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
     dispatch({ type: 'START_LESSON', at: now() });
   }, [dispatch]);
 
-  // A finished lesson is a «first success»: the shared Share part may ask, once, a moment later
-  // (it keeps its own once-in-three-days rule). A UI nicety, not a session effect — nothing here
+  // A finished lesson is a step change: the soft like/share note may follow a moment later, within
+  // its once-a-visit, once-in-three-days budget (src/app/share-ask.ts). A UI nicety, not a session effect — nothing here
   // touches the reducer, the event sink or the mastery ledger.
   useEffect(() => {
     if (!state.lessonCompletedAt) return;
-    const timer = setTimeout(() => askToShare(), 1500);
+    const timer = setTimeout(() => requestShareNudge(), 1500);
     return () => clearTimeout(timer);
   }, [state.lessonCompletedAt]);
 

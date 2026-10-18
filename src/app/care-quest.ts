@@ -675,3 +675,26 @@ export function resultDate(
   const record = (history[track] ?? []).find((item) => sameAnswers(item.answers, answers));
   return record?.at ?? null;
 }
+
+/**
+ * Where a returning reader lands when she taps «see my last result» or «continue» on GLOW home:
+ * the most recently finished track's result, or the half-done track at the question she left.
+ * Null when there is nothing to open — the caller then shows the track list.
+ */
+export function questEntryState(
+  entry: 'result' | 'resume',
+  saved: SavedResults,
+  progress: QuestProgress | null,
+  history: QuestHistory,
+): CareQuestState | null {
+  if (entry === 'resume') {
+    return progress ? careQuestReducer(initialCareQuest, { type: 'resume', ...progress }) : null;
+  }
+  const latest = (Object.keys(saved) as TrackId[])
+    .filter((id) => saved[id])
+    .map((id) => ({ id, at: history[id]?.at(-1)?.at ?? '' }))
+    .sort((a, b) => b.at.localeCompare(a.at))[0];
+  return latest
+    ? careQuestReducer(initialCareQuest, { type: 'restore', track: latest.id, answers: saved[latest.id]! })
+    : null;
+}

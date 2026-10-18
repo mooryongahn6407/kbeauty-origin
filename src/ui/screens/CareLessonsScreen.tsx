@@ -187,7 +187,7 @@ function Lesson({
         ) : null}
       </div>
       {/* Read to the end of a lesson: a completed lesson, when the shared part may ask once. */}
-      <ShareAskAtEnd />
+      <ShareAskAtEnd kind="nudge" />
     </article>
   );
 }

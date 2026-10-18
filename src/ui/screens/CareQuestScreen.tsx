@@ -12,7 +12,7 @@
  * cosmetic-education estimate, not a diagnosis, with the sources underneath. Nothing here
  * records an attempt or touches mastery (rule 9); answers stay on the phone.
  */
-import { useEffect, useMemo, useReducer, useState } from 'react';
+import { useEffect, useMemo, useReducer, useRef, useState } from 'react';
 import { translate } from '@/localization/messages';
 import { CARE_TRACKS, careTrack } from '@/content/care-quest';
 import {
@@ -34,7 +34,11 @@ import type {
 } from '@/content/care-quest/types';
 import type { QuestNav } from '@/app/app-chrome';
 import { CHROME } from '../chrome-text';
-import { Icon } from '../components/AppChrome';
+import { Icon, Sheet } from '../components/AppChrome';
+import { ProductAskLink } from '../components/ProductAsk';
+import { RoutineWeekCard } from '../components/RoutineWeek';
+import { productAskHref, tipsAskMessage } from '@/app/product-ask';
+import { requestShareNudge } from '@/app/share-ask';
 import { OtherAppLinks } from '../components/OtherApps';
 import { ShareAskAtEnd } from '../components/ShareAsk';
 import { displayCode } from '@/app/store-catalog';
@@ -50,6 +54,7 @@ import {
   loadHistory,
   loadProgress,
   loadSavedResults,
+  questEntryState,
   saveProgress,
   labelEvidence,
   matchProducts,
@@ -83,7 +88,7 @@ import { GiftCard, StreakBadge } from '../components/Collection';
 import { Companion, CompanionSays, SpeechBubble } from '../components/Companion';
 import { ReadAloud } from '../components/ReadAloud';
 import { SceneHero } from '../components/SceneHero';
-import { GlowHero } from '../components/GlowHero';
+import { GlowHero, InstallButton } from '../components/GlowHero';
 import { QuestWelcome } from './QuestWelcome';
 import { spokenFallback } from '../spoken-fallback';
 import { pick } from '../pick';
@@ -128,8 +133,10 @@ export function CareQuestScreen({
   fromSkinQuest = false,
   startTrack = null,
   begun = false,
+  entry = null,
   onNav,
   onExplore,
+  onGlowHome,
   onOpenIngredient,
   onOpenProduct,
 }: {
@@ -141,9 +148,13 @@ export function CareQuestScreen({
   startTrack?: TrackId | null;
   /** The reader has already pressed «begin» on the light greeting the app shows first. */
   begun?: boolean;
+  /** From GLOW home: open the last result, or continue a half-done track. */
+  entry?: 'result' | 'resume' | null;
   /** KG-APP-BASE bottom bar: where the reader is, and what Back/Next do here. */
   onNav?: (nav: QuestNav | null) => void;
   onExplore: () => void;
+  /** «Learn more deeply → GLOW Class»: from the result to the class's home. */
+  onGlowHome: () => void;
   onOpenIngredient: (id: string) => void;
   onOpenProduct: (sku: string) => void;
 }) {
@@ -155,6 +166,8 @@ export function CareQuestScreen({
   const [state, dispatch] = useReducer(careQuestReducer, saved, (initial: SavedResults) =>
     startTrack
       ? startingCareQuest(startTrack)
+      : entry && questEntryState(entry, initial, loadProgress(storage()), history)
+        ? questEntryState(entry, initial, loadProgress(storage()), history)!
       : begun || Object.keys(initial).length > 0 || loadProgress(storage())
         ? { ...initialCareQuest, phase: 'tracks' as const }
         : initialCareQuest,
@@ -231,6 +244,23 @@ export function CareQuestScreen({
     // src/app/partner-track.ts for exactly what this does and does not record).
     if (partner) trackPartnerVisit(partner, 'result', track.id);
   }, [state.phase, state.track, state.answers]);
+
+  // Moving from the questions to the result: the first result on this phone offers the home-screen
+  // icon once (the app's own install guidance); any result may bring the soft like/share note,
+  // which keeps its own once-a-visit, once-in-three-days budget (src/app/share-ask.ts).
+  const previousPhase = useRef(state.phase);
+  const [installHint, setInstallHint] = useState(false);
+  useEffect(() => {
+    const from = previousPhase.current;
+    previousPhase.current = state.phase;
+    if (state.phase !== 'result' || from !== 'steps') return;
+    if (firstInstallHint(storage())) {
+      setInstallHint(true);
+      return;
+    }
+    const timer = setTimeout(() => requestShareNudge(), 2500);
+    return () => clearTimeout(timer);
+  }, [state.phase]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') window.scrollTo?.(0, 0);
@@ -325,6 +355,7 @@ export function CareQuestScreen({
 
   if (state.phase === 'result') {
     return (
+      <>
       <CareResult
         track={track}
         answers={state.answers}
@@ -334,9 +365,17 @@ export function CareQuestScreen({
         partner={partner}
         dispatch={dispatch}
         onExplore={onExplore}
+        onGlowHome={onGlowHome}
         onOpenIngredient={onOpenIngredient}
         onOpenProduct={onOpenProduct}
       />
+      {installHint ? (
+        <Sheet title={inLocale(CHROME.installHintTitle!, locale)} locale={locale} onClose={() => setInstallHint(false)}>
+          <p className="kg-setting__note">{inLocale(CHROME.installHintBody!, locale)}</p>
+          <InstallButton locale={locale} />
+        </Sheet>
+      ) : null}
+      </>
     );
   }
 
@@ -643,6 +682,7 @@ function CareResult({
   partner,
   dispatch,
   onExplore,
+  onGlowHome,
   onOpenIngredient,
   onOpenProduct,
 }: {
@@ -654,6 +694,7 @@ function CareResult({
   partner: string | null;
   dispatch: Dispatch;
   onExplore: () => void;
+  onGlowHome: () => void;
   onOpenIngredient: (id: string) => void;
   onOpenProduct: (sku: string) => void;
 }) {
@@ -779,6 +820,17 @@ function CareResult({
         )}
       </section>
 
+      {/* Secondary to «learn more deeply» below: a quiet button, not a primary one. */}
+      <a
+        className="btn btn--quiet kg-tips"
+        href={productAskHref(tipsMessage(locale, type ? t(type.name) : t(track.title), partner))}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Icon name="chat" />
+        {t(CHROME.tips!)}
+      </a>
+
       {plan.avoidReason ? <p className="boundary boundary--strong">{t(plan.avoidReason)}</p> : null}
 
       <section className="record-block">
@@ -902,6 +954,8 @@ function CareResult({
 
       {products.length > 0 ? (
         <section className="record-block">
+          {/* Commercial disclosure: these are the company's own products. */}
+          <p className="kg-kgtag">{t(CHROME.kgProducts!)}</p>
           <h2 className="record-block__title">{t(QUEST_TEXT.products)}</h2>
           <ul className="care-products" role="list">
             {products.map((product) => (
@@ -934,6 +988,13 @@ function CareResult({
                     ) : null}
                   </span>
                 </button>
+                <ProductAskLink
+                  code={displayCode(product.sku) ?? product.sku}
+                  brand={product.brand}
+                  name={productName(product, locale)}
+                  locale={locale}
+                  partner={partner}
+                />
               </li>
             ))}
           </ul>
@@ -967,6 +1028,8 @@ function CareResult({
       {/* Last, after the safety and education above: education outranks commerce (rule 6). */}
       <GiftCard gift={gift} locale={locale} partner={partner} />
 
+      <RoutineWeekCard locale={locale} />
+
       <div className="quest__foot">
         <button
           type="button"
@@ -982,10 +1045,14 @@ function CareResult({
         >
           {t(QUEST_TEXT.restart)}
         </button>
-        <button type="button" className="btn btn--primary" onClick={onExplore}>
+        <button type="button" className="btn btn--quiet" onClick={onExplore}>
           {t(QUEST_TEXT.learnMore)}
         </button>
       </div>
+      {/* SKIN QUEST → GLOW Class: the one big way on. The result stays saved on this phone. */}
+      <button type="button" className="btn btn--primary kg-deeper" onClick={onGlowHome}>
+        {t(CHROME.deeper!)}
+      </button>
       <p className="record-block__note">{t(QUEST_TEXT.savedNote)}</p>
       <OtherAppLinks locale={locale} />
       {/* Read to the end of a result: the first success, when the shared part may ask once. */}
@@ -1118,3 +1185,21 @@ function ShareResult({
     </section>
   );
 }
+
+const INSTALL_HINT_KEY = 'korea-glow:install-hint:v1';
+
+/** True the first time only: the home-screen icon is offered once, after the first result. */
+function firstInstallHint(store: Storage | undefined): boolean {
+  try {
+    if (!store || store.getItem(INSTALL_HINT_KEY)) return false;
+    store.setItem(INSTALL_HINT_KEY, '1');
+    if (typeof window !== 'undefined' && window.matchMedia?.('(display-mode: standalone)').matches) return false;
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** The «skin-care tips on WhatsApp» message: the result's type, the language, the partner code. */
+const tipsMessage = (locale: string, typeName: string, partner: string | null): string =>
+  tipsAskMessage(inLocale(CHROME.tipsMessage!, locale), typeName, locale, partner);
