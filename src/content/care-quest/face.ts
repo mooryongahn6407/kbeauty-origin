@@ -946,10 +946,10 @@ const AGE_ADVICE: Record<string, AdviceBlock> = {
     ),
     points: [
       L(
-        '피부가 얇고 연약해져 멍이 잘 들고 회복이 느려요. 문지르지 말고 아주 순하게.',
-        'Skin is thin and fragile, bruises easily and heals slowly — never scrub, keep everything gentle.',
-        'ຜິວບາງ ອ່ອນແອ ຊ້ຳງ່າຍ ຫາຍຊ້າ — ບໍ່ຖູ ໃຫ້ອ່ອນໂຍນທີ່ສຸດ.',
-        'ผิวบางและเปราะบาง ช้ำง่าย หายช้า อย่าถู ใช้แต่ที่อ่อนโยน',
+        '피부가 얇고 연약해져 멍이 잘 들고, 다시 차분해지는 데 시간이 더 걸려요. 문지르지 말고 아주 순하게.',
+        'Skin is thin and fragile, bruises easily and takes longer to look settled again — never scrub, keep everything gentle.',
+        'ຜິວບາງ ອ່ອນແອ ຊ້ຳງ່າຍ ແລະ ໃຊ້ເວລາດົນກວ່າຈະກັບມາສະຫງົບ — ບໍ່ຖູ ໃຫ້ອ່ອນໂຍນທີ່ສຸດ.',
+        'ผิวบางและเปราะบาง ช้ำง่าย และใช้เวลานานกว่าจะกลับมาดูสงบ อย่าถู ใช้แต่ที่อ่อนโยน',
         'Peau fine et fragile : jamais frotter, tout en douceur.',
       ),
       L(
