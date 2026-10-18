@@ -31,7 +31,7 @@ import {
 } from '@/app/routine-week';
 import { LOCAL_STORAGE_KEYS } from '@/app/device-data';
 import { hasProgress, hasSavedResult } from '@/app/entry-links';
-import { questEntryState } from '@/app/care-quest';
+import { printedForDisplay, questEntryState } from '@/app/care-quest';
 import { IntroGuide } from '@/ui/components/IntroGuide';
 import { RoutineWeekCard } from '@/ui/components/RoutineWeek';
 import { ProductAskLink } from '@/ui/components/ProductAsk';
@@ -230,5 +230,15 @@ describe('returning to GLOW home', () => {
     expect(resumed?.stepIndex).toBe(2);
     expect(questEntryState('resume', {}, null, {})).toBeNull();
     expect(questEntryState('result', {}, null, {})).toBeNull();
+  });
+});
+
+describe('label evidence as shown', () => {
+  it('drops a dangling bracket the transcription left, and nothing else', () => {
+    expect(printedForDisplay('콜라겐(4')).toBe('콜라겐');
+    expect(printedForDisplay('스쿠알란(150')).toBe('스쿠알란');
+    expect(printedForDisplay('판테놀')).toBe('판테놀');
+    expect(printedForDisplay('아스코빅애씨드 <ILN50755>')).toBe('아스코빅애씨드 <ILN50755>');
+    expect(printedForDisplay('Collagen (4,000ppm)')).toBe('Collagen (4,000ppm)');
   });
 });

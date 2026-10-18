@@ -698,3 +698,11 @@ export function questEntryState(
     ? careQuestReducer(initialCareQuest, { type: 'restore', track: latest.id, answers: saved[latest.id]! })
     : null;
 }
+
+/**
+ * A printed name as the reader should see it beside «On the label». The master's transcription
+ * sometimes splits an amount at its thousands comma — «콜라겐(4,000ppm)» arrives as «콜라겐(4» —
+ * and a dangling «(4» reads as an error. The unclosed bracket is dropped for display only; the
+ * name and its position are untouched.
+ */
+export const printedForDisplay = (printed: string): string => printed.replace(/\s*\([^)]*$/, '');

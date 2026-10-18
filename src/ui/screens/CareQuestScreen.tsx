@@ -55,6 +55,7 @@ import {
   loadProgress,
   loadSavedResults,
   questEntryState,
+  printedForDisplay,
   saveProgress,
   labelEvidence,
   matchProducts,
@@ -982,7 +983,7 @@ function CareResult({
                         {t(CHROME.whyLabel!)}:{' '}
                         {labelEvidence(product, concerns)
                           .slice(0, 3)
-                          .map((item) => `${item.printed} (${fill(t(CHROME.nth!), { n: String(item.position) })})`)
+                          .map((item) => `${printedForDisplay(item.printed)} (${fill(t(CHROME.nth!), { n: String(item.position) })})`)
                           .join(' · ')}
                       </span>
                     ) : null}
