@@ -48,5 +48,37 @@ export function markIntro(storage: Pick<Storage, 'setItem'> | undefined, value: 
   }
 }
 
+/**
+ * Recorded voice for the introduction (2026-10-18): one MP3 per sentence per language, made with
+ * edge-tts from the exact lines in `src/content/intro-script.ts`, because the phone's own voice is
+ * silent on many phones with no Thai or Lao voice. Lao screens keep the Lao subtitle and play the
+ * Thai recording (company rule: Lao text on screen, Thai voice). If a file fails, the intro falls
+ * back to the device voice. Regenerate the files whenever a line of the script changes.
+ */
+export const INTRO_AUDIO_COUNT = 6;
+export const INTRO_AUDIO_VOICE: Readonly<Record<string, string>> = {
+  ko: 'ko',
+  en: 'en',
+  fr: 'fr',
+  th: 'th',
+  lo: 'th',
+};
+
+/** The recording for sentence `index` (0-based) in this locale, or null when there is none. */
+export function introAudioUrl(locale: string, index: number): string | null {
+  const lang = INTRO_AUDIO_VOICE[(locale || '').toLowerCase().split(/[-_]/)[0] ?? ''];
+  if (!lang || !Number.isInteger(index) || index < 0 || index >= INTRO_AUDIO_COUNT) return null;
+  return `/intro/audio/${lang}/${index + 1}.mp3`;
+}
+
+/**
+ * How long to wait for a recording before moving on anyway (a phone that never reports the end):
+ * the clip's own length plus 3 s once known, otherwise generous for the line's length.
+ */
+export const clipSafetyMs = (text: string, durationSeconds?: number): number =>
+  durationSeconds !== undefined && Number.isFinite(durationSeconds) && durationSeconds > 0
+    ? Math.round(durationSeconds * 1000) + 3000
+    : subtitleMs(text) * 3 + 5000;
+
 /** How long a subtitle stays when no voice reads it: about 14 characters a second, 3.5 s minimum. */
 export const subtitleMs = (text: string): number => Math.max(3500, Math.round(text.length * 70));

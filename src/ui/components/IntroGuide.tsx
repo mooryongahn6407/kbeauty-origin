@@ -1,7 +1,8 @@
 /**
  * Lumina Noy introduces GLOW Class on a reader's first visit (owner's order F, 2026-10-18):
- * the official guide photo, one subtitle at a time, read aloud by the device's voice in the
- * reader's language (Lao through a Thai voice reading the Thai line, rule 15). Then straight into
+ * the official guide photo, one subtitle at a time, read aloud in the reader's language by a
+ * recorded voice (`public/intro/audio/<lang>/<n>.mp3`; Lao screens hear the Thai recording, rule
+ * 15), or by the device's voice when a recording will not load. Then straight into
  * the skin game's first question.
  *
  * - Skip, and «don't play this automatically», are always on screen.
@@ -15,13 +16,27 @@ import { useEffect, useRef, useState } from 'react';
 import { inLocale } from '@/content/care-quest/types';
 import { LUMINA_PHOTO, LUMINA_PORTRAIT } from '@/content/brand';
 import { INTRO_LINES } from '@/content/intro-script';
-import { subtitleMs } from '@/app/intro';
+import { clipSafetyMs, introAudioUrl, subtitleMs } from '@/app/intro';
 import { CHROME } from '../chrome-text';
+import { playClip } from '../intro-audio';
 import { speakLocalized } from '../speak-localized';
 import { speechSupported, stopSpeaking } from '../speech';
 import { Icon } from './AppChrome';
 
 const t = (key: keyof typeof CHROME, locale: string) => inLocale(CHROME[key]!, locale);
+
+/** One audio element for the whole introduction, so a phone that allowed it once keeps allowing it. */
+function audioElement(ref: { current: HTMLAudioElement | null }): HTMLAudioElement | null {
+  if (ref.current) return ref.current;
+  if (typeof Audio === 'undefined') return null;
+  try {
+    ref.current = new Audio();
+    ref.current.preload = 'auto';
+  } catch {
+    return null;
+  }
+  return ref.current;
+}
 
 export function IntroGuide({
   locale,
@@ -35,6 +50,9 @@ export function IntroGuide({
   // Try to speak from the start; a browser that blocks it flips this off and shows the button.
   const [sound, setSound] = useState(true);
   const [blocked, setBlocked] = useState(false);
+  // The recorded MP3s first; false after one fails to load, so the device voice reads instead.
+  const [recording, setRecording] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const doneRef = useRef(onDone);
   doneRef.current = onDone;
   const last = INTRO_LINES.length - 1;
@@ -54,7 +72,28 @@ export function IntroGuide({
         }, delay),
       );
     };
-    if (sound) {
+    let stopClip: (() => void) | undefined;
+    const url = sound && recording ? introAudioUrl(locale, index) : null;
+    const audio = url ? audioElement(audioRef) : null;
+    if (sound && url && audio) {
+      // The recorded voice (every phone can play an MP3, unlike a Thai or Lao device voice).
+      let safety = setTimeout(() => advance(0), clipSafetyMs(text));
+      timers.push(safety);
+      stopClip = playClip(audio, url, {
+        onEnd: () => advance(450),
+        onBlocked: () => {
+          setSound(false);
+          setBlocked(true);
+        },
+        // The file did not load: read the rest with the device voice, as before.
+        onFail: () => setRecording(false),
+        onDuration: (seconds) => {
+          clearTimeout(safety);
+          safety = setTimeout(() => advance(0), clipSafetyMs(text, seconds));
+          timers.push(safety);
+        },
+      });
+    } else if (sound) {
       const started = speakLocalized(line, locale, {
         onEnd: () => advance(450),
         onError: () => {
@@ -77,10 +116,17 @@ export function IntroGuide({
     return () => {
       finished = true;
       timers.forEach(clearTimeout);
+      stopClip?.();
     };
-  }, [index, sound, locale, last, line, text]);
+  }, [index, sound, recording, locale, last, line, text]);
 
-  useEffect(() => () => stopSpeaking(), []);
+  useEffect(
+    () => () => {
+      stopSpeaking();
+      audioRef.current?.pause();
+    },
+    [],
+  );
   useEffect(() => {
     const onKey = (event: KeyboardEvent) => {
       if (event.key === 'Escape') doneRef.current('seen');
