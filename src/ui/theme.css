@@ -2111,3 +2111,12 @@ body:has(.kg-nudge) .kgs-dock { bottom: calc(160px + env(safe-area-inset-bottom,
 .kg-tips { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin: 12px 0 0; font-size: var(--fs-base); text-decoration: none; }
 /* The shared part draws its like count at 12px; this app keeps every glyph at 13px or more. */
 .kgs-dock .kgs-n { font-size: var(--fs-2xs); }
+
+/* ---- Server-issued gift code and the shop's check screen (?staff=gift) — sqglow_10 ---- */
+.gift__wait { font-size: var(--fs-md); line-height: 1.5; margin: var(--space-2) 0 var(--space-3); color: var(--text); }
+.staff-langs { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-3); }
+.staff-langs .is-on { font-weight: 700; text-decoration: underline; }
+.staff-code { font-family: var(--font-ui); font-size: var(--fs-lg); letter-spacing: 0.12em; text-transform: uppercase; }
+.staff-result { border: 2px solid var(--botanical); border-radius: var(--radius); padding: var(--space-4); margin: var(--space-4) 0 var(--space-3); text-align: center; background: var(--botanical-wash); }
+.staff-result--used { border-color: var(--text-muted); background: transparent; }
+.staff-result__status { font-size: var(--fs-md); font-weight: 700; margin: var(--space-2) 0; }

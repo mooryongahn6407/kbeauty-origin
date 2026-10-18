@@ -1,7 +1,7 @@
 /**
- * The collection, the return streak, and the store gift.
+ * The collection and the return streak (the store gift moved to `gift.ts`).
  *
- * All three are deliberately kept out of `src/mastery/`. CLAUDE.md rule 9 says mastery stays
+ * Both are deliberately kept out of `src/mastery/`. CLAUDE.md rule 9 says mastery stays
  * separate from loyalty, influencer, partner and commercial status, and a voucher someone
  * redeems in a shop is exactly commercial status. Nothing in this file touches the mastery
  * ledger, and nothing in the ledger reads this file.
@@ -101,25 +101,7 @@ export function currentStreak(state: CollectionState, at: Date): number {
   return streak;
 }
 
-/**
- * The store gift.
- *
- * Earned by finishing the journey, which is a thing someone *did* — not by scoring well, which
- * would make it a reward for being right and turn a page of self-observation into a test. The
- * code identifies the visit to a partner shop and carries no personal data: the day, and a
- * checksum over it, so a staff member can tell a real code from an invented one at a glance.
+/*
+ * The store gift used to live here as a code computed from the date, which anyone could forge.
+ * It is now issued by the server, one per phone per day — see `gift.ts` and `gift-code.ts`.
  */
-export interface StoreGift {
-  readonly code: string;
-  readonly issuedOn: string;
-}
-
-export function issueGift(at: Date): StoreGift {
-  const day = dayOf(at);
-  const digits = day.replaceAll('-', '');
-  const checksum = [...digits].reduce((sum, digit) => sum + Number(digit), 0) % 97;
-  return {
-    code: `KG-${digits.slice(2)}-${String(checksum).padStart(2, '0')}`,
-    issuedOn: day,
-  };
-}

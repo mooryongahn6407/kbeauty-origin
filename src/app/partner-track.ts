@@ -7,14 +7,15 @@
  * - Not a count of unique people. Nothing here is stored to tell two visits from the same reader
  *   apart (that would need a device id, which this app does not keep — see `partner.ts`), so the
  *   admin report counts *events*: a link opened, a result shown. A reader who reopens a saved
- *   result, or scans the same shop's QR twice, adds to the count again. `netlify/functions/
- *   partner-report.mts` and the admin screen say this plainly, so the number is never read as
+ *   result, or scans the same shop's QR twice, adds to the count again. `cloudflare/worker.ts`
+ *   (GET /api/partner-report) and the admin screen say this plainly, so the number is never read as
  *   more precise than it is.
  * - Not something the app depends on. Every screen works exactly the same if this endpoint is
  *   slow, blocked, or unreachable — `trackPartnerVisit` never awaits, never throws outward, and
  *   its failure is invisible to the reader.
- * - Not a server-side counter. See `netlify/functions/track-visit.mts` for why each visit writes
- *   its own key instead of incrementing one (Netlify Blobs has no safe read-modify-write).
+ * - Not a log of visits. Since the move to Cloudflare (2026-10-18) the Worker
+ *   (`cloudflare/worker.ts`) adds one to a monthly count per shop, event and track in D1 — the
+ *   same numbers the Netlify version counted, without keeping a row per visit.
  */
 import { normalizePartnerCode } from './partner-shape';
 import type { TrackId } from '@/content/care-quest/types';
@@ -32,7 +33,8 @@ export function visitPayload(
   return track ? { code: normalized, event, track } : { code: normalized, event };
 }
 
-const ENDPOINT = '/.netlify/functions/track-visit';
+/** The Worker also still answers the old Netlify path, for phones holding a cached build. */
+const ENDPOINT = '/api/visit';
 
 /** Fire-and-forget. Does nothing outside a browser, for a malformed code, or if sending fails. */
 export function trackPartnerVisit(code: string, event: VisitEvent, track?: TrackId): void {

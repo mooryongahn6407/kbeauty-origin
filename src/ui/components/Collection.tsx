@@ -8,7 +8,15 @@
 import { concerns } from '@/knowledge/repository';
 import { translate } from '@/localization/messages';
 import { concernName } from '@/content/concern-display';
-import type { StoreGift } from '@/app/collection';
+import { useCallback, useEffect, useState } from 'react';
+import { formatGiftCode, laosDay } from '@/app/gift-code';
+import {
+  giftDeviceId,
+  requestGift,
+  saveGift,
+  savedGift,
+  type IssuedGift,
+} from '@/app/gift';
 
 export function CollectionShelf({
   discoveredIds,
@@ -109,30 +117,92 @@ export function VisitCalendar({
   );
 }
 
+type GiftState =
+  | { readonly status: 'idle' }
+  | { readonly status: 'loading' }
+  | { readonly status: 'ready'; readonly gift: IssuedGift }
+  | { readonly status: 'unavailable' };
+
+const localStore = (): Storage | undefined => {
+  try {
+    return typeof localStorage === 'undefined' ? undefined : localStorage;
+  } catch {
+    return undefined;
+  }
+};
+
 /**
  * The gift.
  *
  * Kept in its own card, after the learning content and after any safety notice, because
  * education outranks commerce (rule 6) and the order on the page is where that ranking is
  * either honoured or quietly reversed.
+ *
+ * The store gift card (CEO card sqglow_10). `earned` is true only when the reader has just
+ * finished the skin game on this screen — reopening a saved result shows today's code if the
+ * server already issued one, and otherwise nothing. The code always comes from the server
+ * (`@/app/gift`); offline or on any failure the card says «try again in a moment» and never
+ * shows a code the server has not issued.
  */
 export function GiftCard({
-  gift,
   locale,
   partner = null,
+  earned,
 }: {
-  gift: StoreGift;
   locale: string;
   /** The shop whose link brought the reader here (see `@/app/partner`), printed beside the code, never in it. */
   partner?: string | null;
+  earned: boolean;
 }) {
+  const [state, setState] = useState<GiftState>(() => {
+    const saved = savedGift(localStore(), new Date());
+    return saved ? { status: 'ready', gift: saved } : { status: 'idle' };
+  });
+
+  const fetchGift = useCallback(async () => {
+    const storage = localStore();
+    const device = giftDeviceId(storage);
+    if (!device) {
+      setState({ status: 'unavailable' });
+      return;
+    }
+    setState({ status: 'loading' });
+    const result = await requestGift(device, partner);
+    if (result.status === 'ready') {
+      saveGift(storage, result.gift);
+      setState({ status: 'ready', gift: result.gift });
+    } else {
+      setState({ status: 'unavailable' });
+    }
+  }, [partner]);
+
+  useEffect(() => {
+    if (earned && state.status === 'idle') void fetchGift();
+    // Only when the reader earns it; a retry is the reader's own tap.
+  }, [earned]);
+
+  if (state.status === 'idle') return null;
+  const today = state.status === 'ready' && state.gift.issuedOn === laosDay(new Date());
+
   return (
-    <section className="gift">
+    <section className="gift" aria-live="polite">
       <p className="gift__eyebrow">{translate('gift.eyebrow', locale)}</p>
       <p className="gift__headline">{translate('gift.headline', locale)}</p>
-      <p className="gift__code">{gift.code}</p>
+      {state.status === 'ready' && today ? (
+        <p className="gift__code">{formatGiftCode(state.gift.code)}</p>
+      ) : state.status === 'loading' ? (
+        <p className="gift__wait">{translate('gift.loading', locale)}</p>
+      ) : (
+        <>
+          <p className="gift__wait">{translate('gift.unavailable', locale)}</p>
+          <button type="button" className="btn btn--quiet" onClick={() => void fetchGift()}>
+            {translate('gift.retry', locale)}
+          </button>
+        </>
+      )}
       {partner ? <p className="gift__partner">{translate('gift.partner', locale, { code: partner })}</p> : null}
       <p className="gift__note">{translate('gift.note', locale)}</p>
+      <p className="gift__note">{translate('gift.oncePerDay', locale)}</p>
     </section>
   );
 }

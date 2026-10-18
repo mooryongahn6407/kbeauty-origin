@@ -98,6 +98,7 @@ function screen<K extends string, M extends Record<K, ComponentType<any>>>(load:
 }
 const CareLessonsScreen = screen(() => import('./screens/CareLessonsScreen'), 'CareLessonsScreen');
 const PartnerReportScreen = screen(() => import('./screens/PartnerReportScreen'), 'PartnerReportScreen');
+const StaffGiftScreen = screen(() => import('./screens/StaffGiftScreen'), 'StaffGiftScreen');
 const IngredientHuntScreen = screen(() => import('./screens/IngredientHuntScreen'), 'IngredientHuntScreen');
 const CompareLabScreen = screen(() => import('./screens/CompareLabScreen'), 'CompareLabScreen');
 const RoutineOrderScreen = screen(() => import('./screens/RoutineOrderScreen'), 'RoutineOrderScreen');
@@ -212,6 +213,17 @@ export function App() {
     return (
       <Suspense fallback={<ScreenLoading />}>
         <PartnerReportScreen />
+      </Suspense>
+    );
+  }
+  // A shop's gift-code check, at `?staff=gift` — the same once-per-load rule as the report above.
+  if (
+    typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).get('staff') === 'gift'
+  ) {
+    return (
+      <Suspense fallback={<ScreenLoading />}>
+        <StaffGiftScreen />
       </Suspense>
     );
   }

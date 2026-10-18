@@ -79,7 +79,6 @@ import {
 } from '@/app/care-quest';
 import {
   currentStreak,
-  issueGift,
   loadCollection,
   saveCollection,
   withDiscovered,
@@ -252,10 +251,14 @@ export function CareQuestScreen({
   // which keeps its own once-a-visit, once-in-three-days budget (src/app/share-ask.ts).
   const previousPhase = useRef(state.phase);
   const [installHint, setInstallHint] = useState(false);
+  // True once the reader has finished the questions on this visit — the only thing that earns
+  // the store gift (CEO card sqglow_10). Reopening a saved result does not.
+  const [finished, setFinished] = useState(false);
   useEffect(() => {
     const from = previousPhase.current;
     previousPhase.current = state.phase;
     if (state.phase !== 'result' || from !== 'steps') return;
+    setFinished(true);
     if (firstInstallHint(storage())) {
       setInstallHint(true);
       return;
@@ -365,6 +368,7 @@ export function CareQuestScreen({
         collection={collection}
         history={history}
         partner={partner}
+        finished={finished}
         dispatch={dispatch}
         onExplore={onExplore}
         onGlowHome={onGlowHome}
@@ -682,6 +686,7 @@ function CareResult({
   collection,
   history,
   partner,
+  finished,
   dispatch,
   onExplore,
   onGlowHome,
@@ -694,6 +699,8 @@ function CareResult({
   collection: CollectionState;
   history: QuestHistory;
   partner: string | null;
+  /** The reader finished the questions on this visit (earns the gift). */
+  finished: boolean;
   dispatch: Dispatch;
   onExplore: () => void;
   onGlowHome: () => void;
@@ -726,7 +733,6 @@ function CareResult({
   const selfType = selfId ? track.types.find((item) => item.id === selfId) : undefined;
   const change = compareWithPrevious(track, history, answers);
   const shownAt = resultDate(history, track.id, answers) ?? now.toISOString().slice(0, 10);
-  const gift = useMemo(() => issueGift(now), [now]);
   const streak = currentStreak(collection, now);
   const avoid = new Set(plan.avoid);
 
@@ -1031,7 +1037,7 @@ function CareResult({
       <ShareResult track={track} answers={answers} locale={locale} partner={partner} />
 
       {/* Last, after the safety and education above: education outranks commerce (rule 6). */}
-      <GiftCard gift={gift} locale={locale} partner={partner} />
+      <GiftCard locale={locale} partner={partner} earned={finished} />
 
       <RoutineWeekCard locale={locale} />
 

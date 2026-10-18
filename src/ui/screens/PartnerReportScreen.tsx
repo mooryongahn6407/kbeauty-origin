@@ -1,8 +1,10 @@
 /**
  * Owner-only: how many times each partner's link was opened and how many times a result was
  * shown, by month. Reached only at `?admin=report` (see `src/ui/App.tsx`) — never linked from
- * the app itself, never offered to a reader. Asks for the key kept in the Netlify env var
- * `PARTNER_REPORT_KEY` and shows nothing until it is entered correctly.
+ * the app itself, never offered to a reader. Asks for the key kept as the Cloudflare Worker
+ * secret `PARTNER_REPORT_KEY` and shows nothing until it is entered correctly. The key travels in
+ * the `X-Report-Key` header, never in the address (where logs and history would keep it), and
+ * the Worker locks an IP out for 15 minutes after five wrong keys.
  *
  * What this is not: not a list of partners (the server never sends one — only the codes that
  * actually had a visit), not a count of unique people (see `src/app/partner-track.ts` for why),
@@ -12,9 +14,9 @@ import { useEffect, useState } from 'react';
 import { formatMonth, reportRows, reportToTsv, type PartnerReport } from '@/app/partner-report';
 
 const SESSION_KEY = 'korea-glow:partner-report-key';
-const ENDPOINT = '/.netlify/functions/partner-report';
+const ENDPOINT = '/api/partner-report';
 
-type Status = 'idle' | 'loading' | 'ready' | 'badKey' | 'notConfigured' | 'networkError';
+type Status = 'idle' | 'loading' | 'ready' | 'badKey' | 'locked' | 'notConfigured' | 'networkError';
 
 async function fetchReport(
   key: string,
@@ -27,15 +29,15 @@ async function fetchReport(
     ENDPOINT,
     typeof window === 'undefined' ? 'http://x' : window.location.origin,
   );
-  url.searchParams.set('key', key);
   if (code.trim()) url.searchParams.set('code', code.trim());
   let response: Response;
   try {
-    response = await fetch(url.toString());
+    response = await fetch(url.toString(), { headers: { 'x-report-key': key }, cache: 'no-store' });
   } catch {
     return { status: 'networkError' };
   }
   if (response.status === 401) return { status: 'badKey' };
+  if (response.status === 429) return { status: 'locked' };
   if (response.status === 500) return { status: 'notConfigured' };
   if (!response.ok) return { status: 'networkError' };
   try {
@@ -116,7 +118,7 @@ export function PartnerReportScreen() {
               autoComplete="off"
               value={key}
               onChange={(event) => setKey(event.target.value)}
-              placeholder="Netlify PARTNER_REPORT_KEY"
+              placeholder="PARTNER_REPORT_KEY"
             />
             <label className="settings__label" htmlFor="partner-report-code">
               파트너 코드 (비우면 전체)
@@ -138,13 +140,19 @@ export function PartnerReportScreen() {
           {status === 'badKey' ? (
             <p className="disclosure disclosure--caution">
               <span className="disclosure__mark">!</span>
-              <span>키가 맞지 않습니다. Netlify의 PARTNER_REPORT_KEY 값을 다시 확인해 주세요.</span>
+              <span>키가 맞지 않습니다. 저장해 둔 PARTNER_REPORT_KEY 값을 다시 확인해 주세요.</span>
             </p>
           ) : null}
           {status === 'notConfigured' ? (
             <p className="disclosure disclosure--caution">
               <span className="disclosure__mark">!</span>
-              <span>아직 설정되지 않았습니다. Netlify 환경변수 PARTNER_REPORT_KEY가 없습니다.</span>
+              <span>아직 설정되지 않았습니다. Cloudflare Worker 비밀값 PARTNER_REPORT_KEY가 없습니다.</span>
+            </p>
+          ) : null}
+          {status === 'locked' ? (
+            <p className="disclosure disclosure--caution">
+              <span className="disclosure__mark">!</span>
+              <span>여러 번 틀려 잠시 잠겼습니다. 15분 뒤 다시 시도해 주세요.</span>
             </p>
           ) : null}
           {status === 'networkError' ? (

@@ -6,7 +6,7 @@ import {
   normalizePartnerCode,
   partnerFromSearch,
 } from '@/app/partner';
-import { issueGift } from '@/app/collection';
+import { newGiftCode } from '@/app/gift-code';
 import { createMasteryLedger } from '@/mastery/mastery-ledger';
 
 function memoryStorage(initial: Record<string, string> = {}) {
@@ -63,12 +63,13 @@ describe('a partner shop code arrives in the link, and is only ever a shop code'
 });
 
 describe('the shop code stays beside the gift, never inside it or in the ledger', () => {
-  it('does not change the gift code, which is still a date and nothing else', () => {
-    const at = new Date(2026, 8, 20, 12);
+  it('does not change the gift code, which is random bytes and nothing else', () => {
     const storage = memoryStorage();
     capturePartner('?p=VTE-01', storage);
-    expect(issueGift.length).toBe(1);
-    expect(issueGift(at).code).toBe('KG-260920-21');
+    const fixed = (bytes: Uint8Array) => bytes.fill(7);
+    expect(newGiftCode.length).toBe(1);
+    expect(newGiftCode(fixed)).not.toMatch(/VTE/);
+    expect(newGiftCode(fixed)).toBe(newGiftCode(fixed));
   });
 
   it('never reaches the mastery ledger (rule 9)', () => {

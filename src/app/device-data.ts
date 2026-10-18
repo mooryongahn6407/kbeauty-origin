@@ -34,12 +34,17 @@ export const LOCAL_STORAGE_KEYS: readonly string[] = [
   'korea-glow:intro:v1',
   'korea-glow:install-hint:v1',
   'korea-glow:routine-week:v1',
+  'korea-glow:gift-device:v1',
+  'korea-glow:gift:v1',
   'korea-glow.display',
   'korea-glow.voice',
 ];
 
 /** sessionStorage keys this app writes. */
-export const SESSION_STORAGE_KEYS: readonly string[] = ['korea-glow:partner-report-key'];
+export const SESSION_STORAGE_KEYS: readonly string[] = [
+  'korea-glow:partner-report-key',
+  'korea-glow:staff-pin',
+];
 
 /** The app's own prefix. Keys of other apps on the same origin never start with it. */
 const OWN_PREFIX = 'korea-glow';

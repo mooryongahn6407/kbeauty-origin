@@ -13,7 +13,6 @@ import {
   currentStreak,
   dayOf,
   emptyCollection,
-  issueGift,
   loadCollection,
   saveCollection,
   withDiscovered,
@@ -70,26 +69,8 @@ describe('the streak counts days, and stops counting when a day is missed', () =
 });
 
 describe('the gift is commercial, and stays out of the mastery ledger', () => {
-  it('is issued for finishing, and takes no score, answer or mastery state', () => {
-    // If a score could change the gift, the journey would become a test with a prize. The
-    // signature is the whole guarantee: a date, and nothing else.
-    expect(issueGift.length).toBe(1);
-    expect(issueGift(day('2026-09-20')).code).toBe(issueGift(day('2026-09-20')).code);
-  });
-
-  it('carries no personal data — only the day and a checksum over it', () => {
-    const gift = issueGift(day('2026-09-20'));
-    expect(gift.code).toBe('KG-260920-21');
-    expect(gift.issuedOn).toBe('2026-09-20');
-  });
-
-  it('changes day to day, so a shop can tell today’s code from last month’s', () => {
-    expect(issueGift(day('2026-09-20')).code).not.toBe(issueGift(day('2026-09-21')).code);
-  });
-
   it('never appears in the mastery ledger, and the ledger never gains a way to grant one', () => {
     const ledger = createMasteryLedger('test-reader');
-    issueGift(day('2026-09-20'));
     withDiscovered(withVisit(emptyCollection, day('2026-09-20')), ['CON-001']);
     const snapshot = ledger.snapshot();
     expect(snapshot.states).toEqual([]);

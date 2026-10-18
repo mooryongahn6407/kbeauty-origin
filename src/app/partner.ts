@@ -3,16 +3,18 @@
  *
  * A salon or shop gives its customers a link (usually a QR code on the counter) that carries its
  * own code: `?p=VTE-01`. The app remembers that code on this device and prints it on the store
- * gift card, so when the reader shows the card, the shop can see the visit came through it.
+ * gift card (and sends it with the gift request, so the shop sees it at the check), so when the reader shows the card, the shop can see the visit came through it.
  *
  * What this deliberately is not:
- * - Not part of the gift code. `issueGift` takes a date and nothing else (see its test); the
- *   partner code is a separate line beside it, so no one can mistake it for something earned.
+ * - Not part of the gift code. The code is random (`gift-code.ts`, issued by the server); the
+ *   partner code is stored beside it and printed on a separate line, so no one can mistake it
+ *   for something earned.
  * - Not mastery, loyalty or status (rule 9). Nothing here touches the mastery ledger, and the
  *   ledger never learns a partner code exists.
  * - Not commerce inside the app. There is no price, commission, cart or order here, and no list
  *   of partners: the code is whatever the shop's own link says, validated only for shape.
- * - Not personal data. It identifies a shop, never the reader, and never leaves the device.
+ * - Not personal data. It identifies a shop, never the reader, and leaves the device only as
+ *   that shop code, on a visit count or a gift request.
  */
 import { normalizePartnerCode } from './partner-shape';
 

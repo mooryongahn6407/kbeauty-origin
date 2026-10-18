@@ -48,11 +48,12 @@ describe('the /* header block', () => {
     expect(csp).not.toMatch(/unsafe-eval|https?:\/\//);
   });
 
-  it('fits the code: every fetch goes to this origin\'s own functions', () => {
+  it('fits the code: every fetch goes to this origin\'s own API (the Cloudflare Worker)', () => {
     const code = sourceText(SRC);
     const absoluteFetch = code.match(/fetch\(\s*['"`]https?:/g);
     expect(absoluteFetch).toBeNull();
-    expect(code).toContain("'/.netlify/functions/track-visit'");
+    expect(code).toContain("'/api/visit'");
+    expect(code).toContain("'/api/gift'");
   });
 
   it('fits index.html: no external script or stylesheet', () => {
