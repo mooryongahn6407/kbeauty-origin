@@ -17,9 +17,10 @@ import { ingredientIdForPrinted, printedBase } from '@/content/inci-names';
 import { findIngredient } from '@/knowledge/ingredients';
 import { PARTNER_PARAM } from './partner';
 
-export const PRODUCT_PARAM = 'product';
+import { PRODUCT_PARAM, SKU_SHAPE } from './entry-links';
+
+export { PRODUCT_PARAM };
 const AVOID_KEY = 'korea-glow:avoid:v1';
-const SKU_SHAPE = /^KG-[A-Z]{3}-\d{5}$/;
 
 export interface LabelEntry {
   /** 1-based place in the printed list, or null when the text was elided before it. */

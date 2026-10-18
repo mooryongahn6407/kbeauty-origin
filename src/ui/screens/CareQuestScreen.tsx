@@ -84,6 +84,7 @@ import { Companion, CompanionSays, SpeechBubble } from '../components/Companion'
 import { ReadAloud } from '../components/ReadAloud';
 import { SceneHero } from '../components/SceneHero';
 import { GlowHero } from '../components/GlowHero';
+import { QuestWelcome } from './QuestWelcome';
 import { spokenFallback } from '../spoken-fallback';
 import { pick } from '../pick';
 import { PARTNER_PARAM } from '@/app/partner';
@@ -126,6 +127,7 @@ export function CareQuestScreen({
   partner = null,
   fromSkinQuest = false,
   startTrack = null,
+  begun = false,
   onNav,
   onExplore,
   onOpenIngredient,
@@ -137,6 +139,8 @@ export function CareQuestScreen({
   fromSkinQuest?: boolean;
   /** Came in through the game door (`?play`): open on this track's first question. */
   startTrack?: TrackId | null;
+  /** The reader has already pressed «begin» on the light greeting the app shows first. */
+  begun?: boolean;
   /** KG-APP-BASE bottom bar: where the reader is, and what Back/Next do here. */
   onNav?: (nav: QuestNav | null) => void;
   onExplore: () => void;
@@ -151,7 +155,7 @@ export function CareQuestScreen({
   const [state, dispatch] = useReducer(careQuestReducer, saved, (initial: SavedResults) =>
     startTrack
       ? startingCareQuest(startTrack)
-      : Object.keys(initial).length > 0 || loadProgress(storage())
+      : begun || Object.keys(initial).length > 0 || loadProgress(storage())
         ? { ...initialCareQuest, phase: 'tracks' as const }
         : initialCareQuest,
   );
@@ -233,43 +237,13 @@ export function CareQuestScreen({
   }, [state.phase, state.stepIndex, state.track]);
 
   if (state.phase === 'welcome') {
-    const spoken = [
-      translate('skinquest.welcome.hello', locale),
-      translate('skinquest.welcome.guide', locale),
-      translate('skinquest.welcome.promise', locale),
-    ].join(' ');
     return (
-      <section className="quest quest--welcome" aria-labelledby="glow-hero-title">
-        <GlowHero locale={locale} partner={partner} fromSkinQuest={fromSkinQuest} />
-        <Companion mood="calm" size={116} />
-        <SpeechBubble>
-          <h2 id="quest-hello" className="bubble__hello">
-            {translate('skinquest.welcome.hello', locale)}
-          </h2>
-          <p className="bubble__prompt">{translate('skinquest.welcome.guide', locale)}</p>
-          <p className="bubble__help">{translate('skinquest.welcome.promise', locale)}</p>
-          <ReadAloud
-            text={spoken}
-            locale={locale}
-            fallback={spokenFallback(locale, (l) =>
-              [
-                translate('skinquest.welcome.hello', l),
-                translate('skinquest.welcome.guide', l),
-                translate('skinquest.welcome.promise', l),
-              ].join(' '),
-            )}
-            autoplay
-          />
-        </SpeechBubble>
-        <button
-          type="button"
-          className="btn btn--primary"
-          onClick={() => dispatch({ type: 'begin' })}
-        >
-          {translate('skinquest.welcome.begin', locale)}
-        </button>
-        <p className="boundary">{translate('skinquest.welcome.boundary', locale)}</p>
-      </section>
+      <QuestWelcome
+        locale={locale}
+        partner={partner}
+        fromSkinQuest={fromSkinQuest}
+        onBegin={() => dispatch({ type: 'begin' })}
+      />
     );
   }
 

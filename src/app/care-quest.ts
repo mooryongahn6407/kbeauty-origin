@@ -66,16 +66,7 @@ export const initialCareQuest: CareQuestState = {
  * GLOW Class are one app with one way in. `?play=scalp` / `?play=body` open those tracks.
  * Anything that is not a track is no door, and the app opens as it always has.
  */
-export function playTrackFromSearch(search: string): TrackId | null {
-  try {
-    const params = new URLSearchParams(search);
-    if (!params.has('play')) return null;
-    const raw = params.get('play')?.trim().toLowerCase() || 'face';
-    return CARE_TRACKS.some((track) => track.id === raw) ? (raw as TrackId) : null;
-  } catch {
-    return null;
-  }
-}
+export { playTrackFromSearch } from './entry-links';
 
 /** Where a quest begins: on a track's first question when a door named one, else the greeting. */
 export const startingCareQuest = (track: TrackId | null): CareQuestState =>

@@ -20,44 +20,19 @@
  *   they are for whoever owns the content, not for someone looking at their own skin. The rule
  *   they enforce is unchanged: nothing unverified is ever stated as fact anywhere.
  */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { Suspense, lazy, useCallback, useEffect, useRef, useState, type ComponentType } from 'react';
 import { isUnreviewedCatalog, translate, type MessageKey } from '@/localization/messages';
 import { applyPreferences, loadPreferences, savePreferences } from './preferences';
 import { DisplaySettings } from './components/DisplaySettings';
 import { VoiceSwitch } from './components/VoiceSwitch';
 import { VoiceProvider } from './voice';
 import { LocaleContext } from './locale-context';
-import { CareQuestScreen } from './screens/CareQuestScreen';
-import { CareLessonsScreen } from './screens/CareLessonsScreen';
+import { QuestWelcome } from './screens/QuestWelcome';
 import { capturePartner, partnerFromSearch } from '@/app/partner';
 import { trackPartnerVisit } from '@/app/partner-track';
-import { PartnerReportScreen } from './screens/PartnerReportScreen';
-import { IngredientHuntScreen } from './screens/IngredientHuntScreen';
-import { CompareLabScreen } from './screens/CompareLabScreen';
-import { RoutineOrderScreen } from './screens/RoutineOrderScreen';
-import { ClaimSorterScreen } from './screens/ClaimSorterScreen';
-import { MySkinScreen } from './screens/MySkinScreen';
-import { IngredientGardenScreen } from './screens/IngredientGardenScreen';
-import { RoutineStudioScreen } from './screens/RoutineStudioScreen';
-import { SunProtectionScreen } from './screens/SunProtectionScreen';
-import { LabelDetectiveScreen } from './screens/LabelDetectiveScreen';
-import { AITutorScreen } from './screens/AITutorScreen';
-import { QuestMasteryScreen } from './screens/QuestMasteryScreen';
-import { GovernanceScreen } from './screens/GovernanceScreen';
-import { StoreProductsScreen } from './screens/StoreProductsScreen';
-import { WordingCheckScreen } from './screens/WordingCheckScreen';
-import { AcademyScreen } from './screens/AcademyScreen';
-import { GuideHubScreen, type GuideTarget } from './screens/GuideHubScreen';
-import { IngredientDictionaryScreen } from './screens/IngredientDictionaryScreen';
-import {
-  CategoriesGuideScreen,
-  AboutAppScreen,
-  KBeautyGuideScreen,
-  SunCareGuideScreen,
-} from './screens/GuideTopicScreens';
-import { storeCatalog } from '@/content/store-catalog';
-import { productFromSearch } from '@/app/store-catalog';
-import { playTrackFromSearch } from '@/app/care-quest';
+import type { GuideTarget } from './screens/GuideHubScreen';
+import { GUIDE_ENTRY_PHOTOS } from '@/content/hero-counts';
+import { hasPlayedBefore, playTrackFromSearch, productShapeFromSearch } from '@/app/entry-links';
 import {
   APP_VERSION,
   buttonGuideSeen,
@@ -108,6 +83,47 @@ type ScreenId =
   | 'quests'
   | 'governance';
 
+/*
+ * Every screen except the front door loads on demand (React.lazy), so a phone on a slow
+ * connection downloads only the skin game before it can start. Each screen is its own small
+ * file, fetched the first time the reader opens it, and cached by the service worker after.
+ */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function screen<K extends string, M extends Record<K, ComponentType<any>>>(load: () => Promise<M>, name: K) {
+  return lazy(async () => ({ default: (await load())[name] }));
+}
+const CareLessonsScreen = screen(() => import('./screens/CareLessonsScreen'), 'CareLessonsScreen');
+const PartnerReportScreen = screen(() => import('./screens/PartnerReportScreen'), 'PartnerReportScreen');
+const IngredientHuntScreen = screen(() => import('./screens/IngredientHuntScreen'), 'IngredientHuntScreen');
+const CompareLabScreen = screen(() => import('./screens/CompareLabScreen'), 'CompareLabScreen');
+const RoutineOrderScreen = screen(() => import('./screens/RoutineOrderScreen'), 'RoutineOrderScreen');
+const ClaimSorterScreen = screen(() => import('./screens/ClaimSorterScreen'), 'ClaimSorterScreen');
+const MySkinScreen = screen(() => import('./screens/MySkinScreen'), 'MySkinScreen');
+const IngredientGardenScreen = screen(() => import('./screens/IngredientGardenScreen'), 'IngredientGardenScreen');
+const RoutineStudioScreen = screen(() => import('./screens/RoutineStudioScreen'), 'RoutineStudioScreen');
+const SunProtectionScreen = screen(() => import('./screens/SunProtectionScreen'), 'SunProtectionScreen');
+const LabelDetectiveScreen = screen(() => import('./screens/LabelDetectiveScreen'), 'LabelDetectiveScreen');
+const AITutorScreen = screen(() => import('./screens/AITutorScreen'), 'AITutorScreen');
+const QuestMasteryScreen = screen(() => import('./screens/QuestMasteryScreen'), 'QuestMasteryScreen');
+const GovernanceScreen = screen(() => import('./screens/GovernanceScreen'), 'GovernanceScreen');
+const StoreProductsScreen = screen(() => import('./screens/StoreProductsScreen'), 'StoreProductsScreen');
+const WordingCheckScreen = screen(() => import('./screens/WordingCheckScreen'), 'WordingCheckScreen');
+const AcademyScreen = screen(() => import('./screens/AcademyScreen'), 'AcademyScreen');
+const IngredientDictionaryScreen = screen(() => import('./screens/IngredientDictionaryScreen'), 'IngredientDictionaryScreen');
+/** The skin game itself — fetched in the background as soon as the first screen is up. */
+const loadCareQuest = () => import('./screens/CareQuestScreen');
+const CareQuestScreen = screen(loadCareQuest, 'CareQuestScreen');
+const GuideHubScreen = screen(() => import('./screens/GuideHubScreen'), 'GuideHubScreen');
+const CategoriesGuideScreen = screen(() => import('./screens/GuideTopicScreens'), 'CategoriesGuideScreen');
+const AboutAppScreen = screen(() => import('./screens/GuideTopicScreens'), 'AboutAppScreen');
+const KBeautyGuideScreen = screen(() => import('./screens/GuideTopicScreens'), 'KBeautyGuideScreen');
+const SunCareGuideScreen = screen(() => import('./screens/GuideTopicScreens'), 'SunCareGuideScreen');
+
+/** While a screen's file is on its way: a quiet, screen-sized space, so nothing jumps. */
+function ScreenLoading() {
+  return <div className="kg-screen-loading" aria-busy="true" />;
+}
+
 /** The study rooms, reached from the quest's record or the "go deeper" row. */
 const STUDY_ROOMS: readonly { id: ScreenId; key: MessageKey }[] = [
   { id: 'hunt', key: 'hunt.title' },
@@ -145,12 +161,16 @@ export function App() {
     typeof window !== 'undefined' &&
     new URLSearchParams(window.location.search).get('admin') === 'report'
   ) {
-    return <PartnerReportScreen />;
+    return (
+      <Suspense fallback={<ScreenLoading />}>
+        <PartnerReportScreen />
+      </Suspense>
+    );
   }
 
   // A partner's product link (`?product=KG-CRM-00003`) opens straight onto that product's label.
   const [linkedProduct] = useState(() =>
-    productFromSearch(typeof window === 'undefined' ? '' : window.location.search),
+    productShapeFromSearch(typeof window === 'undefined' ? '' : window.location.search),
   );
   const [screen, setScreen] = useState<ScreenId>(linkedProduct ? 'store' : 'quest');
   // Which product or dictionary entry a cross-link asked for. Bumping `focusKey` remounts the
@@ -217,6 +237,26 @@ export function App() {
   const [playTrack] = useState(() =>
     playTrackFromSearch(typeof window === 'undefined' ? '' : window.location.search),
   );
+  // The skin game opens at once for the game door and for anyone who has played before; a
+  // first-time reader first sees the light greeting while the game downloads behind it.
+  const [questOpen, setQuestOpen] = useState(
+    () => Boolean(playTrack) || hasPlayedBefore(typeof localStorage === 'undefined' ? undefined : localStorage),
+  );
+  useEffect(() => {
+    if (screen !== 'quest' || questOpen) return;
+    setQuestNav({
+      position: null,
+      canGoBack: false,
+      nextLabel: 'next',
+      back: () => undefined,
+      next: () => setQuestOpen(true),
+    });
+  }, [screen, questOpen]);
+  // Fetch the game in the background once the first screen is up, so «begin» is instant.
+  useEffect(() => {
+    const timer = setTimeout(() => void loadCareQuest().catch(() => undefined), 800);
+    return () => clearTimeout(timer);
+  }, []);
   // A partner shop's link (its QR code) carries the shop's code. Read once, remembered on this
   // device, and printed only on the gift card — see src/app/partner.ts for what it is not.
   const [partner] = useState(() => {
@@ -380,6 +420,8 @@ export function App() {
 
           {onQuest ? (
             <>
+              {questOpen ? (
+              <Suspense fallback={<ScreenLoading />}>
               <CareQuestScreen
                 key={focusKey}
                 locale={locale}
@@ -387,19 +429,26 @@ export function App() {
                 fromSkinQuest={fromSkinQuest}
                 // Only on first arrival: coming back from a lesson must not restart the quest.
                 startTrack={focusKey === 0 ? playTrack : null}
+                begun
                 onNav={onNav}
                 onExplore={() => go('lessons')}
                 onOpenIngredient={openIngredient}
                 onOpenProduct={openProduct}
               />
+              </Suspense>
+              ) : (
+                <QuestWelcome
+                  locale={locale}
+                  partner={partner}
+                  fromSkinQuest={fromSkinQuest}
+                  onBegin={() => setQuestOpen(true)}
+                />
+              )}
               <button type="button" className="guide-entry" onClick={() => go('guide')}>
                 <span className="guide-entry__photos" aria-hidden="true">
-                  {storeCatalog
-                    .filter((product) => product.photo)
-                    .slice(4, 8)
-                    .map((product) => (
-                      <img key={product.sku} src={product.photo!} alt="" loading="lazy" />
-                    ))}
+                  {GUIDE_ENTRY_PHOTOS.map((photo) => (
+                    <img key={photo} src={photo} alt="" loading="lazy" />
+                  ))}
                 </span>
                 <span className="guide-entry__text">{translate('guide.entry', locale)} ›</span>
               </button>
@@ -443,6 +492,7 @@ export function App() {
                 ) : null}
               </nav>
 
+              <Suspense fallback={<ScreenLoading />}>
               {screen === 'guide' ? (
                 <GuideHubScreen locale={locale} onGo={(target: GuideTarget) => go(target)} />
               ) : null}
@@ -507,6 +557,7 @@ export function App() {
               {screen === 'aiTutor' ? <AITutorScreen key={locale} locale={locale} /> : null}
               {screen === 'quests' ? <QuestMasteryScreen key={locale} locale={locale} /> : null}
               {screen === 'governance' ? <GovernanceScreen locale={locale} /> : null}
+              </Suspense>
             </>
           )}
           {onQuest ? (

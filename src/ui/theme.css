@@ -2053,6 +2053,7 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
 .main { padding-bottom: calc(210px + env(safe-area-inset-bottom, 0px)); }
 body:has(.kg-sheet) .kgs-dock, body:has(.kg-guide) .kgs-dock, body:has(.kg-update) .kgs-dock { display: none; }
 .kg-share-ask { display: block; height: 1px; }
+.kg-screen-loading { min-height: 60vh; }
 
 .care-product__why { display: block; margin-top: 4px; font-size: var(--fs-xs); color: var(--text-muted); line-height: 1.4; }
 .store-item__code { display: inline-block; width: fit-content; justify-self: start; align-self: flex-start; margin-bottom: 2px; padding: 2px 8px; border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.02em; }

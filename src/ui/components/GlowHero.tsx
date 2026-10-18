@@ -7,10 +7,9 @@
  */
 import { useEffect, useState } from 'react';
 import { translate, UI_CATALOG_LOCALES } from '@/localization/messages';
-import { CARE_LESSONS } from '@/content/care-quest/lessons';
 import { QUEST_TEXT } from '@/content/care-quest/common';
 import { inLocale } from '@/content/care-quest/types';
-import { companyDictionary } from '@/content/company/ingredient-dictionary';
+import { HERO_INGREDIENT_COUNT, HERO_LESSON_COUNT } from '@/content/hero-counts';
 import { currentInstallMode, onInstallChange, promptInstall, type InstallMode } from '../install';
 
 export const SKIN_QUEST_URL = 'https://play.korea-glow.com/';
@@ -151,10 +150,10 @@ export function GlowHero({
       </figure>
       <ul className="glow-hero__stats">
         <li>
-          <strong>{CARE_LESSONS.length}</strong> {translate('hero.stat.lessons', locale)}
+          <strong>{HERO_LESSON_COUNT}</strong> {translate('hero.stat.lessons', locale)}
         </li>
         <li>
-          <strong>{companyDictionary.ingredients.length}</strong>{' '}
+          <strong>{HERO_INGREDIENT_COUNT}</strong>{' '}
           {translate('hero.stat.ingredients', locale)}
         </li>
         <li>
