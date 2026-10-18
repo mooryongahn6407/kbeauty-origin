@@ -29,7 +29,8 @@ self.addEventListener('fetch', (event) => {
   const request = event.request;
   if (request.method !== 'GET') return;
   const url = new URL(request.url);
-  if (url.origin !== self.location.origin || url.pathname.startsWith('/.netlify/')) return;
+  // Live answers (the Like count) are never cached: offline they should fail, not show an old number.
+  if (url.origin !== self.location.origin || url.pathname.startsWith('/.netlify/') || url.pathname.startsWith('/api/')) return;
   // Video is streamed with range requests; let the browser handle those directly.
   if (request.headers.has('range')) return;
 

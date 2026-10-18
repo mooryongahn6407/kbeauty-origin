@@ -2042,6 +2042,24 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
 .kg-help__send.is-disabled { opacity: 0.5; pointer-events: none; }
 .kg-helplink { text-align: center; margin: 24px 0 0; }
 .kg-helplink__btn { min-height: 48px; padding: 0 12px; border: 0; background: none; color: var(--text-muted); font-size: var(--fs-xs); text-decoration: underline; cursor: pointer; }
+/* Like · Share pills (owner 2026-10-18) — home bar, end of a result, end of a lesson. */
+.kg-likeshare { display: grid; gap: 10px; justify-items: center; margin: 24px 0 0; padding: 14px 12px; }
+.kg-likeshare--ask { border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.kg-likeshare__ask { margin: 0; font-size: var(--fs-base); font-weight: 600; color: var(--text); text-align: center; }
+.kg-likeshare__pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.kg-pill { display: inline-flex; align-items: center; gap: 8px; min-height: 48px; min-width: 48px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface-sunk); color: var(--text); font-family: var(--font-ui); font-size: var(--fs-base); font-weight: 600; cursor: pointer; }
+.kg-pill:hover { border-color: var(--text-muted); }
+.kg-pill[aria-pressed='true'] { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
+.kg-pill__count { font-variant-numeric: tabular-nums; padding-left: 8px; border-left: 1px solid currentColor; }
+.kg-share { display: grid; gap: 14px; }
+.kg-share__note { margin: 0; font-size: var(--fs-base); line-height: 1.6; padding: 14px; border-radius: 14px; background: var(--surface); border-left: 4px solid var(--gold); }
+.kg-share__actions { display: grid; gap: 8px; }
+.kg-share__btn { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; min-height: 48px; font-size: var(--fs-base); text-decoration: none; }
+.kg-otherapps { margin: 16px 0 0; display: grid; gap: 6px; }
+.kg-otherapps__title { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); font-weight: 600; text-align: center; }
+.kg-otherapps__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.kg-otherapps__link { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 8px; color: var(--text-muted); font-size: var(--fs-sm); text-decoration: underline; }
+.kg-otherapps__link .kg-icon { width: 16px; height: 16px; }
 
 .care-product__why { display: block; margin-top: 4px; font-size: var(--fs-xs); color: var(--text-muted); line-height: 1.4; }
 .store-item__code { display: inline-block; width: fit-content; justify-self: start; align-self: flex-start; margin-bottom: 2px; padding: 2px 8px; border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.02em; }

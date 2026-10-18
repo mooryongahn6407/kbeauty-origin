@@ -90,6 +90,25 @@ export const CHROME: Readonly<Record<string, Localized>> = {
   appSkinQuest: L('SKIN QUEST — 3분 피부 게임 (이 앱 안)', 'SKIN QUEST — 3-minute skin game (in this app)', 'SKIN QUEST — ເກມຜິວ 3 ນາທີ (ໃນແອັບນີ້)', 'SKIN QUEST — เกมผิว 3 นาที (ในแอปนี้)', 'SKIN QUEST — jeu de peau en 3 min (dans cette app)'),
   appSmartBuy: L('KOREA SMART BUY — 한국 정품 쇼핑', 'KOREA SMART BUY — genuine Korean products', 'KOREA SMART BUY — ສິນຄ້າເກົາຫຼີແທ້', 'KOREA SMART BUY — สินค้าเกาหลีของแท้', 'KOREA SMART BUY — produits coréens authentiques'),
   appLaoBridge: L('LAO BRIDGE — 말 배우기', 'LAO BRIDGE — learn languages', 'LAO BRIDGE — ຮຽນພາສາ', 'LAO BRIDGE — เรียนภาษา', 'LAO BRIDGE — apprendre les langues'),
+  // Like · Share (owner's request 2026-10-18). Korean is the master; en is base; lo/th/fr are
+  // unreviewed drafts like every other lo/th/fr line here (CATALOG_REVIEW says so on screen).
+  // No counts of shares and no pressure wording, by design.
+  helpful: L('이 앱이 도움이 되셨나요?', 'Was this app helpful?', 'ແອັບນີ້ມີປະໂຫຍດບໍ?', 'แอปนี้มีประโยชน์ไหม?', 'Cette app vous a-t-elle aidé ?'),
+  like: L('좋아요', 'Like', 'ມັກ', 'ถูกใจ', "J'aime"),
+  share: L('공유', 'Share', 'ແບ່ງປັນ', 'แชร์', 'Partager'),
+  shareTitle: L('공유하기', 'Share', 'ແບ່ງປັນ', 'แชร์', 'Partager'),
+  shareMessage: L(
+    '이 앱이 마음에 드시고 도움이 되셨다면 공유를 부탁드려요. 아는 분들이나 친구분들께 많이 알려 주시면 정말 감사하겠습니다.',
+    'If you like this app and it has helped you, we would be grateful if you shared it. Telling the people you know and your friends about it would mean a great deal to us.',
+    'ຖ້າທ່ານມັກແອັບນີ້ ແລະ ມັນມີປະໂຫຍດ ກະລຸນາແບ່ງປັນໃຫ້ແດ່. ຖ້າທ່ານບອກຄົນຮູ້ຈັກ ແລະ ໝູ່ເພື່ອນ ພວກເຮົາຈະຂອບໃຈຫຼາຍໆ.',
+    'ถ้าคุณชอบแอปนี้และได้ประโยชน์ ขอรบกวนช่วยแชร์ด้วยนะคะ ถ้าช่วยบอกต่อคนรู้จักและเพื่อน ๆ เราจะขอบคุณมากจริง ๆ ค่ะ',
+    'Si cette app vous plaît et vous a été utile, nous vous serions reconnaissants de la partager. En parler à vos proches et à vos amis nous ferait vraiment plaisir.',
+  ),
+  shareNative: L('공유하기', 'Share', 'ແບ່ງປັນ', 'แชร์', 'Partager'),
+  shareWhatsApp: L('WhatsApp으로 보내기', 'Send on WhatsApp', 'ສົ່ງທາງ WhatsApp', 'ส่งทาง WhatsApp', 'Envoyer sur WhatsApp'),
+  shareFacebook: L('Facebook에 올리기', 'Post on Facebook', 'ໂພສໃນ Facebook', 'โพสต์บน Facebook', 'Publier sur Facebook'),
+  shareCopy: L('링크 복사', 'Copy link', 'ສຳເນົາລິ້ງ', 'คัดลอกลิงก์', 'Copier le lien'),
+  shareCopied: L('복사했어요', 'Copied', 'ສຳເນົາແລ້ວ', 'คัดลอกแล้ว', 'Copié'),
   // Update line
   updateReady: L('새 버전이 있어요', 'A new version is ready', 'ມີເວີຊັນໃໝ່ແລ້ວ', 'มีเวอร์ชันใหม่แล้ว', 'Une nouvelle version est prête'),
   updateApply: L('지금 적용', 'Update now', 'ອັບເດດດຽວນີ້', 'อัปเดตตอนนี้', 'Mettre à jour'),

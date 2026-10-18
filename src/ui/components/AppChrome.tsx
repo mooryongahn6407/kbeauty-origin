@@ -38,7 +38,12 @@ type IconName =
   | 'check'
   | 'speaker'
   | 'speakerOn'
-  | 'bottle';
+  | 'bottle'
+  | 'like'
+  | 'share'
+  | 'link'
+  | 'people'
+  | 'external';
 const PATHS: Record<IconName, string> = {
   prev: 'M15 5l-7 7 7 7',
   next: 'M9 5l7 7-7 7',
@@ -52,6 +57,11 @@ const PATHS: Record<IconName, string> = {
   speaker: 'M4 9.5v5h4l5 4v-13l-5 4H4z',
   speakerOn: 'M4 9.5v5h4l5 4v-13l-5 4H4zM16.5 9a4.5 4.5 0 010 6M19 6.5a8 8 0 010 11',
   bottle: 'M10 3h4v3l2 3v12H8V9l2-3V3z',
+  like: 'M7 10v10H4V10h3zM7 10l4-7c1.4 0 2.5 1.1 2.5 2.5V9h5.2a2 2 0 012 2.4l-1.4 6.8A2.2 2.2 0 0117.1 20H7',
+  share: 'M14 4l7 7-7 7M21 11h-9a8 8 0 00-8 8',
+  link: 'M10 14a4 4 0 005.7 0l3-3a4 4 0 00-5.7-5.7l-1.2 1.2M14 10a4 4 0 00-5.7 0l-3 3a4 4 0 005.7 5.7l1.2-1.2',
+  people: 'M9 11a3 3 0 100-6 3 3 0 000 6zM3 20a6 6 0 0112 0M16 5a3 3 0 010 6M21 20a6 6 0 00-4-5.6',
+  external: 'M14 4h6v6M20 4l-9 9M18 14v6H4V6h6',
 };
 
 export function Icon({ name }: { name: IconName }) {
