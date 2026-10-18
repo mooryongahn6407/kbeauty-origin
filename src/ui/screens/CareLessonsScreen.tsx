@@ -12,6 +12,7 @@ import { inLocale, type Localized } from '@/content/care-quest/types';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import { ReadAloud } from '../components/ReadAloud';
 import { SceneHero } from '../components/SceneHero';
+import { ShareAskAtEnd } from '../components/ShareAsk';
 import { spokenFallback } from '../spoken-fallback';
 import { pick } from '../pick';
 
@@ -185,6 +186,8 @@ function Lesson({
           </button>
         ) : null}
       </div>
+      {/* Read to the end of a lesson: a completed lesson, when the shared part may ask once. */}
+      <ShareAskAtEnd />
     </article>
   );
 }

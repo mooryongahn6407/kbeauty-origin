@@ -2042,6 +2042,17 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
 .kg-help__send.is-disabled { opacity: 0.5; pointer-events: none; }
 .kg-helplink { text-align: center; margin: 24px 0 0; }
 .kg-helplink__btn { min-height: 48px; padding: 0 12px; border: 0; background: none; color: var(--text-muted); font-size: var(--fs-xs); text-decoration: underline; cursor: pointer; }
+.kg-otherapps { margin: 16px 0 0; display: grid; gap: 6px; }
+.kg-otherapps__title { margin: 0; font-size: var(--fs-sm); color: var(--text-muted); font-weight: 600; text-align: center; }
+.kg-otherapps__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.kg-otherapps__link { display: flex; align-items: center; justify-content: center; gap: 6px; min-height: 44px; padding: 0 8px; color: var(--text-muted); font-size: var(--fs-sm); text-decoration: underline; }
+.kg-otherapps__link .kg-icon { width: 16px; height: 16px; }
+/* The shared «Share + Like» part (public/kg_share_like.js) floats its two round buttons at the
+ * bottom right, above the bottom bar. Room under the last line so they never sit on top of it,
+ * and hidden while one of the app's own sheets, the button guide or the update line is up. */
+.main { padding-bottom: calc(210px + env(safe-area-inset-bottom, 0px)); }
+body:has(.kg-sheet) .kgs-dock, body:has(.kg-guide) .kgs-dock, body:has(.kg-update) .kgs-dock { display: none; }
+.kg-share-ask { display: block; height: 1px; }
 
 .care-product__why { display: block; margin-top: 4px; font-size: var(--fs-xs); color: var(--text-muted); line-height: 1.4; }
 .store-item__code { display: inline-block; width: fit-content; justify-self: start; align-self: flex-start; margin-bottom: 2px; padding: 2px 8px; border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.02em; }

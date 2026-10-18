@@ -35,6 +35,8 @@ import type {
 import type { QuestNav } from '@/app/app-chrome';
 import { CHROME } from '../chrome-text';
 import { Icon } from '../components/AppChrome';
+import { OtherAppLinks } from '../components/OtherApps';
+import { ShareAskAtEnd } from '../components/ShareAsk';
 import { displayCode } from '@/app/store-catalog';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import { storeCatalog } from '@/content/store-catalog';
@@ -1011,6 +1013,9 @@ function CareResult({
         </button>
       </div>
       <p className="record-block__note">{t(QUEST_TEXT.savedNote)}</p>
+      <OtherAppLinks locale={locale} />
+      {/* Read to the end of a result: the first success, when the shared part may ask once. */}
+      <ShareAskAtEnd />
     </section>
   );
 }

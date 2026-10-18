@@ -79,6 +79,8 @@ import {
   chromeText,
 } from './components/AppChrome';
 import { InstallButton, SKIN_QUEST_URL } from './components/GlowHero';
+import { OtherAppItems } from './components/OtherApps';
+import { relabelShare } from '@/app/share-ask';
 
 type ScreenId =
   | 'quest'
@@ -237,6 +239,7 @@ export function App() {
   useEffect(() => {
     document.documentElement.lang = locale;
     saveLocale(typeof localStorage === 'undefined' ? undefined : localStorage, locale);
+    relabelShare();
   }, [locale]);
 
   const localeRef = useRef(locale);
@@ -595,26 +598,7 @@ export function App() {
                     {chromeText('appSkinQuest', locale)}
                   </a>
                 </li>
-                <li>
-                  <a
-                    className="kg-setting__btn"
-                    href="https://buy.korea-glow.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {chromeText('appSmartBuy', locale)}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="kg-setting__btn"
-                    href="https://laobridge.korea-glow.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {chromeText('appLaoBridge', locale)}
-                  </a>
-                </li>
+                <OtherAppItems locale={locale} />
               </ul>
             </section>
             <section className="kg-setting">

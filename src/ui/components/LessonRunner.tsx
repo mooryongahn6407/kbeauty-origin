@@ -34,6 +34,7 @@ import { LessonGrounding, LessonSources } from './LessonSources';
 import { ReadAloud } from '../components/ReadAloud';
 import { spokenFallback } from '../spoken-fallback';
 import { MasteryPanel } from '../components/MasteryPanel';
+import { askToShare } from '@/app/share-ask';
 
 const PHASE_ORDER: readonly LessonPhase[] = [
   'LESSON',
@@ -104,6 +105,15 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
   useEffect(() => {
     dispatch({ type: 'START_LESSON', at: now() });
   }, [dispatch]);
+
+  // A finished lesson is a «first success»: the shared Share part may ask, once, a moment later
+  // (it keeps its own once-in-three-days rule). A UI nicety, not a session effect — nothing here
+  // touches the reducer, the event sink or the mastery ledger.
+  useEffect(() => {
+    if (!state.lessonCompletedAt) return;
+    const timer = setTimeout(() => askToShare(), 1500);
+    return () => clearTimeout(timer);
+  }, [state.lessonCompletedAt]);
 
   const active = currentActivityText({ ...state, locale });
   const atom = sliceAtoms(plan)[0];

@@ -38,7 +38,8 @@ type IconName =
   | 'check'
   | 'speaker'
   | 'speakerOn'
-  | 'bottle';
+  | 'bottle'
+  | 'external';
 const PATHS: Record<IconName, string> = {
   prev: 'M15 5l-7 7 7 7',
   next: 'M9 5l7 7-7 7',
@@ -52,6 +53,7 @@ const PATHS: Record<IconName, string> = {
   speaker: 'M4 9.5v5h4l5 4v-13l-5 4H4z',
   speakerOn: 'M4 9.5v5h4l5 4v-13l-5 4H4zM16.5 9a4.5 4.5 0 010 6M19 6.5a8 8 0 010 11',
   bottle: 'M10 3h4v3l2 3v12H8V9l2-3V3z',
+  external: 'M14 4h6v6M20 4l-9 9M18 14v6H4V6h6',
 };
 
 export function Icon({ name }: { name: IconName }) {
