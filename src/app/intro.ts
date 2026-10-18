@@ -8,7 +8,12 @@
  *   adding the live host to INTRO_HOSTS.
  */
 export const INTRO_KEY = 'korea-glow:intro:v1';
-export const INTRO_HOSTS: readonly string[] = ['glow-next.korea-glow.com', 'localhost', '127.0.0.1'];
+export const INTRO_HOSTS: readonly string[] = [
+  'app.korea-glow.com', // script approved by the CEO 2026-10-18 (card sqglow_12)
+  'glow-next.korea-glow.com',
+  'localhost',
+  '127.0.0.1',
+];
 
 export function introWanted(
   location: { readonly hostname: string; readonly search: string },

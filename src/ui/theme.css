@@ -2056,6 +2056,7 @@ body:has(.kg-sheet) .kgs-dock, body:has(.kg-guide) .kgs-dock, body:has(.kg-updat
 .kg-screen-loading { min-height: 60vh; }
 
 .care-product__why { display: block; margin-top: 4px; font-size: var(--fs-xs); color: var(--text-muted); line-height: 1.4; }
+.care-product__unchecked { display: block; margin-top: 2px; font-size: var(--fs-xs); color: var(--text-muted); font-style: italic; line-height: 1.4; }
 .store-item__code { display: inline-block; width: fit-content; justify-self: start; align-self: flex-start; margin-bottom: 2px; padding: 2px 8px; border-radius: 999px; background: var(--btn-bg); color: var(--btn-fg); font-size: var(--fs-xs); font-weight: 700; letter-spacing: 0.02em; }
 .care-option__mark { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; flex: none; border: 2px solid var(--line-strong); border-radius: 999px; color: var(--btn-fg); background: var(--surface); }
 .care-option[aria-pressed='true'] .care-option__mark { background: var(--btn-bg); border-color: var(--btn-bg); }

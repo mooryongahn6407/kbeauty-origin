@@ -149,10 +149,12 @@ describe('the like/share budget', () => {
 describe('Lumina Noy’s first-visit introduction', () => {
   const host = (hostname: string, search = '') => ({ hostname, search });
 
-  it('plays on the preview on a first visit only, never on the live address unless asked', () => {
+  it('plays on a first visit only, on the preview and (script approved 2026-10-18, sqglow_12) on the live address', () => {
     expect(introWanted(host('glow-next.korea-glow.com'), memory())).toBe(true);
     expect(introWanted(host('glow-next.korea-glow.com'), memory({ [INTRO_KEY]: 'seen' }))).toBe(false);
-    expect(introWanted(host('app.korea-glow.com'), memory())).toBe(false);
+    expect(introWanted(host('app.korea-glow.com'), memory())).toBe(true);
+    expect(introWanted(host('app.korea-glow.com'), memory({ [INTRO_KEY]: 'seen' }))).toBe(false);
+    expect(introWanted(host('example.com'), memory())).toBe(false);
     expect(introWanted(host('app.korea-glow.com', '?intro'), memory({ [INTRO_KEY]: 'off' }))).toBe(true);
     expect(introWanted(host('glow-next.korea-glow.com', '?product=KG-CRM-00007'), memory())).toBe(false);
     const store = memory();

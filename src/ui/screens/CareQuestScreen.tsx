@@ -988,6 +988,9 @@ function CareResult({
                           .join(' · ')}
                       </span>
                     ) : null}
+                    {labelEvidence(product, concerns).length > 0 && product.source === 'SUPPLIER_TEXT_UNCHECKED' ? (
+                      <span className="care-product__unchecked">{t(CHROME.supplierUnchecked!)}</span>
+                    ) : null}
                   </span>
                 </button>
                 <ProductAskLink

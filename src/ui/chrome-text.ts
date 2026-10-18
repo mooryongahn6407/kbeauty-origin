@@ -24,6 +24,14 @@ export const CHROME: Readonly<Record<string, Localized>> = {
   ),
   whyLabel: L('성분표 근거', 'On the label', 'ໃນສະຫຼາກ', 'บนฉลาก', "Sur l'étiquette"),
   nth: L('{n}번째', 'no. {n}', 'ທີ {n}', 'ลำดับ {n}', 'n° {n}'),
+  // CEO 2026-10-18 (card sqglow_14): supplier-list evidence is shown, but said to be unchecked
+  supplierUnchecked: L(
+    '공급사 성분표 기준 · 실물 라벨 확인 전',
+    "From the supplier's list · real label not checked yet",
+    'ຕາມລາຍການຂອງຜູ້ສະໜອງ · ຍັງບໍ່ໄດ້ກວດສະຫຼາກແທ້',
+    'ตามรายการของผู้จำหน่าย · ยังไม่ได้ตรวจฉลากจริง',
+    'Liste du fournisseur · étiquette réelle pas encore vérifiée',
+  ),
   prev: L('이전', 'Back', 'ກັບຄືນ', 'ย้อนกลับ', 'Retour'),
   next: L('다음', 'Next', 'ຕໍ່ໄປ', 'ถัดไป', 'Suivant'),
   skip: L('건너뛰기', 'Skip', 'ຂ້າມ', 'ข้าม', 'Passer'),
