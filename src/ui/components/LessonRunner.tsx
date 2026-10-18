@@ -34,7 +34,6 @@ import { LessonGrounding, LessonSources } from './LessonSources';
 import { ReadAloud } from '../components/ReadAloud';
 import { spokenFallback } from '../spoken-fallback';
 import { MasteryPanel } from '../components/MasteryPanel';
-import { LikeShareBar } from './LikeShare';
 
 const PHASE_ORDER: readonly LessonPhase[] = [
   'LESSON',
@@ -339,7 +338,6 @@ export function LessonRunner({ plan, locale }: { plan: LessonPlan; locale: strin
               <span>{translate('lesson.finished', locale)}</span>
             </p>
           ) : null}
-          {state.lessonCompletedAt ? <LikeShareBar locale={locale} ask /> : null}
           <MasteryPanel mastery={state.mastery} locale={locale} />
           <section className="card card--sunk">
             <p className="eyebrow">{translate('lesson.phase.master', locale)}</p>
