@@ -88,8 +88,9 @@ export const CHROME: Readonly<Record<string, Localized>> = {
   sDeleteYes: L('네, 지울게요', 'Yes, delete', 'ແມ່ນ, ລຶບ', 'ใช่ ลบเลย', 'Oui, supprimer'),
   sDeleteNo: L('그대로 둘게요', 'Keep my data', 'ເກັບໄວ້', 'เก็บไว้', 'Garder mes données'),
   appSkinQuest: L('SKIN QUEST — 3분 피부 게임 (이 앱 안)', 'SKIN QUEST — 3-minute skin game (in this app)', 'SKIN QUEST — ເກມຜິວ 3 ນາທີ (ໃນແອັບນີ້)', 'SKIN QUEST — เกมผิว 3 นาที (ในแอปนี้)', 'SKIN QUEST — jeu de peau en 3 min (dans cette app)'),
-  appSmartBuy: L('KOREA SMART BUY — 한국 정품 쇼핑', 'KOREA SMART BUY — genuine Korean products', 'KOREA SMART BUY — ສິນຄ້າເກົາຫຼີແທ້', 'KOREA SMART BUY — สินค้าเกาหลีของแท้', 'KOREA SMART BUY — produits coréens authentiques'),
-  appLaoBridge: L('LAO BRIDGE — 말 배우기', 'LAO BRIDGE — learn languages', 'LAO BRIDGE — ຮຽນພາສາ', 'LAO BRIDGE — เรียนภาษา', 'LAO BRIDGE — apprendre les langues'),
+  appSmartBuy: L('KOREA SMART BUY — 한국 제품 보기 (쇼핑몰)', 'KOREA SMART BUY — see Korean products (shop)', 'KOREA SMART BUY — ເບິ່ງສິນຄ້າເກົາຫຼີ (ຮ້ານຄ້າ)', 'KOREA SMART BUY — ดูสินค้าเกาหลี (ร้านค้า)', 'KOREA SMART BUY — voir des produits coréens (boutique)'),
+  appLaoBridge: L('LAO BRIDGE — 라오어·한국어·영어 배우기', 'LAO BRIDGE — learn Lao, Korean and English', 'LAO BRIDGE — ຮຽນພາສາລາວ, ເກົາຫຼີ ແລະ ອັງກິດ', 'LAO BRIDGE — เรียนภาษาลาว เกาหลี และอังกฤษ', 'LAO BRIDGE — apprendre le lao, le coréen et l’anglais'),
+  appOfficial: L('KOREA GLOW 공식 사이트', 'KOREA GLOW official site', 'ເວັບໄຊທາງການ KOREA GLOW', 'เว็บไซต์ทางการ KOREA GLOW', 'Site officiel KOREA GLOW'),
   // Like · Share (owner's request 2026-10-18). Korean is the master; en is base; lo/th/fr are
   // unreviewed drafts like every other lo/th/fr line here (CATALOG_REVIEW says so on screen).
   // No counts of shares and no pressure wording, by design.

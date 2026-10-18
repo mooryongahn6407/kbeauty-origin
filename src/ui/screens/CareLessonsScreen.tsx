@@ -12,6 +12,7 @@ import { inLocale, type Localized } from '@/content/care-quest/types';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import { ReadAloud } from '../components/ReadAloud';
 import { SceneHero } from '../components/SceneHero';
+import { LikeShareBar } from '../components/LikeShare';
 import { spokenFallback } from '../spoken-fallback';
 import { pick } from '../pick';
 
@@ -185,6 +186,8 @@ function Lesson({
           </button>
         ) : null}
       </div>
+      {/* The lesson's last line: read to the end, so it is the end of a completed lesson. */}
+      <LikeShareBar locale={locale} ask />
     </article>
   );
 }

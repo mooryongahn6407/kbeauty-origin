@@ -79,6 +79,8 @@ import {
   chromeText,
 } from './components/AppChrome';
 import { InstallButton, SKIN_QUEST_URL } from './components/GlowHero';
+import { LikeShareBar } from './components/LikeShare';
+import { OtherAppItems } from './components/OtherApps';
 
 type ScreenId =
   | 'quest'
@@ -400,6 +402,8 @@ export function App() {
                 </span>
                 <span className="guide-entry__text">{translate('guide.entry', locale)} ›</span>
               </button>
+              {/* Home only — the welcome screen, after its main content. Not on every screen. */}
+              {questNav && !questNav.canGoBack ? <LikeShareBar locale={locale} ask /> : null}
             </>
           ) : (
             <>
@@ -595,26 +599,7 @@ export function App() {
                     {chromeText('appSkinQuest', locale)}
                   </a>
                 </li>
-                <li>
-                  <a
-                    className="kg-setting__btn"
-                    href="https://buy.korea-glow.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {chromeText('appSmartBuy', locale)}
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="kg-setting__btn"
-                    href="https://laobridge.korea-glow.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {chromeText('appLaoBridge', locale)}
-                  </a>
-                </li>
+                <OtherAppItems locale={locale} />
               </ul>
             </section>
             <section className="kg-setting">

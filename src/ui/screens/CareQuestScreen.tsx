@@ -35,6 +35,8 @@ import type {
 import type { QuestNav } from '@/app/app-chrome';
 import { CHROME } from '../chrome-text';
 import { Icon } from '../components/AppChrome';
+import { LikeShareBar } from '../components/LikeShare';
+import { OtherAppLinks } from '../components/OtherApps';
 import { displayCode } from '@/app/store-catalog';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import { storeCatalog } from '@/content/store-catalog';
@@ -1011,6 +1013,8 @@ function CareResult({
         </button>
       </div>
       <p className="record-block__note">{t(QUEST_TEXT.savedNote)}</p>
+      <LikeShareBar locale={locale} ask />
+      <OtherAppLinks locale={locale} />
     </section>
   );
 }
