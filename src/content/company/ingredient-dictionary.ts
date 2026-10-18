@@ -830,14 +830,14 @@ export const companyDictionary: CompanyDictionary = {
       aka: '폴리데옥시리보뉴클레오타이드 · 연어 DNA · Polynucleotide',
       concerns: ['wrinkle', 'barrier', 'marks', 'dry'],
       what: {
-        ko: '회복과 재생을 돕는다고 알려진 성분입니다. **주사 시술에서의 근거가 화장품에 그대로 적용되지는 않습니다.**',
-        lo: 'ສານທີ່ຮູ້ຈັກວ່າຊ່ວຍຟື້ນຟູ. **ຫຼັກຖານຈາກການສີດ ບໍ່ໄດ້ນຳມາໃຊ້ກັບເຄື່ອງສຳອາງໄດ້ໂດຍຕົງ.**',
-        en: 'Known for supporting repair and regeneration. **Evidence from injectable procedures does not transfer directly to cosmetics.**',
+        ko: '피부가 지쳐 보일 때 쓰는 진정 케어 성분으로 알려져 있습니다. **주사 시술에서의 근거가 화장품에 그대로 적용되지는 않습니다.**',
+        lo: 'ສານທີ່ຮູ້ຈັກໃນການດູແລແບບຜ່ອນຄາຍ ສຳລັບຜິວທີ່ເບິ່ງອິດເມື່ອຍ. **ຫຼັກຖານຈາກການສີດ ບໍ່ໄດ້ນຳມາໃຊ້ກັບເຄື່ອງສຳອາງໄດ້ໂດຍຕົງ.**',
+        en: 'Known as a calming-care ingredient for skin that looks stressed. **Evidence from injectable procedures does not transfer directly to cosmetics.**',
       },
       how: {
-        ko: '연어 등에서 얻은 DNA 조각으로, 피부과 주사 시술에서는 회복을 돕는 근거가 쌓여 있습니다. 다만 바르는 형태에서 얼마나 흡수되어 같은 일을 하는지는 아직 근거가 제한적입니다. 보습과 진정 효과는 실제로 느껴집니다.',
-        lo: 'ເປັນຊິ້ນສ່ວນ DNA ຈາກປາແຊລມອນ. ໃນການສີດຢູ່ຄລີນິກ ມີຫຼັກຖານວ່າຊ່ວຍຟື້ນຟູ. ແຕ່ໃນຮູບແບບທາ ຍັງບໍ່ຮູ້ແນ່ວ່າຊຶມເຂົ້າໄດ້ຫຼາຍປານໃດ. ຜົນເລື່ອງຄວາມຊຸ່ມ ແລະ ຜ່ອນຄາຍ ຮູ້ສຶກໄດ້ຈິງ.',
-        en: 'DNA fragments, usually from salmon. In clinical injections there is accumulating evidence for repair, but how much a topical version absorbs and does the same is still limited. The hydration and calming effects are genuinely felt.',
+        ko: '연어 등에서 얻은 DNA 조각으로, 피부과 주사 시술 분야에서 연구가 쌓여 있습니다. 다만 바르는 형태에서 얼마나 흡수되어 같은 일을 하는지는 아직 근거가 제한적입니다. 보습과 진정 효과는 실제로 느껴집니다.',
+        lo: 'ເປັນຊິ້ນສ່ວນ DNA ຈາກປາແຊລມອນ. ໃນການສີດຢູ່ຄລີນິກ ມີການຄົ້ນຄວ້າຫຼາຍຂຶ້ນ. ແຕ່ໃນຮູບແບບທາ ຍັງບໍ່ຮູ້ແນ່ວ່າຊຶມເຂົ້າໄດ້ຫຼາຍປານໃດ. ຜົນເລື່ອງຄວາມຊຸ່ມ ແລະ ຜ່ອນຄາຍ ຮູ້ສຶກໄດ້ຈິງ.',
+        en: 'DNA fragments, usually from salmon. Research is accumulating around clinical injections, but how much a topical version absorbs and does the same is still limited. The hydration and calming effects are genuinely felt.',
       },
       use: {
         ko: '저녁 앰플·세럼으로 씁니다. 자극이 거의 없어 예민한 피부도 씁니다.',
