@@ -114,41 +114,30 @@ async function setLock(db: D1Like, bucket: string, until: number): Promise<void>
 
 async function isLocked(db: D1Like, scope: string, ipTag: string, nowMs: number): Promise<boolean> {
   const row = await db
-    .prepare('SELECT 1 AS locked FROM counters WHERE bucket IN (?1, ?2) AND expires > ?3 LIMIT 1')
-    .bind(`lock:${scope}:${ipTag}`, `lock:${scope}:*`, nowMs)
+    .prepare('SELECT 1 AS locked FROM counters WHERE bucket = ?1 AND expires > ?2 LIMIT 1')
+    .bind(`lock:${scope}:${ipTag}`, nowMs)
     .first();
   return row !== null;
 }
 
-/** Counts a wrong secret; returns true when that failure has just locked the caller out. */
+/**
+ * Counts a wrong secret from this IP; returns true when that failure has just locked this IP out.
+ * Only this IP — wrong PINs from one place never lock out the staff of other shops.
+ */
 async function recordFailure(
   db: D1Like,
   scope: 'report' | 'pin',
   ipTag: string,
   nowMs: number,
 ): Promise<boolean> {
-  let locked = false;
   const mine = await hit(
     db,
     windowBucket(`fail:${scope}`, ipTag, nowMs, LOCKOUT.windowMs),
     nowMs + LOCKOUT.windowMs,
   );
-  if (mine >= LOCKOUT.perIpFailures) {
-    await setLock(db, `lock:${scope}:${ipTag}`, nowMs + LOCKOUT.lockMs);
-    locked = true;
-  }
-  if (scope === 'pin') {
-    const everyone = await hit(
-      db,
-      windowBucket(`fail:${scope}`, '*', nowMs, LOCKOUT.globalWindowMs),
-      nowMs + LOCKOUT.globalWindowMs,
-    );
-    if (everyone >= LOCKOUT.globalPinFailures) {
-      await setLock(db, `lock:${scope}:*`, nowMs + LOCKOUT.globalLockMs);
-      locked = true;
-    }
-  }
-  return locked;
+  if (mine < LOCKOUT.perIpFailures) return false;
+  await setLock(db, `lock:${scope}:${ipTag}`, nowMs + LOCKOUT.lockMs);
+  return true;
 }
 
 async function overRate(

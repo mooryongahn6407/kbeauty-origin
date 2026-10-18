@@ -54,15 +54,15 @@ export const RATE_PER_MINUTE: Readonly<Record<Exclude<Route, 'unknownApi'>, numb
 /** Gift codes one IP may be issued in one day — stops one script farming codes with fresh device ids. */
 export const GIFTS_PER_IP_PER_DAY = 50;
 
-/** Wrong secrets before an IP is locked out, the window they are counted in, and the lock. */
+/**
+ * Wrong secrets before an IP is locked out, the window they are counted in, and the lock.
+ * The lock is per IP only (2026-10-18): a shared lock for everyone let one person's wrong PINs
+ * stop the staff of every shop from checking gift codes.
+ */
 export const LOCKOUT = {
   perIpFailures: 5,
   windowMs: 15 * 60 * 1000,
   lockMs: 15 * 60 * 1000,
-  /** The staff PIN is only six digits, so wrong PINs from everywhere together also lock it. */
-  globalPinFailures: 50,
-  globalWindowMs: 60 * 60 * 1000,
-  globalLockMs: 60 * 60 * 1000,
 } as const;
 
 export interface VisitInput {

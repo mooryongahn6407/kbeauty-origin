@@ -351,11 +351,27 @@ describe('gift codes (CEO card sqglow_10)', () => {
     expect((await post('/api/gift/redeem', { code }, { 'x-staff-pin': PIN }, '198.51.100.9')).status).toBe(200);
   });
 
-  it('locks the PIN for everyone after many wrong PINs from many places', async () => {
-    for (let i = 0; i < LOCKOUT.globalPinFailures; i += 1) {
+  it('locks only the IP that got the PIN wrong — never every shop', async () => {
+    // One place hammers wrong PINs well past its own lock, and many others make a few mistakes.
+    for (let i = 0; i < 60; i += 1) {
+      await post('/api/gift/redeem', { code: 'KKKKKK' }, { 'x-staff-pin': '000000' }, '203.0.113.66');
+    }
+    for (let i = 0; i < 60; i += 1) {
       await post('/api/gift/redeem', { code: 'KKKKKK' }, { 'x-staff-pin': '000000' }, `10.0.${Math.floor(i / 4)}.${i % 4}`);
     }
-    expect((await post('/api/gift/redeem', { code: 'KKKKKK' }, { 'x-staff-pin': PIN }, '192.0.2.1')).status).toBe(429);
+    expect((await post('/api/gift/redeem', { code: 'KKKKKK' }, { 'x-staff-pin': PIN }, '203.0.113.66')).status).toBe(429);
+    expect((await post('/api/gift/redeem', { code: 'KKKKKK' }, { 'x-staff-pin': PIN }, '192.0.2.1')).status).toBe(200);
+  });
+
+  it('lets a locked-out IP try again once the 15-minute lock has passed', async () => {
+    for (let i = 0; i < LOCKOUT.perIpFailures; i += 1) {
+      await post('/api/gift/redeem', { code: 'KKKKKK' }, { 'x-staff-pin': '000000' }, '203.0.113.7');
+    }
+    expect((await post('/api/gift/redeem', { code: 'KKKKKK' }, { 'x-staff-pin': PIN }, '203.0.113.7')).status).toBe(429);
+    expect(LOCKOUT.perIpFailures).toBe(5);
+    expect(LOCKOUT.lockMs).toBe(15 * 60 * 1000);
+    clock += LOCKOUT.lockMs + 1;
+    expect((await post('/api/gift/redeem', { code: 'KKKKKK' }, { 'x-staff-pin': PIN }, '203.0.113.7')).status).toBe(200);
   });
 
   it('refuses to redeem when the PIN is not configured', async () => {
