@@ -706,3 +706,22 @@ export function questEntryState(
  * name and its position are untouched.
  */
 export const printedForDisplay = (printed: string): string => printed.replace(/\s*\([^)]*$/, '');
+
+/**
+ * The ingredient's name beside «On the label», in the reader's language: the printed Korean
+ * name for a Korean reader, otherwise the dictionary's name for that ingredient (Lao where the
+ * dictionary has it, else English). The position always refers to the printed label.
+ */
+export function evidenceName(item: Pick<LabelEvidence, 'id' | 'printed'>, locale: string): string {
+  if (locale === 'ko') return printedForDisplay(item.printed);
+  const entry = companyDictionary.ingredients.find((ingredient) => ingredient.id === item.id);
+  const names = entry?.name as Readonly<Record<string, string | undefined>> | undefined;
+  return names?.[locale] ?? names?.en ?? printedForDisplay(item.printed);
+}
+
+/** «Coeval(코에벨)» → «Coeval» for a reader who does not read Korean; unchanged otherwise. */
+export function brandForDisplay(brand: string, locale: string): string {
+  if (locale === 'ko') return brand;
+  const latin = brand.replace(/\s*\([^)]*[가-힣][^)]*\)/g, '').trim();
+  return latin || brand;
+}

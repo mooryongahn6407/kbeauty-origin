@@ -30,7 +30,7 @@ export function Companion({ mood = 'calm', size = 96 }: { mood?: CompanionMood; 
   const locale = useContext(LocaleContext);
   if (LUMINA_PHOTO) {
     // The guide's name under her photo (CEO 2026-10-17: name only — no «AI» notice).
-    const caption = inLocale(CHROME.aiGuide!, locale);
+    const caption = inLocale(CHROME.guideName!, locale);
     return (
       <figure className="kg-host">
         <img

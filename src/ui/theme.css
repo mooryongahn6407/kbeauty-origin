@@ -2108,3 +2108,5 @@ body:has(.kg-nudge) .kgs-dock { bottom: calc(160px + env(safe-area-inset-bottom,
 .kg-week__dot.is-one { background: linear-gradient(90deg, var(--gold) 50%, transparent 50%); border-color: var(--gold); }
 .kg-week__dot.is-ahead { border-style: dashed; }
 .kg-tips { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; min-height: 48px; margin: 12px 0 0; font-size: var(--fs-base); text-decoration: none; }
+/* The shared part draws its like count at 12px; this app keeps every glyph at 13px or more. */
+.kgs-dock .kgs-n { font-size: var(--fs-2xs); }

@@ -96,7 +96,7 @@ export function IntroGuide({
         {photo ? (
           <figure className="kg-intro__figure">
             <img className="kg-intro__photo" src={photo} alt="" />
-            <figcaption className="kg-intro__name">{t('aiGuide', locale)}</figcaption>
+            <figcaption className="kg-intro__name">{t('guideName', locale)}</figcaption>
           </figure>
         ) : null}
         <p className="kg-intro__line" id="kg-intro-line" aria-live="polite">

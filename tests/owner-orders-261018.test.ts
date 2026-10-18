@@ -31,7 +31,7 @@ import {
 } from '@/app/routine-week';
 import { LOCAL_STORAGE_KEYS } from '@/app/device-data';
 import { hasProgress, hasSavedResult } from '@/app/entry-links';
-import { printedForDisplay, questEntryState } from '@/app/care-quest';
+import { brandForDisplay, evidenceName, printedForDisplay, questEntryState } from '@/app/care-quest';
 import { IntroGuide } from '@/ui/components/IntroGuide';
 import { RoutineWeekCard } from '@/ui/components/RoutineWeek';
 import { ProductAskLink } from '@/ui/components/ProductAsk';
@@ -165,7 +165,7 @@ describe('Lumina Noy’s first-visit introduction', () => {
     for (const locale of LOCALES) {
       const html = renderToStaticMarkup(createElement(IntroGuide, { locale, onDone: () => undefined }));
       const plain = html.replace(/&#x27;/g, "'").replace(/&amp;/g, '&');
-      expect(plain).toContain(CHROME.aiGuide![locale]!);
+      expect(plain).toContain(CHROME.guideName![locale]!);
       expect(plain).toContain(INTRO_LINES[0]![locale]!);
       expect(plain).toContain(CHROME.introSkip![locale]!);
       expect(plain).toContain(CHROME.introNoAuto![locale]!);
@@ -240,5 +240,21 @@ describe('label evidence as shown', () => {
     expect(printedForDisplay('판테놀')).toBe('판테놀');
     expect(printedForDisplay('아스코빅애씨드 <ILN50755>')).toBe('아스코빅애씨드 <ILN50755>');
     expect(printedForDisplay('Collagen (4,000ppm)')).toBe('Collagen (4,000ppm)');
+  });
+});
+
+describe('result product lines for readers who do not read Korean', () => {
+  it('name the ingredient in their language and keep the printed Korean for Korean readers', () => {
+    const item = { id: 'niacinamide', printed: '나이아신아마이드' };
+    expect(evidenceName(item, 'ko')).toBe('나이아신아마이드');
+    expect(evidenceName(item, 'en')).not.toMatch(/[가-힣]/);
+    expect(evidenceName(item, 'fr')).not.toMatch(/[가-힣]/);
+    expect(evidenceName({ id: 'no-such-id', printed: '콜라겐(4' }, 'en')).toBe('콜라겐');
+  });
+
+  it('drop a Korean reading in brackets from a Latin brand name', () => {
+    expect(brandForDisplay('Coeval(코에벨)', 'fr')).toBe('Coeval');
+    expect(brandForDisplay('Coeval(코에벨)', 'ko')).toBe('Coeval(코에벨)');
+    expect(brandForDisplay('푸드어홀릭', 'en')).toBe('푸드어홀릭');
   });
 });

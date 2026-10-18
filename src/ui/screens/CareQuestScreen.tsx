@@ -55,7 +55,8 @@ import {
   loadProgress,
   loadSavedResults,
   questEntryState,
-  printedForDisplay,
+  evidenceName,
+  brandForDisplay,
   saveProgress,
   labelEvidence,
   matchProducts,
@@ -972,7 +973,7 @@ function CareResult({
                   <span className="care-product__text">
                     <span className="care-product__brand">
                       {displayCode(product.sku) ? `${displayCode(product.sku)} · ` : ''}
-                      {product.brand}
+                      {brandForDisplay(product.brand, locale)}
                     </span>
                     <span className="care-product__name">{productName(product, locale)}</span>
                     {locale === 'ko' ? (
@@ -983,7 +984,7 @@ function CareResult({
                         {t(CHROME.whyLabel!)}:{' '}
                         {labelEvidence(product, concerns)
                           .slice(0, 3)
-                          .map((item) => `${printedForDisplay(item.printed)} (${fill(t(CHROME.nth!), { n: String(item.position) })})`)
+                          .map((item) => `${evidenceName(item, locale)} (${fill(t(CHROME.nth!), { n: String(item.position) })})`)
                           .join(' · ')}
                       </span>
                     ) : null}

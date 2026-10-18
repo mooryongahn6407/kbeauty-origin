@@ -15,7 +15,7 @@ export const CHROME: Readonly<Record<string, Localized>> = {
     'Vous êtes dans le navigateur d’une app. Touchez ⋯ en haut à droite → « Ouvrir dans le navigateur ».',
   ),
   // CEO 2026-10-17: the caption names the guide — no «AI» notice.
-  aiGuide: L(
+  guideName: L(
     '루미나 노이 · GLOW Class 가이드',
     'Lumina Noy · GLOW Class guide',
     'ລູມິນາ ນ້ອຍ · ຜູ້ນຳທາງ GLOW Class',
