@@ -13,9 +13,11 @@
  * That is not a placeholder for a real tutor. It is the trust layer a real tutor would need to
  * sit on top of, built and testable first.
  */
-import { useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import { mandatoryApprovedAIRules, respond, type TutorResponse } from '@/tutor/tutor-engine';
 import { runEvaluationSuite } from '@/tutor/evaluation-suite';
+import { askTutorApi, type TutorApiAnswer } from '@/tutor/tutor-api';
+import type { RecordAnswer } from '@/tutor/record-answer';
 import { translate, type MessageKey } from '@/localization/messages';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 
@@ -28,9 +30,73 @@ const SUGGESTIONS: readonly string[] = [
   '자외선 차단은 어떻게 해요?',
 ];
 
-function ResponsePanel({ response, locale }: { response: TutorResponse; locale: string }) {
+/** Record fields keep the Master Database's own language; mark it for the reader's browser. */
+const fieldLang = (value: string): string => (/[가-힣]/.test(value) ? 'ko' : 'en');
+
+/** The catalogue sentence in the reader's language, with the record's own words marked as such. */
+function AnswerSentence({ answer, locale }: { answer: RecordAnswer; locale: string }) {
+  const template = translate(answer.key as MessageKey, locale);
+  const parts = template.split(/(\{[a-zA-Z]+\})/);
+  return (
+    <p className="tutor-answer__text">
+      {parts.map((part, index) => {
+        const name = /^\{([a-zA-Z]+)\}$/.exec(part)?.[1];
+        const value = name ? answer.params[name] : undefined;
+        return value !== undefined ? (
+          <strong key={index} lang={fieldLang(value)}>
+            {value}
+          </strong>
+        ) : (
+          <Fragment key={index}>{part}</Fragment>
+        );
+      })}
+    </p>
+  );
+}
+
+/**
+ * The short answer: the rule-based sentence first, and — only if the server tutor is switched on
+ * and answered — its plain-words answer below it. Both rest on the records listed underneath.
+ */
+function AnswerCard({
+  response,
+  locale,
+  ai,
+}: {
+  response: TutorResponse;
+  locale: string;
+  ai: TutorApiAnswer | null;
+}) {
+  if (!response.answer) return null;
+  return (
+    <section className="card tutor-answer" aria-live="polite">
+      <p className="eyebrow">{translate('tutor.answerTitle', locale)}</p>
+      <AnswerSentence answer={response.answer} locale={locale} />
+      {ai ? (
+        <>
+          <h3 className="tutor-answer__ai-title">{translate('tutor.aiTitle', locale)}</h3>
+          <p className="tutor-answer__text" lang={locale}>
+            {ai.answer}
+          </p>
+        </>
+      ) : null}
+      <p className="fine">{translate('tutor.answerBasis', locale)}</p>
+    </section>
+  );
+}
+
+function ResponsePanel({
+  response,
+  locale,
+  ai = null,
+}: {
+  response: TutorResponse;
+  locale: string;
+  ai?: TutorApiAnswer | null;
+}) {
   return (
     <>
+      <AnswerCard response={response} locale={locale} ai={ai} />
       <section className="card">
         <p className="eyebrow">{translate('tutor.understood', locale)}</p>
         <div className="dims">
@@ -266,6 +332,20 @@ export function AITutorScreen({
     [asked, locale],
   );
 
+  // The server tutor, only for a question the risk gate let through and a record could answer.
+  const [ai, setAi] = useState<TutorApiAnswer | null>(null);
+  useEffect(() => {
+    setAi(null);
+    if (asked === null || !response?.answer || response.mode === 'SAFETY') return undefined;
+    let live = true;
+    void askTutorApi(asked, locale).then((answer) => {
+      if (live) setAi(answer);
+    });
+    return () => {
+      live = false;
+    };
+  }, [asked, locale, response]);
+
   const ask = (question: string) => {
     if (question.trim() === '') return;
     setAsked(question.trim().slice(0, TUTOR_QUESTION_MAX));
@@ -317,7 +397,7 @@ export function AITutorScreen({
         ) : null}
       </section>
 
-      {response ? <ResponsePanel response={response} locale={locale} /> : null}
+      {response ? <ResponsePanel response={response} locale={locale} ai={ai} /> : null}
 
       {showInternals ? (
         <section className="card">

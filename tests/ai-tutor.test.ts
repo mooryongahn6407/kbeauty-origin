@@ -14,6 +14,7 @@ import { MODE_SKELETON, evaluateModeContract } from '@/tutor/mode-contract';
 import { ground, queryTerms } from '@/tutor/retriever';
 import { mandatoryApprovedAIRules, respond, routeMode, type TutorRequest } from '@/tutor/tutor-engine';
 import { aiRules, knowledgeNodes } from '@/knowledge/repository';
+import { translate } from '@/localization/messages';
 
 const request = (overrides: Partial<TutorRequest> = {}): TutorRequest => ({
   userMessage: '피부 장벽이 뭔가요?',
@@ -181,7 +182,11 @@ describe('mode contracts (§10)', () => {
 
   it('reports the empty slots rather than hiding them behind fluent prose', () => {
     const response = respond(request({ userMessage: '그냥 추천해줘', userRequestedProductHelp: true }));
-    expect(response.message).toBeNull();
+    // The only sentence allowed is the matched record's own words in a catalogue frame.
+    if (response.message !== null) {
+      expect(response.answer).not.toBeNull();
+      expect(response.message).toBe(translate(response.answer!.key, 'ko', response.answer!.params));
+    }
     expect(response.contract.filledCount).toBeLessThan(response.contract.totalCount);
     expect(response.uncertainty.some((line) => line.includes('cannot be filled honestly'))).toBe(true);
   });
@@ -259,8 +264,8 @@ describe('engineering definition of done (§15.3)', () => {
   });
 });
 
-describe('the tutor generates no prose', () => {
-  it('returns a null message on every branch, so no wording can be mistaken for an answer', () => {
+describe('the tutor writes no prose of its own', () => {
+  it("says nothing but a matched record's own words in a catalogue frame, on every branch", () => {
     for (const message of [
       '피부 장벽이 뭔가요?',
       'Niacinamide가 모든 피부 문제를 치료해?',
@@ -268,8 +273,15 @@ describe('the tutor generates no prose', () => {
       '추천해줘',
       '너무 아파요',
     ]) {
-      expect(respond(request({ userMessage: message })).message).toBeNull();
+      const response = respond(request({ userMessage: message }));
+      if (response.message === null) continue;
+      expect(response.answer, message).not.toBeNull();
+      expect(response.message).toBe(translate(response.answer!.key, 'ko', response.answer!.params));
     }
+    // Escalated questions and unknown products get no sentence at all.
+    expect(respond(request({ userMessage: 'Niacinamide가 모든 피부 문제를 치료해?' })).message).toBeNull();
+    expect(respond(request({ userMessage: '너무 아파요' })).message).toBeNull();
+    expect(respond(request({ userMessage: 'XYZ 크림 어때요?' })).message).toBeNull();
   });
 
   it('carries safety wording as a localization key rather than inline prose', () => {

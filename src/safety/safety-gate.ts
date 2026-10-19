@@ -65,6 +65,24 @@ export const RISK_SIGNALS: readonly RiskSignal[] = [
     approval: 'APPROVAL_REQUIRED',
   },
   {
+    // Diagnosis, rashes, allergies and pregnancy are questions for a doctor or pharmacist, not
+    // for a cosmetics lesson (CEO batch 4). Lao, Thai and French patterns are unreviewed drafts
+    // like those catalogs. Thai «แพ้» alone is not listed: «ผิวแพ้ง่าย» only means sensitive skin.
+    id: 'RS-SEE-PROFESSIONAL',
+    tier: 'R2',
+    patterns: [
+      // diagnosis
+      'diagnos', '진단', 'ວິນິດໄສ', 'ບົ່ງມະຕິ', 'วินิจฉัย', 'diagnostic',
+      // rash
+      'rash', '발진', 'ຜື່ນ', 'ผื่น', 'éruption', 'eruption cutanée',
+      // allergy
+      'allerg', '알레르기', '알러지', 'ພູມແພ້', 'ອາການແພ້', 'ภูมิแพ้', 'อาการแพ้',
+      // pregnancy
+      'pregnan', '임신', 'ຖືພາ', 'ມີທ້ອງ', 'ตั้งครรภ์', 'มีครรภ์', 'enceinte', 'grossesse',
+    ],
+    approval: 'APPROVAL_REQUIRED',
+  },
+  {
     id: 'RS-TREATMENT-CLAIM',
     tier: 'R2',
     patterns: ['치료해', '낫게', 'cure', 'treat my', 'heal my', 'prescribe'],
@@ -106,8 +124,15 @@ export function classifyRisk(text: string): SafetyDecision {
     'R0',
   );
 
-  return decideForTier(tier, matched.map((signal) => signal.id));
+  const decision = decideForTier(tier, matched.map((signal) => signal.id));
+  // At R2, a doctor/pharmacist question gets that wording; a higher tier keeps its own.
+  return tier === 'R2' && decision.matchedSignalIds.includes(SEE_PROFESSIONAL_SIGNAL)
+    ? { ...decision, messageKey: 'safety.escalation.professional' }
+    : decision;
 }
+
+/** The signal whose R2 wording sends the reader to a doctor or pharmacist. */
+export const SEE_PROFESSIONAL_SIGNAL = 'RS-SEE-PROFESSIONAL';
 
 /** Build the decision for an already-known tier. */
 export function decideForTier(tier: RiskTier, matchedSignalIds: readonly string[] = []): SafetyDecision {

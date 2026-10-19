@@ -11,7 +11,7 @@ export type Track = (typeof TRACKS)[number];
 export type VisitEvent = 'open' | 'result';
 
 /** Which API a path is, or null for everything the static assets serve. */
-export type Route = 'visit' | 'report' | 'gift' | 'redeem' | 'unknownApi';
+export type Route = 'visit' | 'report' | 'gift' | 'redeem' | 'tutor' | 'unknownApi';
 
 export function routeFor(pathname: string): Route | null {
   const path = pathname.replace(/\/+$/, '') || '/';
@@ -27,6 +27,8 @@ export function routeFor(pathname: string): Route | null {
       return 'gift';
     case '/api/gift/redeem':
       return 'redeem';
+    case '/api/tutor':
+      return 'tutor';
     default:
       return path.startsWith('/api/') || path.startsWith('/.netlify/') ? 'unknownApi' : null;
   }
@@ -38,6 +40,7 @@ export const ROUTE_METHOD: Readonly<Record<Exclude<Route, 'unknownApi'>, 'GET' |
   report: 'GET',
   gift: 'POST',
   redeem: 'POST',
+  tutor: 'POST',
 };
 
 /** Largest request body any route accepts. The real ones are well under 200 bytes. */
@@ -49,6 +52,7 @@ export const RATE_PER_MINUTE: Readonly<Record<Exclude<Route, 'unknownApi'>, numb
   report: 10,
   gift: 10,
   redeem: 30,
+  tutor: 6,
 };
 
 /** Gift codes one IP may be issued in one day — stops one script farming codes with fresh device ids. */

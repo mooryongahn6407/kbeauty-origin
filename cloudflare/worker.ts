@@ -15,6 +15,9 @@
  *        phone and this Laos day, issued by the server and remembered, so it cannot be forged.
  *   POST /api/gift/redeem         A shop checks a code and marks it used, with the staff PIN
  *        (Worker secret STAFF_GIFT_PIN) in the `X-Staff-Pin` header.
+ *   POST /api/tutor               The server tutor (tutor.ts). OFF unless the owner sets the secret
+ *        TUTOR_API_KEY and the variable TUTOR_ENABLED="1"; answers only from matched knowledge
+ *        records, behind the app's risk gate, with daily caps. Never logs the question.
  *
  * Storage is the D1 database `glow-class` (schema: `migrations/`). Every API route is rate
  * limited per IP and capped at a 1 KB body. Pure pieces live in `logic.ts`.
@@ -42,6 +45,20 @@ import {
   type Route,
   type VisitRow,
 } from './logic';
+import {
+  ANTHROPIC_MESSAGES_URL,
+  ANTHROPIC_VERSION,
+  TUTOR_DAILY_CAP,
+  TUTOR_DAILY_LIMIT_MESSAGE,
+  TUTOR_IP_DAILY_CAP,
+  TUTOR_MAX_BODY_BYTES,
+  buildTutorRequestBody,
+  parseTutorRequest,
+  readTutorAnswer,
+  tutorEnabled,
+  tutorGate,
+  tutorRecords,
+} from './tutor';
 
 /* ---- The small part of the Workers runtime this file uses (no extra type package needed). */
 export interface D1Statement {
@@ -58,6 +75,10 @@ export interface Env {
   DB: D1Like;
   PARTNER_REPORT_KEY?: string;
   STAFF_GIFT_PIN?: string;
+  /** Owner-set secret; the tutor stays off without it. */
+  TUTOR_API_KEY?: string;
+  /** Owner-set variable; the tutor is on only when this is exactly "1". */
+  TUTOR_ENABLED?: string;
 }
 export interface Ctx {
   waitUntil(promise: Promise<unknown>): void;
@@ -70,6 +91,8 @@ export interface Deps {
   fillRandom(bytes: Uint8Array): Uint8Array;
   /** Per-isolate memory of IPs already over a limit, so a flood stops before it reaches D1. */
   blocked: Map<string, number>;
+  /** The outbound call to the model API (tests pass a mock). */
+  fetch?: (input: string, init?: RequestInit) => Promise<Response>;
 }
 
 const defaultDeps: Deps = {
@@ -158,8 +181,8 @@ async function overRate(
   return true;
 }
 
-async function readJson(request: Request): Promise<unknown> {
-  const text = await readCappedText(request);
+async function readJson(request: Request, max?: number): Promise<unknown> {
+  const text = await readCappedText(request, max);
   try {
     return JSON.parse(text) as unknown;
   } catch {
@@ -290,6 +313,41 @@ async function redeem(request: Request, env: Env, ipTag: string, nowMs: number):
   return json(row ? describe(row) : { status: 'unknown' });
 }
 
+/* ---- Tutor -------------------------------------------------------------------------------- */
+
+async function tutor(request: Request, env: Env, deps: Deps, ipTag: string, nowMs: number): Promise<Response> {
+  const input = parseTutorRequest(await readJson(request, TUTOR_MAX_BODY_BYTES));
+  if (!input) return json({ error: 'bad request' }, 400);
+
+  // The risk gate comes first: these questions never reach the model.
+  const gate = tutorGate(input.question);
+  if (gate.blocked) return json({ answer: null, sourceIds: [], blocked: true, messageKey: gate.messageKey });
+
+  const records = tutorRecords(input.question);
+  if (records.length === 0) return json({ answer: null, sourceIds: [] });
+
+  // Counted only when the model would really be called.
+  const day = laosDay(new Date(nowMs));
+  const expires = nowMs + 2 * 86_400_000;
+  const limited = () => json({ error: 'daily limit', message: TUTOR_DAILY_LIMIT_MESSAGE }, 429, { 'retry-after': '3600' });
+  if ((await hit(env.DB, `tutor:ip:${ipTag}:${day}`, expires)) > TUTOR_IP_DAILY_CAP) return limited();
+  if ((await hit(env.DB, `tutor:day:${day}`, expires)) > TUTOR_DAILY_CAP) return limited();
+
+  const call = deps.fetch ?? ((input: string, init?: RequestInit) => fetch(input, init));
+  const response = await call(ANTHROPIC_MESSAGES_URL, {
+    method: 'POST',
+    headers: {
+      'content-type': 'application/json',
+      'x-api-key': env.TUTOR_API_KEY ?? '',
+      'anthropic-version': ANTHROPIC_VERSION,
+    },
+    body: JSON.stringify(buildTutorRequestBody(input, records)),
+  });
+  if (!response.ok) return json({ error: 'unavailable' }, 503);
+  const answer = readTutorAnswer(await response.json());
+  return json({ answer, sourceIds: records.map((record) => record.recordId) });
+}
+
 /* ---- Entry ------------------------------------------------------------------------------- */
 
 export async function handle(request: Request, env: Env, ctx: Ctx, deps: Deps = defaultDeps): Promise<Response> {
@@ -297,6 +355,8 @@ export async function handle(request: Request, env: Env, ctx: Ctx, deps: Deps = 
   const route = routeFor(url.pathname);
   if (route === null) return env.ASSETS.fetch(request);
   if (route === 'unknownApi') return json({ error: 'not found' }, 404);
+  // Switched off: as if the route did not exist, before any counting.
+  if (route === 'tutor' && !tutorEnabled(env)) return json({ error: 'not found' }, 404);
 
   const method = ROUTE_METHOD[route];
   if (request.method !== method) return json({ error: 'method not allowed' }, 405, { allow: method });
@@ -322,6 +382,8 @@ export async function handle(request: Request, env: Env, ctx: Ctx, deps: Deps = 
         return await gift(request, env, deps, ipTag, nowMs);
       case 'redeem':
         return await redeem(request, env, ipTag, nowMs);
+      case 'tutor':
+        return await tutor(request, env, deps, ipTag, nowMs);
     }
   } catch (error) {
     if (error instanceof BodyTooLarge) return json({ error: 'too large' }, 413);

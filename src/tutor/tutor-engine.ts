@@ -21,6 +21,7 @@ import { classifyRisk, evaluateRecommendationGates } from '@/safety/safety-gate'
 import { evaluatePublication } from '@/governance/publication-gate';
 import { findNode, aiRules } from '@/knowledge/repository';
 import { ground, type GroundingResult } from './retriever';
+import { firstRecordAnswer, type RecordAnswer } from './record-answer';
 import { evaluateModeContract, type ModeContract } from './mode-contract';
 import { BASE_LOCALE } from '@/localization/locales';
 import { translate } from '@/localization/messages';
@@ -47,7 +48,13 @@ export interface TutorResponse {
   readonly skill_ids: readonly string[];
   /** Localization key or authored text; never a generated factual claim in this prototype. */
   readonly messageKey: string | null;
+  /**
+   * The short answer in the request's locale: a catalogue sentence filled with the matched
+   * record's own fields (`answer`), never generated. Null when the risk gate escalates, when the
+   * request names a missing node, or when no non-product record matched.
+   */
   readonly message: string | null;
+  readonly answer: RecordAnswer | null;
   readonly next_action: { readonly type: string; readonly options?: readonly string[] } | null;
   readonly hint_level: HintLevel | null;
   readonly evidence_ids: readonly string[];
@@ -254,8 +261,21 @@ export function respond(request: TutorRequest): TutorResponse {
     });
   }
 
+  // Short answer — only after the risk gate let the question through, and only from the
+  // matched record's own text (record-answer.ts). An explicit node that exists answers first.
+  // Inside a skill exercise (skillId set) nothing is revealed: the learner tries first (§5.2).
+  const answer =
+    safety.escalate || isSafety || explicitNodeMissed || request.skillId !== null
+      ? null
+      : firstRecordAnswer(
+          explicitNode
+            ? [{ kind: 'KnowledgeNode', id: explicitNode.Node_ID }, ...grounding.candidates]
+            : grounding.candidates,
+        );
   // 7 Learn
-  trace.push(`7:learn masteryEvent=${isSafety ? 'none' : 'attempted'}`);
+  trace.push(
+    `7:learn masteryEvent=${isSafety ? 'none' : 'attempted'} answer=${answer ? answer.recordId : 'none'}`,
+  );
 
   const evidenceIds = explicitNodeMissed
     ? []
@@ -274,7 +294,8 @@ export function respond(request: TutorRequest): TutorResponse {
     node_ids: groundedNodeId ? [groundedNodeId] : [],
     skill_ids: request.skillId ? [request.skillId] : [],
     messageKey: isSafety ? safety.messageKey : null,
-    message: null,
+    message: answer ? translate(answer.key, request.locale, answer.params) : null,
+    answer,
     next_action: isSafety ? null : { type: 'tap_choice' },
     hint_level: hintLevel,
     evidence_ids: [...new Set(evidenceIds)],
