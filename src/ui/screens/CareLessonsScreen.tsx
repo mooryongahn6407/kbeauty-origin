@@ -14,8 +14,9 @@ import { ReadAloud } from '../components/ReadAloud';
 import { SceneHero } from '../components/SceneHero';
 import { ShareAskAtEnd } from '../components/ShareAsk';
 import { spokenFallback } from '../spoken-fallback';
-import { pick } from '../pick';
+import { pick, pickLang } from '../pick';
 import { safeLocalStorage, saveLastLesson } from '@/app/journey';
+import { GlyphIcon } from '../components/GlyphIcon';
 
 function Say({ text, locale }: { text: Localized; locale: string }) {
   return (
@@ -76,7 +77,7 @@ export function CareLessonsScreen({
           <li key={item.id}>
             <button type="button" className="care-lesson-card" onClick={() => go(item.id)}>
               <span className="care-lesson-card__icon" aria-hidden="true">
-                {item.icon}
+                <GlyphIcon glyph={item.icon} />
               </span>
               <span className="care-lesson-card__text">
                 <span className="care-lesson-card__title">{t(item.title)}</span>
@@ -113,7 +114,7 @@ function Lesson({
         ‹ {translate('guide.card.lessons.title', locale)}
       </button>
       <p className="eyebrow">
-        {lesson.icon} {index + 1} / {CARE_LESSONS.length}
+        <GlyphIcon glyph={lesson.icon} /> {index + 1} / {CARE_LESSONS.length}
       </p>
       <h1 className="guide-title" id="lesson-title">
         {t(lesson.title)}
@@ -165,7 +166,7 @@ function Lesson({
                     className="chip care-chip"
                     onClick={() => onOpenIngredient(id)}
                   >
-                    {pick(entry.name, locale)}
+                    <span lang={pickLang(entry.name, locale)}>{pick(entry.name, locale)}</span>
                   </button>
                 </li>
               ) : null;

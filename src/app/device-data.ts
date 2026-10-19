@@ -47,6 +47,7 @@ export const LOCAL_STORAGE_KEYS: readonly string[] = [
 export const SESSION_STORAGE_KEYS: readonly string[] = [
   'korea-glow:partner-report-key',
   'korea-glow:staff-pin',
+  'korea-glow:install-offered:visit',
 ];
 
 /** The app's own prefix. Keys of other apps on the same origin never start with it. */

@@ -11,6 +11,7 @@ import { QUEST_TEXT } from '@/content/care-quest/common';
 import { inLocale } from '@/content/care-quest/types';
 import { HERO_INGREDIENT_COUNT, HERO_LESSON_COUNT } from '@/content/hero-counts';
 import { currentInstallMode, onInstallChange, promptInstall, type InstallMode } from '../install';
+import { markInstallOffered, mayOfferInstall } from '@/app/install-offer';
 
 export const SKIN_QUEST_URL = 'https://play.korea-glow.com/';
 
@@ -97,7 +98,11 @@ export function InstallStrip({ locale, closeLabel, inApp }: { locale: string; cl
   const [hidden, setHidden] = useState(stripDismissed);
   const [help, setHelp] = useState(false);
   useEffect(() => onInstallChange(() => setMode(currentInstallMode())), []);
-  if (hidden || inApp || mode === 'installed') return null;
+  const offer = !(hidden || inApp || mode === 'installed') && mayOfferInstall('strip');
+  useEffect(() => {
+    if (offer) markInstallOffered('strip');
+  }, [offer]);
+  if (!offer) return null;
   const press = async () => {
     if (mode === 'prompt') {
       await promptInstall();

@@ -12,7 +12,8 @@ import {
   saveAcademyProgress,
   type AcademyUnit,
 } from '@/content/partner/academy';
-import { pick, showsEnglishFallback } from '../pick';
+import { pick, pickLang, showsEnglishFallback } from '../pick';
+import { GlyphIcon } from '../components/GlyphIcon';
 
 const storage = (): Storage | undefined =>
   typeof localStorage === 'undefined' ? undefined : localStorage;
@@ -58,7 +59,7 @@ export function AcademyScreen({
       </h1>
       <p className="lead">{translate('guide.card.academy.body', locale)}</p>
       <p className="fine">{translate('academy.intro', locale)}</p>
-      {showsEnglishFallback(locale) ? (
+      {showsEnglishFallback(locale, ACADEMY) ? (
         <p className="fine">{translate('guide.englishShown', locale)}</p>
       ) : null}
       <p className="academy__progress" aria-live="polite">
@@ -81,11 +82,15 @@ export function AcademyScreen({
               </span>
               <span className="academy-card__text">
                 <span className="academy-card__n">
-                  {item.icon} {translate('academy.lesson', locale, { n: String(index + 1) })}
+                  <GlyphIcon glyph={item.icon} /> {translate('academy.lesson', locale, { n: String(index + 1) })}
                   {done.includes(item.id) ? ` · ${translate('academy.done', locale)}` : ''}
                 </span>
-                <span className="academy-card__title">{pick(item.title, locale)}</span>
-                <span className="academy-card__body">{pick(item.intro, locale)}</span>
+                <span className="academy-card__title" lang={pickLang(item.title, locale)}>
+                  {pick(item.title, locale)}
+                </span>
+                <span className="academy-card__body" lang={pickLang(item.intro, locale)}>
+                  {pick(item.intro, locale)}
+                </span>
               </span>
             </button>
           </li>
@@ -137,25 +142,29 @@ function Lesson({
         />
       </figure>
       <p className="eyebrow">
-        {unit.icon} {translate('academy.lesson', locale, { n: String(index + 1) })}
+        <GlyphIcon glyph={unit.icon} /> {translate('academy.lesson', locale, { n: String(index + 1) })}
       </p>
-      <h1 className="guide-title" id="lesson-title">
+      <h1 className="guide-title" id="lesson-title" lang={pickLang(unit.title, locale)}>
         {pick(unit.title, locale)}
       </h1>
-      <p className="lead">{pick(unit.intro, locale)}</p>
-      {showsEnglishFallback(locale) ? (
+      <p className="lead" lang={pickLang(unit.intro, locale)}>
+        {pick(unit.intro, locale)}
+      </p>
+      {showsEnglishFallback(locale, unit) ? (
         <p className="fine">{translate('guide.englishShown', locale)}</p>
       ) : null}
 
       <ol className="academy-lesson__points">
         {unit.points.map((point) => (
-          <li key={point.en}>{pick(point, locale)}</li>
+          <li key={point.en} lang={pickLang(point, locale)}>
+            {pick(point, locale)}
+          </li>
         ))}
       </ol>
 
       {unit.linksToChecker ? (
         <button type="button" className="btn btn--quiet" onClick={onOpenChecker}>
-          ✍️ {translate('academy.openChecker', locale)}
+          <GlyphIcon name="note" /> {translate('academy.openChecker', locale)}
         </button>
       ) : null}
 
@@ -167,7 +176,7 @@ function Lesson({
         return (
           <fieldset key={question.q.en} className="card academy-q">
             <legend className="academy-q__q">
-              {qi + 1}. {pick(question.q, locale)}
+              {qi + 1}. <span lang={pickLang(question.q, locale)}>{pick(question.q, locale)}</span>
             </legend>
             <div className="academy-q__options">
               {question.options.map((option, oi) => (
@@ -181,7 +190,7 @@ function Lesson({
                     setAnswers((list) => list.map((value, i) => (i === qi ? oi : value)))
                   }
                 >
-                  {pick(option, locale)}
+                  <span lang={pickLang(option, locale)}>{pick(option, locale)}</span>
                 </button>
               ))}
             </div>
@@ -190,10 +199,14 @@ function Lesson({
                 className={`disclosure ${right ? 'disclosure--info' : 'disclosure--caution'}`}
                 role="status"
               >
-                <span className="disclosure__mark">{right ? '✓' : '!'}</span>
+                <span className="disclosure__mark">{right ? <GlyphIcon name="check" /> : '!'}</span>
                 <span>
                   <strong>{translate(right ? 'academy.correct' : 'academy.wrong', locale)}</strong>{' '}
-                  {right ? pick(question.why, locale) : translate('academy.retry', locale)}
+                  {right ? (
+                    <span lang={pickLang(question.why, locale)}>{pick(question.why, locale)}</span>
+                  ) : (
+                    translate('academy.retry', locale)
+                  )}
                 </span>
               </p>
             ) : null}

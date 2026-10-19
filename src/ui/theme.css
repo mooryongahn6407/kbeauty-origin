@@ -2021,6 +2021,8 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
  * help desk, update line, toast. Tokens only; 48px targets; 16px text.
  * ------------------------------------------------------------------ */
 .kg-icon { width: 22px; height: 22px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.kg-glyph { width: 1.15em; height: 1.15em; vertical-align: -0.2em; display: inline-block; }
+.point__icon .kg-glyph, .guide-card__icon .kg-glyph, .dict-card__icon .kg-glyph, .cat-item__photo--icon .kg-glyph, .care-lesson-card__icon .kg-glyph { width: 1em; height: 1em; vertical-align: middle; color: var(--accent); }
 .kg-iconbtn { display: inline-flex; align-items: center; justify-content: center; min-width: 48px; min-height: 48px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); color: var(--text); cursor: pointer; }
 .kg-iconbtn:hover { border-color: var(--line-strong); }
 .main { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
@@ -2085,6 +2087,16 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
  * bottom right, above the bottom bar. Room under the last line so they never sit on top of it,
  * and hidden while one of the app's own sheets, the button guide or the update line is up. */
 .main { padding-bottom: calc(210px + env(safe-area-inset-bottom, 0px)); }
+/* On a phone the floating pair would always sit on some heading or card edge as the page scrolls.
+ * Below the width where they clear the centred column, they sit side by side in their own opaque
+ * band right on top of the bottom bar (--kg-bar-h, measured by BottomBar), so no content is ever
+ * under them — the page scrolls beneath the band exactly as it does beneath the bar. */
+@media (max-width: 899px) {
+  body:has(.kgs-dock):has(.kg-bottombar)::after { content: ''; position: fixed; left: 0; right: 0; bottom: var(--kg-bar-h, 72px); height: 64px; z-index: 39; background: var(--surface); border-top: 1px solid var(--line); pointer-events: none; }
+  body:has(.kg-bottombar) .kgs-dock { flex-direction: row !important; bottom: calc(var(--kg-bar-h, 72px) + 6px) !important; }
+  body:has(.kg-bottombar) .kgs-dock .kgs-b { width: 52px; height: 52px; }
+  .main { padding-bottom: calc(280px + env(safe-area-inset-bottom, 0px)); }
+}
 body:has(.kg-sheet) .kgs-dock, body:has(.kg-guide) .kgs-dock, body:has(.kg-update) .kgs-dock, body:has(.kg-intro) .kgs-dock { display: none; }
 .kg-share-ask { display: block; height: 1px; }
 .kg-screen-loading { min-height: 60vh; border-radius: 16px; background: linear-gradient(var(--surface-sunk) 0 140px, transparent 140px 156px, var(--surface-sunk) 156px 220px, transparent 220px 236px, var(--surface-sunk) 236px 300px, transparent 300px); animation: kg-loading-pulse 1.1s ease-in-out infinite alternate; }
@@ -2191,3 +2203,7 @@ body:has(.kg-nudge) .kgs-dock { bottom: calc(160px + env(safe-area-inset-bottom,
 .kg-journey__item--today .kg-jcard__slot, .kg-journey__item--today .kg-icon { color: var(--btn-fg); }
 .kg-journey__item--today .kg-jcard__label { font-size: var(--fs-md); }
 @media (max-width: 360px) { .kg-journey__cards { grid-template-columns: minmax(0, 1fr); } }
+
+/* AI tutor short answer (batch 4): the rule-based sentence, and the server answer when it is on. */
+.tutor-answer__text { margin: 0 0 8px; font-size: var(--fs-md); line-height: 1.55; }
+.tutor-answer__ai-title { margin: 14px 0 4px; font-size: var(--fs-sm); color: var(--text-muted); }

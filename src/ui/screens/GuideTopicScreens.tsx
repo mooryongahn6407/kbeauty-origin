@@ -18,8 +18,9 @@ import {
   type GuidePoint,
 } from '@/content/guides/kbeauty-guide';
 import { storeCatalog } from '@/content/store-catalog';
-import { pick, showsEnglishFallback } from '../pick';
+import { pick, pickLang, showsEnglishFallback } from '../pick';
 import { ProductStrip } from '../components/ProductCard';
+import { GlyphIcon } from '../components/GlyphIcon';
 
 const categoryLabel = (category: string, locale: string): string =>
   translate(`store.category.${category}` as MessageKey, locale);
@@ -33,11 +34,15 @@ function Points({ points, locale }: { points: readonly GuidePoint[]; locale: str
       {points.map((point) => (
         <li key={point.title.en} className="point">
           <span className="point__icon" aria-hidden="true">
-            {point.icon}
+            <GlyphIcon glyph={point.icon} />
           </span>
           <span className="point__text">
-            <strong className="point__title">{pick(point.title, locale)}</strong>
-            <span className="point__body">{pick(point.body, locale)}</span>
+            <strong className="point__title" lang={pickLang(point.title, locale)}>
+              {pick(point.title, locale)}
+            </strong>
+            <span className="point__body" lang={pickLang(point.body, locale)}>
+              {pick(point.body, locale)}
+            </span>
           </span>
         </li>
       ))}
@@ -65,8 +70,8 @@ function PageFoot({ locale }: { locale: string }) {
   );
 }
 
-function FallbackNote({ locale }: { locale: string }) {
-  return showsEnglishFallback(locale) ? (
+function FallbackNote({ locale, content }: { locale: string; content: unknown }) {
+  return showsEnglishFallback(locale, content) ? (
     <p className="fine">{translate('guide.englishShown', locale)}</p>
   ) : null;
 }
@@ -85,7 +90,7 @@ export function CategoriesGuideScreen({
       <h1 className="guide-title" id="cat-title">
         {translate('cat.title', locale)}
       </h1>
-      <FallbackNote locale={locale} />
+      <FallbackNote locale={locale} content={[WHY_SO_MANY_CATEGORIES, ROUTINE, CATEGORY_GUIDES]} />
       <h2 className="guide-subtitle">{translate('cat.whyTitle', locale)}</h2>
       <Points points={WHY_SO_MANY_CATEGORIES} locale={locale} />
 
@@ -96,11 +101,21 @@ export function CategoriesGuideScreen({
             <span className="routine-line__n">{step.step}</span>
             <span className="routine-line__name">{categoryLabel(step.category, locale)}</span>
             <span className="routine-line__when">
-              {step.am ? `☀️ ${translate('store.usage.am', locale)}` : ''}
+              {step.am ? (
+                <>
+                  <GlyphIcon name="sun" /> {translate('store.usage.am', locale)}
+                </>
+              ) : null}
               {step.am && step.pm ? ' · ' : ''}
-              {step.pm ? `🌙 ${translate('store.usage.pm', locale)}` : ''}
+              {step.pm ? (
+                <>
+                  <GlyphIcon name="moon" /> {translate('store.usage.pm', locale)}
+                </>
+              ) : null}
             </span>
-            <span className="routine-line__note">{pick(step.note, locale)}</span>
+            <span className="routine-line__note" lang={pickLang(step.note, locale)}>
+              {pick(step.note, locale)}
+            </span>
           </li>
         ))}
       </ol>
@@ -123,13 +138,15 @@ export function CategoriesGuideScreen({
                   <img className="cat-item__photo" src={cover.photo} alt="" loading="lazy" />
                 ) : (
                   <span className="cat-item__photo cat-item__photo--icon" aria-hidden="true">
-                    {guide.icon}
+                    <GlyphIcon glyph={guide.icon} />
                   </span>
                 )}
                 <span className="cat-item__title">
-                  {guide.icon} {categoryLabel(guide.category, locale)}
+                  <GlyphIcon glyph={guide.icon} /> {categoryLabel(guide.category, locale)}
                 </span>
-                <span className="cat-item__what">{pick(guide.what, locale)}</span>
+                <span className="cat-item__what" lang={pickLang(guide.what, locale)}>
+                  {pick(guide.what, locale)}
+                </span>
               </button>
               {expanded ? (
                 <div className="cat-item__body">
@@ -143,7 +160,7 @@ export function CategoriesGuideScreen({
                     ).map(([key, text]) => (
                       <div key={key}>
                         <dt>{translate(key, locale)}</dt>
-                        <dd>{pick(text, locale)}</dd>
+                        <dd lang={pickLang(text, locale)}>{pick(text, locale)}</dd>
                       </div>
                     ))}
                   </dl>
@@ -176,7 +193,7 @@ export function KBeautyGuideScreen({ locale }: { locale: string }) {
       <h1 className="guide-title" id="kb-title">
         {translate('kb.title', locale)}
       </h1>
-      <FallbackNote locale={locale} />
+      <FallbackNote locale={locale} content={[WHY_KBEAUTY, ANTI_AGING_TERMS]} />
       <Points points={WHY_KBEAUTY} locale={locale} />
       <h2 className="guide-subtitle">{translate('kb.termsTitle', locale)}</h2>
       <Points points={ANTI_AGING_TERMS} locale={locale} />
@@ -199,7 +216,7 @@ export function SunCareGuideScreen({
       <h1 className="guide-title" id="sun-guide-title">
         {translate('sunguide.title', locale)}
       </h1>
-      <FallbackNote locale={locale} />
+      <FallbackNote locale={locale} content={SUN_CARE} />
       <Points points={SUN_CARE} locale={locale} />
       <h2 className="guide-subtitle">
         {translate('sunguide.products', locale, {
@@ -213,13 +230,13 @@ export function SunCareGuideScreen({
 }
 
 const ABOUT_POINTS = [
-  { n: 1, icon: '🛍️' },
-  { n: 2, icon: '🇰🇷' },
-  { n: 3, icon: '🏷️' },
-  { n: 4, icon: '📝' },
-  { n: 5, icon: '🩺' },
-  { n: 6, icon: '🔒' },
-  { n: 7, icon: '🌐' },
+  { n: 1, icon: 'bag' },
+  { n: 2, icon: 'sparkle' },
+  { n: 3, icon: 'tag' },
+  { n: 4, icon: 'note' },
+  { n: 5, icon: 'medical' },
+  { n: 6, icon: 'lock' },
+  { n: 7, icon: 'globe' },
 ] as const;
 
 /**
@@ -239,7 +256,7 @@ export function AboutAppScreen({ locale }: { locale: string }) {
         {ABOUT_POINTS.map(({ n, icon }) => (
           <li key={n} className="point">
             <span className="point__icon" aria-hidden="true">
-              {icon}
+              <GlyphIcon glyph={icon} />
             </span>
             <span className="point__text">
               <strong className="point__title">

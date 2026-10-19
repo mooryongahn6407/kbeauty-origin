@@ -14,10 +14,11 @@ import type { DictionaryEntry, Evidence } from '@/content/company/ingredient-dic
 import { productsWith } from '@/content/company/ingredient-links';
 import { INGREDIENT_GOVERNED_LINKS } from '@/content/company/ingredient-governed-links';
 import { labelPhotosForIngredient } from '@/content/label-photos';
-import { pick, showsEnglishFallback } from '../pick';
+import { pick, pickLang, showsEnglishFallback } from '../pick';
 import { ProductStrip } from '../components/ProductCard';
 import { ReadAloud } from '../components/ReadAloud';
 import { contentSpokenFallback } from '../spoken-fallback';
+import { GlyphIcon } from '../components/GlyphIcon';
 
 /** Company content exists in ko/lo/en only (see `pick.ts`) — never asks a device for a voice in
     a language the on-screen text is not actually written in (rule 15's own reasoning). */
@@ -81,7 +82,7 @@ export function IngredientDictionaryScreen({
       </p>
       <p className="fine">{translate('dict.evidenceLegend', locale)}</p>
       <p className="fine">{translate('dict.gradeNote', locale)}</p>
-      {showsEnglishFallback(locale) ? (
+      {showsEnglishFallback(locale, companyDictionary) ? (
         <p className="fine">{translate('guide.englishShown', locale)}</p>
       ) : null}
 
@@ -104,7 +105,7 @@ export function IngredientDictionaryScreen({
               aria-pressed={group === key}
               onClick={() => setGroup(group === key ? '' : key)}
             >
-              {label.icon} {pick(label, locale)}
+              <GlyphIcon glyph={label.icon} /> <span lang={pickLang(label, locale)}>{pick(label, locale)}</span>
             </button>
           </li>
         ))}
@@ -115,11 +116,15 @@ export function IngredientDictionaryScreen({
           <li key={item.id}>
             <button type="button" className="dict-card" onClick={() => open(item.id)}>
               <span className="dict-card__icon" aria-hidden="true">
-                {companyDictionary.groups[item.group]?.icon}
+                <GlyphIcon glyph={companyDictionary.groups[item.group]?.icon} />
               </span>
-              <span className="dict-card__name">{pick(item.name, locale)}</span>
+              <span className="dict-card__name" lang={pickLang(item.name, locale)}>
+                {pick(item.name, locale)}
+              </span>
               <EvidenceBadge evidence={item.evidence} locale={locale} />
-              <span className="dict-card__what">{pick(item.what, locale)}</span>
+              <span className="dict-card__what" lang={pickLang(item.what, locale)}>
+                {pick(item.what, locale)}
+              </span>
               <span className="dict-card__count">
                 {translate('dict.products', locale, {
                   count: String(productsWith(item.id).length),
@@ -160,9 +165,10 @@ function EntryPage({
       </button>
       <header className="dict-entry__head">
         <p className="eyebrow">
-          {group?.icon} {group ? pick(group, locale) : ''}
+          {group ? <GlyphIcon glyph={group.icon} /> : null}{' '}
+          {group ? <span lang={pickLang(group, locale)}>{pick(group, locale)}</span> : ''}
         </p>
-        <h1 className="guide-title" id="dict-entry-name">
+        <h1 className="guide-title" id="dict-entry-name" lang={pickLang(entry.name, locale)}>
           {pick(entry.name, locale)}
         </h1>
         <EvidenceBadge evidence={entry.evidence} locale={locale} />
@@ -205,7 +211,7 @@ function EntryPage({
         {entry.concerns.map((key) => {
           const concern = companyDictionary.concerns[key];
           return concern ? (
-            <span key={key} className="chip chip--soft">
+            <span key={key} className="chip chip--soft" lang={pickLang(concern, locale)}>
               {pick(concern, locale)}
             </span>
           ) : null;
@@ -225,7 +231,7 @@ function EntryPage({
           className={`card dict-entry__part${key === 'dict.caution' ? ' dict-entry__part--caution' : ''}`}
         >
           <h2 className="store-labels__title">{translate(key, locale)}</h2>
-          <p>{pick(text, locale)}</p>
+          <p lang={pickLang(text, locale)}>{pick(text, locale)}</p>
           <ReadAloud
             text={pick(text, locale)}
             locale={locale}
@@ -243,7 +249,13 @@ function EntryPage({
             {entry.pairs.map((id) => {
               const other = entryById(id);
               return other ? (
-                <button key={id} type="button" className="store__cat" onClick={() => onOpen(id)}>
+                <button
+                  key={id}
+                  type="button"
+                  className="store__cat"
+                  lang={pickLang(other.name, locale)}
+                  onClick={() => onOpen(id)}
+                >
                   {pick(other.name, locale)}
                 </button>
               ) : null;
@@ -261,11 +273,16 @@ function EntryPage({
               return (
                 <li key={item.id}>
                   {other ? (
-                    <button type="button" className="store__cat" onClick={() => onOpen(item.id)}>
+                    <button
+                      type="button"
+                      className="store__cat"
+                      lang={pickLang(other.name, locale)}
+                      onClick={() => onOpen(item.id)}
+                    >
                       {pick(other.name, locale)}
                     </button>
                   ) : null}{' '}
-                  {pick(item.why, locale)}
+                  <span lang={pickLang(item.why, locale)}>{pick(item.why, locale)}</span>
                 </li>
               );
             })}

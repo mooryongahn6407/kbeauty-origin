@@ -46,11 +46,12 @@ import { QrCard } from '../components/QrCard';
 import { ProductPhoto, productName } from '../components/ProductCard';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import { dictionaryIdsOn } from '@/content/company/ingredient-links';
-import { pick } from '../pick';
+import { pick, pickLang } from '../pick';
 import { translateSentence } from '@/content/company/usage-translations';
 import { LABEL_GALLERY } from '@/content/label-gallery';
 import { ProductStrip } from '../components/ProductCard';
 import { ProductAskLink } from '../components/ProductAsk';
+import { GlyphIcon } from '../components/GlyphIcon';
 
 const storage = (): Storage | undefined =>
   typeof localStorage === 'undefined' ? undefined : localStorage;
@@ -283,7 +284,7 @@ function ProductList({
                     <SourceTag product={item} locale={locale} />
                     {hits > 0 ? (
                       <span className="tag tag--blocker">
-                        ⚠{' '}
+                        <GlyphIcon name="warning" />{' '}
                         {translate('store.avoidHitsBadge', locale, {
                           count: String(hits),
                         })}
@@ -427,7 +428,8 @@ function ProductLabel({
                   className="store__cat"
                   onClick={() => onOpenIngredient(id)}
                 >
-                  {companyDictionary.groups[entry.group]?.icon} {pick(entry.name, locale)}
+                  <GlyphIcon glyph={companyDictionary.groups[entry.group]?.icon} />{' '}
+                  <span lang={pickLang(entry.name, locale)}>{pick(entry.name, locale)}</span>
                 </button>
               ) : null;
             })}
@@ -445,7 +447,7 @@ function ProductLabel({
       {avoid.length > 0 && readable ? (
         hits.length > 0 ? (
           <div className="disclosure disclosure--caution" role="alert">
-            <span className="disclosure__mark">⚠</span>
+            <span className="disclosure__mark"><GlyphIcon name="warning" /></span>
             <div>
               <p>{translate('store.avoidAlert', locale)}</p>
               <ul className="store-avoid__hits">
@@ -502,7 +504,11 @@ function ProductLabel({
                     <span
                       className={`store-inci__name${record ? ' store-inci__name--known' : ''}${flagged ? ' store-inci__name--avoid' : ''}`}
                     >
-                      {flagged ? '⚠ ' : ''}
+                      {flagged ? (
+                        <>
+                          <GlyphIcon name="warning" />{' '}
+                        </>
+                      ) : null}
                       {entry.printed}
                       {record ? (
                         <span className="store-inci__en" lang="en">
@@ -530,8 +536,15 @@ function ProductLabel({
         onClick={() => onInquiry(toggleInquiry(inquiry, product.sku))}
       >
         {inquiry.includes(product.sku)
-          ? `✓ ${translate('store.inquiry.added', locale)}`
-          : `📝 ${translate('store.inquiry.add', locale)}`}
+          ? (
+            <>
+              <GlyphIcon name="check" /> {translate('store.inquiry.added', locale)}
+            </>
+          ) : (
+            <>
+              <GlyphIcon name="note" /> {translate('store.inquiry.add', locale)}
+            </>
+          )}
       </button>
       <ProductAskLink
         code={displayCode(product.sku) ?? product.sku}
@@ -715,7 +728,7 @@ function InquiryCard({
   return (
     <section className="card store-inquiry" aria-labelledby="store-inquiry-title">
       <h2 className="store-labels__title" id="store-inquiry-title">
-        📝{' '}
+        <GlyphIcon name="note" />{' '}
         {translate('store.inquiry.title', locale, {
           count: String(products.length),
         })}
@@ -743,11 +756,11 @@ function InquiryCard({
       <div className="store-share">
         {canShare ? (
           <button type="button" className="btn" onClick={share}>
-            📤 {translate('store.inquiry.share', locale)}
+            <GlyphIcon name="share" /> {translate('store.inquiry.share', locale)}
           </button>
         ) : null}
         <button type="button" className="btn btn--quiet" onClick={copy}>
-          📋 {translate('store.inquiry.copy', locale)}
+          <GlyphIcon name="copy" /> {translate('store.inquiry.copy', locale)}
         </button>
         <a
           className="btn btn--quiet"
@@ -763,7 +776,7 @@ function InquiryCard({
       </div>
       {state === 'copied' ? (
         <p className="store-share__done" role="status">
-          ✓ {translate('store.inquiry.copied', locale)}
+          <GlyphIcon name="check" /> {translate('store.inquiry.copied', locale)}
         </p>
       ) : null}
       {state === 'manual' ? <pre className="store-share__link">{message}</pre> : null}
@@ -799,11 +812,11 @@ function ShareLink({
   return (
     <div className="store-share">
       <button type="button" className="btn btn--quiet" onClick={copy}>
-        🔗 {translate('store.share', locale)}
+        <GlyphIcon name="link" /> {translate('store.share', locale)}
       </button>
       {state === 'copied' ? (
         <span className="store-share__done" role="status">
-          ✓ {translate('store.copied', locale)}
+          <GlyphIcon name="check" /> {translate('store.copied', locale)}
         </span>
       ) : null}
       <button
@@ -881,9 +894,9 @@ function ShopQr({ locale, partner }: { locale: string; partner: string | null })
 
 /** A sentence from the master in the reader's language, or the Korean original, marked. */
 function Sentence({ text, locale }: { text: string; locale: string }) {
-  const { text: shown, korean } = translateSentence(text, locale);
+  const { text: shown, korean, lang } = translateSentence(text, locale);
   return (
-    <p className="store-ko" lang={korean ? 'ko' : locale}>
+    <p className="store-ko" lang={lang}>
       {shown}
       {korean ? <span className="fine"> ({translate('store.koreanOnly', locale)})</span> : null}
     </p>
@@ -960,14 +973,14 @@ function ProductUsage({ product, locale }: { product: StoreProduct; locale: stri
   const usage = product.usage;
   if (!usage) return null;
   const times: readonly [MessageKey, string, string | null][] = [
-    ['store.usage.am', '☀️', usage.am],
-    ['store.usage.day', '🌤️', usage.day],
-    ['store.usage.pm', '🌙', usage.pm],
+    ['store.usage.am', 'sun', usage.am],
+    ['store.usage.day', 'sun', usage.day],
+    ['store.usage.pm', 'moon', usage.pm],
   ];
   const seasons: readonly [MessageKey, string, string | null][] = [
-    ['store.season.dry', '🍃', usage.drySeason],
-    ['store.season.hot', '🔥', usage.hotSeason],
-    ['store.season.rainy', '🌧️', usage.rainySeason],
+    ['store.season.dry', 'leaf', usage.drySeason],
+    ['store.season.hot', 'flame', usage.hotSeason],
+    ['store.season.rainy', 'cloud', usage.rainySeason],
   ];
   const anyTime = times.some(([, , text]) => text);
   const anySeason = seasons.some(([, , text]) => text);
@@ -982,7 +995,7 @@ function ProductUsage({ product, locale }: { product: StoreProduct; locale: stri
             .map(([key, icon, text]) => (
               <li key={key} className="store-usage__item">
                 <span className="store-usage__when">
-                  {icon} {translate(key, locale)}
+                  <GlyphIcon glyph={icon} /> {translate(key, locale)}
                 </span>
                 <Sentence text={text!} locale={locale} />
               </li>
@@ -998,7 +1011,7 @@ function ProductUsage({ product, locale }: { product: StoreProduct; locale: stri
               .map(([key, icon, text]) => (
                 <li key={key} className="store-usage__item">
                   <span className="store-usage__when">
-                    {icon} {translate(key, locale)}
+                    <GlyphIcon glyph={icon} /> {translate(key, locale)}
                   </span>
                   <Sentence text={text!} locale={locale} />
                 </li>

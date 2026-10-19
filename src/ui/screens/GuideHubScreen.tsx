@@ -8,6 +8,7 @@ import { storeCatalog } from '@/content/store-catalog';
 import { companyDictionary } from '@/content/company/ingredient-dictionary';
 import type { StoreProduct } from '@/content/store-catalog-types';
 import { LUMINA_PORTRAIT } from '@/content/brand';
+import { GlyphIcon } from '../components/GlyphIcon';
 
 export type GuideTarget =
   | 'store'
@@ -66,7 +67,7 @@ const CARDS: readonly Card[] = [
     target: 'lessons',
     key: 'lessons',
     photos: [],
-    icon: '📚',
+    icon: 'book',
     scene: '/gemini/B-09.jpg',
     focus: '60% 35%',
   },
@@ -75,7 +76,7 @@ const CARDS: readonly Card[] = [
     target: 'academy',
     key: 'academy',
     photos: [],
-    icon: '🎓',
+    icon: 'cap',
     scene: '/scenes/scene-05.jpg',
     focus: '50% 35%',
   },
@@ -83,11 +84,11 @@ const CARDS: readonly Card[] = [
     target: 'wording',
     key: 'partner',
     photos: [],
-    icon: '✍️',
+    icon: 'note',
     scene: '/gemini/A-09.jpg',
     focus: '40% 45%',
   },
-  { target: 'more', key: 'more', photos: [], icon: '🎮', scene: '/scenes/scene-02.jpg' },
+  { target: 'more', key: 'more', photos: [], icon: 'play', scene: '/scenes/scene-02.jpg' },
 ];
 
 export function GuideHubScreen({
@@ -137,7 +138,7 @@ export function GuideHubScreen({
                 </span>
               ) : (
                 <span className="guide-card__icon" aria-hidden="true">
-                  {card.icon}
+                  <GlyphIcon glyph={card.icon} />
                 </span>
               )}
               <span className="guide-card__text">

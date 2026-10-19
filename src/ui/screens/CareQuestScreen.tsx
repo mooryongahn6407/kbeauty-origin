@@ -95,6 +95,8 @@ import { spokenFallback } from '../spoken-fallback';
 import { pick } from '../pick';
 import { PARTNER_PARAM } from '@/app/partner';
 import { trackPartnerVisit } from '@/app/partner-track';
+import { GlyphIcon } from '../components/GlyphIcon';
+import { markInstallOffered, mayOfferInstall } from '@/app/install-offer';
 
 /** The address the app is served from, so a shared link opens this same app. */
 const appBase = (): string =>
@@ -745,7 +747,7 @@ function CareResult({
 
       {plan.alert ? (
         <p className="boundary boundary--strong care-alert" role="alert">
-          🩺 {t(plan.alert)}
+          <GlyphIcon name="medical" /> {t(plan.alert)}
         </p>
       ) : null}
 
@@ -821,7 +823,7 @@ function CareResult({
         ) : (
           <>
             <h1 className="care-type__name" id="result-title">
-              🤔
+              <GlyphIcon name="face" />
             </h1>
             <p className="care-type__summary">{t(QUEST_TEXT.notEnough)}</p>
           </>
@@ -895,10 +897,12 @@ function CareResult({
                     .map((kind) => `${t(kind!.name)}`)
                     .join(' · ')}
                 </p>
-                <p className="care-concern__tip">💡 {t(concern.tip)}</p>
+                <p className="care-concern__tip"><GlyphIcon name="bulb" /> {t(concern.tip)}</p>
                 {concern.seeDoctor ? (
                   <p className="care-concern__doctor">
-                    <strong>🩺 {t(QUEST_TEXT.seeDoctor)}:</strong> {t(concern.seeDoctor)}
+                    <strong>
+                      <GlyphIcon name="medical" /> {t(QUEST_TEXT.seeDoctor)}:
+                    </strong> {t(concern.seeDoctor)}
                   </p>
                 ) : null}
               </li>
@@ -926,7 +930,7 @@ function CareResult({
         </div>
         {plan.weekly.map((line) => (
           <p key={line.kind} className="record-block__note">
-            🗓️ {productKind(line.kind) ? t(productKind(line.kind)!.name) : line.kind} —{' '}
+            <GlyphIcon name="calendar" /> {productKind(line.kind) ? t(productKind(line.kind)!.name) : line.kind} —{' '}
             {t(line.note)}
           </p>
         ))}
@@ -1028,7 +1032,7 @@ function CareResult({
       </section>
 
       <section className="record-block care-retest">
-        <h2 className="record-block__title">🗓️ {t(QUEST_TEXT.retestTitle)}</h2>
+        <h2 className="record-block__title"><GlyphIcon name="calendar" /> {t(QUEST_TEXT.retestTitle)}</h2>
         <p className="record-block__note">
           {fill(t(QUEST_TEXT.retestBody), { date: retestDate(shownAt) })}
         </p>
@@ -1166,18 +1170,18 @@ function ShareResult({
   return (
     <section className="record-block care-share" aria-labelledby="care-share-title">
       <h2 className="record-block__title" id="care-share-title">
-        📤 {t(QUEST_TEXT.shareTitle)}
+        <GlyphIcon name="share" /> {t(QUEST_TEXT.shareTitle)}
       </h2>
       <p className="record-block__note">{t(QUEST_TEXT.shareIntro)}</p>
       <pre className="care-share__preview">{message}</pre>
       <div className="store-share">
         {canShare ? (
           <button type="button" className="btn" onClick={share}>
-            📤 {t(QUEST_TEXT.share)}
+            <GlyphIcon name="share" /> {t(QUEST_TEXT.share)}
           </button>
         ) : null}
         <button type="button" className="btn btn--quiet" onClick={copy}>
-          📋 {t(QUEST_TEXT.copy)}
+          <GlyphIcon name="copy" /> {t(QUEST_TEXT.copy)}
         </button>
         <a
           className="btn btn--quiet"
@@ -1190,7 +1194,7 @@ function ShareResult({
       </div>
       {state === 'copied' ? (
         <p className="store-share__done" role="status">
-          ✓ {t(QUEST_TEXT.copied)}
+          <GlyphIcon name="check" /> {t(QUEST_TEXT.copied)}
         </p>
       ) : null}
     </section>
@@ -1203,8 +1207,12 @@ const INSTALL_HINT_KEY = 'korea-glow:install-hint:v1';
 function firstInstallHint(store: Storage | undefined): boolean {
   try {
     if (!store || store.getItem(INSTALL_HINT_KEY)) return false;
+    // One install offer per visit: if the first-screen strip already offered it, wait for a
+    // later visit (the once-only key stays unset, so the sheet still gets its turn then).
+    if (!mayOfferInstall('sheet')) return false;
     store.setItem(INSTALL_HINT_KEY, '1');
     if (typeof window !== 'undefined' && window.matchMedia?.('(display-mode: standalone)').matches) return false;
+    markInstallOffered('sheet');
     return true;
   } catch {
     return false;

@@ -34,6 +34,7 @@ import { translate, type MessageKey } from '@/localization/messages';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { LessonRunner } from '../components/LessonRunner';
 import { LessonDoor, LessonGrounding, LessonSources } from '../components/LessonSources';
+import { GlyphIcon } from '../components/GlyphIcon';
 
 const now = () => new Date().toISOString();
 
@@ -170,7 +171,7 @@ function LabelSorter({ locale, specimenId }: { locale: string; specimenId: strin
                           dispatch({ type: 'UNPLACE', fragmentId: fragment.fragmentId })
                         }
                       >
-                        {isWrong ? <span style={{ color: '#8b3a2e' }}>✕ </span> : null}
+                        {isWrong ? <span style={{ color: '#8b3a2e' }}><GlyphIcon name="close" /> </span> : null}
                         {localised(fragment.text, locale)}
                       </button>
                     );
@@ -214,7 +215,7 @@ function LabelSorter({ locale, specimenId }: { locale: string; specimenId: strin
               {wrong.map((fragment) => (
                 <div key={fragment.fragmentId} className="card card--sunk" style={{ marginTop: '0.6rem' }}>
                   <p style={{ margin: 0 }}>
-                    <span style={{ color: '#8b3a2e', fontWeight: 700 }}>✕</span>{' '}
+                    <span style={{ color: '#8b3a2e', fontWeight: 700 }}><GlyphIcon name="close" /></span>{' '}
                     {localised(fragment.text, locale)}
                   </p>
                   <p className="muted fine" style={{ marginTop: '0.3rem' }}>

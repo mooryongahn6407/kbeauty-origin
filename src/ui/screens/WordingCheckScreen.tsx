@@ -14,6 +14,7 @@ import {
   inLocale,
   type WordingHit,
 } from '@/content/partner/wording-check';
+import { GlyphIcon } from '../components/GlyphIcon';
 
 function Highlighted({ post, hits }: { post: string; hits: readonly WordingHit[] }) {
   const parts: React.ReactNode[] = [];
@@ -86,7 +87,7 @@ export function WordingCheckScreen({ locale }: { locale: string }) {
             {rules.map((rule) => (
               <li key={rule.id} className="point wording__rule">
                 <span className="point__icon" aria-hidden="true">
-                  ⚠
+                  <GlyphIcon name="warning" />
                 </span>
                 <span className="point__text">
                   <strong className="point__title">

@@ -28,6 +28,7 @@ import { translate } from '@/localization/messages';
 import { Disclosures, ProvenanceStrip } from '../components/Disclosures';
 import { LessonRunner } from '../components/LessonRunner';
 import { LessonDoor, LessonGrounding, LessonSources } from '../components/LessonSources';
+import { GlyphIcon } from '../components/GlyphIcon';
 
 function QuestPanel({ locale }: { locale: string }) {
   const quests = ingredientGardenQuestAvailability();
@@ -158,7 +159,7 @@ function CatalogPanel({ locale }: { locale: string }) {
                               title={decision.reason}
                             >
                               <span className="claim-flag__mark" aria-hidden="true">
-                                {decision.mayStateAsFact ? '✓' : '!'}
+                                {decision.mayStateAsFact ? <GlyphIcon name="check" /> : '!'}
                               </span>
                               {translate(
                                 decision.mayStateAsFact

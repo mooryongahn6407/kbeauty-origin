@@ -3,7 +3,7 @@
  * the one-time button guide, the help desk (guide card → kind → one line → WhatsApp Business,
  * three a day) and the "new version" line. Line icons, never emoji.
  */
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { inLocale } from '@/content/care-quest/types';
 import {
   APP_VERSION,
@@ -83,8 +83,24 @@ export interface BottomBarProps {
  * others never move under the reader's thumb.
  */
 export function BottomBar({ locale, position, canGoBack, nextLabel, onPrev, onNext, onBranch, onHome }: BottomBarProps) {
+  const bar = useRef<HTMLElement | null>(null);
+  // The bar's real height, as --kg-bar-h, so the share/like band (theme.css) sits right on top of
+  // it whether or not the "3 / 10" line is showing.
+  useEffect(() => {
+    const element = bar.current;
+    if (!element || typeof ResizeObserver === 'undefined') return undefined;
+    const root = document.documentElement;
+    const update = () => root.style.setProperty('--kg-bar-h', `${Math.ceil(element.offsetHeight)}px`);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(element);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty('--kg-bar-h');
+    };
+  }, []);
   return (
-    <nav className="kg-bottombar" aria-label={t('first', locale)}>
+    <nav className="kg-bottombar" aria-label={t('first', locale)} ref={bar}>
       {position ? (
         <span className="kg-bottombar__pos" aria-live="polite">
           {`${position.index} / ${position.total}`}
