@@ -603,15 +603,9 @@ export function App() {
               <span>{chromeText('inApp', locale)}</span>
             </p>
           ) : null}
-          {isUnreviewedCatalog(locale) ? (
-            // Said once, at the top of every screen, for as long as the reader stays in an
-            // unchecked language. A translation nobody has read is a draft, and the app does not
-            // present drafts as finished anywhere else either.
-            <p className="disclosure disclosure--caution">
-              <span className="disclosure__mark">!</span>
-              <span>{translate('catalog.unreviewed', locale)}</span>
-            </p>
-          ) : null}
+          {/* CEO 2026-10-20: no «translation not yet checked» banner on customer screens.
+              Draft status stays recorded in the catalogue; safety lines still show the English
+              original beside the translation (SafetyNotice). */}
 
           {onQuest || screen === 'guide' ? (
             <InstallStrip
