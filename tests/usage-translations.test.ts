@@ -35,8 +35,19 @@ describe('usage translations', () => {
     expect(translateSentence('알 수 없는 문장', 'lo')).toEqual({
       text: '알 수 없는 문장',
       korean: true,
+      lang: 'ko',
     });
     expect(translateSentence('세안 직후 첫 단계', 'lo').korean).toBe(false);
+  });
+
+  it('give Thai and French drafts for every sentence, marked with the language they are in', () => {
+    for (const [ko, t] of Object.entries(USAGE_TRANSLATIONS)) {
+      expect(t.th, ko).toMatch(/[฀-๿]/);
+      expect(t.fr?.trim(), ko).toBeTruthy();
+    }
+    expect(translateSentence('세안 직후 첫 단계', 'th')).toMatchObject({ korean: false, lang: 'th' });
+    expect(translateSentence('세안 직후 첫 단계', 'fr')).toMatchObject({ korean: false, lang: 'fr' });
+    expect(translateSentence('세안 직후 첫 단계', 'es')).toMatchObject({ korean: false, lang: 'en' });
   });
 
   it('drop the season prefix in Korean where the heading already says it', () => {
@@ -47,7 +58,10 @@ describe('usage translations', () => {
 
   it('make no medical claim', () => {
     for (const t of Object.values(USAGE_TRANSLATIONS)) {
-      expect(`${t.en} ${t.lo}`).not.toMatch(/\b(cures?|treats?|heals?)\b|ປິ່ນປົວ/i);
+      expect(`${t.en} ${t.lo} ${t.fr ?? ''}`).not.toMatch(
+        /\b(cures?|treats?|heals?|guérit|soigne)\b|ປິ່ນປົວ/i,
+      );
+      expect(t.th ?? '').not.toMatch(/รักษาโรค|หายขาด/);
     }
   });
 });

@@ -1,7 +1,14 @@
+/**
+ * Company content: Korean, Lao and English always; Thai and French where a draft exists.
+ * Lao, Thai and French are unreviewed drafts (`CATALOG_REVIEW`), never native-reviewed text.
+ * A missing `th`/`fr` falls back to English and the screen says so (`showsEnglishFallback`).
+ */
 export interface Trilingual {
   readonly ko: string;
   readonly lo: string;
   readonly en: string;
+  readonly th?: string;
+  readonly fr?: string;
 }
 
 export type Evidence = 'strong' | 'moderate' | 'emerging';
