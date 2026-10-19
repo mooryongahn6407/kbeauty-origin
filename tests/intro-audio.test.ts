@@ -153,6 +153,9 @@ describe('the intro uses the recordings', () => {
     expect(guide).toContain('introAudioUrl(locale, index)');
     expect(guide).toContain('playClip(');
     expect(guide).toContain('setRecording(false)');
+    // Safari: a second try from the whole file fetched into memory, before the device voice.
+    expect(guide).toContain('URL.createObjectURL(blob)');
+    expect(guide).toContain('playClip(audio, ready ?? url');
     expect(guide).toContain('speakLocalized(line, locale');
     expect(guide).toContain("t('introSkip', locale)");
     expect(guide).toContain("t('introNoAuto', locale)");

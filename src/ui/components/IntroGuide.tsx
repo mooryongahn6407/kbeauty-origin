@@ -38,6 +38,11 @@ function audioElement(ref: { current: HTMLAudioElement | null }): HTMLAudioEleme
   return ref.current;
 }
 
+/** Clips already fetched into memory, by their loading promise (read synchronously when playing). */
+const loaded = new WeakMap<Promise<string | null>, string | null>();
+const memoryClip = (loading: Promise<string | null> | undefined): string | null =>
+  (loading && loaded.get(loading)) ?? null;
+
 export function IntroGuide({
   locale,
   onDone,
@@ -53,6 +58,10 @@ export function IntroGuide({
   // The recorded MP3s first; false after one fails to load, so the device voice reads instead.
   const [recording, setRecording] = useState(true);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  // Each clip is also fetched whole into memory: Safari will not play an MP3 from a server that
+  // ignores byte ranges (our static host does), but always plays one from memory.
+  const clipsRef = useRef(new Map<string, Promise<string | null>>());
+  const [retry, setRetry] = useState(0);
   const doneRef = useRef(onDone);
   doneRef.current = onDone;
   const last = INTRO_LINES.length - 1;
@@ -76,17 +85,30 @@ export function IntroGuide({
     const url = sound && recording ? introAudioUrl(locale, index) : null;
     const audio = url ? audioElement(audioRef) : null;
     if (sound && url && audio) {
+      const inMemory = clipsRef.current.get(url);
+      const ready = memoryClip(inMemory);
       // The recorded voice (every phone can play an MP3, unlike a Thai or Lao device voice).
       let safety = setTimeout(() => advance(0), clipSafetyMs(text));
       timers.push(safety);
-      stopClip = playClip(audio, url, {
+      stopClip = playClip(audio, ready ?? url, {
         onEnd: () => advance(450),
         onBlocked: () => {
           setSound(false);
           setBlocked(true);
         },
         // The file did not load: read the rest with the device voice, as before.
-        onFail: () => setRecording(false),
+        // (After a first try from the server, once more from memory.)
+        onFail: () => {
+          if (ready || !inMemory) {
+            setRecording(false);
+            return;
+          }
+          void inMemory.then((clip) => {
+            if (finished) return;
+            if (clip) setRetry((n) => n + 1);
+            else setRecording(false);
+          });
+        },
         onDuration: (seconds) => {
           clearTimeout(safety);
           safety = setTimeout(() => advance(0), clipSafetyMs(text, seconds));
@@ -118,12 +140,32 @@ export function IntroGuide({
       timers.forEach(clearTimeout);
       stopClip?.();
     };
-  }, [index, sound, recording, locale, last, line, text]);
+  }, [index, sound, recording, retry, locale, last, line, text]);
+
+  // Fetch the reader's six clips into memory as soon as the intro opens.
+  useEffect(() => {
+    if (typeof fetch !== 'function' || typeof URL === 'undefined' || typeof URL.createObjectURL !== 'function') return;
+    for (let n = 0; n < INTRO_LINES.length; n += 1) {
+      const url = introAudioUrl(locale, n);
+      if (!url || clipsRef.current.has(url)) continue;
+      const loading: Promise<string | null> = fetch(url)
+        .then((response) => (response.ok ? response.blob() : null))
+        .then((blob) => (blob && blob.size > 0 ? URL.createObjectURL(blob) : null))
+        .catch(() => null);
+      void loading.then((clip) => loaded.set(loading, clip));
+      clipsRef.current.set(url, loading);
+    }
+  }, [locale]);
 
   useEffect(
     () => () => {
       stopSpeaking();
       audioRef.current?.pause();
+      for (const loading of clipsRef.current.values()) {
+        void loading.then((clip) => {
+          if (clip) URL.revokeObjectURL(clip);
+        });
+      }
     },
     [],
   );
