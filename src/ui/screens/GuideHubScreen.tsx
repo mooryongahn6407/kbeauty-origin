@@ -71,7 +71,7 @@ const CARDS: readonly Card[] = [
     scene: '/gemini/B-09.jpg',
     focus: '60% 35%',
   },
-  { target: 'about', key: 'about', photos: [], icon: 'ℹ️', scene: '/scenes/scene-04.jpg' },
+  { target: 'about', key: 'about', photos: [], icon: 'info', scene: '/scenes/scene-04.jpg' },
   {
     target: 'academy',
     key: 'academy',

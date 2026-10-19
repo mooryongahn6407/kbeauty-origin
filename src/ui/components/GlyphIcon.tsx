@@ -40,6 +40,7 @@ export type GlyphName =
   | 'warning'
   | 'close'
   | 'home'
+  | 'info'
   | 'ring';
 
 export const GLYPH_PATHS: Readonly<Record<GlyphName, string>> = {
@@ -78,6 +79,7 @@ export const GLYPH_PATHS: Readonly<Record<GlyphName, string>> = {
   warning: 'M12 4l9 16H3zM12 10v4M12 17h.01',
   close: 'M6 6l12 12M18 6L6 18',
   home: 'M4 11l8-7 8 7M6 10v9h12v-9',
+  info: 'M12 3a9 9 0 100 18 9 9 0 000-18zM12 11v6M12 7.5h.01',
   ring: 'M12 8a4 4 0 100 8 4 4 0 000-8z',
 };
 
@@ -118,6 +120,7 @@ const BY_KEY: Readonly<Record<GlyphName, string>> = {
   warning: '⚠',
   close: '✕✖',
   home: '🏠🏁☯➕➖➜',
+  info: 'ℹ',
   ring: '',
 };
 

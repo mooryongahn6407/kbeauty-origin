@@ -16,7 +16,8 @@ import {
   resetInstallOfferForTests,
 } from '@/app/install-offer';
 
-const EMOJI = /[\u{1F300}-\u{1FAFF}☀-➿⭐]/u;
+// Pictographs, flags, ℹ and the dingbat block (☀ ✓ ✍ …) — the ones that render as emoji.
+const EMOJI = /[\u{1F1E6}-\u{1F1FF}\u{1F300}-\u{1FAFF}ℹ☀-➿⭐]/u;
 const SCREENS = resolve(__dirname, '../src/ui/screens');
 
 describe('line icons, never emoji', () => {

@@ -2092,7 +2092,7 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
  * band right on top of the bottom bar (--kg-bar-h, measured by BottomBar), so no content is ever
  * under them — the page scrolls beneath the band exactly as it does beneath the bar. */
 @media (max-width: 899px) {
-  body:has(.kgs-dock):has(.kg-bottombar)::after { content: ''; position: fixed; left: 0; right: 0; bottom: var(--kg-bar-h, 72px); height: 64px; z-index: 39; background: var(--surface); border-top: 1px solid var(--line); pointer-events: none; }
+  body:has(.kgs-dock):has(.kg-bottombar)::after { content: ''; position: fixed; left: 0; right: 0; bottom: var(--kg-bar-h, 72px); height: 64px; z-index: 39; background: var(--surface); border-top: 1px solid var(--line); }
   body:has(.kg-bottombar) .kgs-dock { flex-direction: row !important; bottom: calc(var(--kg-bar-h, 72px) + 6px) !important; }
   body:has(.kg-bottombar) .kgs-dock .kgs-b { width: 52px; height: 52px; }
   .main { padding-bottom: calc(280px + env(safe-area-inset-bottom, 0px)); }
