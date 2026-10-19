@@ -72,33 +72,78 @@ export interface BottomBarProps {
   nextLabel: 'next' | 'skip' | 'restart' | null;
   onPrev: () => void;
   onNext: () => void;
-  onFirst: () => void;
+  /** The first screen of the branch the reader is in (KG-APP-CARE §2-5) — not the app's home. */
+  onBranch: () => void;
+  onHome: () => void;
 }
 
-export function BottomBar({ locale, position, canGoBack, nextLabel, onPrev, onNext, onFirst }: BottomBarProps) {
+/**
+ * KG-APP-CARE §2-5: ← Back · Section start · Home · Next → — four buttons, always in the same
+ * places, on every screen. A button with nothing to do stays in its place, disabled, so the
+ * others never move under the reader's thumb.
+ */
+export function BottomBar({ locale, position, canGoBack, nextLabel, onPrev, onNext, onBranch, onHome }: BottomBarProps) {
   return (
     <nav className="kg-bottombar" aria-label={t('first', locale)}>
+      {position ? (
+        <span className="kg-bottombar__pos" aria-live="polite">
+          {`${position.index} / ${position.total}`}
+        </span>
+      ) : null}
       <div className="kg-bottombar__inner">
-        <button type="button" className="kg-navbtn" onClick={onPrev} hidden={!canGoBack} data-guide="prev">
+        <button type="button" className="kg-navbtn" onClick={onPrev} disabled={!canGoBack} data-guide="prev">
           <Icon name="prev" />
           <span>{t('prev', locale)}</span>
         </button>
-        <button type="button" className="kg-navbtn kg-navbtn--quiet" onClick={onFirst} data-guide="first">
+        <button type="button" className="kg-navbtn kg-navbtn--quiet" onClick={onBranch} data-guide="first">
           <Icon name="first" />
-          <span>{t('first', locale)}</span>
+          <span>{t('branchStart', locale)}</span>
         </button>
-        <span className="kg-bottombar__pos" aria-live="polite">
-          {position ? `${position.index} / ${position.total}` : ''}
-        </span>
-        {nextLabel ? (
-          <button type="button" className="kg-navbtn kg-navbtn--primary" onClick={onNext} data-guide="next">
-            <span>{t(nextLabel, locale)}</span>
-            <Icon name={nextLabel === 'restart' ? 'refresh' : 'next'} />
-          </button>
-        ) : (
-          <span className="kg-navbtn kg-navbtn--placeholder" aria-hidden="true" />
-        )}
+        <button type="button" className="kg-navbtn kg-navbtn--quiet" onClick={onHome} data-guide="home-bar">
+          <Icon name="home" />
+          <span>{t('home', locale)}</span>
+        </button>
+        <button
+          type="button"
+          className="kg-navbtn kg-navbtn--primary"
+          onClick={onNext}
+          disabled={!nextLabel}
+          data-guide="next"
+        >
+          <Icon name={nextLabel === 'restart' ? 'refresh' : 'next'} />
+          <span>{t(nextLabel ?? 'next', locale)}</span>
+        </button>
       </div>
+    </nav>
+  );
+}
+
+export interface BranchLink {
+  readonly id: string;
+  readonly label: string;
+  readonly current: boolean;
+  readonly onOpen: () => void;
+}
+
+/** KG-APP-CARE §2-5: the sibling branches, one tap each, without going back to the start. */
+export function BranchLinks({ locale, links }: { locale: string; links: readonly BranchLink[] }) {
+  return (
+    <nav className="kg-branches" aria-label={t('branchesTitle', locale)}>
+      <p className="kg-branches__title">{t('branchesTitle', locale)}</p>
+      <ul className="kg-branches__list" role="list">
+        {links.map((link) => (
+          <li key={link.id}>
+            <button
+              type="button"
+              className={`kg-branch kg-branch--${link.id}`}
+              aria-current={link.current ? 'page' : undefined}
+              onClick={link.onOpen}
+            >
+              {link.label}
+            </button>
+          </li>
+        ))}
+      </ul>
     </nav>
   );
 }

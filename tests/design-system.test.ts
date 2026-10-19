@@ -98,6 +98,21 @@ const TEXT_PAIRS: readonly { fg: string; bg: string; where: string }[] = [
   { fg: 'violet', bg: 'violet-wash', where: '.inci__item.is-picked' },
   { fg: 'btn-fg', bg: 'btn-bg', where: 'primary button label' },
   { fg: 'btn-fg', bg: 'accent', where: 'Care Quest routine step number' },
+  { fg: 'lang-ko', bg: 'surface', where: 'language button ko' },
+  { fg: 'lang-ko', bg: 'bg', where: 'language button ko on the page' },
+  { fg: 'on-lang', bg: 'lang-ko', where: 'chosen language button ko' },
+  { fg: 'lang-lo', bg: 'surface', where: 'language button lo' },
+  { fg: 'lang-lo', bg: 'bg', where: 'language button lo on the page' },
+  { fg: 'on-lang', bg: 'lang-lo', where: 'chosen language button lo' },
+  { fg: 'lang-en', bg: 'surface', where: 'language button en' },
+  { fg: 'lang-en', bg: 'bg', where: 'language button en on the page' },
+  { fg: 'on-lang', bg: 'lang-en', where: 'chosen language button en' },
+  { fg: 'lang-fr', bg: 'surface', where: 'language button fr' },
+  { fg: 'lang-fr', bg: 'bg', where: 'language button fr on the page' },
+  { fg: 'on-lang', bg: 'lang-fr', where: 'chosen language button fr' },
+  { fg: 'lang-th', bg: 'surface', where: 'language button th' },
+  { fg: 'lang-th', bg: 'bg', where: 'language button th on the page' },
+  { fg: 'on-lang', bg: 'lang-th', where: 'chosen language button th' },
 ];
 
 const themes: readonly [string, Readonly<Record<string, string>>][] = [

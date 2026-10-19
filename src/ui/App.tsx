@@ -44,6 +44,7 @@ import {
 } from '@/app/app-chrome';
 import {
   BottomBar,
+  BranchLinks,
   ButtonGuide,
   DeleteMyData,
   HelpDesk,
@@ -53,7 +54,9 @@ import {
   UpdateLine,
   chromeText,
 } from './components/AppChrome';
-import { InstallButton, SKIN_QUEST_URL } from './components/GlowHero';
+import { InstallButton, InstallStrip, SKIN_QUEST_URL } from './components/GlowHero';
+import { CONTINUE_CARDS_FROM_VISIT, countVisit, type JourneyAction } from '@/app/journey';
+import type { TrackId } from '@/content/care-quest/types';
 import { OtherAppItems } from './components/OtherApps';
 import { relabelShare, requestShareNudge } from '@/app/share-ask';
 import { introWanted, markIntro } from '@/app/intro';
@@ -119,6 +122,7 @@ const IngredientDictionaryScreen = screen(() => import('./screens/IngredientDict
 const loadCareQuest = () => import('./screens/CareQuestScreen');
 const CareQuestScreen = screen(loadCareQuest, 'CareQuestScreen');
 const GuideHubScreen = screen(() => import('./screens/GuideHubScreen'), 'GuideHubScreen');
+const JourneyCards = screen(() => import('./components/JourneyCards'), 'JourneyCards');
 const CategoriesGuideScreen = screen(() => import('./screens/GuideTopicScreens'), 'CategoriesGuideScreen');
 const AboutAppScreen = screen(() => import('./screens/GuideTopicScreens'), 'AboutAppScreen');
 const KBeautyGuideScreen = screen(() => import('./screens/GuideTopicScreens'), 'KBeautyGuideScreen');
@@ -189,17 +193,62 @@ const STUDY_ROOMS: readonly { id: ScreenId; key: MessageKey }[] = [
 ];
 
 /**
- * The languages offered as chips. Four, not ten: these are the catalogs that exist, and an
- * offer to read in a language the app has no words for is not an offer. Lao ships as an
- * unreviewed draft and says so on screen — which is why it is still offered rather than hidden:
- * Laos is who this is for, and a labelled draft beats no Lao at all.
+ * The languages offered as chips — every catalog that exists, each named in its own language
+ * (KG-APP-CARE §2-1), never folded into a dropdown. Lao ships as an unreviewed draft and says so
+ * on screen — which is why it is still offered rather than hidden: Laos is who this is for, and
+ * a labelled draft beats no Lao at all.
  */
 const OFFERED_LOCALES: readonly { tag: string; label: string }[] = [
-  { tag: 'en', label: 'EN' },
   { tag: 'ko', label: '한국어' },
+  { tag: 'lo', label: 'ລາວ' },
+  { tag: 'en', label: 'English' },
   { tag: 'fr', label: 'Français' },
   { tag: 'th', label: 'ไทย' },
-  { tag: 'lo', label: 'ລາວ' },
+];
+
+/** All five languages as buttons, each its own colour; the current one marked with a check. */
+function LangChips({
+  locale,
+  onPick,
+  label,
+}: {
+  locale: string;
+  onPick: (tag: string) => void;
+  label?: string;
+}) {
+  return (
+    <ul className="langchips" role="list" aria-label={label}>
+      {OFFERED_LOCALES.map((option) => (
+        <li key={option.tag}>
+          <button
+            type="button"
+            className="langchip"
+            aria-pressed={locale === option.tag}
+            lang={option.tag}
+            onClick={() => onPick(option.tag)}
+          >
+            {locale === option.tag ? <Icon name="check" /> : null}
+            {option.label}
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+/** GLOW home's own order: «Next» on a guide page goes to the following card. */
+const GUIDE_ORDER: readonly ScreenId[] = [
+  'guide',
+  'store',
+  'dictionary',
+  'categories',
+  'kbeauty',
+  'sunguide',
+  'lessons',
+  'about',
+  'academy',
+  'wording',
+  'more',
 ];
 
 export function App() {
@@ -235,14 +284,20 @@ export function App() {
   // SKIN QUEST and GLOW Class are one app (owner, 2026-10-18): someone who has played before
   // lands on GLOW home with «see my last result / continue»; a first-timer and the game door
   // (?play) land on the game.
+  // KG-APP-CARE §2: which visit this is on this phone (a reload within 30 minutes is the same one).
+  const [visit] = useState(() => countVisit(localStore(), Date.now()));
+  const returning = () => hasPlayedBefore(localStore()) || visit >= CONTINUE_CARDS_FROM_VISIT;
   const [screen, setScreen] = useState<ScreenId>(() =>
     linkedProduct
       ? 'store'
       : !playTrackFromSearch(typeof window === 'undefined' ? '' : window.location.search) &&
-          hasPlayedBefore(localStore())
+          returning()
         ? 'guide'
         : 'quest',
   );
+  // A sibling-branch link or a continue card asked for this track / this lesson.
+  const [trackRequest, setTrackRequest] = useState<TrackId | null>(null);
+  const [lessonRequest, setLessonRequest] = useState<string | null>(null);
   // «See my last result» / «continue» from GLOW home, handed to the game when it opens.
   const [questEntry, setQuestEntry] = useState<'result' | 'resume' | null>(null);
   // Which product or dictionary entry a cross-link asked for. Bumping `focusKey` remounts the
@@ -260,6 +315,8 @@ export function App() {
     setScreen(next);
     if (next !== 'store') setFocusSku(null);
     if (next !== 'dictionary') setFocusIngredient(null);
+    setTrackRequest(null);
+    setLessonRequest(null);
     setFocusKey((key) => key + 1);
     if (typeof window !== 'undefined') window.scrollTo?.(0, 0);
   };
@@ -414,7 +471,67 @@ export function App() {
     const inProgress = screenRef.current === 'quest' && questNavRef.current?.position;
     if (inProgress && !window.confirm(chromeText('confirmFirst', locale))) return;
     setQuestEntry(null);
-    go(hasPlayedBefore(localStore()) ? 'guide' : 'quest');
+    go(returning() ? 'guide' : 'quest');
+  };
+  /** KG-APP-CARE §2-5 «section start»: the first screen of the branch the reader is in. */
+  const branchStart = () => {
+    const current = screenRef.current;
+    if (current === 'quest') {
+      if (!questOpen) return;
+      if (questNavRef.current?.position && !window.confirm(chromeText('confirmFirst', locale))) return;
+      setQuestEntry(null);
+      go('quest', false);
+    } else if (STUDY_ROOMS.some((room) => room.id === current)) {
+      go('more');
+    } else {
+      go(current, false);
+    }
+  };
+  /** «Next» outside the game: the following page in GLOW home's order, then the study rooms. */
+  const nextScreen = (current: ScreenId): ScreenId | null => {
+    if (current === 'more') return STUDY_ROOMS[0]!.id;
+    const inGuide = GUIDE_ORDER.indexOf(current);
+    if (inGuide >= 0) return GUIDE_ORDER[inGuide + 1] ?? null;
+    const inRooms = STUDY_ROOMS.findIndex((room) => room.id === current);
+    if (inRooms >= 0) return STUDY_ROOMS[inRooms + 1]?.id ?? 'guide';
+    return null;
+  };
+  /** Straight into one track of the skin game (sibling-branch link or continue card). */
+  const openTrack = (track: TrackId) => {
+    if (
+      screenRef.current === 'quest' &&
+      questNavRef.current?.position &&
+      !window.confirm(chromeText('confirmFirst', locale))
+    )
+      return;
+    setQuestEntry(null);
+    setQuestOpen(true);
+    go('quest');
+    setTrackRequest(track);
+  };
+  const onJourney = (action: JourneyAction) => {
+    switch (action.kind) {
+      case 'resume':
+      case 'result':
+        openQuest(action.kind);
+        break;
+      case 'week':
+        document.getElementById('kg-week-title')?.scrollIntoView?.({ behavior: 'smooth', block: 'start' });
+        break;
+      case 'track':
+        openTrack(action.track);
+        break;
+      case 'review':
+        go('hunt');
+        break;
+      case 'lesson':
+        go('lessons');
+        setLessonRequest(action.id);
+        break;
+      case 'dictionary':
+        go('dictionary');
+        break;
+    }
   };
   const openQuest = (entry: 'result' | 'resume' | null) => {
     setQuestEntry(entry);
@@ -445,21 +562,7 @@ export function App() {
 
         <header className="topbar">
           <div className="topbar__inner">
-            <ul className="langchips" role="list" aria-label={translate('common.locale', locale)}>
-              {OFFERED_LOCALES.map((option) => (
-                <li key={option.tag}>
-                  <button
-                    type="button"
-                    className="langchip"
-                    aria-pressed={locale === option.tag}
-                    lang={option.tag}
-                    onClick={() => setLocale(option.tag)}
-                  >
-                    {option.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <LangChips locale={locale} onPick={setLocale} label={translate('common.locale', locale)} />
             <VoiceSwitch locale={locale} />
             <div className="topbar__right">
               <button
@@ -510,6 +613,13 @@ export function App() {
             </p>
           ) : null}
 
+          {onQuest || screen === 'guide' ? (
+            <InstallStrip
+              locale={locale}
+              closeLabel={chromeText('close', locale)}
+              inApp={typeof navigator !== 'undefined' && isInAppBrowser(navigator.userAgent)}
+            />
+          ) : null}
           {onQuest ? (
             <>
               {questOpen ? (
@@ -520,7 +630,7 @@ export function App() {
                 partner={partner}
                 fromSkinQuest={fromSkinQuest}
                 // Only on first arrival: coming back from a lesson must not restart the quest.
-                startTrack={focusKey === 0 ? (playTrack ?? introTrack) : null}
+                startTrack={trackRequest ?? (focusKey === 0 ? (playTrack ?? introTrack) : null)}
                 begun
                 entry={questEntry}
                 onNav={onNav}
@@ -592,7 +702,12 @@ export function App() {
               </nav>
 
               <Suspense fallback={<ScreenLoading />}>
-              {screen === 'guide' && hasPlayedBefore(localStore()) ? (
+              {screen === 'guide' && visit >= CONTINUE_CARDS_FROM_VISIT ? (
+                <>
+                  <JourneyCards locale={locale} onAction={onJourney} />
+                  {hasSavedResult(localStore()) ? <RoutineWeekCard locale={locale} /> : null}
+                </>
+              ) : screen === 'guide' && hasPlayedBefore(localStore()) ? (
                 <ContinueCard locale={locale} onOpen={openQuest} />
               ) : null}
               {screen === 'guide' ? (
@@ -624,7 +739,12 @@ export function App() {
                 <AcademyScreen key={locale} locale={locale} onOpenChecker={() => go('wording')} />
               ) : null}
               {screen === 'lessons' ? (
-                <CareLessonsScreen key={locale} locale={locale} onOpenIngredient={openIngredient} />
+                <CareLessonsScreen
+                  key={`${locale}-${focusKey}`}
+                  locale={locale}
+                  initialLesson={lessonRequest}
+                  onOpenIngredient={openIngredient}
+                />
               ) : null}
               {screen === 'sunguide' ? (
                 <SunCareGuideScreen key={locale} locale={locale} onOpenProduct={openProduct} />
@@ -662,6 +782,28 @@ export function App() {
               </Suspense>
             </>
           )}
+          {screen !== 'governance' ? (
+            <BranchLinks
+              locale={locale}
+              links={[
+                { id: 'skin', label: chromeText('brSkin', locale), current: false, onOpen: () => openTrack('face') },
+                { id: 'hair', label: chromeText('brHair', locale), current: false, onOpen: () => openTrack('scalp') },
+                { id: 'body', label: chromeText('brBody', locale), current: false, onOpen: () => openTrack('body') },
+                {
+                  id: 'dict',
+                  label: chromeText('brDict', locale),
+                  current: screen === 'dictionary',
+                  onOpen: () => go('dictionary'),
+                },
+                {
+                  id: 'lessons',
+                  label: chromeText('brLessons', locale),
+                  current: screen === 'lessons',
+                  onOpen: () => go('lessons'),
+                },
+              ]}
+            />
+          ) : null}
           {onQuest ? (
             <p className="kg-helplink">
               <button type="button" className="kg-helplink__btn" onClick={() => setHelpOpen(true)}>
@@ -676,10 +818,18 @@ export function App() {
           locale={locale}
           position={onQuest ? (questNav?.position ?? null) : null}
           canGoBack={!onQuest || Boolean(questNav?.canGoBack)}
-          nextLabel={onQuest ? (questNav?.nextLabel ?? null) : null}
+          nextLabel={onQuest ? (questNav?.nextLabel ?? null) : nextScreen(screen) ? 'next' : null}
           onPrev={() => stepBack()}
-          onNext={() => questNav?.next()}
-          onFirst={goFirst}
+          onNext={() => {
+            if (onQuest) {
+              questNav?.next();
+              return;
+            }
+            const following = nextScreen(screen);
+            if (following) go(following);
+          }}
+          onBranch={branchStart}
+          onHome={goFirst}
         />
         {toast ? (
           <p className="kg-toast" role="status">
@@ -691,21 +841,7 @@ export function App() {
           <Sheet title={chromeText('settings', locale)} locale={locale} onClose={() => setSettingsOpen(false)}>
             <section className="kg-setting">
               <h3 className="kg-setting__title">{chromeText('sLanguage', locale)}</h3>
-              <ul className="langchips" role="list">
-                {OFFERED_LOCALES.map((option) => (
-                  <li key={option.tag}>
-                    <button
-                      type="button"
-                      className="langchip"
-                      aria-pressed={locale === option.tag}
-                      lang={option.tag}
-                      onClick={() => setLocale(option.tag)}
-                    >
-                      {option.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+              <LangChips locale={locale} onPick={setLocale} />
             </section>
             <section className="kg-setting">
               <h3 className="kg-setting__title">{chromeText('sDisplay', locale)}</h3>
@@ -721,6 +857,17 @@ export function App() {
             </section>
             <section className="kg-setting">
               <UpdateCheck locale={locale} />
+              <button
+                type="button"
+                className="kg-setting__btn"
+                onClick={() => {
+                  setSettingsOpen(false);
+                  setIntroOpen(true);
+                }}
+              >
+                <Icon name="speakerOn" />
+                {chromeText('sIntroReplay', locale)}
+              </button>
               <button
                 type="button"
                 className="kg-setting__btn"

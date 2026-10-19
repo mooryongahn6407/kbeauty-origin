@@ -4,7 +4,7 @@
  * mentions as links into the dictionary, and its sources. Words live in
  * `src/content/care-quest/lessons.ts` (rule 8); this screen only lays them out.
  */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { translate } from '@/localization/messages';
 import { CARE_LESSONS, type CareLesson } from '@/content/care-quest/lessons';
 import { QUEST_TEXT } from '@/content/care-quest/common';
@@ -15,6 +15,7 @@ import { SceneHero } from '../components/SceneHero';
 import { ShareAskAtEnd } from '../components/ShareAsk';
 import { spokenFallback } from '../spoken-fallback';
 import { pick } from '../pick';
+import { safeLocalStorage, saveLastLesson } from '@/app/journey';
 
 function Say({ text, locale }: { text: Localized; locale: string }) {
   return (
@@ -28,17 +29,26 @@ function Say({ text, locale }: { text: Localized; locale: string }) {
 
 export function CareLessonsScreen({
   locale,
+  initialLesson = null,
   onOpenIngredient,
 }: {
   locale: string;
+  /** GLOW home's «next lesson» card opens straight onto that lesson. */
+  initialLesson?: string | null;
   onOpenIngredient: (id: string) => void;
 }) {
-  const [open, setOpen] = useState<string | null>(null);
+  const [open, setOpen] = useState<string | null>(() =>
+    initialLesson && CARE_LESSONS.some((item) => item.id === initialLesson) ? initialLesson : null,
+  );
   const t = (text: Localized) => inLocale(text, locale);
   const go = (id: string | null) => {
     setOpen(id);
     if (typeof window !== 'undefined') window.scrollTo?.(0, 0);
   };
+  // Remembered on this phone (progress only) so GLOW home can offer «next lesson».
+  useEffect(() => {
+    if (open) saveLastLesson(safeLocalStorage(), open);
+  }, [open]);
   const lesson = CARE_LESSONS.find((item) => item.id === open);
 
   if (lesson) {

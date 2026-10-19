@@ -3,7 +3,7 @@
  *
  * Everything this app keeps about a reader lives in this browser's storage: care-quest answers
  * (which can include pregnancy, breastfeeding, age and skin condition), quest history and
- * progress, the mastery ledger, the review schedule, the collection, avoid-list, help-desk
+ * progress, the visit counter and last lesson opened, the mastery ledger, the review schedule, the collection, avoid-list, help-desk
  * counter, partner code, language and display/voice settings. A reader must be able to remove
  * all of it from the device in one step.
  *
@@ -36,6 +36,9 @@ export const LOCAL_STORAGE_KEYS: readonly string[] = [
   'korea-glow:routine-week:v1',
   'korea-glow:gift-device:v1',
   'korea-glow:gift:v1',
+  'korea-glow:visits:v1',
+  'korea-glow:last-lesson:v1',
+  'korea-glow:install-strip:v1',
   'korea-glow.display',
   'korea-glow.voice',
 ];

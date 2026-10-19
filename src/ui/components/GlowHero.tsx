@@ -76,6 +76,78 @@ export function InstallButton({ locale }: { locale: string }) {
   );
 }
 
+const INSTALL_STRIP_KEY = 'korea-glow:install-strip:v1';
+
+function stripDismissed(): boolean {
+  try {
+    return typeof localStorage !== 'undefined' && localStorage.getItem(INSTALL_STRIP_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * KG-APP-CARE §2-1: «save the icon to your home screen» on the first screen — one compact row
+ * (icon, the same install action as Settings, and ✕ to put it away for good on this phone).
+ * Not shown once installed. Inside a messenger's browser it is not shown either: there the
+ * app already says «open in browser» at the top, and installing cannot work from there.
+ */
+export function InstallStrip({ locale, closeLabel, inApp }: { locale: string; closeLabel: string; inApp: boolean }) {
+  const [mode, setMode] = useState<InstallMode>(() => currentInstallMode());
+  const [hidden, setHidden] = useState(stripDismissed);
+  const [help, setHelp] = useState(false);
+  useEffect(() => onInstallChange(() => setMode(currentInstallMode())), []);
+  if (hidden || inApp || mode === 'installed') return null;
+  const press = async () => {
+    if (mode === 'prompt') {
+      await promptInstall();
+      setMode(currentInstallMode());
+    } else {
+      setHelp((open) => !open);
+    }
+  };
+  const dismiss = () => {
+    try {
+      localStorage.setItem(INSTALL_STRIP_KEY, '1');
+    } catch {
+      // Private window: hidden for this visit only.
+    }
+    setHidden(true);
+  };
+  return (
+    <section className="kg-installstrip" aria-label={translate('hero.install', locale)}>
+      <div className="kg-installstrip__row">
+        <img src="/icons/glow-class-192.png" alt="" className="kg-installstrip__icon" />
+        <button
+          type="button"
+          className="kg-installstrip__btn"
+          onClick={press}
+          aria-expanded={mode === 'prompt' ? undefined : help}
+        >
+          {translate('hero.install', locale)}
+        </button>
+        <button type="button" className="kg-installstrip__close" onClick={dismiss} aria-label={closeLabel}>
+          <svg className="kg-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M6 6l12 12M18 6L6 18" />
+          </svg>
+        </button>
+      </div>
+      {help && mode === 'ios' ? (
+        <div className="install__steps">
+          <p className="install__steps-title">{translate('hero.install.ios.title', locale)}</p>
+          <ol>
+            <li>{translate('hero.install.ios.step1', locale)}</li>
+            <li>{translate('hero.install.ios.step2', locale)}</li>
+          </ol>
+        </div>
+      ) : null}
+      {help && mode === 'manual' ? (
+        <p className="install__steps">{translate('hero.install.manual', locale)}</p>
+      ) : null}
+    </section>
+  );
+}
+
 function SkinQuestLink({ locale, partner }: { locale: string; partner: string | null }) {
   return (
     <a

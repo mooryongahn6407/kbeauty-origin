@@ -53,6 +53,14 @@
   --focus: #0d1b3e;
   --gold: #c9923a;
   --on-gold: #0d1b3e;
+  /* KG-APP-CARE §2-1: one colour per language button (outline + text when not chosen, filled
+     with --on-lang text when chosen). Checked for contrast in both themes by the design test. */
+  --lang-ko: #c8102e;
+  --lang-lo: #2a5fc4;
+  --lang-en: #0d1b3e;
+  --lang-fr: #7a3a9e;
+  --lang-th: #0b7466;
+  --on-lang: #ffffff;
   --shadow: 0 1px 2px rgba(13, 27, 62, 0.04), 0 10px 30px -12px rgba(13, 27, 62, 0.18);
 
   /* Type scale. 0.8125rem = 13px at the browser default, 14.6px at the "Large" step; nothing
@@ -192,6 +200,12 @@
     --focus: #c9923a;
     --gold: #c9923a;
     --on-gold: #0d1b3e;
+    --lang-ko: #f29aa6;
+    --lang-lo: #9dbcff;
+    --lang-en: #fbf1e3;
+    --lang-fr: #dcb0f2;
+    --lang-th: #74d6c4;
+    --on-lang: #081227;
     --shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 10px 30px -12px rgba(0, 0, 0, 0.55);
   }
 }
@@ -223,6 +237,12 @@
   --focus: #c9923a;
   --gold: #c9923a;
   --on-gold: #0d1b3e;
+  --lang-ko: #f29aa6;
+  --lang-lo: #9dbcff;
+  --lang-en: #fbf1e3;
+  --lang-fr: #dcb0f2;
+  --lang-th: #74d6c4;
+  --on-lang: #081227;
   --shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 10px 30px -12px rgba(0, 0, 0, 0.55);
 }
 
@@ -776,40 +796,53 @@ select.field, .locale-switch select, .settings__select {
    The first version scrolled sideways to keep one tidy line — which hid ລາວ off the right edge
    of a 390px phone, in the one country this app is for. A grid of five equal cells fits every
    language on screen at once at any width; nothing is behind a swipe. */
+/* KG-APP-CARE §2-1 (2026-10-19): every language its own colour, from the palette's text/wash
+   pairs that the contrast test already checks in both themes; the current one gets a thick
+   border, a check mark and heavier type. A row that no longer fits wraps to a second row
+   (320px) instead of cutting «Français» short with an ellipsis. */
 .langchips {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   list-style: none;
   margin: 0;
   padding: 0;
   width: 100%;
 }
-.langchips > li { display: flex; }
+.langchips > li { display: flex; flex: 1 1 auto; }
+/* A phone: three on the first row, two on the second — never one stranded on its own. */
+@media (max-width: 420px) { .langchips > li { flex: 1 1 30%; } }
 .langchip {
+  --chip: var(--lang-en);
   appearance: none;
   flex: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   font-family: var(--font-ui);
   font-size: var(--fs-xs);
-  font-weight: 700;
-  color: var(--text-muted);
-  background: var(--surface-sunk);
-  border: 2px solid transparent;
+  font-weight: 600;
+  color: var(--chip);
+  background: var(--surface);
+  border: 2px solid var(--chip);
   border-radius: 12px;
-  padding: var(--space-1) 2px;
+  padding: var(--space-1) 8px;
   min-height: var(--tap);
   cursor: pointer;
-  /* Five cells on a narrow phone: a long label shrinks to fit rather than pushing a
-     neighbour off the row. */
-  overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
 }
-.langchip:hover { color: var(--text); background: var(--surface-sunk); }
+.langchip[lang='ko'] { --chip: var(--lang-ko); }
+.langchip[lang='lo'] { --chip: var(--lang-lo); }
+.langchip[lang='en'] { --chip: var(--lang-en); }
+.langchip[lang='fr'] { --chip: var(--lang-fr); }
+.langchip[lang='th'] { --chip: var(--lang-th); }
+.langchip .kg-icon { width: 16px; height: 16px; stroke-width: 3; }
 .langchip[aria-pressed='true'] {
-  color: var(--text);
-  background: var(--accent-wash);
-  border-color: var(--accent);
+  font-weight: 800;
+  color: var(--on-lang);
+  background: var(--chip);
+  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--chip);
 }
 
 /* The master voice switch — the second thing on the screen, and the only control in the app
@@ -1992,14 +2025,15 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
 .kg-iconbtn:hover { border-color: var(--line-strong); }
 .main { padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)); }
 .kg-bottombar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; background: var(--surface); border-top: 1px solid var(--line); padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px)); box-shadow: 0 -6px 20px -12px rgba(13, 27, 62, 0.25); }
-.kg-bottombar__inner { display: flex; align-items: center; gap: 8px; max-width: 720px; margin: 0 auto; }
-.kg-bottombar__pos { flex: 1 0 auto; text-align: center; white-space: nowrap; font-size: var(--fs-sm); color: var(--text-muted); font-variant-numeric: tabular-nums; }
-.kg-navbtn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-height: 48px; min-width: 48px; padding: 0 14px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--text); font-size: var(--fs-base); font-weight: 600; cursor: pointer; }
-.kg-navbtn[hidden] { display: none; }
+/* KG-APP-CARE §2-5: four equal buttons (icon over a short label) so all four fit a 320px phone
+ * in every language; a long label wraps inside its own button instead of pushing a neighbour. */
+.kg-bottombar__inner { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; max-width: 720px; margin: 0 auto; }
+.kg-bottombar__pos { display: block; margin: -2px auto 4px; text-align: center; white-space: nowrap; font-size: var(--fs-2xs); color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.kg-navbtn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 52px; min-width: 0; padding: 4px 2px; border-radius: 12px; border: 1px solid var(--line-strong); background: var(--surface); color: var(--text); font-size: var(--fs-2xs); line-height: 1.15; font-weight: 600; text-align: center; overflow-wrap: anywhere; cursor: pointer; }
+.kg-navbtn .kg-icon { width: 20px; height: 20px; }
+.kg-navbtn:disabled { opacity: 0.4; cursor: default; }
 .kg-navbtn--quiet { border-color: var(--line); color: var(--text-muted); }
 .kg-navbtn--primary { background: var(--btn-bg); color: var(--btn-fg); border-color: var(--btn-bg); }
-.kg-navbtn--placeholder { visibility: hidden; min-width: 48px; border: 0; }
-@media (max-width: 360px) { .kg-navbtn { padding: 0 10px; } .kg-navbtn--quiet span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); } }
 .kg-sheet { position: fixed; inset: 0; z-index: 60; background: rgba(8, 18, 39, 0.55); display: flex; align-items: flex-end; justify-content: center; }
 .kg-sheet__panel { width: 100%; max-width: 640px; max-height: 88vh; overflow-y: auto; background: var(--bg); color: var(--text); border-radius: 18px 18px 0 0; padding: 12px 16px calc(24px + env(safe-area-inset-bottom, 0px)); }
 .kg-sheet__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; position: sticky; top: -12px; background: var(--bg); padding: 8px 0; }
@@ -2053,7 +2087,9 @@ main .muted a:not([class]) { display: inline-flex; align-items: center; min-heig
 .main { padding-bottom: calc(210px + env(safe-area-inset-bottom, 0px)); }
 body:has(.kg-sheet) .kgs-dock, body:has(.kg-guide) .kgs-dock, body:has(.kg-update) .kgs-dock, body:has(.kg-intro) .kgs-dock { display: none; }
 .kg-share-ask { display: block; height: 1px; }
-.kg-screen-loading { min-height: 60vh; }
+.kg-screen-loading { min-height: 60vh; border-radius: 16px; background: linear-gradient(var(--surface-sunk) 0 140px, transparent 140px 156px, var(--surface-sunk) 156px 220px, transparent 220px 236px, var(--surface-sunk) 236px 300px, transparent 300px); animation: kg-loading-pulse 1.1s ease-in-out infinite alternate; }
+@keyframes kg-loading-pulse { from { opacity: 0.55; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .kg-screen-loading { animation: none; } }
 
 .care-product__why { display: block; margin-top: 4px; font-size: var(--fs-xs); color: var(--text-muted); line-height: 1.4; }
 .care-product__unchecked { display: block; margin-top: 2px; font-size: var(--fs-xs); color: var(--text-muted); font-style: italic; line-height: 1.4; }
@@ -2120,3 +2156,38 @@ body:has(.kg-nudge) .kgs-dock { bottom: calc(160px + env(safe-area-inset-bottom,
 .staff-result { border: 2px solid var(--botanical); border-radius: var(--radius); padding: var(--space-4); margin: var(--space-4) 0 var(--space-3); text-align: center; background: var(--botanical-wash); }
 .staff-result--used { border-color: var(--text-muted); background: transparent; }
 .staff-result__status { font-size: var(--fs-md); font-weight: 700; margin: var(--space-2) 0; }
+
+/* 2026-10-19 KG-APP-CARE §2: install strip on the first screen, sibling-branch links on every
+ * screen, and GLOW home's four continue cards from the third visit. Tokens only; 44px+ targets. */
+.kg-installstrip { margin: 0 0 14px; padding: 6px 6px 6px 10px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); }
+.kg-installstrip__row { display: flex; align-items: center; gap: 8px; }
+.kg-installstrip__icon { width: 32px; height: 32px; flex: none; border-radius: 8px; }
+.kg-installstrip__btn { flex: 1 1 auto; min-width: 0; min-height: 44px; padding: 4px 10px; border-radius: 10px; border: 0; background: var(--btn-bg); color: var(--btn-fg); font-size: var(--fs-sm); font-weight: 700; text-align: center; cursor: pointer; }
+.kg-installstrip__close { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border: 0; border-radius: 10px; background: none; color: var(--text-muted); cursor: pointer; }
+.kg-installstrip .install__steps { margin-top: 8px; }
+.kg-branches { margin: 24px 0 0; padding: 12px; border-radius: 14px; background: var(--surface-sunk); }
+.kg-branches__title { margin: 0 0 8px; font-size: var(--fs-sm); font-weight: 600; color: var(--text-muted); }
+.kg-branches__list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.kg-branches__list > li { display: flex; flex: 1 1 auto; }
+.kg-branch { --chip-fg: var(--accent); --chip-bg: var(--accent-wash); flex: 1; min-height: 44px; padding: 4px 12px; border-radius: 999px; border: 2px solid transparent; background: var(--surface); color: var(--chip-fg); font-size: var(--fs-sm); font-weight: 600; white-space: nowrap; cursor: pointer; }
+.kg-branch--skin { --chip-fg: var(--blocker); }
+.kg-branch--hair { --chip-fg: var(--violet); }
+.kg-branch--body { --chip-fg: var(--caution); }
+.kg-branch--dict { --chip-fg: var(--botanical); }
+.kg-branch[aria-current='page'] { border-color: var(--chip-fg); font-weight: 800; }
+.kg-journey { display: grid; gap: 12px; margin: 0 0 18px; padding: 16px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface); }
+.kg-journey__hello { display: flex; align-items: center; gap: 12px; }
+.kg-journey__photo { width: 64px; height: 64px; flex: none; border-radius: 999px; object-fit: cover; object-position: 50% 20%; }
+.kg-journey__title { margin: 0; font-size: var(--fs-lg); }
+.kg-journey__where { margin: 4px 0 0; font-size: var(--fs-base); color: var(--text); }
+.kg-journey__name { margin: 2px 0 0; font-size: var(--fs-2xs); color: var(--text-muted); }
+.kg-journey__cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.kg-journey__item--today { grid-column: 1 / -1; }
+.kg-jcard { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; align-items: center; column-gap: 6px; width: 100%; height: 100%; min-height: 64px; padding: 10px 12px; border-radius: 14px; border: 1px solid var(--line-strong); background: var(--surface-sunk); color: var(--text); text-align: left; cursor: pointer; }
+.kg-jcard .kg-icon { grid-column: 2; grid-row: 1 / span 2; width: 20px; height: 20px; color: var(--text-muted); }
+.kg-jcard__slot { grid-column: 1; font-size: var(--fs-2xs); font-weight: 700; color: var(--text-muted); }
+.kg-jcard__label { grid-column: 1; font-size: var(--fs-sm); font-weight: 600; line-height: 1.3; overflow-wrap: anywhere; }
+.kg-journey__item--today .kg-jcard { min-height: 76px; background: var(--btn-bg); border-color: var(--btn-bg); color: var(--btn-fg); }
+.kg-journey__item--today .kg-jcard__slot, .kg-journey__item--today .kg-icon { color: var(--btn-fg); }
+.kg-journey__item--today .kg-jcard__label { font-size: var(--fs-md); }
+@media (max-width: 360px) { .kg-journey__cards { grid-template-columns: minmax(0, 1fr); } }
